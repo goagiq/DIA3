@@ -93,6 +93,43 @@ def start_mcp_server():
         print(f"⚠️ Warning: Could not initialize MCP server: {e}")
         return None
 
+def initialize_multi_domain_strategic_engine():
+    """Initialize the multi-domain strategic analysis engine."""
+    try:
+        from src.core.multi_domain_strategic_engine import MultiDomainStrategicEngine
+        
+        # Initialize the strategic engine
+        engine = MultiDomainStrategicEngine()
+        print("✅ Multi-domain strategic engine initialized")
+        return engine
+    except Exception as e:
+        print(f"⚠️ Warning: Could not initialize strategic engine: {e}")
+        return None
+
+def initialize_enhanced_strategic_analysis_engine():
+    """Initialize the enhanced strategic analysis engine."""
+    try:
+        from src.core.enhanced_strategic_analysis_engine import enhanced_strategic_analysis_engine
+        
+        # The engine is already initialized as a global instance
+        print("✅ Enhanced strategic analysis engine initialized")
+        return enhanced_strategic_analysis_engine
+    except Exception as e:
+        print(f"⚠️ Warning: Could not initialize enhanced strategic analysis engine: {e}")
+        return None
+
+def initialize_language_capabilities_engine():
+    """Initialize the language capabilities engine."""
+    try:
+        from src.core.language_capabilities_engine import language_capabilities_engine
+        
+        # Initialize the language capabilities engine
+        print("✅ Language capabilities engine initialized")
+        return language_capabilities_engine
+    except Exception as e:
+        print(f"⚠️ Warning: Could not initialize language capabilities engine: {e}")
+        return None
+
 def start_standalone_mcp_server(host: str = "localhost", port: int = 8000):
     """Start standalone MCP server for Strands integration."""
     try:
@@ -152,6 +189,70 @@ if __name__ == "__main__":
     
     # Initialize strategic assessment system
     strategic_ready = initialize_strategic_assessment()
+    
+    # Initialize multi-domain strategic engine
+    strategic_engine = initialize_multi_domain_strategic_engine()
+    
+    # Initialize enhanced strategic analysis engine
+    enhanced_strategic_engine = initialize_enhanced_strategic_analysis_engine()
+    
+    # Initialize language capabilities engine
+    language_capabilities_engine = initialize_language_capabilities_engine()
+    
+    # Initialize Phase 1 ML/DL/RL Forecasting Components
+    print("Initializing Phase 1 ML/DL/RL Forecasting Components...")
+    try:
+        from src.core.reinforcement_learning import ReinforcementLearningEngine
+        from src.core.advanced_ml.enhanced_time_series_models import EnhancedTimeSeriesModels
+        from src.core.advanced_analytics.enhanced_causal_inference import EnhancedCausalInferenceEngine
+        from src.core.domain_specific.dod_threat_models import DoDThreatAssessmentModels
+        from src.core.domain_specific.intelligence_analysis_models import IntelligenceAnalysisModels
+        
+        rl_engine = ReinforcementLearningEngine()
+        time_series_models = EnhancedTimeSeriesModels()
+        causal_inference_engine = EnhancedCausalInferenceEngine()
+        dod_threat_models = DoDThreatAssessmentModels()
+        intelligence_models = IntelligenceAnalysisModels()
+        
+        print("✅ Phase 1 ML/DL/RL Forecasting Components initialized")
+    except ImportError as e:
+        print(f"⚠️ Warning: Phase 1 ML/DL/RL Forecasting Components not available: {e}")
+    except Exception as e:
+        print(f"⚠️ Warning: Error initializing Phase 1 ML/DL/RL Forecasting Components: {e}")
+    
+    # Initialize Phase 3 Advanced Forecasting & Prediction Components
+    print("Initializing Phase 3 Advanced Forecasting & Prediction Components...")
+    try:
+        from src.core.advanced_ml.ensemble_forecasting_system import EnsembleForecastingSystem
+        from src.core.scenario_analysis.enhanced_scenario_predictor import EnhancedScenarioPredictor
+        from src.core.streaming.intelligence_data_adapter import IntelligenceDataAdapter
+        
+        ensemble_forecasting_system = EnsembleForecastingSystem()
+        enhanced_scenario_predictor = EnhancedScenarioPredictor()
+        intelligence_data_adapter = IntelligenceDataAdapter()
+        
+        print("✅ Phase 3 Advanced Forecasting & Prediction Components initialized")
+    except ImportError as e:
+        print(f"⚠️ Warning: Phase 3 Advanced Forecasting & Prediction Components not available: {e}")
+    except Exception as e:
+        print(f"⚠️ Warning: Error initializing Phase 3 Advanced Forecasting & Prediction Components: {e}")
+    
+    # Initialize Phase 4 Multi-Domain Integration Components
+    print("Initializing Phase 4 Multi-Domain Integration Components...")
+    try:
+        from src.core.multi_domain.dod_domain_integration import DoDDomainIntegration
+        from src.core.multi_domain.intelligence_community_integration import IntelligenceCommunityIntegration
+        from src.core.federated_learning.federated_learning_engine import FederatedLearningEngine
+        
+        dod_domain_integration = DoDDomainIntegration()
+        intelligence_community_integration = IntelligenceCommunityIntegration()
+        federated_learning_engine = FederatedLearningEngine()
+        
+        print("✅ Phase 4 Multi-Domain Integration Components initialized")
+    except ImportError as e:
+        print(f"⚠️ Warning: Phase 4 Multi-Domain Integration Components not available: {e}")
+    except Exception as e:
+        print(f"⚠️ Warning: Error initializing Phase 4 Multi-Domain Integration Components: {e}")
     
     # Initialize performance optimizer and data collector
     print("Initializing performance monitoring system...")
@@ -288,6 +389,26 @@ if __name__ == "__main__":
     print("   - /multi-domain/domain-capabilities - Get domain capabilities")
     print("   - /multi-domain/health - Multi-domain service health check")
     print("")
+    print("🎯 Enhanced Strategic Analysis Endpoints:")
+    print("   - /enhanced-strategic/analyze - General strategic analysis")
+    print("   - /enhanced-strategic/analyze-defense - Defense domain analysis")
+    print("   - /enhanced-strategic/analyze-intelligence - Intelligence domain analysis")
+    print("   - /enhanced-strategic/analyze-business - Business domain analysis")
+    print("   - /enhanced-strategic/analyze-cybersecurity - Cybersecurity domain analysis")
+    print("   - /enhanced-strategic/analyze-geopolitical - Geopolitical domain analysis")
+    print("   - /enhanced-strategic/analyze-financial - Financial domain analysis")
+    print("   - /enhanced-strategic/analyze-healthcare - Healthcare domain analysis")
+    print("   - /enhanced-strategic/analyze-energy - Energy domain analysis")
+    print("   - /enhanced-strategic/analyze-transportation - Transportation domain analysis")
+    print("   - /enhanced-strategic/analyze-critical-infrastructure - Critical infrastructure domain analysis")
+    print("   - /enhanced-strategic/analyze-batch - Batch strategic analysis")
+    print("   - /enhanced-strategic/domains - Get supported domains")
+    print("   - /enhanced-strategic/domain-capabilities/{domain} - Get domain capabilities")
+    print("   - /enhanced-strategic/analysis-history - Get analysis history")
+    print("   - /enhanced-strategic/summary - Get service summary")
+    print("   - /enhanced-strategic/health - Enhanced strategic analysis health check")
+    print("   - Test: .venv/Scripts/python.exe Test/test_enhanced_strategic_analysis.py")
+    print("")
     print("🔍 Pattern Analysis Endpoints:")
     print("   - /pattern-analysis/comprehensive - Comprehensive pattern analysis across all documents")
     print("   - /pattern-analysis/single-document - Single document pattern analysis")
@@ -304,6 +425,69 @@ if __name__ == "__main__":
     print("   - /strategic-deception/cybersecurity/monitor - Cybersecurity domain monitoring")
     print("   - /strategic-deception/geopolitical/monitor - Geopolitical domain monitoring")
     print("   - Test: .venv/Scripts/python.exe Test/test_strategic_deception_monitoring.py")
+    print("")
+    print("🔍 Enhanced Deception Detection Endpoints:")
+    print("   - /enhanced-deception-detection/analyze - Comprehensive deception analysis")
+    print("   - /enhanced-deception-detection/analyze-defense - Defense domain analysis")
+    print("   - /enhanced-deception-detection/analyze-intelligence - Intelligence domain analysis")
+    print("   - /enhanced-deception-detection/analyze-business - Business domain analysis")
+    print("   - /enhanced-deception-detection/analyze-cybersecurity - Cybersecurity domain analysis")
+    print("   - /enhanced-deception-detection/analyze-geopolitical - Geopolitical domain analysis")
+    print("   - /enhanced-deception-detection/analyze-batch - Batch deception analysis")
+    print("   - /enhanced-deception-detection/domains - Get supported domains")
+    print("   - /enhanced-deception-detection/domain-capabilities/{domain} - Get domain capabilities")
+    print("   - /enhanced-deception-detection/art-of-war-techniques - Get Art of War techniques")
+    print("   - /enhanced-deception-detection/cultural-patterns - Get cultural patterns")
+    print("   - /enhanced-deception-detection/health - Enhanced deception detection health check")
+    print("   - /enhanced-deception-detection/summary - Get service summary")
+    print("   - Test: .venv/Scripts/python.exe Test/test_enhanced_deception_detection.py")
+    print("")
+    print("🔍 Threat Assessment Warning Indicators Endpoints:")
+    print("   - /threat-assessment/analyze - Comprehensive threat assessment analysis")
+    print("   - /threat-assessment/analyze-defense - Defense domain threat analysis")
+    print("   - /threat-assessment/analyze-intelligence - Intelligence domain threat analysis")
+    print("   - /threat-assessment/analyze-business - Business domain threat analysis")
+    print("   - /threat-assessment/analyze-cybersecurity - Cybersecurity domain threat analysis")
+    print("   - /threat-assessment/analyze-geopolitical - Geopolitical domain threat analysis")
+    print("   - /threat-assessment/analyze-financial - Financial domain threat analysis")
+    print("   - /threat-assessment/analyze-healthcare - Healthcare domain threat analysis")
+    print("   - /threat-assessment/analyze-energy - Energy domain threat analysis")
+    print("   - /threat-assessment/analyze-transportation - Transportation domain threat analysis")
+    print("   - /threat-assessment/analyze-critical-infrastructure - Critical infrastructure threat analysis")
+    print("   - /threat-assessment/analyze-batch - Batch threat assessment analysis")
+    print("   - /threat-assessment/summary - Get threat assessment summary")
+    print("   - /threat-assessment/domains - Get supported domains")
+    print("   - /threat-assessment/capabilities - Get threat assessment capabilities")
+    print("   - /threat-assessment/health - Threat assessment service health check")
+    print("   - Test: .venv/Scripts/python.exe Test/test_threat_assessment.py")
+    print("")
+    print("🤖 Phase 1-4 ML/DL/RL Forecasting Endpoints:")
+    print("   - /ml-forecasting/health - ML forecasting service health check")
+    print("   - /ml-forecasting/time-series/forecast - Time series forecasting")
+    print("   - /ml-forecasting/reinforcement-learning/optimize - RL decision optimization")
+    print("   - /ml-forecasting/causal-inference/analyze - Causal inference analysis")
+    print("   - /ml-forecasting/domain-specific/defense/analyze - Defense domain analysis")
+    print("   - /ml-forecasting/domain-specific/intelligence/analyze - Intelligence domain analysis")
+    print("   - /ml-forecasting/war-capability/analyze - War capability analysis")
+    print("   - /ml-forecasting/interactive-levers/adjust - Interactive lever adjustment")
+    print("   - /ml-forecasting/interactive-levers/status - Lever status")
+    print("   - /ml-forecasting/phase3/ensemble-forecast - Phase 3: Ensemble forecasting")
+    print("   - /ml-forecasting/phase3/scenario-prediction - Phase 3: Scenario prediction")
+    print("   - /ml-forecasting/phase3/intelligence-stream/connect - Phase 3: Intelligence stream connection")
+    print("   - /ml-forecasting/phase3/intelligence-stream/process - Phase 3: Intelligence data processing")
+    print("   - /ml-forecasting/phase3/intelligence-stream/status - Phase 3: Intelligence stream status")
+    print("   - /ml-forecasting/phase3/ensemble-status - Phase 3: Ensemble system status")
+    print("   - /ml-forecasting/phase3/scenario-predictor-status - Phase 3: Scenario predictor status")
+    print("   - /ml-forecasting/phase4/dod-integration - Phase 4: DoD domain integration")
+    print("   - /ml-forecasting/phase4/intelligence-community-integration - Phase 4: Intelligence community integration")
+    print("   - /ml-forecasting/phase4/federated-learning - Phase 4: Federated learning operations")
+    print("   - /ml-forecasting/phase4/dod-status - Phase 4: DoD integration status")
+    print("   - /ml-forecasting/phase4/intelligence-community-status - Phase 4: Intelligence community status")
+    print("   - /ml-forecasting/phase4/federated-learning-status - Phase 4: Federated learning status")
+    print("   - /ml-forecasting/models - Get available models")
+    print("   - /ml-forecasting/summary - Get service summary")
+    print("   - Test: .venv/Scripts/python.exe Test/test_ml_forecasting.py")
+    print("   - Test: .venv/Scripts/python.exe Test/test_phase4_multi_domain_integration.py")
     print("")
     print("📈 Escalation Analysis Endpoints:")
     print("   - /escalation-analysis/analyze - General escalation analysis")
@@ -323,6 +507,43 @@ if __name__ == "__main__":
     print("   - /classical-chinese-humint/strategic-deception - Strategic deception analysis")
     print("   - /classical-chinese-humint/health - Classical Chinese HUMINT service health check")
     print("   - Test: python Test/test_classical_chinese_humint_simple.py")
+    print("")
+    print("🌍 Language Capabilities Strategic Advantages Endpoints:")
+    print("   - /language-capabilities/analyze - General language capabilities analysis")
+    print("   - /language-capabilities/defense/analyze - Defense domain language capabilities")
+    print("   - /language-capabilities/intelligence/analyze - Intelligence domain language capabilities")
+    print("   - /language-capabilities/business/analyze - Business domain language capabilities")
+    print("   - /language-capabilities/cybersecurity/analyze - Cybersecurity domain language capabilities")
+    print("   - /language-capabilities/batch/analyze - Batch language capabilities analysis")
+    print("   - /language-capabilities/capabilities - Get all capabilities summary")
+    print("   - /language-capabilities/capabilities/{language} - Get language-specific capabilities")
+    print("   - /language-capabilities/advantages/{domain} - Get domain-specific advantages")
+    print("   - /language-capabilities/supported-languages - Get supported languages")
+    print("   - /language-capabilities/supported-domains - Get supported domains")
+    print("   - /language-capabilities/capability-types - Get capability types")
+    print("   - /language-capabilities/health - Language capabilities service health check")
+    print("   - Test: .venv/Scripts/python.exe Test/test_language_capabilities.py")
+    print("")
+    print("🚀 Phase 6 Advanced Forecasting & Reinforcement Learning Endpoints:")
+    print("   - /api/v1/advanced-forecasting/health - Advanced forecasting service health check")
+    print("   - /api/v1/advanced-forecasting/ensemble-forecast - Ensemble forecasting")
+    print("   - /api/v1/advanced-forecasting/scenario-analysis - Scenario analysis")
+    print("   - /api/v1/advanced-forecasting/real-time-forecast - Real-time forecasting")
+    print("   - /api/v1/advanced-forecasting/optimize-ensemble - Ensemble optimization")
+    print("   - /api/v1/reinforcement-learning/health - Reinforcement learning service health check")
+    print("   - /api/v1/reinforcement-learning/train-agent - RL agent training")
+    print("   - /api/v1/reinforcement-learning/make-decision - RL decision making")
+    print("   - /api/v1/reinforcement-learning/multi-agent-coordination - Multi-agent coordination")
+    print("   - /api/v1/reinforcement-learning/optimize-weights - RL weight optimization")
+    print("   - Test: .venv/Scripts/python.exe Test/test_phase6_advanced_forecasting.py")
+    print("")
+    print("🎯 Phase 7 Testing & Deployment Endpoints:")
+    print("   - /mcp-health - MCP server health check (standalone)")
+    print("   - /mcp - MCP server integration (integrated)")
+    print("   - Standalone MCP Server: http://localhost:8000")
+    print("   - Streamable HTTP MCP Client: Available for Strands integration")
+    print("   - Test: .venv/Scripts/python.exe Test/test_phase7_integration.py")
+    print("   - Demo: .venv/Scripts/python.exe examples/phase7_mcp_client_demo.py")
     print("=" * 80)
     
     # Import and start the FastAPI server

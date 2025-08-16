@@ -1,0 +1,66 @@
+{
+  "test_suite": "Phase 1 ML/DL/RL Forecasting Components",
+  "timestamp": "2025-08-16T11:11:28.551620",
+  "total_tests": 8,
+  "passed": 0,
+  "failed": 8,
+  "success_rate": 0.0,
+  "results": [
+    {
+      "test_name": "Health Endpoint",
+      "success": false,
+      "details": "HTTP 404",
+      "error": "",
+      "timestamp": "2025-08-16T11:11:28.414587"
+    },
+    {
+      "test_name": "Models Endpoint",
+      "success": false,
+      "details": "HTTP 404",
+      "error": "",
+      "timestamp": "2025-08-16T11:11:28.425248"
+    },
+    {
+      "test_name": "Summary Endpoint",
+      "success": false,
+      "details": "HTTP 404",
+      "error": "",
+      "timestamp": "2025-08-16T11:11:28.445904"
+    },
+    {
+      "test_name": "Time Series Forecast",
+      "success": false,
+      "details": "HTTP 404: {\"detail\":\"Not Found\"}",
+      "error": "",
+      "timestamp": "2025-08-16T11:11:28.500789"
+    },
+    {
+      "test_name": "RL Optimization",
+      "success": false,
+      "details": "HTTP 404: {\"detail\":\"Not Found\"}",
+      "error": "",
+      "timestamp": "2025-08-16T11:11:28.514422"
+    },
+    {
+      "test_name": "Causal Inference",
+      "success": false,
+      "details": "HTTP 404: {\"detail\":\"Not Found\"}",
+      "error": "",
+      "timestamp": "2025-08-16T11:11:28.527991"
+    },
+    {
+      "test_name": "Defense Domain Analysis",
+      "success": false,
+      "details": "HTTP 404: {\"detail\":\"Not Found\"}",
+      "error": "",
+      "timestamp": "2025-08-16T11:11:28.543196"
+    },
+    {
+      "test_name": "Intelligence Domain Analysis",
+      "success": false,
+      "details": "HTTP 404: {\"detail\":\"Not Found\"}",
+      "error": "",
+      "timestamp": "2025-08-16T11:11:28.551216"
+    }
+  ]
+}

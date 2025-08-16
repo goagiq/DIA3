@@ -1,0 +1,132 @@
+{
+  "test_name": "Multi-Domain Strategic Analysis Test",
+  "timestamp": "2025-08-16T08:55:50.920199",
+  "summary": {
+    "total_tests": 20,
+    "passed": 15,
+    "failed": 5,
+    "success_rate": 0.75
+  },
+  "results": [
+    {
+      "test": "Health Check",
+      "success": true,
+      "message": "Strategic analysis engine is healthy and available",
+      "timestamp": "2025-08-16T08:55:50.662302"
+    },
+    {
+      "test": "Get Domains",
+      "success": true,
+      "message": "Found 6 domains: ['defense', 'intelligence', 'business', 'cyber', 'diplomatic', 'economic']",
+      "timestamp": "2025-08-16T08:55:50.686725"
+    },
+    {
+      "test": "Get Analysis Types",
+      "success": true,
+      "message": "Found 8 analysis types: ['threat_assessment', 'competitive_intelligence', 'cultural_analysis', 'deception_detection', 'scenario_planning', 'risk_analysis', 'opportunity_analysis', 'strategic_positioning']",
+      "timestamp": "2025-08-16T08:55:50.691347"
+    },
+    {
+      "test": "Deception Detection",
+      "success": false,
+      "message": "HTTP 422: {\"detail\":[{\"type\":\"missing\",\"loc\":[\"query\",\"content\"],\"msg\":\"Field required\",\"input\":null}]}",
+      "timestamp": "2025-08-16T08:55:50.717654"
+    },
+    {
+      "test": "Strategic Context - defense",
+      "success": true,
+      "message": "Retrieved context for defense domain",
+      "timestamp": "2025-08-16T08:55:50.722331"
+    },
+    {
+      "test": "Strategic Analysis - defense",
+      "success": true,
+      "message": "Analysis completed. ID: strategic_DomainTypeModel.DEFENSE_20250816_085550, Findings: 0, Recommendations: 2",
+      "timestamp": "2025-08-16T08:55:50.729439"
+    },
+    {
+      "test": "Cultural Analysis - defense",
+      "success": true,
+      "message": "Cultural analysis completed for defense domain",
+      "timestamp": "2025-08-16T08:55:50.736139"
+    },
+    {
+      "test": "Art of War Analysis - defense",
+      "success": false,
+      "message": "HTTP 422: {\"detail\":[{\"type\":\"missing\",\"loc\":[\"query\",\"domain\"],\"msg\":\"Field required\",\"input\":null},{\"type\":\"missing\",\"loc\":[\"query\",\"region\"],\"msg\":\"Field required\",\"input\":null}]}",
+      "timestamp": "2025-08-16T08:55:50.741595"
+    },
+    {
+      "test": "Strategic Context - intelligence",
+      "success": true,
+      "message": "Retrieved context for intelligence domain",
+      "timestamp": "2025-08-16T08:55:50.746839"
+    },
+    {
+      "test": "Strategic Analysis - intelligence",
+      "success": true,
+      "message": "Analysis completed. ID: strategic_DomainTypeModel.INTELLIGENCE_20250816_085550, Findings: 0, Recommendations: 2",
+      "timestamp": "2025-08-16T08:55:50.755080"
+    },
+    {
+      "test": "Cultural Analysis - intelligence",
+      "success": true,
+      "message": "Cultural analysis completed for intelligence domain",
+      "timestamp": "2025-08-16T08:55:50.779108"
+    },
+    {
+      "test": "Art of War Analysis - intelligence",
+      "success": false,
+      "message": "HTTP 422: {\"detail\":[{\"type\":\"missing\",\"loc\":[\"query\",\"domain\"],\"msg\":\"Field required\",\"input\":null},{\"type\":\"missing\",\"loc\":[\"query\",\"region\"],\"msg\":\"Field required\",\"input\":null}]}",
+      "timestamp": "2025-08-16T08:55:50.784465"
+    },
+    {
+      "test": "Strategic Context - business",
+      "success": true,
+      "message": "Retrieved context for business domain",
+      "timestamp": "2025-08-16T08:55:50.789990"
+    },
+    {
+      "test": "Strategic Analysis - business",
+      "success": true,
+      "message": "Analysis completed. ID: strategic_DomainTypeModel.BUSINESS_20250816_085550, Findings: 0, Recommendations: 2",
+      "timestamp": "2025-08-16T08:55:50.806548"
+    },
+    {
+      "test": "Cultural Analysis - business",
+      "success": true,
+      "message": "Cultural analysis completed for business domain",
+      "timestamp": "2025-08-16T08:55:50.810642"
+    },
+    {
+      "test": "Art of War Analysis - business",
+      "success": false,
+      "message": "HTTP 422: {\"detail\":[{\"type\":\"missing\",\"loc\":[\"query\",\"domain\"],\"msg\":\"Field required\",\"input\":null},{\"type\":\"missing\",\"loc\":[\"query\",\"region\"],\"msg\":\"Field required\",\"input\":null}]}",
+      "timestamp": "2025-08-16T08:55:50.814493"
+    },
+    {
+      "test": "Strategic Context - cyber",
+      "success": true,
+      "message": "Retrieved context for cyber domain",
+      "timestamp": "2025-08-16T08:55:50.841651"
+    },
+    {
+      "test": "Strategic Analysis - cyber",
+      "success": true,
+      "message": "Analysis completed. ID: strategic_DomainTypeModel.CYBER_20250816_085550, Findings: 0, Recommendations: 2",
+      "timestamp": "2025-08-16T08:55:50.859495"
+    },
+    {
+      "test": "Cultural Analysis - cyber",
+      "success": true,
+      "message": "Cultural analysis completed for cyber domain",
+      "timestamp": "2025-08-16T08:55:50.887332"
+    },
+    {
+      "test": "Art of War Analysis - cyber",
+      "success": false,
+      "message": "HTTP 422: {\"detail\":[{\"type\":\"missing\",\"loc\":[\"query\",\"domain\"],\"msg\":\"Field required\",\"input\":null},{\"type\":\"missing\",\"loc\":[\"query\",\"region\"],\"msg\":\"Field required\",\"input\":null}]}",
+      "timestamp": "2025-08-16T08:55:50.918294"
+    }
+  ]
+}

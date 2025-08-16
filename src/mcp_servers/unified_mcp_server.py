@@ -45,6 +45,30 @@ from src.agents.advanced_ml_agent import AdvancedMLAgent
 # Import Art of War deception analysis
 from src.agents.art_of_war_deception_agent import ArtOfWarDeceptionAgent
 
+# Import multi-domain strategic analysis
+try:
+    from src.core.multi_domain_strategic_engine import MultiDomainStrategicEngine
+    MULTI_DOMAIN_STRATEGIC_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Multi-domain strategic engine not available: {e}")
+    MULTI_DOMAIN_STRATEGIC_AVAILABLE = False
+
+# Import enhanced strategic analysis engine
+try:
+    from src.core.enhanced_strategic_analysis_engine import enhanced_strategic_analysis_engine
+    ENHANCED_STRATEGIC_ANALYSIS_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Enhanced strategic analysis engine not available: {e}")
+    ENHANCED_STRATEGIC_ANALYSIS_AVAILABLE = False
+
+# Import threat assessment agent
+try:
+    from src.agents.threat_assessment_agent import ThreatAssessmentAgent
+    THREAT_ASSESSMENT_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"⚠️ Threat Assessment Agent not available: {e}")
+    THREAT_ASSESSMENT_AVAILABLE = False
+
 # Import strategic analytics engine
 try:
     from src.core.strategic_analytics_engine import StrategicAnalyticsEngine
@@ -52,6 +76,18 @@ try:
 except ImportError as e:
     logger.warning(f"⚠️ Strategic Analytics Engine not available: {e}")
     STRATEGIC_ANALYTICS_AVAILABLE = False
+
+# Import Phase 1 ML/DL/RL Forecasting Components
+try:
+    from src.core.reinforcement_learning import ReinforcementLearningEngine
+    from src.core.advanced_ml.enhanced_time_series_models import EnhancedTimeSeriesModels
+    from src.core.advanced_analytics.enhanced_causal_inference import EnhancedCausalInferenceEngine
+    from src.core.domain_specific.dod_threat_models import DoDThreatAssessmentModels
+    from src.core.domain_specific.intelligence_analysis_models import IntelligenceAnalysisModels
+    ML_FORECASTING_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"⚠️ Phase 1 ML/DL/RL Forecasting Components not available: {e}")
+    ML_FORECASTING_AVAILABLE = False
 
 # Import configuration
 # flake8: noqa: E402
@@ -112,6 +148,14 @@ class UnifiedMCPServer:
         
         # Initialize Art of War deception analysis agent
         self.art_of_war_agent = ArtOfWarDeceptionAgent()
+
+        # Initialize threat assessment agent if available
+        if THREAT_ASSESSMENT_AVAILABLE:
+            self.threat_assessment_agent = ThreatAssessmentAgent()
+            logger.info("✅ Threat Assessment Agent initialized for MCP")
+        else:
+            self.threat_assessment_agent = None
+            logger.warning("⚠️ Threat Assessment Agent not available for MCP")
         
         # Initialize scenario analysis agent (using existing scenario analysis agent)
         try:
@@ -139,6 +183,28 @@ class UnifiedMCPServer:
                 self.strategic_engine = None
         else:
             self.strategic_engine = None
+        
+        # Initialize multi-domain strategic engine
+        if MULTI_DOMAIN_STRATEGIC_AVAILABLE:
+            try:
+                self.multi_domain_strategic_engine = MultiDomainStrategicEngine()
+                logger.info("✅ Multi-Domain Strategic Engine initialized")
+            except Exception as e:
+                logger.warning(f"⚠️ Could not initialize Multi-Domain Strategic Engine: {e}")
+                self.multi_domain_strategic_engine = None
+        else:
+            self.multi_domain_strategic_engine = None
+
+        # Initialize enhanced strategic analysis engine if available
+        if ENHANCED_STRATEGIC_ANALYSIS_AVAILABLE:
+            try:
+                self.enhanced_strategic_analysis_engine = enhanced_strategic_analysis_engine
+                logger.info("✅ Enhanced strategic analysis engine initialized")
+            except Exception as e:
+                logger.warning(f"⚠️ Failed to initialize enhanced strategic analysis engine: {e}")
+                self.enhanced_strategic_analysis_engine = None
+        else:
+            self.enhanced_strategic_analysis_engine = None
 
         # Initialize MCP server
         self._initialize_mcp()
@@ -1238,6 +1304,44 @@ class UnifiedMCPServer:
                 return {"success": True, "result": result}
             except Exception as e:
                 logger.error(f"Error managing configurations: {e}")
+                return {"success": False, "error": str(e)}
+
+        @self.mcp.tool(description="Comprehensive threat assessment with deception detection and warning indicators")
+        async def threat_assessment_analysis(
+            content: str,
+            domain: str = "intelligence",
+            language: str = "en",
+            analysis_type: str = "comprehensive"
+        ) -> Dict[str, Any]:
+            """Perform comprehensive threat assessment analysis with deception detection and warning indicators."""
+            try:
+                if not self.threat_assessment_agent:
+                    return {"success": False, "error": "Threat assessment agent not available"}
+                
+                # Create analysis request
+                from src.core.models import AnalysisRequest, DataType
+                
+                request = AnalysisRequest(
+                    request_id=f"threat_assessment_{datetime.now().timestamp()}",
+                    content=content,
+                    data_type=DataType.TEXT,
+                    metadata={
+                        "domain": domain,
+                        "language": language,
+                        "analysis_type": analysis_type
+                    }
+                )
+                
+                # Process request
+                result = await self.threat_assessment_agent.process(request)
+                
+                if result.success:
+                    return {"success": True, "result": result.result}
+                else:
+                    return {"success": False, "error": result.error}
+                    
+            except Exception as e:
+                logger.error(f"Error in threat assessment analysis: {e}")
                 return {"success": False, "error": str(e)}
 
         # Advanced Analytics Tools (5 new tools)
@@ -2697,6 +2801,592 @@ This report contains comprehensive analysis results including deception analysis
                 return {"success": False, "error": str(e)}
 
         logger.info("✅ Strategic deception monitoring tools registered")
+
+        # Multi-Domain Strategic Analysis Tools
+        if self.multi_domain_strategic_engine:
+            @self.mcp.tool(description="Comprehensive multi-domain strategic analysis")
+            async def analyze_strategic_context(
+                domain: str,
+                region: str,
+                timeframe: str,
+                stakeholders: List[str],
+                objectives: List[str],
+                constraints: List[str],
+                resources: Dict[str, Any],
+                analysis_types: List[str],
+                content_data: str = None
+            ) -> Dict[str, Any]:
+                """Perform comprehensive strategic analysis for a given context."""
+                try:
+                    from src.core.multi_domain_strategic_engine import (
+                        DomainType, AnalysisType, StrategicContext
+                    )
+                    
+                    # Convert domain string to enum
+                    try:
+                        domain_enum = DomainType(domain)
+                    except ValueError:
+                        return {
+                            "success": False,
+                            "error": f"Invalid domain: {domain}. Supported domains: {[d.value for d in DomainType]}"
+                        }
+                    
+                    # Convert analysis types to enums
+                    analysis_type_enums = []
+                    for at in analysis_types:
+                        try:
+                            analysis_type_enums.append(AnalysisType(at))
+                        except ValueError:
+                            return {
+                                "success": False,
+                                "error": f"Invalid analysis type: {at}. Supported types: {[at.value for at in AnalysisType]}"
+                            }
+                    
+                    # Create strategic context
+                    context = StrategicContext(
+                        domain=domain_enum,
+                        region=region,
+                        timeframe=timeframe,
+                        stakeholders=stakeholders,
+                        objectives=objectives,
+                        constraints=constraints,
+                        resources=resources
+                    )
+                    
+                    # Perform analysis
+                    result = await self.multi_domain_strategic_engine.analyze_strategic_context(
+                        context=context,
+                        analysis_types=analysis_type_enums,
+                        content_data=content_data
+                    )
+                    
+                    return result
+                    
+                except Exception as e:
+                    logger.error(f"Strategic analysis failed: {e}")
+                    return {"success": False, "error": str(e)}
+
+            @self.mcp.tool(description="Get strategic context information for a domain")
+            async def get_strategic_context(domain: str) -> Dict[str, Any]:
+                """Get strategic context information for a specific domain."""
+                try:
+                    from src.core.multi_domain_strategic_engine import DomainType
+                    
+                    # Convert domain string to enum
+                    try:
+                        domain_enum = DomainType(domain)
+                    except ValueError:
+                        return {
+                            "success": False,
+                            "error": f"Invalid domain: {domain}. Supported domains: {[d.value for d in DomainType]}"
+                        }
+                    
+                    # Get domain-specific information
+                    context_info = {
+                        "domain": domain_enum.value,
+                        "frameworks": self.multi_domain_strategic_engine.art_of_war_frameworks,
+                        "cultural_patterns": self.multi_domain_strategic_engine.cultural_patterns,
+                        "strategic_indicators": self.multi_domain_strategic_engine.strategic_indicators.get(domain_enum.value, [])
+                    }
+                    
+                    return {
+                        "success": True,
+                        "context": context_info,
+                        "frameworks": self.multi_domain_strategic_engine.art_of_war_frameworks,
+                        "indicators": self.multi_domain_strategic_engine.strategic_indicators
+                    }
+                    
+                except Exception as e:
+                    logger.error(f"Get strategic context failed: {e}")
+                    return {"success": False, "error": str(e)}
+
+            @self.mcp.tool(description="Get supported domains for strategic analysis")
+            async def get_supported_domains() -> Dict[str, Any]:
+                """Get list of supported domains for strategic analysis."""
+                try:
+                    from src.core.multi_domain_strategic_engine import DomainType, AnalysisType
+                    
+                    domains = [
+                        {
+                            "domain": domain.value,
+                            "description": f"Strategic analysis for {domain.value} applications",
+                            "analysis_types": [at.value for at in AnalysisType]
+                        }
+                        for domain in DomainType
+                    ]
+                    
+                    return {
+                        "success": True,
+                        "domains": domains,
+                        "count": len(domains)
+                    }
+                    
+                except Exception as e:
+                    logger.error(f"Get supported domains failed: {e}")
+                    return {"success": False, "error": str(e)}
+
+            @self.mcp.tool(description="Get available analysis types")
+            async def get_analysis_types() -> Dict[str, Any]:
+                """Get list of available analysis types."""
+                try:
+                    from src.core.multi_domain_strategic_engine import DomainType, AnalysisType
+                    
+                    analysis_types = [
+                        {
+                            "type": at.value,
+                            "description": f"{at.value.replace('_', ' ').title()} analysis",
+                            "applicable_domains": [domain.value for domain in DomainType]
+                        }
+                        for at in AnalysisType
+                    ]
+                    
+                    return {
+                        "success": True,
+                        "analysis_types": analysis_types,
+                        "count": len(analysis_types)
+                    }
+                    
+                except Exception as e:
+                    logger.error(f"Get analysis types failed: {e}")
+                    return {"success": False, "error": str(e)}
+
+            logger.info("✅ Multi-domain strategic analysis tools registered")
+        else:
+            logger.warning("⚠️ Multi-domain strategic analysis tools not available - engine not initialized")
+
+        # Register enhanced strategic analysis tools if available
+        if ENHANCED_STRATEGIC_ANALYSIS_AVAILABLE and self.enhanced_strategic_analysis_engine:
+            @self.mcp.tool(description="Analyze content for strategic patterns based on Art of War principles")
+            async def analyze_enhanced_strategic_content(
+                content: str,
+                domain: str,
+                language: str = "en",
+                analysis_depth: str = "comprehensive"
+            ) -> Dict[str, Any]:
+                """Analyze content for strategic patterns using enhanced Art of War principles."""
+                try:
+                    analysis = await self.enhanced_strategic_analysis_engine.analyze_strategic_content(
+                        content=content,
+                        domain=domain,
+                        language=language,
+                        analysis_depth=analysis_depth
+                    )
+                    
+                    return {
+                        "success": True,
+                        "analysis_id": analysis.analysis_id,
+                        "domain": analysis.domain,
+                        "confidence_score": analysis.confidence_score,
+                        "principles_detected": [
+                            {
+                                "chinese": p.chinese,
+                                "translation": p.translation,
+                                "explanation": p.explanation
+                            }
+                            for p in analysis.principles_detected
+                        ],
+                        "strategic_moves": [
+                            {
+                                "move_id": m.move_id,
+                                "principle": m.principle,
+                                "description": m.description,
+                                "likelihood": m.likelihood,
+                                "impact": m.impact,
+                                "timeframe": m.timeframe,
+                                "confidence": m.confidence
+                            }
+                            for m in analysis.strategic_moves
+                        ],
+                        "risk_assessment": analysis.risk_assessment,
+                        "recommendations": analysis.recommendations,
+                        "timestamp": analysis.timestamp.isoformat()
+                    }
+                    
+                except Exception as e:
+                    logger.error(f"Enhanced strategic analysis failed: {e}")
+                    return {"success": False, "error": str(e)}
+
+            @self.mcp.tool(description="Get supported domains for enhanced strategic analysis")
+            async def get_enhanced_strategic_domains() -> Dict[str, Any]:
+                """Get list of supported domains for enhanced strategic analysis."""
+                try:
+                    domains = await self.enhanced_strategic_analysis_engine.get_supported_domains()
+                    return {
+                        "success": True,
+                        "domains": domains,
+                        "count": len(domains)
+                    }
+                except Exception as e:
+                    logger.error(f"Get enhanced strategic domains failed: {e}")
+                    return {"success": False, "error": str(e)}
+
+            @self.mcp.tool(description="Get domain capabilities for enhanced strategic analysis")
+            async def get_enhanced_strategic_domain_capabilities(domain: str) -> Dict[str, Any]:
+                """Get capabilities for a specific domain in enhanced strategic analysis."""
+                try:
+                    capabilities = await self.enhanced_strategic_analysis_engine.get_domain_capabilities(domain)
+                    return {
+                        "success": True,
+                        "capabilities": capabilities
+                    }
+                except Exception as e:
+                    logger.error(f"Get enhanced strategic domain capabilities failed: {e}")
+                    return {"success": False, "error": str(e)}
+
+            @self.mcp.tool(description="Get enhanced strategic analysis history")
+            async def get_enhanced_strategic_history(domain: str = None) -> Dict[str, Any]:
+                """Get analysis history for enhanced strategic analysis."""
+                try:
+                    history = await self.enhanced_strategic_analysis_engine.get_analysis_history(domain)
+                    return {
+                        "success": True,
+                        "history": [
+                            {
+                                "analysis_id": h.analysis_id,
+                                "domain": h.domain,
+                                "confidence_score": h.confidence_score,
+                                "timestamp": h.timestamp.isoformat()
+                            }
+                            for h in history
+                        ],
+                        "total_analyses": len(history)
+                    }
+                except Exception as e:
+                    logger.error(f"Get enhanced strategic history failed: {e}")
+                    return {"success": False, "error": str(e)}
+
+            logger.info("✅ Enhanced strategic analysis tools registered")
+        else:
+            logger.warning("⚠️ Enhanced strategic analysis tools not available - engine not initialized")
+
+        # Register Phase 1 ML/DL/RL Forecasting tools
+        if ML_FORECASTING_AVAILABLE:
+            try:
+                # Initialize ML forecasting components
+                self.rl_engine = ReinforcementLearningEngine()
+                self.time_series_models = EnhancedTimeSeriesModels()
+                self.causal_inference_engine = EnhancedCausalInferenceEngine()
+                self.dod_threat_models = DoDThreatAssessmentModels()
+                self.intelligence_models = IntelligenceAnalysisModels()
+
+                @self.mcp.tool(description="Generate time series forecasts using enhanced ML models")
+                async def ml_time_series_forecast(
+                    data: Dict[str, Any],
+                    model_type: str = "lstm",
+                    domain: str = "general",
+                    parameters: Dict[str, Any] = None
+                ) -> Dict[str, Any]:
+                    """Generate time series forecasts using enhanced models."""
+                    try:
+                        from src.core.advanced_ml.enhanced_time_series_models import TimeSeriesData
+                        
+                        # Create time series data
+                        ts_data = TimeSeriesData(
+                            values=data.get("values", []),
+                            timestamps=data.get("timestamps", []),
+                            features=data.get("features", {}),
+                            metadata=data.get("metadata", {})
+                        )
+                        
+                        # Generate forecast
+                        forecast_result = await self.time_series_models.generate_forecast(
+                            data=ts_data,
+                            model_type=model_type,
+                            forecast_horizon=parameters.get("forecast_horizon", 10) if parameters else 10
+                        )
+                        
+                        return {
+                            "success": True,
+                            "model_type": model_type,
+                            "domain": domain,
+                            "forecast": forecast_result.forecast_values,
+                            "confidence_intervals": forecast_result.confidence_intervals,
+                            "metrics": forecast_result.metrics,
+                            "metadata": forecast_result.metadata
+                        }
+                        
+                    except Exception as e:
+                        logger.error(f"Time series forecasting failed: {e}")
+                        return {"success": False, "error": str(e)}
+
+                @self.mcp.tool(description="Optimize decision-making using reinforcement learning")
+                async def ml_rl_optimize(
+                    state: Dict[str, Any],
+                    action_space: List[str],
+                    reward_function: Dict[str, Any] = None,
+                    agent_type: str = "q_learning"
+                ) -> Dict[str, Any]:
+                    """Optimize decision-making using reinforcement learning."""
+                    try:
+                        from src.core.reinforcement_learning.rl_engine import State, Action
+                        
+                        # Create state
+                        rl_state = State(
+                            features=state.get("features", []),
+                            metadata=state.get("metadata", {}),
+                            timestamp=state.get("timestamp", 0.0)
+                        )
+                        
+                        # Optimize decision
+                        action = await self.rl_engine.optimize_decision_making(
+                            state=rl_state,
+                            action_space=action_space,
+                            reward_function=lambda s, a: reward_function.get("value", 0.0) if reward_function else 0.0
+                        )
+                        
+                        return {
+                            "success": True,
+                            "agent_type": agent_type,
+                            "selected_action": action.action_id,
+                            "action_parameters": action.parameters,
+                            "confidence": action.confidence,
+                            "state": state
+                        }
+                        
+                    except Exception as e:
+                        logger.error(f"RL optimization failed: {e}")
+                        return {"success": False, "error": str(e)}
+
+                @self.mcp.tool(description="Perform causal inference analysis")
+                async def ml_causal_inference(
+                    data: Dict[str, Any],
+                    variables: List[str],
+                    analysis_type: str = "granger"
+                ) -> Dict[str, Any]:
+                    """Perform causal inference analysis."""
+                    try:
+                        if analysis_type == "granger":
+                            result = await self.causal_inference_engine.granger_causality_test(
+                                data=data,
+                                variables=variables
+                            )
+                        elif analysis_type == "counterfactual":
+                            result = await self.causal_inference_engine.counterfactual_analysis(
+                                data=data,
+                                variables=variables
+                            )
+                        else:
+                            result = await self.causal_inference_engine.causal_discovery(
+                                data=data,
+                                variables=variables
+                            )
+                        
+                        return {
+                            "success": True,
+                            "analysis_type": analysis_type,
+                            "variables": variables,
+                            "result": result
+                        }
+                        
+                    except Exception as e:
+                        logger.error(f"Causal inference analysis failed: {e}")
+                        return {"success": False, "error": str(e)}
+
+                @self.mcp.tool(description="Perform defense domain-specific analysis")
+                async def ml_defense_analysis(
+                    data: Dict[str, Any],
+                    analysis_type: str,
+                    parameters: Dict[str, Any] = None
+                ) -> Dict[str, Any]:
+                    """Perform defense domain-specific analysis."""
+                    try:
+                        if analysis_type == "threat_assessment":
+                            result = await self.dod_threat_models.assess_threat_level(
+                                data=data,
+                                parameters=parameters or {}
+                            )
+                        elif analysis_type == "military_capability":
+                            result = await self.dod_threat_models.analyze_military_capability(
+                                data=data,
+                                parameters=parameters or {}
+                            )
+                        elif analysis_type == "conflict_prediction":
+                            result = await self.dod_threat_models.predict_conflict_probability(
+                                data=data,
+                                parameters=parameters or {}
+                            )
+                        else:
+                            result = await self.dod_threat_models.analyze_weapons_proliferation(
+                                data=data,
+                                parameters=parameters or {}
+                            )
+                        
+                        return {
+                            "success": True,
+                            "domain": "defense",
+                            "analysis_type": analysis_type,
+                            "result": result
+                        }
+                        
+                    except Exception as e:
+                        logger.error(f"Defense domain analysis failed: {e}")
+                        return {"success": False, "error": str(e)}
+
+                @self.mcp.tool(description="Perform intelligence domain-specific analysis")
+                async def ml_intelligence_analysis(
+                    data: Dict[str, Any],
+                    analysis_type: str,
+                    parameters: Dict[str, Any] = None
+                ) -> Dict[str, Any]:
+                    """Perform intelligence domain-specific analysis."""
+                    try:
+                        if analysis_type == "signals_intelligence":
+                            result = await self.intelligence_models.analyze_signals_intelligence(
+                                data=data,
+                                parameters=parameters or {}
+                            )
+                        elif analysis_type == "human_intelligence":
+                            result = await self.intelligence_models.analyze_human_intelligence(
+                                data=data,
+                                parameters=parameters or {}
+                            )
+                        else:
+                            result = await self.intelligence_models.predict_terrorist_activity(
+                                data=data,
+                                parameters=parameters or {}
+                            )
+                        
+                        return {
+                            "success": True,
+                            "domain": "intelligence",
+                            "analysis_type": analysis_type,
+                            "result": result
+                        }
+                        
+                    except Exception as e:
+                        logger.error(f"Intelligence domain analysis failed: {e}")
+                        return {"success": False, "error": str(e)}
+
+                @self.mcp.tool(description="Get available ML forecasting models and capabilities")
+                async def ml_get_models() -> Dict[str, Any]:
+                    """Get available models and their capabilities."""
+                    return {
+                        "time_series_models": [
+                            {"name": "lstm", "description": "Long Short-Term Memory networks"},
+                            {"name": "transformer", "description": "Transformer-based models"},
+                            {"name": "tft", "description": "Temporal Fusion Transformer"},
+                            {"name": "informer", "description": "Informer model for long sequence forecasting"},
+                            {"name": "autoformer", "description": "Autoformer model"},
+                            {"name": "fedformer", "description": "FEDformer model"}
+                        ],
+                        "rl_agents": [
+                            {"name": "q_learning", "description": "Q-Learning agent"},
+                            {"name": "deep_q_network", "description": "Deep Q-Network agent"},
+                            {"name": "policy_gradient", "description": "Policy Gradient agent"},
+                            {"name": "actor_critic", "description": "Actor-Critic agent"},
+                            {"name": "multi_agent", "description": "Multi-Agent System"}
+                        ],
+                        "causal_inference_methods": [
+                            {"name": "granger", "description": "Granger causality testing"},
+                            {"name": "counterfactual", "description": "Counterfactual analysis"},
+                            {"name": "causal_discovery", "description": "Causal discovery algorithms"}
+                        ],
+                        "domains": [
+                            {"name": "defense", "description": "Defense domain analysis"},
+                            {"name": "intelligence", "description": "Intelligence domain analysis"},
+                            {"name": "business", "description": "Business domain analysis"},
+                            {"name": "cybersecurity", "description": "Cybersecurity domain analysis"}
+                        ]
+                    }
+
+                logger.info("✅ Phase 1 ML/DL/RL Forecasting tools registered")
+            except Exception as e:
+                logger.error(f"Failed to register ML forecasting tools: {e}")
+        else:
+            logger.warning("⚠️ Phase 1 ML/DL/RL Forecasting tools not available - components not initialized")
+
+        # Phase 5: Model Interpretability & Explainable AI Tools
+        try:
+            from src.mcp_servers.phase5_interpretability_mcp_tools import phase5_interpretability_mcp_tools
+            
+            @self.mcp.tool(description="Explain model predictions for decision-makers")
+            async def explain_model_predictions(
+                model_output: str,
+                input_data: str,
+                explanation_type: str = "comprehensive"
+            ) -> str:
+                """Explain model predictions for decision-makers."""
+                return await phase5_interpretability_mcp_tools.explain_model_predictions_tool(
+                    model_output, input_data, explanation_type
+                )
+
+            @self.mcp.tool(description="Explain intelligence-specific analysis results")
+            async def explain_intelligence_analysis(
+                analysis_type: str,
+                analysis_results: str
+            ) -> str:
+                """Explain intelligence-specific analysis results."""
+                return await phase5_interpretability_mcp_tools.explain_intelligence_analysis_tool(
+                    analysis_type, analysis_results
+                )
+
+            @self.mcp.tool(description="Explain threat assessment results")
+            async def explain_threat_assessment(
+                threat_analysis: str
+            ) -> str:
+                """Explain threat assessment results."""
+                return await phase5_interpretability_mcp_tools.explain_threat_assessment_tool(
+                    threat_analysis
+                )
+
+            @self.mcp.tool(description="Explain capability analysis results")
+            async def explain_capability_analysis(
+                capability_results: str
+            ) -> str:
+                """Explain capability analysis results."""
+                return await phase5_interpretability_mcp_tools.explain_capability_analysis_tool(
+                    capability_results
+                )
+
+            @self.mcp.tool(description="Generate executive summary for decision-makers")
+            async def generate_executive_summary(
+                detailed_analysis: str,
+                summary_type: str = "intelligence"
+            ) -> str:
+                """Generate executive summary for decision-makers."""
+                return await phase5_interpretability_mcp_tools.generate_executive_summary_tool(
+                    detailed_analysis, summary_type
+                )
+
+            @self.mcp.tool(description="Explain intelligence analysis for specific domain")
+            async def explain_intelligence_domain(
+                domain: str,
+                analysis_results: str
+            ) -> str:
+                """Explain intelligence analysis for specific domain."""
+                return await phase5_interpretability_mcp_tools.explain_intelligence_domain_tool(
+                    domain, analysis_results
+                )
+
+            @self.mcp.tool(description="Generate feature importance analysis")
+            async def generate_feature_importance(
+                model_output: str,
+                data: str
+            ) -> str:
+                """Generate feature importance analysis."""
+                return await phase5_interpretability_mcp_tools.generate_feature_importance_tool(
+                    model_output, data
+                )
+
+            @self.mcp.tool(description="Create decision paths for complex models")
+            async def create_decision_paths(
+                model_output: str,
+                data: str
+            ) -> str:
+                """Create decision paths for complex models."""
+                return await phase5_interpretability_mcp_tools.create_decision_paths_tool(
+                    model_output, data
+                )
+
+            @self.mcp.tool(description="Health check for Phase 5 components")
+            async def phase5_health_check() -> str:
+                """Health check for Phase 5 components."""
+                return await phase5_interpretability_mcp_tools.phase5_health_check_tool()
+
+            logger.info("✅ Phase 5 Model Interpretability & Explainable AI tools registered")
+        except Exception as e:
+            logger.error(f"Failed to register Phase 5 interpretability tools: {e}")
+            logger.warning("⚠️ Phase 5 Model Interpretability & Explainable AI tools not available")
 
     def run(self, host: str = "localhost", port: int = 8000, debug: bool = False):
         """Run the MCP server (legacy method - use get_http_app for integration)."""

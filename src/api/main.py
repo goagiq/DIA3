@@ -20,11 +20,11 @@ from src.mcp_servers.unified_mcp_server import create_unified_mcp_server
 
 # Import multi-domain strategic analysis routes
 try:
-    from src.api.multi_domain_strategic_routes import router as multi_domain_router
-    MULTI_DOMAIN_AVAILABLE = True
+    from src.api.multi_domain_strategic_routes import router as strategic_router
+    STRATEGIC_ANALYSIS_AVAILABLE = True
 except ImportError as e:
-    logger.warning(f"Multi-domain strategic routes not available: {e}")
-    MULTI_DOMAIN_AVAILABLE = False
+    logger.warning(f"Strategic analysis routes not available: {e}")
+    STRATEGIC_ANALYSIS_AVAILABLE = False
 
 # Import strategic deception monitoring routes
 try:
@@ -41,6 +41,71 @@ try:
 except ImportError as e:
     logger.warning(f"Escalation analysis routes not available: {e}")
     ESCALATION_ANALYSIS_AVAILABLE = False
+
+# Import threat assessment routes
+try:
+    from src.api.threat_assessment_routes import router as threat_assessment_router
+    THREAT_ASSESSMENT_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Threat assessment routes not available: {e}")
+    THREAT_ASSESSMENT_AVAILABLE = False
+
+# Import language capabilities routes
+try:
+    from src.api.language_capabilities_routes import router as language_capabilities_router
+    LANGUAGE_CAPABILITIES_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Language capabilities routes not available: {e}")
+    LANGUAGE_CAPABILITIES_AVAILABLE = False
+
+# Import enhanced strategic analysis routes
+try:
+    from src.api.enhanced_strategic_analysis_routes import router as enhanced_strategic_router
+    ENHANCED_STRATEGIC_ANALYSIS_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Enhanced strategic analysis routes not available: {e}")
+    ENHANCED_STRATEGIC_ANALYSIS_AVAILABLE = False
+
+# Import enhanced deception detection routes
+try:
+    from src.api.enhanced_deception_detection_routes import router as enhanced_deception_detection_router, set_orchestrator as set_enhanced_deception_orchestrator
+    ENHANCED_DECEPTION_DETECTION_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Enhanced deception detection routes not available: {e}")
+    ENHANCED_DECEPTION_DETECTION_AVAILABLE = False
+
+# Import ML forecasting routes
+try:
+    from src.api.ml_forecasting_routes import router as ml_forecasting_router, set_orchestrator as set_ml_forecasting_orchestrator
+    ML_FORECASTING_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"ML forecasting routes not available: {e}")
+    ML_FORECASTING_AVAILABLE = False
+
+# Import Phase 5 interpretability routes
+try:
+    from src.api.routes.phase5_interpretability_routes import router as phase5_interpretability_router
+    PHASE5_INTERPRETABILITY_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Phase 5 interpretability routes not available: {e}")
+    PHASE5_INTERPRETABILITY_AVAILABLE = False
+
+# Import Phase 6 advanced forecasting routes
+try:
+    from src.api.routes.advanced_forecasting_routes import router as advanced_forecasting_router, set_orchestrator as set_advanced_forecasting_orchestrator
+    PHASE6_ADVANCED_FORECASTING_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Phase 6 advanced forecasting routes not available: {e}")
+    PHASE6_ADVANCED_FORECASTING_AVAILABLE = False
+
+# Import Phase 6 reinforcement learning routes
+try:
+    from src.api.routes.reinforcement_learning_routes import router as reinforcement_learning_router, set_orchestrator as set_rl_orchestrator
+    PHASE6_REINFORCEMENT_LEARNING_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Phase 6 reinforcement learning routes not available: {e}")
+    PHASE6_REINFORCEMENT_LEARNING_AVAILABLE = False
+
 # from src.core.unified_mcp_client import call_unified_mcp_tool
 
 
@@ -67,6 +132,38 @@ async def lifespan(app: FastAPI):
                 logger.info("✅ Strategic deception routes orchestrator reference set")
             except Exception as e:
                 logger.warning(f"⚠️ Failed to set orchestrator reference for strategic deception routes: {e}")
+        
+        # Set orchestrator reference for enhanced deception detection routes if available
+        if ENHANCED_DECEPTION_DETECTION_AVAILABLE:
+            try:
+                set_enhanced_deception_orchestrator(orchestrator)
+                logger.info("✅ Enhanced deception detection routes orchestrator reference set")
+            except Exception as e:
+                logger.warning(f"⚠️ Failed to set orchestrator reference for enhanced deception detection routes: {e}")
+        
+        # Set orchestrator reference for ML forecasting routes if available
+        if ML_FORECASTING_AVAILABLE:
+            try:
+                set_ml_forecasting_orchestrator(orchestrator)
+                logger.info("✅ ML forecasting routes orchestrator reference set")
+            except Exception as e:
+                logger.warning(f"⚠️ Failed to set orchestrator reference for ML forecasting routes: {e}")
+        
+        # Set orchestrator reference for Phase 6 advanced forecasting routes if available
+        if PHASE6_ADVANCED_FORECASTING_AVAILABLE and set_advanced_forecasting_orchestrator is not None:
+            try:
+                set_advanced_forecasting_orchestrator(orchestrator)
+                logger.info("✅ Phase 6 advanced forecasting routes orchestrator reference set")
+            except Exception as e:
+                logger.warning(f"⚠️ Failed to set orchestrator reference for Phase 6 advanced forecasting routes: {e}")
+        
+        # Set orchestrator reference for Phase 6 reinforcement learning routes if available
+        if PHASE6_REINFORCEMENT_LEARNING_AVAILABLE:
+            try:
+                set_rl_orchestrator(orchestrator)
+                logger.info("✅ Phase 6 reinforcement learning routes orchestrator reference set")
+            except Exception as e:
+                logger.warning(f"⚠️ Failed to set orchestrator reference for Phase 6 reinforcement learning routes: {e}")
     except Exception as e:
         logger.error(f"❌ Failed to initialize orchestrator: {e}")
         orchestrator = None
@@ -102,12 +199,12 @@ app.add_middleware(
     allow_headers=config.api.cors_headers,
 )
 
-# Include multi-domain strategic analysis routes if available
-if MULTI_DOMAIN_AVAILABLE:
-    app.include_router(multi_domain_router)
-    logger.info("✅ Multi-domain strategic analysis routes included")
+# Include strategic analysis routes if available
+if STRATEGIC_ANALYSIS_AVAILABLE:
+    app.include_router(strategic_router)
+    logger.info("✅ Strategic analysis routes included")
 else:
-    logger.warning("⚠️ Multi-domain strategic analysis routes not available")
+    logger.warning("⚠️ Strategic analysis routes not available")
 
 # Include strategic deception monitoring routes if available
 if STRATEGIC_DECEPTION_AVAILABLE:
@@ -122,6 +219,62 @@ if ESCALATION_ANALYSIS_AVAILABLE:
     logger.info("✅ Escalation analysis routes included")
 else:
     logger.warning("⚠️ Escalation analysis routes not available")
+
+# Include enhanced deception detection routes if available
+if ENHANCED_DECEPTION_DETECTION_AVAILABLE:
+    app.include_router(enhanced_deception_detection_router)
+    logger.info("✅ Enhanced deception detection routes included")
+else:
+    logger.warning("⚠️ Enhanced deception detection routes not available")
+
+# Include threat assessment routes if available
+if THREAT_ASSESSMENT_AVAILABLE:
+    app.include_router(threat_assessment_router)
+    logger.info("✅ Threat assessment routes included")
+else:
+    logger.warning("⚠️ Threat assessment routes not available")
+
+# Include language capabilities routes if available
+if LANGUAGE_CAPABILITIES_AVAILABLE:
+    app.include_router(language_capabilities_router)
+    logger.info("✅ Language capabilities routes included")
+else:
+    logger.warning("⚠️ Language capabilities routes not available")
+
+# Include enhanced strategic analysis routes if available
+if ENHANCED_STRATEGIC_ANALYSIS_AVAILABLE:
+    app.include_router(enhanced_strategic_router)
+    logger.info("✅ Enhanced strategic analysis routes included")
+else:
+    logger.warning("⚠️ Enhanced strategic analysis routes not available")
+
+# Include ML forecasting routes if available
+if ML_FORECASTING_AVAILABLE:
+    app.include_router(ml_forecasting_router)
+    logger.info("✅ ML forecasting routes included")
+else:
+    logger.warning("⚠️ ML forecasting routes not available")
+
+# Include Phase 5 interpretability routes if available
+if PHASE5_INTERPRETABILITY_AVAILABLE:
+    app.include_router(phase5_interpretability_router)
+    logger.info("✅ Phase 5 interpretability routes included")
+else:
+    logger.warning("⚠️ Phase 5 interpretability routes not available")
+
+# Include Phase 6 advanced forecasting routes if available
+if PHASE6_ADVANCED_FORECASTING_AVAILABLE:
+    app.include_router(advanced_forecasting_router)
+    logger.info("✅ Phase 6 advanced forecasting routes included")
+else:
+    logger.warning("⚠️ Phase 6 advanced forecasting routes not available")
+
+# Include Phase 6 reinforcement learning routes if available
+if PHASE6_REINFORCEMENT_LEARNING_AVAILABLE:
+    app.include_router(reinforcement_learning_router)
+    logger.info("✅ Phase 6 reinforcement learning routes included")
+else:
+    logger.warning("⚠️ Phase 6 reinforcement learning routes not available")
 
 
 # Request models

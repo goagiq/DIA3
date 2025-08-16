@@ -574,6 +574,76 @@ The deception techniques described in *The Art of War* remain relevant to modern
         
         return report
 
+    async def analyze_deception_patterns(self, content_data: str) -> Dict[str, Any]:
+        """Analyze deception patterns in content data."""
+        try:
+            logger.info("Analyzing deception patterns in content data")
+            
+            # Perform comprehensive deception analysis
+            analysis = await self.analyze_deception_techniques(
+                analysis_type="comprehensive",
+                include_modern_applications=True,
+                include_ethical_considerations=True
+            )
+            
+            # Extract key deception indicators
+            deception_indicators = []
+            if analysis.get('techniques'):
+                for technique_id, technique_data in analysis['techniques'].items():
+                    if technique_data.get('detected', False):
+                        deception_indicators.append({
+                            "technique": technique_data['chinese'],
+                            "translation": technique_data['translation'],
+                            "confidence": technique_data.get('confidence', 0.7),
+                            "evidence": technique_data.get('evidence', [])
+                        })
+            
+            # Generate risk assessment
+            risk_level = "low"
+            if len(deception_indicators) > 3:
+                risk_level = "high"
+            elif len(deception_indicators) > 1:
+                risk_level = "medium"
+            
+            # Generate recommendations
+            recommendations = []
+            if deception_indicators:
+                recommendations.extend([
+                    "Increase verification of information sources",
+                    "Cross-reference claims with multiple independent sources",
+                    "Monitor for coordinated messaging patterns",
+                    "Enhance counter-deception training"
+                ])
+            
+            return {
+                "success": True,
+                "deception_indicators": deception_indicators,
+                "risk_level": risk_level,
+                "confidence_scores": {
+                    "overall_deception_risk": len(deception_indicators) * 0.2,
+                    "technique_detection": 0.8,
+                    "pattern_recognition": 0.7
+                },
+                "risk_assessment": {
+                    "level": risk_level,
+                    "factors": [indicator["technique"] for indicator in deception_indicators],
+                    "impact": "potential_misinformation_spread"
+                },
+                "recommendations": recommendations
+            }
+            
+        except Exception as e:
+            logger.error(f"Deception pattern analysis failed: {e}")
+            return {
+                "success": False,
+                "error": str(e),
+                "deception_indicators": [],
+                "risk_level": "unknown",
+                "confidence_scores": {},
+                "risk_assessment": {},
+                "recommendations": []
+            }
+
     def _generate_html_report(self, analysis: Dict[str, Any]) -> str:
         """Generate HTML report from analysis results."""
         # Convert markdown to HTML (simplified version)

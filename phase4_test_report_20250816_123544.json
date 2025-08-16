@@ -1,0 +1,103 @@
+{
+  "test_suite": "Phase 4 Multi-Domain Integration",
+  "timestamp": "2025-08-16T12:35:44.593899",
+  "duration": 13.862705,
+  "summary": {
+    "total_tests": 6,
+    "passed_tests": 3,
+    "failed_tests": 3,
+    "error_tests": 0,
+    "success_rate": "50.0%"
+  },
+  "test_results": [
+    {
+      "test": "dod_domain_integration",
+      "status": "failed",
+      "error": "HTTP 500: {\"detail\":\"DoD integration error: name 'datetime' is not defined\"}"
+    },
+    {
+      "test": "intelligence_community_integration",
+      "status": "failed",
+      "error": "HTTP 500: {\"detail\":\"Intelligence community integration error: name 'datetime' is not defined\"}"
+    },
+    {
+      "test": "federated_learning_engine",
+      "status": "failed",
+      "error": "HTTP 500: {\"detail\":\"Federated learning error: name 'datetime' is not defined\"}"
+    },
+    {
+      "test": "status_dod-status",
+      "status": "passed",
+      "response": {
+        "success": true,
+        "operation": "get_dod_integration_status",
+        "status": {
+          "status": "initialized",
+          "supported_domains": [
+            "military_intelligence",
+            "operational_readiness",
+            "strategic_implications",
+            "threat_assessment",
+            "capability_analysis"
+          ],
+          "initialization_timestamp": "2025-08-16T12:35:40.516398",
+          "uptime": 0.000376
+        }
+      }
+    },
+    {
+      "test": "status_intelligence-community-status",
+      "status": "passed",
+      "response": {
+        "success": true,
+        "operation": "get_intelligence_community_status",
+        "status": {
+          "status": "initialized",
+          "supported_domains": [
+            "all_source_intelligence",
+            "intelligence_gaps",
+            "intelligence_requirements",
+            "source_reliability",
+            "collection_management"
+          ],
+          "initialization_timestamp": "2025-08-16T12:35:42.557407",
+          "uptime": 0.000298
+        }
+      }
+    },
+    {
+      "test": "status_federated-learning-status",
+      "status": "passed",
+      "response": {
+        "success": true,
+        "operation": "get_federated_learning_status",
+        "status": {
+          "status": "initialized",
+          "supported_algorithms": [
+            "federated_averaging",
+            "federated_sgd",
+            "secure_aggregation",
+            "differential_privacy",
+            "homomorphic_encryption"
+          ],
+          "participating_agencies": [],
+          "initialization_timestamp": "2025-08-16T12:35:44.590552",
+          "uptime": 0.000354
+        }
+      }
+    }
+  ],
+  "phase4_components": [
+    "DoD Domain Integration",
+    "Intelligence Community Integration",
+    "Federated Learning Engine"
+  ],
+  "endpoints_tested": [
+    "/ml-forecasting/phase4/dod-integration",
+    "/ml-forecasting/phase4/intelligence-community-integration",
+    "/ml-forecasting/phase4/federated-learning",
+    "/ml-forecasting/phase4/dod-status",
+    "/ml-forecasting/phase4/intelligence-community-status",
+    "/ml-forecasting/phase4/federated-learning-status"
+  ]
+}

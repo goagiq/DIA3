@@ -97,6 +97,17 @@ class SentimentOrchestrator:
         except ImportError as e:
             logger.warning(f"⚠️ Escalation Analysis Agent not available: {e}")
 
+        # Threat Assessment Agent
+        try:
+            from src.agents.threat_assessment_agent import ThreatAssessmentAgent
+            threat_assessment_agent = ThreatAssessmentAgent()
+            self._register_agent(threat_assessment_agent, [
+                DataType.TEXT, DataType.DOCUMENT, DataType.COMMUNICATION, DataType.REPORT
+            ])
+            logger.info("✅ Threat Assessment Agent registered")
+        except ImportError as e:
+            logger.warning(f"⚠️ Threat Assessment Agent not available: {e}")
+
         # Phase 5: Semantic Search & Agent Reflection Agents
         from src.agents.semantic_search_agent import SemanticSearchAgent
         from src.agents.reflection_agent import ReflectionCoordinatorAgent
@@ -121,6 +132,99 @@ class SentimentOrchestrator:
             DataType.TIME_SERIES, DataType.NUMERICAL, DataType.TEXT,
             DataType.AUDIO, DataType.VIDEO, DataType.IMAGE
         ])
+
+        # Phase 1: ML/DL/RL Forecasting Components
+        try:
+            # Reinforcement Learning Engine
+            from src.core.reinforcement_learning import ReinforcementLearningEngine
+            rl_engine = ReinforcementLearningEngine()
+            logger.info("✅ Reinforcement Learning Engine initialized")
+            
+            # Enhanced Time Series Models
+            from src.core.advanced_ml.enhanced_time_series_models import EnhancedTimeSeriesModels
+            time_series_models = EnhancedTimeSeriesModels()
+            logger.info("✅ Enhanced Time Series Models initialized")
+            
+            # Enhanced Causal Inference Engine
+            from src.core.advanced_analytics.enhanced_causal_inference import EnhancedCausalInferenceEngine
+            causal_inference_engine = EnhancedCausalInferenceEngine()
+            logger.info("✅ Enhanced Causal Inference Engine initialized")
+            
+            # DoD Threat Assessment Models
+            from src.core.domain_specific.dod_threat_models import DoDThreatAssessmentModels
+            dod_threat_models = DoDThreatAssessmentModels()
+            logger.info("✅ DoD Threat Assessment Models initialized")
+            
+            # Intelligence Analysis Models
+            from src.core.domain_specific.intelligence_analysis_models import IntelligenceAnalysisModels
+            intelligence_models = IntelligenceAnalysisModels()
+            logger.info("✅ Intelligence Analysis Models initialized")
+            
+        except ImportError as e:
+            logger.warning(f"⚠️ Phase 1 ML/DL/RL Forecasting components not available: {e}")
+        except Exception as e:
+            logger.warning(f"⚠️ Error initializing Phase 1 ML/DL/RL Forecasting components: {e}")
+
+        # Phase 2: Interactive War Capability Analysis
+        try:
+            from src.core.war_capability.war_capability_engine import WarCapabilityEngine
+            from src.core.war_capability.interactive_levers import InteractiveCapabilityLevers
+            from src.core.predictive_analytics.dynamic_prediction_engine import DynamicPredictionEngine
+            
+            # Initialize Phase 2 components
+            self.war_capability_engine = WarCapabilityEngine()
+            self.interactive_levers = InteractiveCapabilityLevers()
+            self.dynamic_prediction_engine = DynamicPredictionEngine()
+            
+            logger.info("✅ Phase 2 Interactive War Capability Analysis initialized")
+        except ImportError as e:
+            logger.warning(f"⚠️ Phase 2 Interactive War Capability Analysis not available: {e}")
+        except Exception as e:
+            logger.warning(f"⚠️ Error initializing Phase 2 Interactive War Capability Analysis: {e}")
+
+        # Phase 3: Advanced Forecasting & Prediction Components
+        try:
+            # Ensemble Forecasting System
+            from src.core.advanced_ml.ensemble_forecasting_system import EnsembleForecastingSystem
+            self.ensemble_forecasting_system = EnsembleForecastingSystem()
+            logger.info("✅ Phase 3 Ensemble Forecasting System initialized")
+            
+            # Enhanced Scenario Predictor
+            from src.core.scenario_analysis.enhanced_scenario_predictor import EnhancedScenarioPredictor
+            self.enhanced_scenario_predictor = EnhancedScenarioPredictor()
+            logger.info("✅ Phase 3 Enhanced Scenario Predictor initialized")
+            
+            # Intelligence Data Adapter
+            from src.core.streaming.intelligence_data_adapter import IntelligenceDataAdapter
+            self.intelligence_data_adapter = IntelligenceDataAdapter()
+            logger.info("✅ Phase 3 Intelligence Data Adapter initialized")
+            
+        except ImportError as e:
+            logger.warning(f"⚠️ Phase 3 Advanced Forecasting & Prediction components not available: {e}")
+        except Exception as e:
+            logger.warning(f"⚠️ Error initializing Phase 3 Advanced Forecasting & Prediction components: {e}")
+
+        # Phase 4: Multi-Domain Integration Components
+        try:
+            # DoD Domain Integration
+            from src.core.multi_domain.dod_domain_integration import DoDDomainIntegration
+            self.dod_domain_integration = DoDDomainIntegration()
+            logger.info("✅ Phase 4 DoD Domain Integration initialized")
+            
+            # Intelligence Community Integration
+            from src.core.multi_domain.intelligence_community_integration import IntelligenceCommunityIntegration
+            self.intelligence_community_integration = IntelligenceCommunityIntegration()
+            logger.info("✅ Phase 4 Intelligence Community Integration initialized")
+            
+            # Federated Learning Engine
+            from src.core.federated_learning.federated_learning_engine import FederatedLearningEngine
+            self.federated_learning_engine = FederatedLearningEngine()
+            logger.info("✅ Phase 4 Federated Learning Engine initialized")
+            
+        except ImportError as e:
+            logger.warning(f"⚠️ Phase 4 Multi-Domain Integration components not available: {e}")
+        except Exception as e:
+            logger.warning(f"⚠️ Error initializing Phase 4 Multi-Domain Integration components: {e}")
 
         # Phase 2: Predictive Analytics Agent
         from src.agents.predictive_analytics_agent import PredictiveAnalyticsAgent
@@ -163,12 +267,16 @@ class SentimentOrchestrator:
         ])
 
         # Phase 3.3: Fault Detection Agent
-        from src.agents.fault_detection_agent import FaultDetectionAgent
-        
-        fault_detection_agent = FaultDetectionAgent()
-        self._register_agent(fault_detection_agent, [
-            DataType.TEXT, DataType.NUMERICAL, DataType.TIME_SERIES
-        ])
+        try:
+            from src.agents.fault_detection_agent import FaultDetectionAgent
+            
+            fault_detection_agent = FaultDetectionAgent()
+            self._register_agent(fault_detection_agent, [
+                DataType.TEXT, DataType.NUMERICAL, DataType.TIME_SERIES
+            ])
+            logger.info("✅ Fault Detection Agent registered")
+        except Exception as e:
+            logger.warning(f"⚠️ Fault Detection Agent not available: {e}")
 
         # Phase 4: Classical Chinese HUMINT Analysis Agent
         try:
@@ -182,13 +290,32 @@ class SentimentOrchestrator:
         except ImportError as e:
             logger.warning(f"⚠️ Classical Chinese HUMINT Analysis Agent not available: {e}")
 
+        # Phase 5: Model Interpretability & Explainable AI Components
+        try:
+            # Model Interpretability Engine
+            from src.core.interpretability.model_interpretability_engine import ModelInterpretabilityEngine
+            self.model_interpretability_engine = ModelInterpretabilityEngine()
+            logger.info("✅ Phase 5 Model Interpretability Engine initialized")
+            
+            # Intelligence Explanations Engine
+            from src.core.interpretability.intelligence_explanations import IntelligenceExplanations
+            self.intelligence_explanations_engine = IntelligenceExplanations()
+            logger.info("✅ Phase 5 Intelligence Explanations Engine initialized")
+            
+        except ImportError as e:
+            logger.warning(f"⚠️ Phase 5 Model Interpretability & Explainable AI components not available: {e}")
+        except Exception as e:
+            logger.warning(f"⚠️ Error initializing Phase 5 Model Interpretability & Explainable AI components: {e}")
+
         logger.info(
             f"Registered {len(self.agents)} unified agents including "
             f"GraphRAG-inspired Knowledge Graph Agent, File Extraction Agent, "
             f"Phase 4 Export & Automation Agents, Phase 5 Semantic Search & Agent Reflection Agents, "
-            f"Phase 1 Pattern Recognition Agent, Phase 2 Predictive Analytics Agent, Phase 2.2 Scenario Analysis Agent, Phase 2.3 Real-Time Monitoring Agent, "
+            f"Phase 1 Pattern Recognition Agent, Phase 1 ML/DL/RL Forecasting Components, Phase 2 Predictive Analytics Agent, Phase 2.2 Scenario Analysis Agent, Phase 2.3 Real-Time Monitoring Agent, "
             f"Phase 3.1 Decision Support Agent, Phase 3.2 Risk Assessment Agent, Phase 3.3 Fault Detection Agent, "
-            f"and Phase 4 Classical Chinese HUMINT Analysis Agent"
+            f"Phase 3 Advanced Forecasting & Prediction Components (Ensemble Forecasting, Enhanced Scenario Predictor, Intelligence Data Adapter), "
+            f"Phase 4 Classical Chinese HUMINT Analysis Agent, "
+            f"and Phase 5 Model Interpretability & Explainable AI Components"
         )
 
     def _register_agent(self, agent: BaseAgent, supported_types: List[DataType]):

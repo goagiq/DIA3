@@ -87,8 +87,73 @@ class StandaloneMCPServer:
 
         # Register tools
         self._register_tools()
+        
+        # Register language capabilities tools
+        self._register_language_capabilities_tools()
 
         logger.info("✅ Standalone MCP Server initialized successfully")
+    
+    def _register_language_capabilities_tools(self):
+        """Register language capabilities tools."""
+        if not self.mcp:
+            logger.warning("MCP server not available - skipping language capabilities tool registration")
+            return
+        
+        # Register language capabilities analysis tool
+        @self.mcp.tool(description="Analyze content using language capabilities for strategic advantages")
+        async def analyze_language_capabilities(
+            content: str,
+            language: str = "auto",
+            domain: str = None
+        ) -> Dict[str, Any]:
+            """Analyze content using language capabilities for strategic advantages."""
+            try:
+                from src.core.language_capabilities_engine import language_capabilities_engine
+                
+                result = await language_capabilities_engine.analyze_language_capabilities(
+                    content=content,
+                    language=language
+                )
+                
+                # Filter by domain if specified
+                if domain and "strategic_advantages" in result:
+                    filtered_advantages = [
+                        adv for adv in result.get("strategic_advantages", [])
+                        if adv.get("domain") == domain
+                    ]
+                    result["strategic_advantages"] = filtered_advantages
+                    result["domain_focus"] = domain
+                
+                return {"success": True, "result": result}
+            except Exception as e:
+                logger.error(f"Error in language capabilities analysis: {e}")
+                return {"success": False, "error": str(e)}
+        
+        # Register get capabilities summary tool
+        @self.mcp.tool(description="Get summary of all available language capabilities and strategic advantages")
+        async def get_language_capabilities_summary() -> Dict[str, Any]:
+            """Get summary of all available language capabilities and strategic advantages."""
+            try:
+                from src.core.language_capabilities_engine import language_capabilities_engine
+                
+                summary = await language_capabilities_engine.get_capabilities_summary()
+                return {"success": True, "summary": summary}
+            except Exception as e:
+                logger.error(f"Error getting capabilities summary: {e}")
+                return {"success": False, "error": str(e)}
+        
+        # Register language capabilities health check tool
+        @self.mcp.tool(description="Health check for the language capabilities engine")
+        async def language_capabilities_health_check() -> Dict[str, Any]:
+            """Health check for the language capabilities engine."""
+            try:
+                from src.core.language_capabilities_engine import language_capabilities_engine
+                
+                health = await language_capabilities_engine.health_check()
+                return {"success": True, "health": health}
+            except Exception as e:
+                logger.error(f"Language capabilities health check failed: {e}")
+                return {"success": False, "error": str(e)}
 
     def _initialize_mcp(self):
         """Initialize the MCP server."""

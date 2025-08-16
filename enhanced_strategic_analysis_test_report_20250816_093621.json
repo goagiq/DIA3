@@ -1,0 +1,115 @@
+{
+  "test_summary": {
+    "total_tests": 9,
+    "passed_tests": 2,
+    "failed_tests": 7,
+    "success_rate": 22.22222222222222
+  },
+  "test_results": [
+    {
+      "test_name": "Health Check",
+      "success": true,
+      "timestamp": "2025-08-16T09:36:21.026292",
+      "details": "Service is healthy",
+      "data": {
+        "status": "healthy",
+        "service": "enhanced_strategic_analysis",
+        "available": true,
+        "timestamp": "2025-08-16T09:36:21.024840"
+      }
+    },
+    {
+      "test_name": "Supported Domains",
+      "success": false,
+      "timestamp": "2025-08-16T09:36:21.028828",
+      "details": "Invalid response: {'detail': \"Failed to get supported domains: object function can't be used in 'await' expression\"}",
+      "data": {
+        "detail": "Failed to get supported domains: object function can't be used in 'await' expression"
+      }
+    },
+    {
+      "test_name": "Defense Analysis",
+      "success": false,
+      "timestamp": "2025-08-16T09:36:21.031693",
+      "details": "Invalid response: {'detail': \"Strategic analysis failed: ErrorHandler.retry_with_circuit_breaker.<locals>.decorator() got an unexpected keyword argument 'content'\"}",
+      "data": {
+        "detail": "Strategic analysis failed: ErrorHandler.retry_with_circuit_breaker.<locals>.decorator() got an unexpected keyword argument 'content'"
+      }
+    },
+    {
+      "test_name": "Intelligence Analysis",
+      "success": false,
+      "timestamp": "2025-08-16T09:36:21.036434",
+      "details": "Invalid response: {'detail': \"Strategic analysis failed: ErrorHandler.retry_with_circuit_breaker.<locals>.decorator() got an unexpected keyword argument 'content'\"}",
+      "data": {
+        "detail": "Strategic analysis failed: ErrorHandler.retry_with_circuit_breaker.<locals>.decorator() got an unexpected keyword argument 'content'"
+      }
+    },
+    {
+      "test_name": "Business Analysis",
+      "success": false,
+      "timestamp": "2025-08-16T09:36:21.039252",
+      "details": "Invalid response: {'detail': \"Strategic analysis failed: ErrorHandler.retry_with_circuit_breaker.<locals>.decorator() got an unexpected keyword argument 'content'\"}",
+      "data": {
+        "detail": "Strategic analysis failed: ErrorHandler.retry_with_circuit_breaker.<locals>.decorator() got an unexpected keyword argument 'content'"
+      }
+    },
+    {
+      "test_name": "Cybersecurity Analysis",
+      "success": false,
+      "timestamp": "2025-08-16T09:36:21.044980",
+      "details": "Invalid response: {'detail': \"Strategic analysis failed: ErrorHandler.retry_with_circuit_breaker.<locals>.decorator() got an unexpected keyword argument 'content'\"}",
+      "data": {
+        "detail": "Strategic analysis failed: ErrorHandler.retry_with_circuit_breaker.<locals>.decorator() got an unexpected keyword argument 'content'"
+      }
+    },
+    {
+      "test_name": "Geopolitical Analysis",
+      "success": false,
+      "timestamp": "2025-08-16T09:36:21.050262",
+      "details": "Invalid response: {'detail': \"Strategic analysis failed: ErrorHandler.retry_with_circuit_breaker.<locals>.decorator() got an unexpected keyword argument 'content'\"}",
+      "data": {
+        "detail": "Strategic analysis failed: ErrorHandler.retry_with_circuit_breaker.<locals>.decorator() got an unexpected keyword argument 'content'"
+      }
+    },
+    {
+      "test_name": "Batch Analysis",
+      "success": true,
+      "timestamp": "2025-08-16T09:36:21.053148",
+      "details": "Processed 3 items: 0 successful, 3 failed",
+      "data": {
+        "batch_results": [
+          {
+            "index": 0,
+            "success": false,
+            "error": "ErrorHandler.retry_with_circuit_breaker.<locals>.decorator() got an unexpected keyword argument 'content'"
+          },
+          {
+            "index": 1,
+            "success": false,
+            "error": "ErrorHandler.retry_with_circuit_breaker.<locals>.decorator() got an unexpected keyword argument 'content'"
+          },
+          {
+            "index": 2,
+            "success": false,
+            "error": "ErrorHandler.retry_with_circuit_breaker.<locals>.decorator() got an unexpected keyword argument 'content'"
+          }
+        ],
+        "total_items": 3,
+        "successful_analyses": 0,
+        "failed_analyses": 3,
+        "timestamp": "2025-08-16T09:36:21.051917"
+      }
+    },
+    {
+      "test_name": "Summary",
+      "success": false,
+      "timestamp": "2025-08-16T09:36:21.058568",
+      "details": "Invalid response: {'detail': \"Failed to get summary: object function can't be used in 'await' expression\"}",
+      "data": {
+        "detail": "Failed to get summary: object function can't be used in 'await' expression"
+      }
+    }
+  ],
+  "timestamp": "2025-08-16T09:36:21.063456"
+}

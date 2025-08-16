@@ -1,0 +1,251 @@
+{
+  "test_summary": {
+    "total_tests": 34,
+    "passed_tests": 0,
+    "failed_tests": 34,
+    "success_rate": 0.0,
+    "duration_seconds": 33.625284,
+    "start_time": "2025-08-16T10:14:40.872342",
+    "end_time": "2025-08-16T10:15:14.497626"
+  },
+  "test_results": [
+    {
+      "test_name": "Health Check",
+      "success": false,
+      "details": "Status: 404",
+      "timestamp": "2025-08-16T10:14:40.889667",
+      "response": null
+    },
+    {
+      "test_name": "Service Summary",
+      "success": false,
+      "details": "Status: 404",
+      "timestamp": "2025-08-16T10:14:41.912257",
+      "response": null
+    },
+    {
+      "test_name": "Supported Domains",
+      "success": false,
+      "details": "Status: 404",
+      "timestamp": "2025-08-16T10:14:42.942461",
+      "response": null
+    },
+    {
+      "test_name": "Art of War Techniques",
+      "success": false,
+      "details": "Status: 404",
+      "timestamp": "2025-08-16T10:14:43.972122",
+      "response": null
+    },
+    {
+      "test_name": "Cultural Patterns",
+      "success": false,
+      "details": "Status: 404",
+      "timestamp": "2025-08-16T10:14:44.997705",
+      "response": null
+    },
+    {
+      "test_name": "Domain Capabilities (defense)",
+      "success": false,
+      "details": "Domain: defense, Status: 404",
+      "timestamp": "2025-08-16T10:14:46.022375",
+      "response": null
+    },
+    {
+      "test_name": "Domain Capabilities (intelligence)",
+      "success": false,
+      "details": "Domain: intelligence, Status: 404",
+      "timestamp": "2025-08-16T10:14:47.029164",
+      "response": null
+    },
+    {
+      "test_name": "Domain Capabilities (business)",
+      "success": false,
+      "details": "Domain: business, Status: 404",
+      "timestamp": "2025-08-16T10:14:48.061102",
+      "response": null
+    },
+    {
+      "test_name": "Domain Capabilities (cybersecurity)",
+      "success": false,
+      "details": "Domain: cybersecurity, Status: 404",
+      "timestamp": "2025-08-16T10:14:49.089116",
+      "response": null
+    },
+    {
+      "test_name": "Domain Capabilities (geopolitical)",
+      "success": false,
+      "details": "Domain: geopolitical, Status: 404",
+      "timestamp": "2025-08-16T10:14:50.103032",
+      "response": null
+    },
+    {
+      "test_name": "Comprehensive Analysis (general)",
+      "success": false,
+      "details": "Domain: general, Status: 404",
+      "timestamp": "2025-08-16T10:14:51.127654",
+      "response": null
+    },
+    {
+      "test_name": "Comprehensive Analysis (general)",
+      "success": false,
+      "details": "Domain: general, Status: 404",
+      "timestamp": "2025-08-16T10:14:52.152036",
+      "response": null
+    },
+    {
+      "test_name": "Comprehensive Analysis (general)",
+      "success": false,
+      "details": "Domain: general, Status: 404",
+      "timestamp": "2025-08-16T10:14:53.161460",
+      "response": null
+    },
+    {
+      "test_name": "Comprehensive Analysis (general)",
+      "success": false,
+      "details": "Domain: general, Status: 404",
+      "timestamp": "2025-08-16T10:14:54.191418",
+      "response": null
+    },
+    {
+      "test_name": "Comprehensive Analysis (general)",
+      "success": false,
+      "details": "Domain: general, Status: 404",
+      "timestamp": "2025-08-16T10:14:55.196465",
+      "response": null
+    },
+    {
+      "test_name": "Comprehensive Analysis (general)",
+      "success": false,
+      "details": "Domain: general, Status: 404",
+      "timestamp": "2025-08-16T10:14:56.208253",
+      "response": null
+    },
+    {
+      "test_name": "Comprehensive Analysis (general)",
+      "success": false,
+      "details": "Domain: general, Status: 404",
+      "timestamp": "2025-08-16T10:14:57.233141",
+      "response": null
+    },
+    {
+      "test_name": "Comprehensive Analysis (general)",
+      "success": false,
+      "details": "Domain: general, Status: 404",
+      "timestamp": "2025-08-16T10:14:58.239656",
+      "response": null
+    },
+    {
+      "test_name": "Comprehensive Analysis (general)",
+      "success": false,
+      "details": "Domain: general, Status: 404",
+      "timestamp": "2025-08-16T10:14:59.263270",
+      "response": null
+    },
+    {
+      "test_name": "Cultural Detection (chinese)",
+      "success": false,
+      "details": "Language: chinese, Status: 404",
+      "timestamp": "2025-08-16T10:15:00.281780",
+      "response": null
+    },
+    {
+      "test_name": "Cultural Detection (chinese)",
+      "success": false,
+      "details": "Language: chinese, Status: 404",
+      "timestamp": "2025-08-16T10:15:01.298453",
+      "response": null
+    },
+    {
+      "test_name": "Cultural Detection (russian)",
+      "success": false,
+      "details": "Language: russian, Status: 404",
+      "timestamp": "2025-08-16T10:15:02.319519",
+      "response": null
+    },
+    {
+      "test_name": "Cultural Detection (russian)",
+      "success": false,
+      "details": "Language: russian, Status: 404",
+      "timestamp": "2025-08-16T10:15:03.338601",
+      "response": null
+    },
+    {
+      "test_name": "Domain Analysis (defense)",
+      "success": false,
+      "details": "Domain: defense, Status: 404",
+      "timestamp": "2025-08-16T10:15:04.347754",
+      "response": null
+    },
+    {
+      "test_name": "Domain Analysis (defense)",
+      "success": false,
+      "details": "Domain: defense, Status: 404",
+      "timestamp": "2025-08-16T10:15:05.369685",
+      "response": null
+    },
+    {
+      "test_name": "Domain Analysis (intelligence)",
+      "success": false,
+      "details": "Domain: intelligence, Status: 404",
+      "timestamp": "2025-08-16T10:15:06.377641",
+      "response": null
+    },
+    {
+      "test_name": "Domain Analysis (intelligence)",
+      "success": false,
+      "details": "Domain: intelligence, Status: 404",
+      "timestamp": "2025-08-16T10:15:07.396186",
+      "response": null
+    },
+    {
+      "test_name": "Domain Analysis (business)",
+      "success": false,
+      "details": "Domain: business, Status: 404",
+      "timestamp": "2025-08-16T10:15:08.410089",
+      "response": null
+    },
+    {
+      "test_name": "Domain Analysis (business)",
+      "success": false,
+      "details": "Domain: business, Status: 404",
+      "timestamp": "2025-08-16T10:15:09.443760",
+      "response": null
+    },
+    {
+      "test_name": "Domain Analysis (cybersecurity)",
+      "success": false,
+      "details": "Domain: cybersecurity, Status: 404",
+      "timestamp": "2025-08-16T10:15:10.451794",
+      "response": null
+    },
+    {
+      "test_name": "Domain Analysis (cybersecurity)",
+      "success": false,
+      "details": "Domain: cybersecurity, Status: 404",
+      "timestamp": "2025-08-16T10:15:11.461737",
+      "response": null
+    },
+    {
+      "test_name": "Domain Analysis (geopolitical)",
+      "success": false,
+      "details": "Domain: geopolitical, Status: 404",
+      "timestamp": "2025-08-16T10:15:12.471688",
+      "response": null
+    },
+    {
+      "test_name": "Domain Analysis (geopolitical)",
+      "success": false,
+      "details": "Domain: geopolitical, Status: 404",
+      "timestamp": "2025-08-16T10:15:13.488556",
+      "response": null
+    },
+    {
+      "test_name": "Batch Analysis",
+      "success": false,
+      "details": "Status: 404",
+      "timestamp": "2025-08-16T10:15:14.497251",
+      "response": null
+    }
+  ]
+}

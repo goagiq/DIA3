@@ -1,0 +1,66 @@
+{
+  "test_suite": "Phase 1 ML/DL/RL Forecasting Components",
+  "timestamp": "2025-08-16T11:22:06.570204",
+  "total_tests": 8,
+  "passed": 5,
+  "failed": 3,
+  "success_rate": 62.5,
+  "results": [
+    {
+      "test_name": "Health Endpoint",
+      "success": true,
+      "details": "All 5 components available",
+      "error": "",
+      "timestamp": "2025-08-16T11:22:06.283738"
+    },
+    {
+      "test_name": "Models Endpoint",
+      "success": true,
+      "details": "All 4 model sections available",
+      "error": "",
+      "timestamp": "2025-08-16T11:22:06.299365"
+    },
+    {
+      "test_name": "Summary Endpoint",
+      "success": true,
+      "details": "Service: ML/DL/RL Forecasting, Version: 1.0.0",
+      "error": "",
+      "timestamp": "2025-08-16T11:22:06.314480"
+    },
+    {
+      "test_name": "Time Series Forecast",
+      "success": false,
+      "details": "HTTP 500: {\"detail\":\"Forecasting error: 'EnhancedTimeSeriesModels' object has no attribute 'generate_forecast'\"}",
+      "error": "",
+      "timestamp": "2025-08-16T11:22:06.363175"
+    },
+    {
+      "test_name": "RL Optimization",
+      "success": false,
+      "details": "HTTP 500: {\"detail\":\"RL optimization error: rl_optimize.<locals>.<lambda>() takes 2 positional arguments but 3 were given\"}",
+      "error": "",
+      "timestamp": "2025-08-16T11:22:06.370366"
+    },
+    {
+      "test_name": "Causal Inference",
+      "success": true,
+      "details": "Analysis type: granger",
+      "error": "",
+      "timestamp": "2025-08-16T11:22:06.555238"
+    },
+    {
+      "test_name": "Defense Domain Analysis",
+      "success": false,
+      "details": "HTTP 500: {\"detail\":\"Defense domain analysis error: 400: Unknown analysis type: threat_assessment\"}",
+      "error": "",
+      "timestamp": "2025-08-16T11:22:06.561311"
+    },
+    {
+      "test_name": "Intelligence Domain Analysis",
+      "success": true,
+      "details": "Analysis type: signals_intelligence",
+      "error": "",
+      "timestamp": "2025-08-16T11:22:06.569191"
+    }
+  ]
+}

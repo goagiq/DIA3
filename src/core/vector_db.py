@@ -1031,10 +1031,56 @@ class VectorDBManager:
         metadata: Optional[Dict[str, Any]] = None,
         collection_name: Optional[str] = None
     ) -> str:
-        """Store document content in the vector database - alias for store_content."""
-        # For now, ignore collection_name and use the default semantic collection
-        # In a full implementation, this would store in the specified collection
-        return await self.store_content(content, metadata)
+        """Store document content in the vector database with optional collection specification."""
+        try:
+            # Generate unique ID
+            content_id = str(uuid.uuid4())
+            
+            # Prepare metadata
+            if metadata is None:
+                metadata = {}
+            
+            # Add default metadata
+            metadata.update({
+                "content_type": "text",
+                "language": "en",
+                "timestamp": datetime.now().isoformat(),
+                "source": "manual_upload"
+            })
+            
+            # Sanitize metadata
+            sanitized_metadata = self.sanitize_metadata(metadata)
+            
+            if collection_name:
+                # Get or create the specified collection
+                try:
+                    collection = self.client.get_or_create_collection(
+                        name=collection_name,
+                        metadata={"description": f"Collection for {collection_name}"}
+                    )
+                    
+                    # Store in the specified collection
+                    collection.add(
+                        documents=[content],
+                        metadatas=[sanitized_metadata],
+                        ids=[content_id]
+                    )
+                    
+                    logger.info(f"Stored content {content_id} in collection {collection_name}")
+                    
+                except Exception as e:
+                    logger.error(f"Failed to store in collection {collection_name}: {e}")
+                    # Fallback to semantic collection
+                    return await self.store_content(content, metadata)
+            else:
+                # Use default semantic collection
+                return await self.store_content(content, metadata)
+            
+            return content_id
+            
+        except Exception as e:
+            logger.error(f"Failed to store document in vector database: {e}")
+            raise
 
 
 # Global instance

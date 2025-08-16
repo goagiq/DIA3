@@ -1,282 +1,406 @@
 """
 Multi-Domain Strategic Analysis API Routes
-Provides generic strategic analysis endpoints for multiple domains including business, defense, and intelligence.
+
+This module provides API endpoints for comprehensive strategic analysis
+across multiple domains including defense, intelligence, and business applications.
 """
 
+from fastapi import APIRouter, HTTPException, BackgroundTasks
 from typing import Dict, List, Any, Optional
-from fastapi import APIRouter, HTTPException
+from datetime import datetime
 from pydantic import BaseModel, Field
+from enum import Enum
+
 from loguru import logger
 
-from src.core.multi_domain_strategic_analyzer import (
-    MultiDomainStrategicAnalyzer,
-    DomainType,
-    AnalysisType,
-    StrategicContext,
-    StrategicRecommendation
-)
-
-# Initialize router
-router = APIRouter(prefix="/multi-domain", tags=["Multi-Domain Strategic Analysis"])
-
-# Initialize analyzer
-analyzer = MultiDomainStrategicAnalyzer()
-
-
-# Request Models
-class MultiDomainStrategicRequest(BaseModel):
-    """Request model for multi-domain strategic analysis."""
-    content: str = Field(..., description="Analysis content or query")
-    domain: str = Field(..., description="Target domain for analysis")
-    analysis_type: str = Field(
-        default="comprehensive", 
-        description="Type of analysis to perform"
+# Import the multi-domain strategic engine
+try:
+    from src.core.multi_domain_strategic_engine import (
+        MultiDomainStrategicEngine, 
+        DomainType, 
+        AnalysisType, 
+        StrategicContext
     )
-    include_art_of_war: bool = Field(
-        default=True, 
-        description="Whether to include Art of War principles"
-    )
-    include_recommendations: bool = Field(
-        default=True, 
-        description="Whether to include strategic recommendations"
-    )
-    context: Optional[Dict[str, Any]] = Field(
-        default=None, 
-        description="Additional strategic context"
-    )
+    STRATEGIC_ENGINE_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Multi-domain strategic engine not available: {e}")
+    STRATEGIC_ENGINE_AVAILABLE = False
+
+router = APIRouter(prefix="/strategic", tags=["Multi-Domain Strategic Analysis"])
+
+# Initialize the strategic engine
+if STRATEGIC_ENGINE_AVAILABLE:
+    strategic_engine = MultiDomainStrategicEngine()
 
 
-class DomainCapabilitiesRequest(BaseModel):
-    """Request model for getting domain capabilities."""
-    domain: str = Field(..., description="Domain to get capabilities for")
+# Request/Response Models
+class DomainTypeModel(str, Enum):
+    """Domain types for strategic analysis."""
+    DEFENSE = "defense"
+    INTELLIGENCE = "intelligence"
+    BUSINESS = "business"
+    CYBER = "cyber"
+    DIPLOMATIC = "diplomatic"
+    ECONOMIC = "economic"
 
 
-class StrategicRecommendationResponse(BaseModel):
-    """Response model for strategic recommendations."""
-    title: str
-    description: str
-    priority: str
-    timeframe: str
-    domain: str
-    impact_score: float
-    implementation_difficulty: str
-    resources_required: List[str]
-    success_metrics: List[str]
+class AnalysisTypeModel(str, Enum):
+    """Types of strategic analysis available."""
+    THREAT_ASSESSMENT = "threat_assessment"
+    COMPETITIVE_INTELLIGENCE = "competitive_intelligence"
+    CULTURAL_ANALYSIS = "cultural_analysis"
+    DECEPTION_DETECTION = "deception_detection"
+    SCENARIO_PLANNING = "scenario_planning"
+    RISK_ANALYSIS = "risk_analysis"
+    OPPORTUNITY_ANALYSIS = "opportunity_analysis"
+    STRATEGIC_POSITIONING = "strategic_positioning"
 
 
-class MultiDomainStrategicResponse(BaseModel):
-    """Response model for multi-domain strategic analysis."""
+class StrategicContextRequest(BaseModel):
+    """Request model for strategic context analysis."""
+    domain: DomainTypeModel = Field(..., description="Domain for analysis")
+    region: str = Field(..., description="Geographic region of interest")
+    timeframe: str = Field(..., description="Timeframe for analysis")
+    stakeholders: List[str] = Field(default=[], description="Key stakeholders")
+    objectives: List[str] = Field(default=[], description="Strategic objectives")
+    constraints: List[str] = Field(default=[], description="Strategic constraints")
+    resources: Dict[str, Any] = Field(default={}, description="Available resources")
+    analysis_types: List[AnalysisTypeModel] = Field(..., description="Types of analysis to perform")
+    content_data: Optional[str] = Field(None, description="Content data for analysis")
+
+
+class StrategicAnalysisResponse(BaseModel):
+    """Response model for strategic analysis."""
     success: bool
+    analysis_id: str
+    timestamp: str
     domain: str
-    analysis_type: str
-    domain_analysis: Dict[str, Any]
-    art_of_war_analysis: Optional[Dict[str, Any]] = None
-    strategic_recommendations: Optional[List[StrategicRecommendationResponse]] = None
-    metadata: Dict[str, Any]
+    analysis_types: List[str]
+    findings: List[Dict[str, Any]]
+    strategic_assessment: Dict[str, Any]
+    recommendations: List[Dict[str, Any]]
+    risk_analysis: Dict[str, Any]
+    cultural_insights: Dict[str, Any]
+    art_of_war_analysis: Dict[str, Any]
+    report_path: Optional[str] = None
+    error: Optional[str] = None
+
+
+class StrategicContextResponse(BaseModel):
+    """Response model for strategic context."""
+    success: bool
+    context: Dict[str, Any]
+    frameworks: Dict[str, Any]
+    indicators: Dict[str, Any]
+    error: Optional[str] = None
 
 
 # API Endpoints
-@router.post("/strategic-analysis", response_model=MultiDomainStrategicResponse)
-async def multi_domain_strategic_analysis(request: MultiDomainStrategicRequest):
+@router.post("/analyze", response_model=StrategicAnalysisResponse)
+async def analyze_strategic_context(
+    request: StrategicContextRequest,
+    background_tasks: BackgroundTasks
+) -> StrategicAnalysisResponse:
     """
-    Perform comprehensive strategic analysis for any supported domain.
+    Perform comprehensive strategic analysis for a given context.
     
-    Supported domains: business, defense, intelligence, cybersecurity, 
-    geopolitical, economic, technological, social, environmental
+    This endpoint provides multi-domain strategic analysis integrating:
+    - Art of War principles and frameworks
+    - Cross-cultural strategic patterns
+    - Domain-specific threat assessments
+    - Strategic recommendations and risk analysis
     """
-    try:
-        # Validate domain
-        try:
-            domain = DomainType(request.domain.lower())
-        except ValueError:
-            raise HTTPException(
-                status_code=400, 
-                detail=f"Unsupported domain: {request.domain}. "
-                       f"Supported domains: {[d.value for d in DomainType]}"
-            )
-        
-        # Validate analysis type
-        try:
-            analysis_type = AnalysisType(request.analysis_type.lower())
-        except ValueError:
-            raise HTTPException(
-                status_code=400,
-                detail=f"Unsupported analysis type: {request.analysis_type}. "
-                       f"Supported types: {[at.value for at in AnalysisType]}"
-            )
-        
-        # Create strategic context if provided
-        context = None
-        if request.context:
-            context = StrategicContext(
-                domain=domain,
-                analysis_type=analysis_type,
-                market_conditions=request.context.get("market_conditions"),
-                competitive_landscape=request.context.get("competitive_landscape"),
-                risk_factors=request.context.get("risk_factors"),
-                opportunities=request.context.get("opportunities"),
-                threats=request.context.get("threats"),
-                trends=request.context.get("trends")
-            )
-        
-        # Perform analysis
-        result = await analyzer.analyze_strategic_position(
-            content=request.content,
-            domain=domain,
-            analysis_type=analysis_type,
-            context=context,
-            include_art_of_war=request.include_art_of_war,
-            include_recommendations=request.include_recommendations
-        )
-        
-        # Convert recommendations to response format
-        recommendations = None
-        if result.get("strategic_recommendations"):
-            recommendations = [
-                StrategicRecommendationResponse(
-                    title=rec.title,
-                    description=rec.description,
-                    priority=rec.priority,
-                    timeframe=rec.timeframe,
-                    domain=rec.domain.value,
-                    impact_score=rec.impact_score,
-                    implementation_difficulty=rec.implementation_difficulty,
-                    resources_required=rec.resources_required,
-                    success_metrics=rec.success_metrics
-                )
-                for rec in result["strategic_recommendations"]
-            ]
-        
-        return MultiDomainStrategicResponse(
-            success=True,
-            domain=domain.value,
-            analysis_type=analysis_type.value,
-            domain_analysis=result.get("domain_analysis", {}),
-            art_of_war_analysis=result.get("art_of_war_analysis"),
-            strategic_recommendations=recommendations,
-            metadata=result.get("metadata", {})
-        )
-        
-    except Exception as e:
-        logger.error(f"Multi-domain strategic analysis error: {str(e)}")
+    if not STRATEGIC_ENGINE_AVAILABLE:
         raise HTTPException(
-            status_code=500, 
+            status_code=503,
+            detail="Strategic analysis engine not available"
+        )
+    
+    try:
+        logger.info(f"Starting strategic analysis for domain: {request.domain}")
+        
+        # Convert request to StrategicContext
+        context = StrategicContext(
+            domain=DomainType(request.domain),
+            region=request.region,
+            timeframe=request.timeframe,
+            stakeholders=request.stakeholders,
+            objectives=request.objectives,
+            constraints=request.constraints,
+            resources=request.resources
+        )
+        
+        # Convert analysis types
+        analysis_types = [AnalysisType(at) for at in request.analysis_types]
+        
+        # Perform strategic analysis
+        results = await strategic_engine.analyze_strategic_context(
+            context=context,
+            analysis_types=analysis_types,
+            content_data=request.content_data
+        )
+        
+        if "error" in results:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Strategic analysis failed: {results['error']}"
+            )
+        
+        # Generate analysis ID
+        analysis_id = f"strategic_{request.domain}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        
+        # Add background task for report generation
+        background_tasks.add_task(
+            strategic_engine._save_strategic_analysis_report,
+            results
+        )
+        
+        return StrategicAnalysisResponse(
+            success=True,
+            analysis_id=analysis_id,
+            timestamp=results["analysis_metadata"]["timestamp"],
+            domain=results["analysis_metadata"]["domain"],
+            analysis_types=results["analysis_metadata"]["analysis_types"],
+            findings=results.get("findings", []),
+            strategic_assessment=results.get("strategic_assessment", {}),
+            recommendations=results.get("strategic_recommendations", []),
+            risk_analysis=results.get("risk_analysis", {}),
+            cultural_insights=results.get("cultural_analysis", {}),
+            art_of_war_analysis=results.get("art_of_war_analysis", {}),
+            report_path=results.get("report_path")
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Strategic analysis error: {e}")
+        raise HTTPException(
+            status_code=500,
             detail=f"Strategic analysis failed: {str(e)}"
         )
 
 
-@router.get("/domains", response_model=List[Dict[str, Any]])
-async def get_supported_domains():
-    """Get list of all supported domains with their capabilities."""
-    try:
-        domains = await analyzer.get_supported_domains()
-        return domains
-    except Exception as e:
-        logger.error(f"Error getting supported domains: {str(e)}")
+@router.get("/context/{domain}", response_model=StrategicContextResponse)
+async def get_strategic_context(domain: DomainTypeModel) -> StrategicContextResponse:
+    """
+    Get strategic context information for a specific domain.
+    
+    Returns frameworks, indicators, and contextual information
+    relevant to the specified domain.
+    """
+    if not STRATEGIC_ENGINE_AVAILABLE:
         raise HTTPException(
-            status_code=500, 
-            detail=f"Failed to get supported domains: {str(e)}"
+            status_code=503,
+            detail="Strategic analysis engine not available"
         )
-
-
-@router.post("/domain-capabilities", response_model=Dict[str, Any])
-async def get_domain_capabilities(request: DomainCapabilitiesRequest):
-    """Get capabilities and frameworks available for a specific domain."""
+    
     try:
-        # Validate domain
-        try:
-            domain = DomainType(request.domain.lower())
-        except ValueError:
-            raise HTTPException(
-                status_code=400,
-                detail=f"Unsupported domain: {request.domain}. "
-                       f"Supported domains: {[d.value for d in DomainType]}"
-            )
+        # Get domain-specific information
+        context_info = {
+            "domain": domain.value,
+            "frameworks": strategic_engine.art_of_war_frameworks,
+            "cultural_patterns": strategic_engine.cultural_patterns,
+            "strategic_indicators": strategic_engine.strategic_indicators.get(domain.value, [])
+        }
         
-        capabilities = await analyzer.get_domain_capabilities(domain)
-        return capabilities
+        return StrategicContextResponse(
+            success=True,
+            context=context_info,
+            frameworks=strategic_engine.art_of_war_frameworks,
+            indicators=strategic_engine.strategic_indicators
+        )
         
     except Exception as e:
-        logger.error(f"Error getting domain capabilities: {str(e)}")
+        logger.error(f"Get strategic context error: {e}")
         raise HTTPException(
             status_code=500,
-            detail=f"Failed to get domain capabilities: {str(e)}"
+            detail=f"Failed to get strategic context: {str(e)}"
         )
 
 
-@router.post("/business-strategic-analysis", response_model=MultiDomainStrategicResponse)
-async def business_strategic_analysis(request: MultiDomainStrategicRequest):
+@router.get("/domains")
+async def get_supported_domains() -> Dict[str, Any]:
     """
-    Perform strategic analysis specifically for business domain.
-    This is a convenience endpoint that automatically sets the domain to business.
+    Get list of supported domains for strategic analysis.
     """
-    # Override domain to business
-    request.domain = "business"
-    return await multi_domain_strategic_analysis(request)
+    domains = [
+        {
+            "domain": domain.value,
+            "description": f"Strategic analysis for {domain.value} applications",
+            "analysis_types": [
+                at.value for at in AnalysisType
+            ]
+        }
+        for domain in DomainType
+    ]
+    
+    return {
+        "success": True,
+        "domains": domains,
+        "count": len(domains)
+    }
 
 
-@router.post("/defense-strategic-analysis", response_model=MultiDomainStrategicResponse)
-async def defense_strategic_analysis(request: MultiDomainStrategicRequest):
+@router.get("/analysis-types")
+async def get_analysis_types() -> Dict[str, Any]:
     """
-    Perform strategic analysis specifically for defense domain.
-    This is a convenience endpoint that automatically sets the domain to defense.
+    Get list of available analysis types.
     """
-    # Override domain to defense
-    request.domain = "defense"
-    return await multi_domain_strategic_analysis(request)
+    analysis_types = [
+        {
+            "type": at.value,
+            "description": f"{at.value.replace('_', ' ').title()} analysis",
+            "applicable_domains": [
+                domain.value for domain in DomainType
+            ]
+        }
+        for at in AnalysisType
+    ]
+    
+    return {
+        "success": True,
+        "analysis_types": analysis_types,
+        "count": len(analysis_types)
+    }
 
 
-@router.post("/intelligence-strategic-analysis", response_model=MultiDomainStrategicResponse)
-async def intelligence_strategic_analysis(request: MultiDomainStrategicRequest):
+@router.post("/deception-detection")
+async def detect_deception_patterns(content: str) -> Dict[str, Any]:
     """
-    Perform strategic analysis specifically for intelligence domain.
-    This is a convenience endpoint that automatically sets the domain to intelligence.
+    Detect deception patterns in content using strategic analysis.
     """
-    # Override domain to intelligence
-    request.domain = "intelligence"
-    return await multi_domain_strategic_analysis(request)
+    if not STRATEGIC_ENGINE_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="Strategic analysis engine not available"
+        )
+    
+    try:
+        # Use the deception agent to analyze content
+        deception_analysis = await strategic_engine._detect_deception_patterns(content)
+        
+        if "error" in deception_analysis:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Deception detection failed: {deception_analysis['error']}"
+            )
+        
+        return {
+            "success": True,
+            "deception_analysis": deception_analysis,
+            "timestamp": datetime.now().isoformat()
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Deception detection error: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Deception detection failed: {str(e)}"
+        )
 
 
-@router.post("/cybersecurity-strategic-analysis", response_model=MultiDomainStrategicResponse)
-async def cybersecurity_strategic_analysis(request: MultiDomainStrategicRequest):
+@router.post("/cultural-analysis")
+async def analyze_cultural_patterns(
+    domain: DomainTypeModel,
+    region: str,
+    content_data: Optional[str] = None
+) -> Dict[str, Any]:
     """
-    Perform strategic analysis specifically for cybersecurity domain.
-    This is a convenience endpoint that automatically sets the domain to cybersecurity.
+    Analyze cultural patterns for strategic context.
     """
-    # Override domain to cybersecurity
-    request.domain = "cybersecurity"
-    return await multi_domain_strategic_analysis(request)
+    if not STRATEGIC_ENGINE_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="Strategic analysis engine not available"
+        )
+    
+    try:
+        # Create strategic context
+        context = StrategicContext(
+            domain=DomainType(domain),
+            region=region,
+            timeframe="current",
+            stakeholders=[],
+            objectives=[],
+            constraints=[],
+            resources={}
+        )
+        
+        # Perform cultural analysis
+        cultural_analysis = await strategic_engine._analyze_cultural_patterns(context)
+        
+        return {
+            "success": True,
+            "cultural_analysis": cultural_analysis,
+            "domain": domain.value,
+            "region": region,
+            "timestamp": datetime.now().isoformat()
+        }
+        
+    except Exception as e:
+        logger.error(f"Cultural analysis error: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Cultural analysis failed: {str(e)}"
+        )
 
 
-@router.post("/geopolitical-strategic-analysis", response_model=MultiDomainStrategicResponse)
-async def geopolitical_strategic_analysis(request: MultiDomainStrategicRequest):
+@router.post("/art-of-war-analysis")
+async def apply_art_of_war_frameworks(
+    domain: DomainTypeModel,
+    region: str,
+    context_data: Dict[str, Any]
+) -> Dict[str, Any]:
     """
-    Perform strategic analysis specifically for geopolitical domain.
-    This is a convenience endpoint that automatically sets the domain to geopolitical.
+    Apply Art of War frameworks to strategic context.
     """
-    # Override domain to geopolitical
-    request.domain = "geopolitical"
-    return await multi_domain_strategic_analysis(request)
+    if not STRATEGIC_ENGINE_AVAILABLE:
+        raise HTTPException(
+            status_code=503,
+            detail="Strategic analysis engine not available"
+        )
+    
+    try:
+        # Create strategic context
+        context = StrategicContext(
+            domain=DomainType(domain),
+            region=region,
+            timeframe=context_data.get("timeframe", "current"),
+            stakeholders=context_data.get("stakeholders", []),
+            objectives=context_data.get("objectives", []),
+            constraints=context_data.get("constraints", []),
+            resources=context_data.get("resources", {})
+        )
+        
+        # Apply Art of War frameworks
+        art_of_war_analysis = await strategic_engine._apply_art_of_war_frameworks(context)
+        
+        return {
+            "success": True,
+            "art_of_war_analysis": art_of_war_analysis,
+            "domain": domain.value,
+            "region": region,
+            "timestamp": datetime.now().isoformat()
+        }
+        
+    except Exception as e:
+        logger.error(f"Art of War analysis error: {e}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Art of War analysis failed: {str(e)}"
+        )
 
 
 @router.get("/health")
-async def multi_domain_health_check():
-    """Health check for multi-domain strategic analysis service."""
-    try:
-        # Test basic functionality
-        domains = await analyzer.get_supported_domains()
-        return {
-            "status": "healthy",
-            "service": "multi_domain_strategic_analysis",
-            "supported_domains": len(domains),
-            "domains": [d["domain"] for d in domains],
-            "analysis_types": [at.value for at in AnalysisType],
-            "art_of_war_integration": True
-        }
-    except Exception as e:
-        logger.error(f"Health check failed: {str(e)}")
-        return {
-            "status": "unhealthy",
-            "service": "multi_domain_strategic_analysis",
-            "error": str(e)
-        }
+async def get_strategic_analysis_health() -> Dict[str, Any]:
+    """
+    Get health status of strategic analysis engine.
+    """
+    return {
+        "success": True,
+        "engine_available": STRATEGIC_ENGINE_AVAILABLE,
+        "timestamp": datetime.now().isoformat(),
+        "status": "healthy" if STRATEGIC_ENGINE_AVAILABLE else "unavailable"
+    }

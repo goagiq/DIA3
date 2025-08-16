@@ -1,0 +1,66 @@
+{
+  "test_suite": "Phase 1 ML/DL/RL Forecasting Components",
+  "timestamp": "2025-08-16T11:26:28.406681",
+  "total_tests": 8,
+  "passed": 7,
+  "failed": 1,
+  "success_rate": 87.5,
+  "results": [
+    {
+      "test_name": "Health Endpoint",
+      "success": true,
+      "details": "All 5 components available",
+      "error": "",
+      "timestamp": "2025-08-16T11:26:28.279291"
+    },
+    {
+      "test_name": "Models Endpoint",
+      "success": true,
+      "details": "All 4 model sections available",
+      "error": "",
+      "timestamp": "2025-08-16T11:26:28.286092"
+    },
+    {
+      "test_name": "Summary Endpoint",
+      "success": true,
+      "details": "Service: ML/DL/RL Forecasting, Version: 1.0.0",
+      "error": "",
+      "timestamp": "2025-08-16T11:26:28.292163"
+    },
+    {
+      "test_name": "Time Series Forecast",
+      "success": false,
+      "details": "HTTP 500: {\"detail\":\"Forecasting error: 'ForecastResult' object has no attribute 'forecast_values'\"}",
+      "error": "",
+      "timestamp": "2025-08-16T11:26:28.333802"
+    },
+    {
+      "test_name": "RL Optimization",
+      "success": true,
+      "details": "Selected action: default_action",
+      "error": "",
+      "timestamp": "2025-08-16T11:26:28.340850"
+    },
+    {
+      "test_name": "Causal Inference",
+      "success": true,
+      "details": "Analysis type: granger",
+      "error": "",
+      "timestamp": "2025-08-16T11:26:28.378252"
+    },
+    {
+      "test_name": "Defense Domain Analysis",
+      "success": true,
+      "details": "Analysis type: threat_assessment",
+      "error": "",
+      "timestamp": "2025-08-16T11:26:28.385977"
+    },
+    {
+      "test_name": "Intelligence Domain Analysis",
+      "success": true,
+      "details": "Analysis type: signals_intelligence",
+      "error": "",
+      "timestamp": "2025-08-16T11:26:28.406026"
+    }
+  ]
+}

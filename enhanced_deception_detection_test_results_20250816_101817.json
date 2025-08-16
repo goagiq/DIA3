@@ -1,0 +1,2294 @@
+{
+  "test_summary": {
+    "total_tests": 34,
+    "passed_tests": 34,
+    "failed_tests": 0,
+    "success_rate": 100.0,
+    "duration_seconds": 102.998839,
+    "start_time": "2025-08-16T10:16:34.254134",
+    "end_time": "2025-08-16T10:18:17.252973"
+  },
+  "test_results": [
+    {
+      "test_name": "Health Check",
+      "success": true,
+      "details": "Status: 200, Engine: operational",
+      "timestamp": "2025-08-16T10:16:36.312225",
+      "response": {
+        "status": "healthy",
+        "service": "enhanced_deception_detection",
+        "timestamp": "2025-08-16T10:16:36.310317",
+        "engine_status": "operational",
+        "test_analysis_completed": true,
+        "supported_domains": [
+          "defense",
+          "intelligence",
+          "business",
+          "cybersecurity",
+          "geopolitical",
+          "general"
+        ],
+        "art_of_war_techniques": 8,
+        "cultural_patterns": 3,
+        "domain_patterns": 5,
+        "linguistic_patterns": 4,
+        "strategic_patterns": 4
+      }
+    },
+    {
+      "test_name": "Service Summary",
+      "success": true,
+      "details": "Status: 200, Service: Enhanced Deception Detection",
+      "timestamp": "2025-08-16T10:16:39.367526",
+      "response": {
+        "service_name": "Enhanced Deception Detection",
+        "description": "Comprehensive deception detection system with Art of War principles and multi-domain support",
+        "version": "1.0.0",
+        "capabilities": {
+          "art_of_war_detection": {
+            "enabled": true,
+            "techniques_count": 8,
+            "description": "Detect Art of War deception techniques"
+          },
+          "cultural_detection": {
+            "enabled": true,
+            "languages_count": 3,
+            "description": "Detect cultural deception patterns"
+          },
+          "domain_specific_detection": {
+            "enabled": true,
+            "domains_count": 5,
+            "description": "Detect domain-specific deception patterns"
+          },
+          "linguistic_detection": {
+            "enabled": true,
+            "patterns_count": 4,
+            "description": "Detect linguistic deception patterns"
+          },
+          "strategic_detection": {
+            "enabled": true,
+            "patterns_count": 4,
+            "description": "Detect strategic deception patterns"
+          }
+        },
+        "supported_domains": [
+          "defense",
+          "intelligence",
+          "business",
+          "cybersecurity",
+          "geopolitical",
+          "general"
+        ],
+        "supported_languages": [
+          "en",
+          "zh",
+          "ru",
+          "ar"
+        ],
+        "endpoints": [
+          "/analyze",
+          "/analyze-defense",
+          "/analyze-intelligence",
+          "/analyze-business",
+          "/analyze-cybersecurity",
+          "/analyze-geopolitical",
+          "/analyze-batch",
+          "/domains",
+          "/domain-capabilities/{domain}",
+          "/art-of-war-techniques",
+          "/cultural-patterns",
+          "/health",
+          "/summary"
+        ]
+      }
+    },
+    {
+      "test_name": "Supported Domains",
+      "success": true,
+      "details": "Status: 200, Domains: 6 (defense, intelligence, business, cybersecurity, geopolitical, general)",
+      "timestamp": "2025-08-16T10:16:42.426167",
+      "response": [
+        "defense",
+        "intelligence",
+        "business",
+        "cybersecurity",
+        "geopolitical",
+        "general"
+      ]
+    },
+    {
+      "test_name": "Art of War Techniques",
+      "success": true,
+      "details": "Status: 200, Techniques: 8",
+      "timestamp": "2025-08-16T10:16:45.462914",
+      "response": {
+        "show_inability_when_able": {
+          "chinese": "\u80fd\u800c\u793a\u4e4b\u4e0d\u80fd",
+          "translation": "Show inability when able",
+          "patterns": [
+            "\\b(downplay|minimize|reduce|cut back|scale down)\\b.*\\b(capabilities|abilities|strength|power)\\b",
+            "\\b(weak|limited|insufficient|inadequate)\\b.*\\b(resources|capabilities|strength)\\b",
+            "\\b(cannot|unable|incapable)\\b.*\\b(achieve|accomplish|complete)\\b"
+          ],
+          "indicators": [
+            "Public statements downplaying capabilities",
+            "Budget cuts or resource reduction announcements",
+            "Withdrawal from international commitments"
+          ]
+        },
+        "show_disuse_when_using": {
+          "chinese": "\u7528\u800c\u793a\u4e4b\u4e0d\u7528",
+          "translation": "Show disuse when using",
+          "patterns": [
+            "\\b(discontinue|stop|end|terminate)\\b.*\\b(while|but|however)\\b.*\\b(continue|maintain|keep)\\b",
+            "\\b(withdraw|pull out|exit)\\b.*\\b(unofficial|covert|secret)\\b",
+            "\\b(deny|disclaim)\\b.*\\b(involvement|participation|role)\\b"
+          ],
+          "indicators": [
+            "Public disengagement while maintaining covert activity",
+            "Official withdrawal with continued unofficial involvement",
+            "Denial of involvement in ongoing operations"
+          ]
+        },
+        "show_distance_when_near": {
+          "chinese": "\u8fd1\u800c\u793a\u4e4b\u9060",
+          "translation": "Show distance when near",
+          "patterns": [
+            "\\b(distant|far|remote)\\b.*\\b(while|but|however)\\b.*\\b(close|near|proximate)\\b",
+            "\\b(uninterested|disinterested)\\b.*\\b(while|but|however)\\b.*\\b(involved|engaged)\\b",
+            "\\b(no involvement|no role|no part)\\b.*\\b(while|but|however)\\b.*\\b(active|participating)\\b"
+          ],
+          "indicators": [
+            "Claims of distance or disinterest in specific issues",
+            "Public focus on unrelated matters",
+            "Denial of proximity or involvement"
+          ]
+        },
+        "show_nearness_when_far": {
+          "chinese": "\u9060\u800c\u793a\u4e4b\u8fd1",
+          "translation": "Show nearness when far",
+          "patterns": [
+            "\\b(close|near|proximate)\\b.*\\b(while|but|however)\\b.*\\b(distant|far|remote)\\b",
+            "\\b(involved|engaged|participating)\\b.*\\b(while|but|however)\\b.*\\b(uninvolved|disengaged)\\b",
+            "\\b(control|influence|power)\\b.*\\b(while|but|however)\\b.*\\b(limited|minimal)\\b"
+          ],
+          "indicators": [
+            "Claims of close involvement or control",
+            "Public demonstrations of influence or presence",
+            "Overstated proximity or capabilities"
+          ]
+        },
+        "lure_with_profit": {
+          "chinese": "\u5229\u800c\u8a98\u4e4b",
+          "translation": "Lure with profit",
+          "patterns": [
+            "\\b(generous|beneficial|advantageous)\\b.*\\b(offer|proposal|agreement)\\b",
+            "\\b(too good to be true|exceptional|unprecedented)\\b.*\\b(deal|opportunity|offer)\\b",
+            "\\b(hidden|concealed|undisclosed)\\b.*\\b(conditions|terms|requirements)\\b"
+          ],
+          "indicators": [
+            "Overly generous offers or proposals",
+            "Economic incentives that seem too good to be true",
+            "Trade agreements with hidden conditions"
+          ]
+        },
+        "take_advantage_of_disorder": {
+          "chinese": "\u4e82\u800c\u53d6\u4e4b",
+          "translation": "Take advantage of disorder",
+          "patterns": [
+            "\\b(exploit|take advantage|capitalize)\\b.*\\b(chaos|disorder|confusion)\\b",
+            "\\b(amplify|exacerbate|intensify)\\b.*\\b(tensions|conflicts|divisions)\\b",
+            "\\b(support|back|assist)\\b.*\\b(opposition|dissent|rebellion)\\b"
+          ],
+          "indicators": [
+            "Exploitation of internal divisions or conflicts",
+            "Support for opposition groups or dissidents",
+            "Amplification of existing tensions"
+          ]
+        },
+        "separate_when_united": {
+          "chinese": "\u89aa\u800c\u96e2\u4e4b",
+          "translation": "Separate when united",
+          "patterns": [
+            "\\b(divide|split|separate)\\b.*\\b(alliance|coalition|partnership)\\b",
+            "\\b(undermine|weaken|erode)\\b.*\\b(unity|cohesion|solidarity)\\b",
+            "\\b(bilateral|individual)\\b.*\\b(deal|agreement)\\b.*\\b(multilateral|collective)\\b"
+          ],
+          "indicators": [
+            "Attempts to break up alliances or coalitions",
+            "Bilateral deals that undermine multilateral agreements",
+            "Playing allies against each other"
+          ]
+        },
+        "attack_unprepared": {
+          "chinese": "\u653b\u5176\u7121\u5099\uff0c\u51fa\u5176\u4e0d\u610f",
+          "translation": "Attack unprepared, emerge unexpectedly",
+          "patterns": [
+            "\\b(sudden|unexpected|surprise)\\b.*\\b(announcement|change|initiative)\\b",
+            "\\b(catch off guard|unprepared|unaware)\\b",
+            "\\b(ultimatum|deadline|demand)\\b.*\\b(immediate|urgent|critical)\\b"
+          ],
+          "indicators": [
+            "Sudden policy announcements or changes",
+            "Unexpected diplomatic initiatives",
+            "Surprise demands or ultimatums"
+          ]
+        }
+      }
+    },
+    {
+      "test_name": "Cultural Patterns",
+      "success": true,
+      "details": "Status: 200, Languages: 3",
+      "timestamp": "2025-08-16T10:16:48.532879",
+      "response": {
+        "chinese": {
+          "harmony_themes": [
+            "\\b(\u548c\u8c10|\u548c\u5e73|\u5408\u4f5c|\u5171\u8d62)\\b",
+            "\\b(\u53d1\u5c55|\u8fdb\u6b65|\u73b0\u4ee3\u5316)\\b",
+            "\\b(\u4f20\u7edf|\u6587\u5316|\u5386\u53f2)\\b",
+            "\\b(\u7a33\u5b9a|\u5b89\u5168|\u79e9\u5e8f)\\b"
+          ],
+          "strategic_indicators": [
+            "Excessive use of harmony terminology",
+            "Overemphasis on traditional values",
+            "Repetitive development rhetoric",
+            "Vague stability claims"
+          ]
+        },
+        "russian": {
+          "security_focus": [
+            "\\b(\u0431\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u043e\u0441\u0442\u044c|\u0441\u0442\u0430\u0431\u0438\u043b\u044c\u043d\u043e\u0441\u0442\u044c|\u043f\u043e\u0440\u044f\u0434\u043e\u043a)\\b",
+            "\\b(\u0440\u0430\u0437\u0432\u0438\u0442\u0438\u0435|\u043f\u0440\u043e\u0433\u0440\u0435\u0441\u0441|\u043c\u043e\u0434\u0435\u0440\u043d\u0438\u0437\u0430\u0446\u0438\u044f)\\b",
+            "\\b(\u0442\u0440\u0430\u0434\u0438\u0446\u0438\u044f|\u043a\u0443\u043b\u044c\u0442\u0443\u0440\u0430|\u0438\u0441\u0442\u043e\u0440\u0438\u044f)\\b",
+            "\\b(\u0437\u0430\u0449\u0438\u0442\u0430|\u043e\u0431\u043e\u0440\u043e\u043d\u0430|\u0441\u0438\u043b\u0430)\\b"
+          ],
+          "strategic_indicators": [
+            "Excessive security rhetoric",
+            "Overemphasis on protection themes",
+            "Repetitive development claims",
+            "Vague stability assurances"
+          ]
+        },
+        "arabic": {
+          "unity_themes": [
+            "\\b(\u0648\u062d\u062f\u0629|\u0633\u0644\u0627\u0645|\u062a\u0639\u0627\u0648\u0646)\\b",
+            "\\b(\u062a\u0637\u0648\u0631|\u062a\u0642\u062f\u0645|\u062d\u062f\u064a\u062b)\\b",
+            "\\b(\u062a\u0631\u0627\u062b|\u062b\u0642\u0627\u0641\u0629|\u062a\u0627\u0631\u064a\u062e)\\b",
+            "\\b(\u0627\u0633\u062a\u0642\u0631\u0627\u0631|\u0623\u0645\u0627\u0646|\u0646\u0638\u0627\u0645)\\b"
+          ],
+          "strategic_indicators": [
+            "Excessive unity rhetoric",
+            "Overemphasis on cultural heritage",
+            "Repetitive development themes",
+            "Vague stability claims"
+          ]
+        }
+      }
+    },
+    {
+      "test_name": "Domain Capabilities (defense)",
+      "success": true,
+      "details": "Domain: defense, Status: 200, Art of War: 8",
+      "timestamp": "2025-08-16T10:16:51.585172",
+      "response": {
+        "domain": "defense",
+        "supported_languages": [
+          "en",
+          "zh",
+          "ru",
+          "ar"
+        ],
+        "art_of_war_techniques": [
+          "show_inability_when_able",
+          "show_disuse_when_using",
+          "show_distance_when_near",
+          "show_nearness_when_far",
+          "lure_with_profit",
+          "take_advantage_of_disorder",
+          "separate_when_united",
+          "attack_unprepared"
+        ],
+        "cultural_patterns": [
+          "chinese",
+          "russian",
+          "arabic"
+        ],
+        "domain_specific_patterns": [
+          "defense",
+          "intelligence",
+          "business",
+          "cybersecurity",
+          "geopolitical"
+        ],
+        "linguistic_patterns": [
+          "evasive_language",
+          "overqualification",
+          "inconsistent_pronouns",
+          "temporal_discrepancies"
+        ],
+        "strategic_patterns": [
+          "misdirection",
+          "false_urgency",
+          "authority_appeal",
+          "consensus_fallacy"
+        ],
+        "capabilities": {
+          "art_of_war_detection": true,
+          "cultural_detection": true,
+          "domain_specific_detection": true,
+          "linguistic_detection": true,
+          "strategic_detection": true,
+          "early_warning_indicators": true,
+          "recommendations": true
+        }
+      }
+    },
+    {
+      "test_name": "Domain Capabilities (intelligence)",
+      "success": true,
+      "details": "Domain: intelligence, Status: 200, Art of War: 8",
+      "timestamp": "2025-08-16T10:16:54.633438",
+      "response": {
+        "domain": "intelligence",
+        "supported_languages": [
+          "en",
+          "zh",
+          "ru",
+          "ar"
+        ],
+        "art_of_war_techniques": [
+          "show_inability_when_able",
+          "show_disuse_when_using",
+          "show_distance_when_near",
+          "show_nearness_when_far",
+          "lure_with_profit",
+          "take_advantage_of_disorder",
+          "separate_when_united",
+          "attack_unprepared"
+        ],
+        "cultural_patterns": [
+          "chinese",
+          "russian",
+          "arabic"
+        ],
+        "domain_specific_patterns": [
+          "defense",
+          "intelligence",
+          "business",
+          "cybersecurity",
+          "geopolitical"
+        ],
+        "linguistic_patterns": [
+          "evasive_language",
+          "overqualification",
+          "inconsistent_pronouns",
+          "temporal_discrepancies"
+        ],
+        "strategic_patterns": [
+          "misdirection",
+          "false_urgency",
+          "authority_appeal",
+          "consensus_fallacy"
+        ],
+        "capabilities": {
+          "art_of_war_detection": true,
+          "cultural_detection": true,
+          "domain_specific_detection": true,
+          "linguistic_detection": true,
+          "strategic_detection": true,
+          "early_warning_indicators": true,
+          "recommendations": true
+        }
+      }
+    },
+    {
+      "test_name": "Domain Capabilities (business)",
+      "success": true,
+      "details": "Domain: business, Status: 200, Art of War: 8",
+      "timestamp": "2025-08-16T10:16:57.683133",
+      "response": {
+        "domain": "business",
+        "supported_languages": [
+          "en",
+          "zh",
+          "ru",
+          "ar"
+        ],
+        "art_of_war_techniques": [
+          "show_inability_when_able",
+          "show_disuse_when_using",
+          "show_distance_when_near",
+          "show_nearness_when_far",
+          "lure_with_profit",
+          "take_advantage_of_disorder",
+          "separate_when_united",
+          "attack_unprepared"
+        ],
+        "cultural_patterns": [
+          "chinese",
+          "russian",
+          "arabic"
+        ],
+        "domain_specific_patterns": [
+          "defense",
+          "intelligence",
+          "business",
+          "cybersecurity",
+          "geopolitical"
+        ],
+        "linguistic_patterns": [
+          "evasive_language",
+          "overqualification",
+          "inconsistent_pronouns",
+          "temporal_discrepancies"
+        ],
+        "strategic_patterns": [
+          "misdirection",
+          "false_urgency",
+          "authority_appeal",
+          "consensus_fallacy"
+        ],
+        "capabilities": {
+          "art_of_war_detection": true,
+          "cultural_detection": true,
+          "domain_specific_detection": true,
+          "linguistic_detection": true,
+          "strategic_detection": true,
+          "early_warning_indicators": true,
+          "recommendations": true
+        }
+      }
+    },
+    {
+      "test_name": "Domain Capabilities (cybersecurity)",
+      "success": true,
+      "details": "Domain: cybersecurity, Status: 200, Art of War: 8",
+      "timestamp": "2025-08-16T10:17:00.734285",
+      "response": {
+        "domain": "cybersecurity",
+        "supported_languages": [
+          "en",
+          "zh",
+          "ru",
+          "ar"
+        ],
+        "art_of_war_techniques": [
+          "show_inability_when_able",
+          "show_disuse_when_using",
+          "show_distance_when_near",
+          "show_nearness_when_far",
+          "lure_with_profit",
+          "take_advantage_of_disorder",
+          "separate_when_united",
+          "attack_unprepared"
+        ],
+        "cultural_patterns": [
+          "chinese",
+          "russian",
+          "arabic"
+        ],
+        "domain_specific_patterns": [
+          "defense",
+          "intelligence",
+          "business",
+          "cybersecurity",
+          "geopolitical"
+        ],
+        "linguistic_patterns": [
+          "evasive_language",
+          "overqualification",
+          "inconsistent_pronouns",
+          "temporal_discrepancies"
+        ],
+        "strategic_patterns": [
+          "misdirection",
+          "false_urgency",
+          "authority_appeal",
+          "consensus_fallacy"
+        ],
+        "capabilities": {
+          "art_of_war_detection": true,
+          "cultural_detection": true,
+          "domain_specific_detection": true,
+          "linguistic_detection": true,
+          "strategic_detection": true,
+          "early_warning_indicators": true,
+          "recommendations": true
+        }
+      }
+    },
+    {
+      "test_name": "Domain Capabilities (geopolitical)",
+      "success": true,
+      "details": "Domain: geopolitical, Status: 200, Art of War: 8",
+      "timestamp": "2025-08-16T10:17:03.784771",
+      "response": {
+        "domain": "geopolitical",
+        "supported_languages": [
+          "en",
+          "zh",
+          "ru",
+          "ar"
+        ],
+        "art_of_war_techniques": [
+          "show_inability_when_able",
+          "show_disuse_when_using",
+          "show_distance_when_near",
+          "show_nearness_when_far",
+          "lure_with_profit",
+          "take_advantage_of_disorder",
+          "separate_when_united",
+          "attack_unprepared"
+        ],
+        "cultural_patterns": [
+          "chinese",
+          "russian",
+          "arabic"
+        ],
+        "domain_specific_patterns": [
+          "defense",
+          "intelligence",
+          "business",
+          "cybersecurity",
+          "geopolitical"
+        ],
+        "linguistic_patterns": [
+          "evasive_language",
+          "overqualification",
+          "inconsistent_pronouns",
+          "temporal_discrepancies"
+        ],
+        "strategic_patterns": [
+          "misdirection",
+          "false_urgency",
+          "authority_appeal",
+          "consensus_fallacy"
+        ],
+        "capabilities": {
+          "art_of_war_detection": true,
+          "cultural_detection": true,
+          "domain_specific_detection": true,
+          "linguistic_detection": true,
+          "strategic_detection": true,
+          "early_warning_indicators": true,
+          "recommendations": true
+        }
+      }
+    },
+    {
+      "test_name": "Comprehensive Analysis (general)",
+      "success": true,
+      "details": "Domain: general, Status: 200, Indicators: 3, Patterns: 1, Score: 0.60",
+      "timestamp": "2025-08-16T10:17:06.852653",
+      "response": {
+        "request_id": "97ecf9f4-5f31-48ce-9f11-48e56d4e7684",
+        "domain": "general",
+        "overall_deception_score": 0.6,
+        "severity_level": "medium",
+        "indicators_detected": 3,
+        "patterns_detected": 1,
+        "critical_alerts": 0,
+        "indicators": [
+          {
+            "indicator_id": "7301ed88-58ba-4226-b2a8-7dda1ed9f2f7",
+            "indicator_type": "linguistic",
+            "domain": "general",
+            "confidence": 0.6,
+            "severity": "medium",
+            "description": "Linguistic deception pattern: evasive_language",
+            "evidence": [
+              "Perhaps"
+            ],
+            "source_text": "Perhaps we might consider this proposal, but I'm not entirely sure about the details.",
+            "timestamp": "2025-08-16T10:17:06.847677",
+            "art_of_war_technique": null,
+            "cultural_context": null,
+            "strategic_implications": null,
+            "metadata": {
+              "pattern_type": "evasive_language",
+              "pattern": "\\b(perhaps|maybe|possibly|might|could|seems like|appears to)\\b",
+              "match_start": 0,
+              "match_end": 7,
+              "context": "Perhaps we might consider this proposal, but I'm not enti"
+            }
+          },
+          {
+            "indicator_id": "58a0717b-aaf3-4f0c-aea9-93e60db24bb2",
+            "indicator_type": "linguistic",
+            "domain": "general",
+            "confidence": 0.6,
+            "severity": "medium",
+            "description": "Linguistic deception pattern: evasive_language",
+            "evidence": [
+              "might"
+            ],
+            "source_text": "Perhaps we might consider this proposal, but I'm not entirely sure about the details.",
+            "timestamp": "2025-08-16T10:17:06.847709",
+            "art_of_war_technique": null,
+            "cultural_context": null,
+            "strategic_implications": null,
+            "metadata": {
+              "pattern_type": "evasive_language",
+              "pattern": "\\b(perhaps|maybe|possibly|might|could|seems like|appears to)\\b",
+              "match_start": 11,
+              "match_end": 16,
+              "context": "Perhaps we might consider this proposal, but I'm not entirely sure"
+            }
+          },
+          {
+            "indicator_id": "12acb63a-d878-4d2b-8a53-065fd1be4b5f",
+            "indicator_type": "linguistic",
+            "domain": "general",
+            "confidence": 0.6,
+            "severity": "medium",
+            "description": "Linguistic deception pattern: inconsistent_pronouns",
+            "evidence": [
+              "we might consider this proposal, but I"
+            ],
+            "source_text": "Perhaps we might consider this proposal, but I'm not entirely sure about the details.",
+            "timestamp": "2025-08-16T10:17:06.847758",
+            "art_of_war_technique": null,
+            "cultural_context": null,
+            "strategic_implications": null,
+            "metadata": {
+              "pattern_type": "inconsistent_pronouns",
+              "pattern": "\\b(we|our|us)\\b.*\\b(I|me|my)\\b",
+              "match_start": 8,
+              "match_end": 46,
+              "context": "Perhaps we might consider this proposal, but I'm not entirely sure about the details."
+            }
+          }
+        ],
+        "patterns": [
+          {
+            "pattern_id": "c88670bc-f1b3-4210-9853-56b353ea2fd5",
+            "pattern_type": "linguistic_pattern",
+            "domain": "general",
+            "indicators": [
+              {
+                "indicator_id": "7301ed88-58ba-4226-b2a8-7dda1ed9f2f7",
+                "indicator_type": "linguistic",
+                "domain": "general",
+                "confidence": 0.6,
+                "severity": "medium",
+                "description": "Linguistic deception pattern: evasive_language",
+                "evidence": [
+                  "Perhaps"
+                ],
+                "source_text": "Perhaps we might consider this proposal, but I'm not entirely sure about the details.",
+                "timestamp": "2025-08-16T10:17:06.847677",
+                "art_of_war_technique": null,
+                "cultural_context": null,
+                "strategic_implications": null,
+                "metadata": {
+                  "pattern_type": "evasive_language",
+                  "pattern": "\\b(perhaps|maybe|possibly|might|could|seems like|appears to)\\b",
+                  "match_start": 0,
+                  "match_end": 7,
+                  "context": "Perhaps we might consider this proposal, but I'm not enti"
+                }
+              },
+              {
+                "indicator_id": "58a0717b-aaf3-4f0c-aea9-93e60db24bb2",
+                "indicator_type": "linguistic",
+                "domain": "general",
+                "confidence": 0.6,
+                "severity": "medium",
+                "description": "Linguistic deception pattern: evasive_language",
+                "evidence": [
+                  "might"
+                ],
+                "source_text": "Perhaps we might consider this proposal, but I'm not entirely sure about the details.",
+                "timestamp": "2025-08-16T10:17:06.847709",
+                "art_of_war_technique": null,
+                "cultural_context": null,
+                "strategic_implications": null,
+                "metadata": {
+                  "pattern_type": "evasive_language",
+                  "pattern": "\\b(perhaps|maybe|possibly|might|could|seems like|appears to)\\b",
+                  "match_start": 11,
+                  "match_end": 16,
+                  "context": "Perhaps we might consider this proposal, but I'm not entirely sure"
+                }
+              },
+              {
+                "indicator_id": "12acb63a-d878-4d2b-8a53-065fd1be4b5f",
+                "indicator_type": "linguistic",
+                "domain": "general",
+                "confidence": 0.6,
+                "severity": "medium",
+                "description": "Linguistic deception pattern: inconsistent_pronouns",
+                "evidence": [
+                  "we might consider this proposal, but I"
+                ],
+                "source_text": "Perhaps we might consider this proposal, but I'm not entirely sure about the details.",
+                "timestamp": "2025-08-16T10:17:06.847758",
+                "art_of_war_technique": null,
+                "cultural_context": null,
+                "strategic_implications": null,
+                "metadata": {
+                  "pattern_type": "inconsistent_pronouns",
+                  "pattern": "\\b(we|our|us)\\b.*\\b(I|me|my)\\b",
+                  "match_start": 8,
+                  "match_end": 46,
+                  "context": "Perhaps we might consider this proposal, but I'm not entirely sure about the details."
+                }
+              }
+            ],
+            "confidence": 0.6,
+            "description": "Pattern of 3 linguistic indicators",
+            "first_detected": "2025-08-16T10:17:06.847677",
+            "last_detected": "2025-08-16T10:17:06.847758",
+            "frequency": 3,
+            "art_of_war_techniques": [],
+            "strategic_implications": [],
+            "recommendations": [],
+            "metadata": {}
+          }
+        ],
+        "art_of_war_techniques_detected": [],
+        "cultural_patterns_detected": [],
+        "strategic_implications": [],
+        "recommendations": [],
+        "early_warning_indicators": [],
+        "analysis_timestamp": "2025-08-16T10:17:06.849198",
+        "processing_time_ms": 6.883,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Comprehensive Analysis (general)",
+      "success": true,
+      "details": "Domain: general, Status: 200, Indicators: 0, Patterns: 0, Score: 0.00",
+      "timestamp": "2025-08-16T10:17:09.904190",
+      "response": {
+        "request_id": "e01ab075-59e3-4268-b3fc-2d3b8a83e492",
+        "domain": "general",
+        "overall_deception_score": 0.0,
+        "severity_level": "low",
+        "indicators_detected": 0,
+        "patterns_detected": 0,
+        "critical_alerts": 0,
+        "indicators": [],
+        "patterns": [],
+        "art_of_war_techniques_detected": [],
+        "cultural_patterns_detected": [],
+        "strategic_implications": [],
+        "recommendations": [],
+        "early_warning_indicators": [],
+        "analysis_timestamp": "2025-08-16T10:17:09.902882",
+        "processing_time_ms": 0.319,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Comprehensive Analysis (general)",
+      "success": true,
+      "details": "Domain: general, Status: 200, Indicators: 0, Patterns: 0, Score: 0.00",
+      "timestamp": "2025-08-16T10:17:12.954278",
+      "response": {
+        "request_id": "1fa4cf5d-6b52-486c-addf-ae440ffbdac7",
+        "domain": "general",
+        "overall_deception_score": 0.0,
+        "severity_level": "low",
+        "indicators_detected": 0,
+        "patterns_detected": 0,
+        "critical_alerts": 0,
+        "indicators": [],
+        "patterns": [],
+        "art_of_war_techniques_detected": [],
+        "cultural_patterns_detected": [],
+        "strategic_implications": [],
+        "recommendations": [],
+        "early_warning_indicators": [],
+        "analysis_timestamp": "2025-08-16T10:17:12.952201",
+        "processing_time_ms": 0.373,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Comprehensive Analysis (general)",
+      "success": true,
+      "details": "Domain: general, Status: 200, Indicators: 0, Patterns: 0, Score: 0.00",
+      "timestamp": "2025-08-16T10:17:16.005707",
+      "response": {
+        "request_id": "55f01b65-d516-4683-9d5d-9b01d1adc43e",
+        "domain": "general",
+        "overall_deception_score": 0.0,
+        "severity_level": "low",
+        "indicators_detected": 0,
+        "patterns_detected": 0,
+        "critical_alerts": 0,
+        "indicators": [],
+        "patterns": [],
+        "art_of_war_techniques_detected": [],
+        "cultural_patterns_detected": [],
+        "strategic_implications": [],
+        "recommendations": [],
+        "early_warning_indicators": [],
+        "analysis_timestamp": "2025-08-16T10:17:16.003244",
+        "processing_time_ms": 0.727,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Comprehensive Analysis (general)",
+      "success": true,
+      "details": "Domain: general, Status: 200, Indicators: 1, Patterns: 0, Score: 0.80",
+      "timestamp": "2025-08-16T10:17:19.056777",
+      "response": {
+        "request_id": "51102137-4051-4ebb-9fc4-7e18db04a520",
+        "domain": "general",
+        "overall_deception_score": 0.8,
+        "severity_level": "high",
+        "indicators_detected": 1,
+        "patterns_detected": 0,
+        "critical_alerts": 0,
+        "indicators": [
+          {
+            "indicator_id": "a1da0e2b-8f28-43de-8d22-9b647f4a8b68",
+            "indicator_type": "art_of_war",
+            "domain": "general",
+            "confidence": 0.8,
+            "severity": "high",
+            "description": "Art of War technique detected: Show nearness when far",
+            "evidence": [
+              "close to the situation and have full control, but actually we are far"
+            ],
+            "source_text": "We are very close to the situation and have full control, but actually we are far away.",
+            "timestamp": "2025-08-16T10:17:19.054928",
+            "art_of_war_technique": "show_nearness_when_far",
+            "cultural_context": null,
+            "strategic_implications": [
+              "Claims of close involvement or control",
+              "Public demonstrations of influence or presence",
+              "Overstated proximity or capabilities"
+            ],
+            "metadata": {
+              "technique_chinese": "\u9060\u800c\u793a\u4e4b\u8fd1",
+              "technique_translation": "Show nearness when far",
+              "pattern": "\\b(close|near|proximate)\\b.*\\b(while|but|however)\\b.*\\b(distant|far|remote)\\b",
+              "match_start": 12,
+              "match_end": 81,
+              "context": "We are very close to the situation and have full control, but actually we are far away."
+            }
+          }
+        ],
+        "patterns": [],
+        "art_of_war_techniques_detected": [
+          "show_nearness_when_far"
+        ],
+        "cultural_patterns_detected": [],
+        "strategic_implications": [
+          "Overstated proximity or capabilities",
+          "Public demonstrations of influence or presence",
+          "Claims of close involvement or control"
+        ],
+        "recommendations": [
+          "High-level deception detected - increase monitoring",
+          "Verify information through multiple sources",
+          "Prepare counter-narratives"
+        ],
+        "early_warning_indicators": [
+          "Art of War deception techniques detected: 1"
+        ],
+        "analysis_timestamp": "2025-08-16T10:17:19.055280",
+        "processing_time_ms": 0.588,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Comprehensive Analysis (general)",
+      "success": true,
+      "details": "Domain: general, Status: 200, Indicators: 1, Patterns: 0, Score: 0.80",
+      "timestamp": "2025-08-16T10:17:22.119724",
+      "response": {
+        "request_id": "ab74e84b-157f-4a26-9baf-d0716dcf50c9",
+        "domain": "general",
+        "overall_deception_score": 0.8,
+        "severity_level": "high",
+        "indicators_detected": 1,
+        "patterns_detected": 0,
+        "critical_alerts": 0,
+        "indicators": [
+          {
+            "indicator_id": "e9d7a815-a53f-4b9e-a9ea-7de1dfae9007",
+            "indicator_type": "art_of_war",
+            "domain": "general",
+            "confidence": 0.8,
+            "severity": "high",
+            "description": "Art of War technique detected: Lure with profit",
+            "evidence": [
+              "generous offer"
+            ],
+            "source_text": "This is an exceptionally generous offer that will benefit everyone greatly.",
+            "timestamp": "2025-08-16T10:17:22.117521",
+            "art_of_war_technique": "lure_with_profit",
+            "cultural_context": null,
+            "strategic_implications": [
+              "Overly generous offers or proposals",
+              "Economic incentives that seem too good to be true",
+              "Trade agreements with hidden conditions"
+            ],
+            "metadata": {
+              "technique_chinese": "\u5229\u800c\u8a98\u4e4b",
+              "technique_translation": "Lure with profit",
+              "pattern": "\\b(generous|beneficial|advantageous)\\b.*\\b(offer|proposal|agreement)\\b",
+              "match_start": 25,
+              "match_end": 39,
+              "context": "This is an exceptionally generous offer that will benefit everyone greatly."
+            }
+          }
+        ],
+        "patterns": [],
+        "art_of_war_techniques_detected": [
+          "lure_with_profit"
+        ],
+        "cultural_patterns_detected": [],
+        "strategic_implications": [
+          "Overly generous offers or proposals",
+          "Trade agreements with hidden conditions",
+          "Economic incentives that seem too good to be true"
+        ],
+        "recommendations": [
+          "High-level deception detected - increase monitoring",
+          "Verify information through multiple sources",
+          "Prepare counter-narratives"
+        ],
+        "early_warning_indicators": [
+          "Art of War deception techniques detected: 1"
+        ],
+        "analysis_timestamp": "2025-08-16T10:17:22.117848",
+        "processing_time_ms": 0.5109999999999999,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Comprehensive Analysis (general)",
+      "success": true,
+      "details": "Domain: general, Status: 200, Indicators: 0, Patterns: 0, Score: 0.00",
+      "timestamp": "2025-08-16T10:17:25.174718",
+      "response": {
+        "request_id": "247dea77-b787-4297-945c-727890fd9578",
+        "domain": "general",
+        "overall_deception_score": 0.0,
+        "severity_level": "low",
+        "indicators_detected": 0,
+        "patterns_detected": 0,
+        "critical_alerts": 0,
+        "indicators": [],
+        "patterns": [],
+        "art_of_war_techniques_detected": [],
+        "cultural_patterns_detected": [],
+        "strategic_implications": [],
+        "recommendations": [],
+        "early_warning_indicators": [],
+        "analysis_timestamp": "2025-08-16T10:17:25.173179",
+        "processing_time_ms": 0.29100000000000004,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Comprehensive Analysis (general)",
+      "success": true,
+      "details": "Domain: general, Status: 200, Indicators: 0, Patterns: 0, Score: 0.00",
+      "timestamp": "2025-08-16T10:17:28.224034",
+      "response": {
+        "request_id": "d3230e94-6f57-414f-9ae7-826467a92c0c",
+        "domain": "general",
+        "overall_deception_score": 0.0,
+        "severity_level": "low",
+        "indicators_detected": 0,
+        "patterns_detected": 0,
+        "critical_alerts": 0,
+        "indicators": [],
+        "patterns": [],
+        "art_of_war_techniques_detected": [],
+        "cultural_patterns_detected": [],
+        "strategic_implications": [],
+        "recommendations": [],
+        "early_warning_indicators": [],
+        "analysis_timestamp": "2025-08-16T10:17:28.222503",
+        "processing_time_ms": 0.34,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Comprehensive Analysis (general)",
+      "success": true,
+      "details": "Domain: general, Status: 200, Indicators: 1, Patterns: 0, Score: 0.80",
+      "timestamp": "2025-08-16T10:17:31.286827",
+      "response": {
+        "request_id": "42d2baf1-7bc7-4c33-b975-a3e4546b5ea0",
+        "domain": "general",
+        "overall_deception_score": 0.8,
+        "severity_level": "high",
+        "indicators_detected": 1,
+        "patterns_detected": 0,
+        "critical_alerts": 0,
+        "indicators": [
+          {
+            "indicator_id": "3776742a-e75e-4a14-a284-5768f11292f2",
+            "indicator_type": "art_of_war",
+            "domain": "general",
+            "confidence": 0.8,
+            "severity": "high",
+            "description": "Art of War technique detected: Attack unprepared, emerge unexpectedly",
+            "evidence": [
+              "sudden announcement"
+            ],
+            "source_text": "This is a sudden announcement that will catch everyone off guard.",
+            "timestamp": "2025-08-16T10:17:31.284446",
+            "art_of_war_technique": "attack_unprepared",
+            "cultural_context": null,
+            "strategic_implications": [
+              "Sudden policy announcements or changes",
+              "Unexpected diplomatic initiatives",
+              "Surprise demands or ultimatums"
+            ],
+            "metadata": {
+              "technique_chinese": "\u653b\u5176\u7121\u5099\uff0c\u51fa\u5176\u4e0d\u610f",
+              "technique_translation": "Attack unprepared, emerge unexpectedly",
+              "pattern": "\\b(sudden|unexpected|surprise)\\b.*\\b(announcement|change|initiative)\\b",
+              "match_start": 10,
+              "match_end": 29,
+              "context": "This is a sudden announcement that will catch everyone off guard."
+            }
+          }
+        ],
+        "patterns": [],
+        "art_of_war_techniques_detected": [
+          "attack_unprepared"
+        ],
+        "cultural_patterns_detected": [],
+        "strategic_implications": [
+          "Surprise demands or ultimatums",
+          "Sudden policy announcements or changes",
+          "Unexpected diplomatic initiatives"
+        ],
+        "recommendations": [
+          "High-level deception detected - increase monitoring",
+          "Verify information through multiple sources",
+          "Prepare counter-narratives"
+        ],
+        "early_warning_indicators": [
+          "Art of War deception techniques detected: 1"
+        ],
+        "analysis_timestamp": "2025-08-16T10:17:31.284638",
+        "processing_time_ms": 0.373,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Cultural Detection (chinese)",
+      "success": true,
+      "details": "Language: chinese, Status: 200, Indicators: 0, Cultural: 0",
+      "timestamp": "2025-08-16T10:17:34.356627",
+      "response": {
+        "request_id": "daa77162-1090-46fc-aca1-90a4b4e239a2",
+        "domain": "general",
+        "overall_deception_score": 0.0,
+        "severity_level": "low",
+        "indicators_detected": 0,
+        "patterns_detected": 0,
+        "critical_alerts": 0,
+        "indicators": [],
+        "patterns": [],
+        "art_of_war_techniques_detected": [],
+        "cultural_patterns_detected": [],
+        "strategic_implications": [],
+        "recommendations": [],
+        "early_warning_indicators": [],
+        "analysis_timestamp": "2025-08-16T10:17:34.354484",
+        "processing_time_ms": 1.219,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Cultural Detection (chinese)",
+      "success": true,
+      "details": "Language: chinese, Status: 200, Indicators: 0, Cultural: 0",
+      "timestamp": "2025-08-16T10:17:37.417468",
+      "response": {
+        "request_id": "e7b1eac3-dbdd-4f25-9f58-7044085104f6",
+        "domain": "general",
+        "overall_deception_score": 0.0,
+        "severity_level": "low",
+        "indicators_detected": 0,
+        "patterns_detected": 0,
+        "critical_alerts": 0,
+        "indicators": [],
+        "patterns": [],
+        "art_of_war_techniques_detected": [],
+        "cultural_patterns_detected": [],
+        "strategic_implications": [],
+        "recommendations": [],
+        "early_warning_indicators": [],
+        "analysis_timestamp": "2025-08-16T10:17:37.415825",
+        "processing_time_ms": 0.202,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Cultural Detection (russian)",
+      "success": true,
+      "details": "Language: russian, Status: 200, Indicators: 1, Cultural: 1",
+      "timestamp": "2025-08-16T10:17:40.473936",
+      "response": {
+        "request_id": "4be58176-d524-420e-ad42-a4f86769dae0",
+        "domain": "general",
+        "overall_deception_score": 0.7,
+        "severity_level": "high",
+        "indicators_detected": 1,
+        "patterns_detected": 0,
+        "critical_alerts": 0,
+        "indicators": [
+          {
+            "indicator_id": "4ccc44ad-8f25-448b-aa53-3bf326b52652",
+            "indicator_type": "cultural",
+            "domain": "general",
+            "confidence": 0.7,
+            "severity": "medium",
+            "description": "Cultural deception pattern in russian",
+            "evidence": [
+              "\u043f\u0440\u043e\u0433\u0440\u0435\u0441\u0441"
+            ],
+            "source_text": "\u041c\u044b \u0441\u0442\u0440\u0435\u043c\u0438\u043c\u0441\u044f \u043a \u0431\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u043e\u0441\u0442\u0438 \u0438 \u0441\u0442\u0430\u0431\u0438\u043b\u044c\u043d\u043e\u0441\u0442\u0438. \u0420\u0430\u0437\u0432\u0438\u0442\u0438\u0435 \u0438 \u043f\u0440\u043e\u0433\u0440\u0435\u0441\u0441 - \u043d\u0430\u0448\u0438 \u043e\u0431\u0449\u0438\u0435 \u0446\u0435\u043b\u0438.",
+            "timestamp": "2025-08-16T10:17:40.471009",
+            "art_of_war_technique": null,
+            "cultural_context": "russian",
+            "strategic_implications": [
+              "Excessive security rhetoric",
+              "Overemphasis on protection themes",
+              "Repetitive development claims",
+              "Vague stability assurances"
+            ],
+            "metadata": {
+              "language": "russian",
+              "pattern_type": "security_focus",
+              "pattern": "\\b(\u0440\u0430\u0437\u0432\u0438\u0442\u0438\u0435|\u043f\u0440\u043e\u0433\u0440\u0435\u0441\u0441|\u043c\u043e\u0434\u0435\u0440\u043d\u0438\u0437\u0430\u0446\u0438\u044f)\\b",
+              "match_start": 55,
+              "match_end": 63,
+              "context": "\u0440\u0435\u043c\u0438\u043c\u0441\u044f \u043a \u0431\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u043e\u0441\u0442\u0438 \u0438 \u0441\u0442\u0430\u0431\u0438\u043b\u044c\u043d\u043e\u0441\u0442\u0438. \u0420\u0430\u0437\u0432\u0438\u0442\u0438\u0435 \u0438 \u043f\u0440\u043e\u0433\u0440\u0435\u0441\u0441 - \u043d\u0430\u0448\u0438 \u043e\u0431\u0449\u0438\u0435 \u0446\u0435\u043b\u0438."
+            }
+          }
+        ],
+        "patterns": [],
+        "art_of_war_techniques_detected": [],
+        "cultural_patterns_detected": [
+          "russian"
+        ],
+        "strategic_implications": [
+          "Vague stability assurances",
+          "Excessive security rhetoric",
+          "Overemphasis on protection themes",
+          "Repetitive development claims"
+        ],
+        "recommendations": [
+          "High-level deception detected - increase monitoring",
+          "Verify information through multiple sources",
+          "Prepare counter-narratives"
+        ],
+        "early_warning_indicators": [
+          "Cultural deception patterns detected: 1"
+        ],
+        "analysis_timestamp": "2025-08-16T10:17:40.471428",
+        "processing_time_ms": 1.027,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Cultural Detection (russian)",
+      "success": true,
+      "details": "Language: russian, Status: 200, Indicators: 2, Cultural: 1",
+      "timestamp": "2025-08-16T10:17:43.526231",
+      "response": {
+        "request_id": "456ea466-3f4b-47ca-9ac0-de20a8b7f9ec",
+        "domain": "general",
+        "overall_deception_score": 0.7,
+        "severity_level": "high",
+        "indicators_detected": 2,
+        "patterns_detected": 1,
+        "critical_alerts": 0,
+        "indicators": [
+          {
+            "indicator_id": "51bbe047-15d3-4d59-98d5-72fa5125409c",
+            "indicator_type": "cultural",
+            "domain": "general",
+            "confidence": 0.7,
+            "severity": "medium",
+            "description": "Cultural deception pattern in russian",
+            "evidence": [
+              "\u043a\u0443\u043b\u044c\u0442\u0443\u0440\u0430"
+            ],
+            "source_text": "\u0422\u0440\u0430\u0434\u0438\u0446\u0438\u0438 \u0438 \u043a\u0443\u043b\u044c\u0442\u0443\u0440\u0430 \u043e\u0431\u044a\u0435\u0434\u0438\u043d\u044f\u044e\u0442 \u043d\u0430\u0441. \u0417\u0430\u0449\u0438\u0442\u0430 \u0438 \u043e\u0431\u043e\u0440\u043e\u043d\u0430 - \u043d\u0430\u0448 \u043f\u0440\u0438\u043e\u0440\u0438\u0442\u0435\u0442.",
+            "timestamp": "2025-08-16T10:17:43.522781",
+            "art_of_war_technique": null,
+            "cultural_context": "russian",
+            "strategic_implications": [
+              "Excessive security rhetoric",
+              "Overemphasis on protection themes",
+              "Repetitive development claims",
+              "Vague stability assurances"
+            ],
+            "metadata": {
+              "language": "russian",
+              "pattern_type": "security_focus",
+              "pattern": "\\b(\u0442\u0440\u0430\u0434\u0438\u0446\u0438\u044f|\u043a\u0443\u043b\u044c\u0442\u0443\u0440\u0430|\u0438\u0441\u0442\u043e\u0440\u0438\u044f)\\b",
+              "match_start": 11,
+              "match_end": 19,
+              "context": "\u0422\u0440\u0430\u0434\u0438\u0446\u0438\u0438 \u0438 \u043a\u0443\u043b\u044c\u0442\u0443\u0440\u0430 \u043e\u0431\u044a\u0435\u0434\u0438\u043d\u044f\u044e\u0442 \u043d\u0430\u0441. \u0417\u0430\u0449\u0438\u0442\u0430 \u0438 \u043e\u0431\u043e\u0440\u043e\u043d\u0430 - \u043d\u0430\u0448 \u043f\u0440\u0438\u043e\u0440\u0438\u0442\u0435\u0442."
+            }
+          },
+          {
+            "indicator_id": "f10b1b52-1159-4a76-8243-61a4bcd7a96c",
+            "indicator_type": "cultural",
+            "domain": "general",
+            "confidence": 0.7,
+            "severity": "medium",
+            "description": "Cultural deception pattern in russian",
+            "evidence": [
+              "\u043e\u0431\u043e\u0440\u043e\u043d\u0430"
+            ],
+            "source_text": "\u0422\u0440\u0430\u0434\u0438\u0446\u0438\u0438 \u0438 \u043a\u0443\u043b\u044c\u0442\u0443\u0440\u0430 \u043e\u0431\u044a\u0435\u0434\u0438\u043d\u044f\u044e\u0442 \u043d\u0430\u0441. \u0417\u0430\u0449\u0438\u0442\u0430 \u0438 \u043e\u0431\u043e\u0440\u043e\u043d\u0430 - \u043d\u0430\u0448 \u043f\u0440\u0438\u043e\u0440\u0438\u0442\u0435\u0442.",
+            "timestamp": "2025-08-16T10:17:43.522808",
+            "art_of_war_technique": null,
+            "cultural_context": "russian",
+            "strategic_implications": [
+              "Excessive security rhetoric",
+              "Overemphasis on protection themes",
+              "Repetitive development claims",
+              "Vague stability assurances"
+            ],
+            "metadata": {
+              "language": "russian",
+              "pattern_type": "security_focus",
+              "pattern": "\\b(\u0437\u0430\u0449\u0438\u0442\u0430|\u043e\u0431\u043e\u0440\u043e\u043d\u0430|\u0441\u0438\u043b\u0430)\\b",
+              "match_start": 45,
+              "match_end": 52,
+              "context": "\u0422\u0440\u0430\u0434\u0438\u0446\u0438\u0438 \u0438 \u043a\u0443\u043b\u044c\u0442\u0443\u0440\u0430 \u043e\u0431\u044a\u0435\u0434\u0438\u043d\u044f\u044e\u0442 \u043d\u0430\u0441. \u0417\u0430\u0449\u0438\u0442\u0430 \u0438 \u043e\u0431\u043e\u0440\u043e\u043d\u0430 - \u043d\u0430\u0448 \u043f\u0440\u0438\u043e\u0440\u0438\u0442\u0435\u0442."
+            }
+          }
+        ],
+        "patterns": [
+          {
+            "pattern_id": "26217a0b-628b-4885-8968-41547f66630a",
+            "pattern_type": "cultural_pattern",
+            "domain": "general",
+            "indicators": [
+              {
+                "indicator_id": "51bbe047-15d3-4d59-98d5-72fa5125409c",
+                "indicator_type": "cultural",
+                "domain": "general",
+                "confidence": 0.7,
+                "severity": "medium",
+                "description": "Cultural deception pattern in russian",
+                "evidence": [
+                  "\u043a\u0443\u043b\u044c\u0442\u0443\u0440\u0430"
+                ],
+                "source_text": "\u0422\u0440\u0430\u0434\u0438\u0446\u0438\u0438 \u0438 \u043a\u0443\u043b\u044c\u0442\u0443\u0440\u0430 \u043e\u0431\u044a\u0435\u0434\u0438\u043d\u044f\u044e\u0442 \u043d\u0430\u0441. \u0417\u0430\u0449\u0438\u0442\u0430 \u0438 \u043e\u0431\u043e\u0440\u043e\u043d\u0430 - \u043d\u0430\u0448 \u043f\u0440\u0438\u043e\u0440\u0438\u0442\u0435\u0442.",
+                "timestamp": "2025-08-16T10:17:43.522781",
+                "art_of_war_technique": null,
+                "cultural_context": "russian",
+                "strategic_implications": [
+                  "Excessive security rhetoric",
+                  "Overemphasis on protection themes",
+                  "Repetitive development claims",
+                  "Vague stability assurances"
+                ],
+                "metadata": {
+                  "language": "russian",
+                  "pattern_type": "security_focus",
+                  "pattern": "\\b(\u0442\u0440\u0430\u0434\u0438\u0446\u0438\u044f|\u043a\u0443\u043b\u044c\u0442\u0443\u0440\u0430|\u0438\u0441\u0442\u043e\u0440\u0438\u044f)\\b",
+                  "match_start": 11,
+                  "match_end": 19,
+                  "context": "\u0422\u0440\u0430\u0434\u0438\u0446\u0438\u0438 \u0438 \u043a\u0443\u043b\u044c\u0442\u0443\u0440\u0430 \u043e\u0431\u044a\u0435\u0434\u0438\u043d\u044f\u044e\u0442 \u043d\u0430\u0441. \u0417\u0430\u0449\u0438\u0442\u0430 \u0438 \u043e\u0431\u043e\u0440\u043e\u043d\u0430 - \u043d\u0430\u0448 \u043f\u0440\u0438\u043e\u0440\u0438\u0442\u0435\u0442."
+                }
+              },
+              {
+                "indicator_id": "f10b1b52-1159-4a76-8243-61a4bcd7a96c",
+                "indicator_type": "cultural",
+                "domain": "general",
+                "confidence": 0.7,
+                "severity": "medium",
+                "description": "Cultural deception pattern in russian",
+                "evidence": [
+                  "\u043e\u0431\u043e\u0440\u043e\u043d\u0430"
+                ],
+                "source_text": "\u0422\u0440\u0430\u0434\u0438\u0446\u0438\u0438 \u0438 \u043a\u0443\u043b\u044c\u0442\u0443\u0440\u0430 \u043e\u0431\u044a\u0435\u0434\u0438\u043d\u044f\u044e\u0442 \u043d\u0430\u0441. \u0417\u0430\u0449\u0438\u0442\u0430 \u0438 \u043e\u0431\u043e\u0440\u043e\u043d\u0430 - \u043d\u0430\u0448 \u043f\u0440\u0438\u043e\u0440\u0438\u0442\u0435\u0442.",
+                "timestamp": "2025-08-16T10:17:43.522808",
+                "art_of_war_technique": null,
+                "cultural_context": "russian",
+                "strategic_implications": [
+                  "Excessive security rhetoric",
+                  "Overemphasis on protection themes",
+                  "Repetitive development claims",
+                  "Vague stability assurances"
+                ],
+                "metadata": {
+                  "language": "russian",
+                  "pattern_type": "security_focus",
+                  "pattern": "\\b(\u0437\u0430\u0449\u0438\u0442\u0430|\u043e\u0431\u043e\u0440\u043e\u043d\u0430|\u0441\u0438\u043b\u0430)\\b",
+                  "match_start": 45,
+                  "match_end": 52,
+                  "context": "\u0422\u0440\u0430\u0434\u0438\u0446\u0438\u0438 \u0438 \u043a\u0443\u043b\u044c\u0442\u0443\u0440\u0430 \u043e\u0431\u044a\u0435\u0434\u0438\u043d\u044f\u044e\u0442 \u043d\u0430\u0441. \u0417\u0430\u0449\u0438\u0442\u0430 \u0438 \u043e\u0431\u043e\u0440\u043e\u043d\u0430 - \u043d\u0430\u0448 \u043f\u0440\u0438\u043e\u0440\u0438\u0442\u0435\u0442."
+                }
+              }
+            ],
+            "confidence": 0.7,
+            "description": "Pattern of 2 cultural indicators",
+            "first_detected": "2025-08-16T10:17:43.522781",
+            "last_detected": "2025-08-16T10:17:43.522808",
+            "frequency": 2,
+            "art_of_war_techniques": [],
+            "strategic_implications": [
+              "Vague stability assurances",
+              "Excessive security rhetoric",
+              "Overemphasis on protection themes",
+              "Repetitive development claims"
+            ],
+            "recommendations": [],
+            "metadata": {}
+          }
+        ],
+        "art_of_war_techniques_detected": [],
+        "cultural_patterns_detected": [
+          "russian"
+        ],
+        "strategic_implications": [
+          "Vague stability assurances",
+          "Excessive security rhetoric",
+          "Overemphasis on protection themes",
+          "Repetitive development claims"
+        ],
+        "recommendations": [
+          "High-level deception detected - increase monitoring",
+          "Verify information through multiple sources",
+          "Prepare counter-narratives"
+        ],
+        "early_warning_indicators": [
+          "Cultural deception patterns detected: 2"
+        ],
+        "analysis_timestamp": "2025-08-16T10:17:43.522991",
+        "processing_time_ms": 0.46,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Domain Analysis (defense)",
+      "success": true,
+      "details": "Domain: defense, Status: 200, Indicators: 0, Score: 0.00",
+      "timestamp": "2025-08-16T10:17:46.588798",
+      "response": {
+        "request_id": "c9a5c06d-b607-43f8-8025-36442b2de5c6",
+        "domain": "defense",
+        "overall_deception_score": 0.0,
+        "severity_level": "low",
+        "indicators_detected": 0,
+        "patterns_detected": 0,
+        "critical_alerts": 0,
+        "indicators": [],
+        "patterns": [],
+        "art_of_war_techniques_detected": [],
+        "cultural_patterns_detected": [],
+        "strategic_implications": [],
+        "recommendations": [
+          "Conduct capability verification",
+          "Review security posture"
+        ],
+        "early_warning_indicators": [
+          "Monitor for capability misrepresentation"
+        ],
+        "analysis_timestamp": "2025-08-16T10:17:46.587163",
+        "processing_time_ms": 1.236,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Domain Analysis (defense)",
+      "success": true,
+      "details": "Domain: defense, Status: 200, Indicators: 1, Score: 0.75",
+      "timestamp": "2025-08-16T10:17:49.638050",
+      "response": {
+        "request_id": "2f2d22a1-fb9f-48b7-bc78-e753adb69364",
+        "domain": "defense",
+        "overall_deception_score": 0.75,
+        "severity_level": "high",
+        "indicators_detected": 1,
+        "patterns_detected": 0,
+        "critical_alerts": 0,
+        "indicators": [
+          {
+            "indicator_id": "fb14e213-5478-4f00-85d6-0957fab81d1a",
+            "indicator_type": "strategic",
+            "domain": "defense",
+            "confidence": 0.75,
+            "severity": "high",
+            "description": "Domain-specific deception pattern: capability_misrepresentation",
+            "evidence": [
+              "defensive and peaceful, but we have aggressive"
+            ],
+            "source_text": "Our posture is purely defensive and peaceful, but we have aggressive capabilities.",
+            "timestamp": "2025-08-16T10:17:49.637028",
+            "art_of_war_technique": null,
+            "cultural_context": null,
+            "strategic_implications": [
+              "Downplaying military capabilities",
+              "Emphasizing defensive posture while maintaining offensive capabilities",
+              "Public disarmament while secret rearmament"
+            ],
+            "metadata": {
+              "domain": "defense",
+              "pattern_type": "capability_misrepresentation",
+              "pattern": "\\b(peaceful|defensive|non-threatening)\\b.*\\b(while|but)\\b.*\\b(aggressive|offensive)\\b",
+              "match_start": 22,
+              "match_end": 68,
+              "context": "Our posture is purely defensive and peaceful, but we have aggressive capabilities."
+            }
+          }
+        ],
+        "patterns": [],
+        "art_of_war_techniques_detected": [],
+        "cultural_patterns_detected": [],
+        "strategic_implications": [
+          "Public disarmament while secret rearmament",
+          "Downplaying military capabilities",
+          "Emphasizing defensive posture while maintaining offensive capabilities"
+        ],
+        "recommendations": [
+          "High-level deception detected - increase monitoring",
+          "Verify information through multiple sources",
+          "Prepare counter-narratives",
+          "Conduct capability verification",
+          "Review security posture"
+        ],
+        "early_warning_indicators": [
+          "Strategic deception patterns detected: 1",
+          "Monitor for capability misrepresentation"
+        ],
+        "analysis_timestamp": "2025-08-16T10:17:49.637148",
+        "processing_time_ms": 0.27999999999999997,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Domain Analysis (intelligence)",
+      "success": true,
+      "details": "Domain: intelligence, Status: 200, Indicators: 1, Score: 0.75",
+      "timestamp": "2025-08-16T10:17:52.713985",
+      "response": {
+        "request_id": "fa4dbc22-6c62-4a70-8d35-6c858073e649",
+        "domain": "intelligence",
+        "overall_deception_score": 0.75,
+        "severity_level": "high",
+        "indicators_detected": 1,
+        "patterns_detected": 0,
+        "critical_alerts": 0,
+        "indicators": [
+          {
+            "indicator_id": "a35cf6d1-bd2f-4eff-b64a-f8c06171d248",
+            "indicator_type": "strategic",
+            "domain": "intelligence",
+            "confidence": 0.75,
+            "severity": "high",
+            "description": "Domain-specific deception pattern: information_manipulation",
+            "evidence": [
+              "transparent and open, but we maintain classified"
+            ],
+            "source_text": "We are completely transparent and open, but we maintain classified operations.",
+            "timestamp": "2025-08-16T10:17:52.710450",
+            "art_of_war_technique": null,
+            "cultural_context": null,
+            "strategic_implications": [
+              "Claims of transparency while maintaining secrecy",
+              "Selective information sharing",
+              "Public disclosure of misleading information"
+            ],
+            "metadata": {
+              "domain": "intelligence",
+              "pattern_type": "information_manipulation",
+              "pattern": "\\b(transparent|open|honest)\\b.*\\b(while|but)\\b.*\\b(secret|classified|hidden)\\b",
+              "match_start": 18,
+              "match_end": 66,
+              "context": "We are completely transparent and open, but we maintain classified operations."
+            }
+          }
+        ],
+        "patterns": [],
+        "art_of_war_techniques_detected": [],
+        "cultural_patterns_detected": [],
+        "strategic_implications": [
+          "Public disclosure of misleading information",
+          "Selective information sharing",
+          "Claims of transparency while maintaining secrecy"
+        ],
+        "recommendations": [
+          "High-level deception detected - increase monitoring",
+          "Verify information through multiple sources",
+          "Prepare counter-narratives",
+          "Cross-reference with intelligence sources",
+          "Verify through HUMINT networks"
+        ],
+        "early_warning_indicators": [
+          "Strategic deception patterns detected: 1",
+          "Monitor for information manipulation"
+        ],
+        "analysis_timestamp": "2025-08-16T10:17:52.711479",
+        "processing_time_ms": 1.678,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Domain Analysis (intelligence)",
+      "success": true,
+      "details": "Domain: intelligence, Status: 200, Indicators: 1, Score: 0.75",
+      "timestamp": "2025-08-16T10:17:55.783666",
+      "response": {
+        "request_id": "c0a791db-cb1e-45f2-974f-94d0ff490f0e",
+        "domain": "intelligence",
+        "overall_deception_score": 0.75,
+        "severity_level": "high",
+        "indicators_detected": 1,
+        "patterns_detected": 0,
+        "critical_alerts": 0,
+        "indicators": [
+          {
+            "indicator_id": "46faa928-d095-4a8e-84a2-fc5914eb8367",
+            "indicator_type": "strategic",
+            "domain": "intelligence",
+            "confidence": 0.75,
+            "severity": "high",
+            "description": "Domain-specific deception pattern: information_manipulation",
+            "evidence": [
+              "share all information, but we conceal"
+            ],
+            "source_text": "We share all information, but we conceal sensitive data.",
+            "timestamp": "2025-08-16T10:17:55.781986",
+            "art_of_war_technique": null,
+            "cultural_context": null,
+            "strategic_implications": [
+              "Claims of transparency while maintaining secrecy",
+              "Selective information sharing",
+              "Public disclosure of misleading information"
+            ],
+            "metadata": {
+              "domain": "intelligence",
+              "pattern_type": "information_manipulation",
+              "pattern": "\\b(share|disclose|reveal)\\b.*\\b(while|but)\\b.*\\b(conceal|withhold|hide)\\b",
+              "match_start": 3,
+              "match_end": 40,
+              "context": "We share all information, but we conceal sensitive data."
+            }
+          }
+        ],
+        "patterns": [],
+        "art_of_war_techniques_detected": [],
+        "cultural_patterns_detected": [],
+        "strategic_implications": [
+          "Public disclosure of misleading information",
+          "Selective information sharing",
+          "Claims of transparency while maintaining secrecy"
+        ],
+        "recommendations": [
+          "High-level deception detected - increase monitoring",
+          "Verify information through multiple sources",
+          "Prepare counter-narratives",
+          "Cross-reference with intelligence sources",
+          "Verify through HUMINT networks"
+        ],
+        "early_warning_indicators": [
+          "Strategic deception patterns detected: 1",
+          "Monitor for information manipulation"
+        ],
+        "analysis_timestamp": "2025-08-16T10:17:55.782155",
+        "processing_time_ms": 0.348,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Domain Analysis (business)",
+      "success": true,
+      "details": "Domain: business, Status: 200, Indicators: 1, Score: 0.75",
+      "timestamp": "2025-08-16T10:17:58.840531",
+      "response": {
+        "request_id": "2ffdc118-9db4-4336-8219-9c7f2690a082",
+        "domain": "business",
+        "overall_deception_score": 0.75,
+        "severity_level": "high",
+        "indicators_detected": 1,
+        "patterns_detected": 0,
+        "critical_alerts": 0,
+        "indicators": [
+          {
+            "indicator_id": "ffcbf0e9-14f2-44d3-b267-533bf194abcd",
+            "indicator_type": "strategic",
+            "domain": "business",
+            "confidence": 0.75,
+            "severity": "high",
+            "description": "Domain-specific deception pattern: financial_misrepresentation",
+            "evidence": [
+              "profitable and growing, but we have significant losses"
+            ],
+            "source_text": "Our company is highly profitable and growing, but we have significant losses.",
+            "timestamp": "2025-08-16T10:17:58.837587",
+            "art_of_war_technique": null,
+            "cultural_context": null,
+            "strategic_implications": [
+              "Overstating financial performance",
+              "Concealing business problems",
+              "Misrepresenting market position"
+            ],
+            "metadata": {
+              "domain": "business",
+              "pattern_type": "financial_misrepresentation",
+              "pattern": "\\b(profitable|successful|growing)\\b.*\\b(while|but)\\b.*\\b(losses|decline|problems)\\b",
+              "match_start": 22,
+              "match_end": 76,
+              "context": "Our company is highly profitable and growing, but we have significant losses."
+            }
+          }
+        ],
+        "patterns": [],
+        "art_of_war_techniques_detected": [],
+        "cultural_patterns_detected": [],
+        "strategic_implications": [
+          "Misrepresenting market position",
+          "Concealing business problems",
+          "Overstating financial performance"
+        ],
+        "recommendations": [
+          "High-level deception detected - increase monitoring",
+          "Verify information through multiple sources",
+          "Prepare counter-narratives",
+          "Conduct due diligence verification",
+          "Review financial statements"
+        ],
+        "early_warning_indicators": [
+          "Strategic deception patterns detected: 1",
+          "Monitor for financial misrepresentation"
+        ],
+        "analysis_timestamp": "2025-08-16T10:17:58.838147",
+        "processing_time_ms": 1.492,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Domain Analysis (business)",
+      "success": true,
+      "details": "Domain: business, Status: 200, Indicators: 0, Score: 0.00",
+      "timestamp": "2025-08-16T10:18:01.903907",
+      "response": {
+        "request_id": "625ea521-69d5-4c91-9010-a7b07a9bf36b",
+        "domain": "business",
+        "overall_deception_score": 0.0,
+        "severity_level": "low",
+        "indicators_detected": 0,
+        "patterns_detected": 0,
+        "critical_alerts": 0,
+        "indicators": [],
+        "patterns": [],
+        "art_of_war_techniques_detected": [],
+        "cultural_patterns_detected": [],
+        "strategic_implications": [],
+        "recommendations": [
+          "Conduct due diligence verification",
+          "Review financial statements"
+        ],
+        "early_warning_indicators": [
+          "Monitor for financial misrepresentation"
+        ],
+        "analysis_timestamp": "2025-08-16T10:18:01.902162",
+        "processing_time_ms": 0.22699999999999998,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Domain Analysis (cybersecurity)",
+      "success": true,
+      "details": "Domain: cybersecurity, Status: 200, Indicators: 0, Score: 0.00",
+      "timestamp": "2025-08-16T10:18:04.989375",
+      "response": {
+        "request_id": "d80691e2-4fbb-4699-8b4f-05ef445e4389",
+        "domain": "cybersecurity",
+        "overall_deception_score": 0.0,
+        "severity_level": "low",
+        "indicators_detected": 0,
+        "patterns_detected": 0,
+        "critical_alerts": 0,
+        "indicators": [],
+        "patterns": [],
+        "art_of_war_techniques_detected": [],
+        "cultural_patterns_detected": [],
+        "strategic_implications": [],
+        "recommendations": [
+          "Conduct security audit",
+          "Review threat intelligence"
+        ],
+        "early_warning_indicators": [
+          "Monitor for threat misrepresentation"
+        ],
+        "analysis_timestamp": "2025-08-16T10:18:04.984972",
+        "processing_time_ms": 2.604,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Domain Analysis (cybersecurity)",
+      "success": true,
+      "details": "Domain: cybersecurity, Status: 200, Indicators: 0, Score: 0.00",
+      "timestamp": "2025-08-16T10:18:08.060014",
+      "response": {
+        "request_id": "a4d5fbfe-2c3f-4cba-a3da-b605599470d8",
+        "domain": "cybersecurity",
+        "overall_deception_score": 0.0,
+        "severity_level": "low",
+        "indicators_detected": 0,
+        "patterns_detected": 0,
+        "critical_alerts": 0,
+        "indicators": [],
+        "patterns": [],
+        "art_of_war_techniques_detected": [],
+        "cultural_patterns_detected": [],
+        "strategic_implications": [],
+        "recommendations": [
+          "Conduct security audit",
+          "Review threat intelligence"
+        ],
+        "early_warning_indicators": [
+          "Monitor for threat misrepresentation"
+        ],
+        "analysis_timestamp": "2025-08-16T10:18:08.056405",
+        "processing_time_ms": 0.549,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Domain Analysis (geopolitical)",
+      "success": true,
+      "details": "Domain: geopolitical, Status: 200, Indicators: 0, Score: 0.00",
+      "timestamp": "2025-08-16T10:18:11.121176",
+      "response": {
+        "request_id": "49a8175d-68a0-44d9-9c8a-a955f9a1fdb0",
+        "domain": "geopolitical",
+        "overall_deception_score": 0.0,
+        "severity_level": "low",
+        "indicators_detected": 0,
+        "patterns_detected": 0,
+        "critical_alerts": 0,
+        "indicators": [],
+        "patterns": [],
+        "art_of_war_techniques_detected": [],
+        "cultural_patterns_detected": [],
+        "strategic_implications": [],
+        "recommendations": [
+          "Monitor diplomatic communications",
+          "Review international relations"
+        ],
+        "early_warning_indicators": [
+          "Monitor for intention misrepresentation"
+        ],
+        "analysis_timestamp": "2025-08-16T10:18:11.118329",
+        "processing_time_ms": 0.825,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Domain Analysis (geopolitical)",
+      "success": true,
+      "details": "Domain: geopolitical, Status: 200, Indicators: 0, Score: 0.00",
+      "timestamp": "2025-08-16T10:18:14.193078",
+      "response": {
+        "request_id": "c507bca6-9cfe-4459-af24-16b6cb661215",
+        "domain": "geopolitical",
+        "overall_deception_score": 0.0,
+        "severity_level": "low",
+        "indicators_detected": 0,
+        "patterns_detected": 0,
+        "critical_alerts": 0,
+        "indicators": [],
+        "patterns": [],
+        "art_of_war_techniques_detected": [],
+        "cultural_patterns_detected": [],
+        "strategic_implications": [],
+        "recommendations": [
+          "Monitor diplomatic communications",
+          "Review international relations"
+        ],
+        "early_warning_indicators": [
+          "Monitor for intention misrepresentation"
+        ],
+        "analysis_timestamp": "2025-08-16T10:18:14.190750",
+        "processing_time_ms": 0.386,
+        "metadata": {}
+      }
+    },
+    {
+      "test_name": "Batch Analysis",
+      "success": true,
+      "details": "Status: 200, Total: 3, Processed: 3, Failed: 0",
+      "timestamp": "2025-08-16T10:18:17.252397",
+      "response": {
+        "batch_id": "f5c305a5-065f-47f0-9f7b-a2df900c4ea6",
+        "total_requests": 3,
+        "processed_requests": 3,
+        "failed_requests": 0,
+        "results": [
+          {
+            "request_id": "496705ad-9f69-4449-878e-7e56db657f2d",
+            "domain": "general",
+            "overall_deception_score": 0.6,
+            "severity_level": "medium",
+            "indicators_detected": 3,
+            "patterns_detected": 1,
+            "critical_alerts": 0,
+            "indicators": [
+              {
+                "indicator_id": "e9633e9f-559f-4bbf-a8cd-8991be399a6e",
+                "indicator_type": "linguistic",
+                "domain": "general",
+                "confidence": 0.6,
+                "severity": "medium",
+                "description": "Linguistic deception pattern: evasive_language",
+                "evidence": [
+                  "Perhaps"
+                ],
+                "source_text": "Perhaps we might consider this proposal, but I'm not entirely sure about the details.",
+                "timestamp": "2025-08-16T10:18:17.248941",
+                "art_of_war_technique": null,
+                "cultural_context": null,
+                "strategic_implications": null,
+                "metadata": {
+                  "pattern_type": "evasive_language",
+                  "pattern": "\\b(perhaps|maybe|possibly|might|could|seems like|appears to)\\b",
+                  "match_start": 0,
+                  "match_end": 7,
+                  "context": "Perhaps we might consider this proposal, but I'm not enti"
+                }
+              },
+              {
+                "indicator_id": "7afaf0eb-2caa-4757-8744-6ad9447d66ff",
+                "indicator_type": "linguistic",
+                "domain": "general",
+                "confidence": 0.6,
+                "severity": "medium",
+                "description": "Linguistic deception pattern: evasive_language",
+                "evidence": [
+                  "might"
+                ],
+                "source_text": "Perhaps we might consider this proposal, but I'm not entirely sure about the details.",
+                "timestamp": "2025-08-16T10:18:17.248953",
+                "art_of_war_technique": null,
+                "cultural_context": null,
+                "strategic_implications": null,
+                "metadata": {
+                  "pattern_type": "evasive_language",
+                  "pattern": "\\b(perhaps|maybe|possibly|might|could|seems like|appears to)\\b",
+                  "match_start": 11,
+                  "match_end": 16,
+                  "context": "Perhaps we might consider this proposal, but I'm not entirely sure"
+                }
+              },
+              {
+                "indicator_id": "ec2f8e8f-e17c-4973-80b3-db77252a6179",
+                "indicator_type": "linguistic",
+                "domain": "general",
+                "confidence": 0.6,
+                "severity": "medium",
+                "description": "Linguistic deception pattern: inconsistent_pronouns",
+                "evidence": [
+                  "we might consider this proposal, but I"
+                ],
+                "source_text": "Perhaps we might consider this proposal, but I'm not entirely sure about the details.",
+                "timestamp": "2025-08-16T10:18:17.248988",
+                "art_of_war_technique": null,
+                "cultural_context": null,
+                "strategic_implications": null,
+                "metadata": {
+                  "pattern_type": "inconsistent_pronouns",
+                  "pattern": "\\b(we|our|us)\\b.*\\b(I|me|my)\\b",
+                  "match_start": 8,
+                  "match_end": 46,
+                  "context": "Perhaps we might consider this proposal, but I'm not entirely sure about the details."
+                }
+              }
+            ],
+            "patterns": [
+              {
+                "pattern_id": "dc370fa1-5cb4-4a97-8a5b-5223fa01c39f",
+                "pattern_type": "linguistic_pattern",
+                "domain": "general",
+                "indicators": [
+                  {
+                    "indicator_id": "e9633e9f-559f-4bbf-a8cd-8991be399a6e",
+                    "indicator_type": "linguistic",
+                    "domain": "general",
+                    "confidence": 0.6,
+                    "severity": "medium",
+                    "description": "Linguistic deception pattern: evasive_language",
+                    "evidence": [
+                      "Perhaps"
+                    ],
+                    "source_text": "Perhaps we might consider this proposal, but I'm not entirely sure about the details.",
+                    "timestamp": "2025-08-16T10:18:17.248941",
+                    "art_of_war_technique": null,
+                    "cultural_context": null,
+                    "strategic_implications": null,
+                    "metadata": {
+                      "pattern_type": "evasive_language",
+                      "pattern": "\\b(perhaps|maybe|possibly|might|could|seems like|appears to)\\b",
+                      "match_start": 0,
+                      "match_end": 7,
+                      "context": "Perhaps we might consider this proposal, but I'm not enti"
+                    }
+                  },
+                  {
+                    "indicator_id": "7afaf0eb-2caa-4757-8744-6ad9447d66ff",
+                    "indicator_type": "linguistic",
+                    "domain": "general",
+                    "confidence": 0.6,
+                    "severity": "medium",
+                    "description": "Linguistic deception pattern: evasive_language",
+                    "evidence": [
+                      "might"
+                    ],
+                    "source_text": "Perhaps we might consider this proposal, but I'm not entirely sure about the details.",
+                    "timestamp": "2025-08-16T10:18:17.248953",
+                    "art_of_war_technique": null,
+                    "cultural_context": null,
+                    "strategic_implications": null,
+                    "metadata": {
+                      "pattern_type": "evasive_language",
+                      "pattern": "\\b(perhaps|maybe|possibly|might|could|seems like|appears to)\\b",
+                      "match_start": 11,
+                      "match_end": 16,
+                      "context": "Perhaps we might consider this proposal, but I'm not entirely sure"
+                    }
+                  },
+                  {
+                    "indicator_id": "ec2f8e8f-e17c-4973-80b3-db77252a6179",
+                    "indicator_type": "linguistic",
+                    "domain": "general",
+                    "confidence": 0.6,
+                    "severity": "medium",
+                    "description": "Linguistic deception pattern: inconsistent_pronouns",
+                    "evidence": [
+                      "we might consider this proposal, but I"
+                    ],
+                    "source_text": "Perhaps we might consider this proposal, but I'm not entirely sure about the details.",
+                    "timestamp": "2025-08-16T10:18:17.248988",
+                    "art_of_war_technique": null,
+                    "cultural_context": null,
+                    "strategic_implications": null,
+                    "metadata": {
+                      "pattern_type": "inconsistent_pronouns",
+                      "pattern": "\\b(we|our|us)\\b.*\\b(I|me|my)\\b",
+                      "match_start": 8,
+                      "match_end": 46,
+                      "context": "Perhaps we might consider this proposal, but I'm not entirely sure about the details."
+                    }
+                  }
+                ],
+                "confidence": 0.6,
+                "description": "Pattern of 3 linguistic indicators",
+                "first_detected": "2025-08-16T10:18:17.248941",
+                "last_detected": "2025-08-16T10:18:17.248988",
+                "frequency": 3,
+                "art_of_war_techniques": [],
+                "strategic_implications": [],
+                "recommendations": [],
+                "metadata": {}
+              }
+            ],
+            "art_of_war_techniques_detected": [],
+            "cultural_patterns_detected": [],
+            "strategic_implications": [],
+            "recommendations": [],
+            "early_warning_indicators": [],
+            "analysis_timestamp": "2025-08-16T10:18:17.249096",
+            "processing_time_ms": 0.296,
+            "metadata": {}
+          },
+          {
+            "request_id": "c9cfe17a-46db-4b88-aa87-2bd8ffdfece0",
+            "domain": "general",
+            "overall_deception_score": 0.6,
+            "severity_level": "medium",
+            "indicators_detected": 2,
+            "patterns_detected": 1,
+            "critical_alerts": 0,
+            "indicators": [
+              {
+                "indicator_id": "d8f75d37-457e-4b63-9529-6d40e16da267",
+                "indicator_type": "linguistic",
+                "domain": "general",
+                "confidence": 0.6,
+                "severity": "medium",
+                "description": "Linguistic deception pattern: overqualification",
+                "evidence": [
+                  "To be honest"
+                ],
+                "source_text": "To be honest, this is completely true and you can trust me.",
+                "timestamp": "2025-08-16T10:18:17.249328",
+                "art_of_war_technique": null,
+                "cultural_context": null,
+                "strategic_implications": null,
+                "metadata": {
+                  "pattern_type": "overqualification",
+                  "pattern": "\\b(to be honest|frankly|truthfully|honestly)\\b",
+                  "match_start": 0,
+                  "match_end": 12,
+                  "context": "To be honest, this is completely true and you can trust me."
+                }
+              },
+              {
+                "indicator_id": "a7f49a7c-c3bb-4b39-a2bc-a036d6e01d71",
+                "indicator_type": "linguistic",
+                "domain": "general",
+                "confidence": 0.6,
+                "severity": "medium",
+                "description": "Linguistic deception pattern: overqualification",
+                "evidence": [
+                  "you can trust me"
+                ],
+                "source_text": "To be honest, this is completely true and you can trust me.",
+                "timestamp": "2025-08-16T10:18:17.249344",
+                "art_of_war_technique": null,
+                "cultural_context": null,
+                "strategic_implications": null,
+                "metadata": {
+                  "pattern_type": "overqualification",
+                  "pattern": "\\b(believe me|trust me|you can trust me)\\b",
+                  "match_start": 42,
+                  "match_end": 58,
+                  "context": "To be honest, this is completely true and you can trust me."
+                }
+              }
+            ],
+            "patterns": [
+              {
+                "pattern_id": "064f82c5-5981-4bec-841b-512a87cec9a0",
+                "pattern_type": "linguistic_pattern",
+                "domain": "general",
+                "indicators": [
+                  {
+                    "indicator_id": "d8f75d37-457e-4b63-9529-6d40e16da267",
+                    "indicator_type": "linguistic",
+                    "domain": "general",
+                    "confidence": 0.6,
+                    "severity": "medium",
+                    "description": "Linguistic deception pattern: overqualification",
+                    "evidence": [
+                      "To be honest"
+                    ],
+                    "source_text": "To be honest, this is completely true and you can trust me.",
+                    "timestamp": "2025-08-16T10:18:17.249328",
+                    "art_of_war_technique": null,
+                    "cultural_context": null,
+                    "strategic_implications": null,
+                    "metadata": {
+                      "pattern_type": "overqualification",
+                      "pattern": "\\b(to be honest|frankly|truthfully|honestly)\\b",
+                      "match_start": 0,
+                      "match_end": 12,
+                      "context": "To be honest, this is completely true and you can trust me."
+                    }
+                  },
+                  {
+                    "indicator_id": "a7f49a7c-c3bb-4b39-a2bc-a036d6e01d71",
+                    "indicator_type": "linguistic",
+                    "domain": "general",
+                    "confidence": 0.6,
+                    "severity": "medium",
+                    "description": "Linguistic deception pattern: overqualification",
+                    "evidence": [
+                      "you can trust me"
+                    ],
+                    "source_text": "To be honest, this is completely true and you can trust me.",
+                    "timestamp": "2025-08-16T10:18:17.249344",
+                    "art_of_war_technique": null,
+                    "cultural_context": null,
+                    "strategic_implications": null,
+                    "metadata": {
+                      "pattern_type": "overqualification",
+                      "pattern": "\\b(believe me|trust me|you can trust me)\\b",
+                      "match_start": 42,
+                      "match_end": 58,
+                      "context": "To be honest, this is completely true and you can trust me."
+                    }
+                  }
+                ],
+                "confidence": 0.6,
+                "description": "Pattern of 2 linguistic indicators",
+                "first_detected": "2025-08-16T10:18:17.249328",
+                "last_detected": "2025-08-16T10:18:17.249344",
+                "frequency": 2,
+                "art_of_war_techniques": [],
+                "strategic_implications": [],
+                "recommendations": [],
+                "metadata": {}
+              }
+            ],
+            "art_of_war_techniques_detected": [],
+            "cultural_patterns_detected": [],
+            "strategic_implications": [],
+            "recommendations": [],
+            "early_warning_indicators": [],
+            "analysis_timestamp": "2025-08-16T10:18:17.249422",
+            "processing_time_ms": 0.21800000000000003,
+            "metadata": {}
+          },
+          {
+            "request_id": "17be98fa-18ae-4057-962c-a30b7a797b5b",
+            "domain": "general",
+            "overall_deception_score": 0.7,
+            "severity_level": "high",
+            "indicators_detected": 2,
+            "patterns_detected": 1,
+            "critical_alerts": 0,
+            "indicators": [
+              {
+                "indicator_id": "37e10d35-7ec6-4166-be9a-e8d29705545b",
+                "indicator_type": "strategic",
+                "domain": "general",
+                "confidence": 0.7,
+                "severity": "high",
+                "description": "Strategic deception pattern: authority_appeal",
+                "evidence": [
+                  "Experts say"
+                ],
+                "source_text": "Experts say this is the best approach and everyone knows it's right.",
+                "timestamp": "2025-08-16T10:18:17.249687",
+                "art_of_war_technique": null,
+                "cultural_context": null,
+                "strategic_implications": null,
+                "metadata": {
+                  "pattern_type": "authority_appeal",
+                  "pattern": "\\b(experts say|studies show|research indicates)\\b",
+                  "match_start": 0,
+                  "match_end": 11,
+                  "context": "Experts say this is the best approach and everyone knows it's"
+                }
+              },
+              {
+                "indicator_id": "0ab8d69c-6736-402f-a517-61992167ae42",
+                "indicator_type": "strategic",
+                "domain": "general",
+                "confidence": 0.7,
+                "severity": "high",
+                "description": "Strategic deception pattern: consensus_fallacy",
+                "evidence": [
+                  "everyone knows"
+                ],
+                "source_text": "Experts say this is the best approach and everyone knows it's right.",
+                "timestamp": "2025-08-16T10:18:17.249710",
+                "art_of_war_technique": null,
+                "cultural_context": null,
+                "strategic_implications": null,
+                "metadata": {
+                  "pattern_type": "consensus_fallacy",
+                  "pattern": "\\b(everyone knows|nobody believes|all agree)\\b",
+                  "match_start": 42,
+                  "match_end": 56,
+                  "context": "Experts say this is the best approach and everyone knows it's right."
+                }
+              }
+            ],
+            "patterns": [
+              {
+                "pattern_id": "65582256-07f1-428a-8f7c-38b47a4f61a2",
+                "pattern_type": "strategic_pattern",
+                "domain": "general",
+                "indicators": [
+                  {
+                    "indicator_id": "37e10d35-7ec6-4166-be9a-e8d29705545b",
+                    "indicator_type": "strategic",
+                    "domain": "general",
+                    "confidence": 0.7,
+                    "severity": "high",
+                    "description": "Strategic deception pattern: authority_appeal",
+                    "evidence": [
+                      "Experts say"
+                    ],
+                    "source_text": "Experts say this is the best approach and everyone knows it's right.",
+                    "timestamp": "2025-08-16T10:18:17.249687",
+                    "art_of_war_technique": null,
+                    "cultural_context": null,
+                    "strategic_implications": null,
+                    "metadata": {
+                      "pattern_type": "authority_appeal",
+                      "pattern": "\\b(experts say|studies show|research indicates)\\b",
+                      "match_start": 0,
+                      "match_end": 11,
+                      "context": "Experts say this is the best approach and everyone knows it's"
+                    }
+                  },
+                  {
+                    "indicator_id": "0ab8d69c-6736-402f-a517-61992167ae42",
+                    "indicator_type": "strategic",
+                    "domain": "general",
+                    "confidence": 0.7,
+                    "severity": "high",
+                    "description": "Strategic deception pattern: consensus_fallacy",
+                    "evidence": [
+                      "everyone knows"
+                    ],
+                    "source_text": "Experts say this is the best approach and everyone knows it's right.",
+                    "timestamp": "2025-08-16T10:18:17.249710",
+                    "art_of_war_technique": null,
+                    "cultural_context": null,
+                    "strategic_implications": null,
+                    "metadata": {
+                      "pattern_type": "consensus_fallacy",
+                      "pattern": "\\b(everyone knows|nobody believes|all agree)\\b",
+                      "match_start": 42,
+                      "match_end": 56,
+                      "context": "Experts say this is the best approach and everyone knows it's right."
+                    }
+                  }
+                ],
+                "confidence": 0.7,
+                "description": "Pattern of 2 strategic indicators",
+                "first_detected": "2025-08-16T10:18:17.249687",
+                "last_detected": "2025-08-16T10:18:17.249710",
+                "frequency": 2,
+                "art_of_war_techniques": [],
+                "strategic_implications": [],
+                "recommendations": [],
+                "metadata": {}
+              }
+            ],
+            "art_of_war_techniques_detected": [],
+            "cultural_patterns_detected": [],
+            "strategic_implications": [],
+            "recommendations": [
+              "High-level deception detected - increase monitoring",
+              "Verify information through multiple sources",
+              "Prepare counter-narratives"
+            ],
+            "early_warning_indicators": [
+              "Strategic deception patterns detected: 2"
+            ],
+            "analysis_timestamp": "2025-08-16T10:18:17.249750",
+            "processing_time_ms": 0.23299999999999998,
+            "metadata": {}
+          }
+        ],
+        "overall_statistics": {
+          "total_indicators": 7,
+          "total_patterns": 3,
+          "total_critical_alerts": 0,
+          "average_deception_score": 0.6333333333333333,
+          "severity_distribution": {
+            "critical": 0,
+            "high": 1,
+            "medium": 2,
+            "low": 0
+          }
+        },
+        "processing_time_ms": 1.075,
+        "metadata": {}
+      }
+    }
+  ]
+}

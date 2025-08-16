@@ -56,58 +56,8 @@ class DecisionSupportAgent(StrandsBaseAgent):
     
     def _get_tools(self) -> list:
         """Get tools for the decision support agent."""
-        return [
-            {
-                "name": "generate_recommendations",
-                "description": "Generate AI-powered recommendations based on context",
-                "parameters": {
-                    "business_objectives": "List of business objectives",
-                    "current_performance": "Current performance metrics",
-                    "market_conditions": "Market conditions and trends",
-                    "resource_constraints": "Available resources and constraints"
-                }
-            },
-            {
-                "name": "prioritize_actions",
-                "description": "Prioritize and rank recommendations based on multiple factors",
-                "parameters": {
-                    "recommendations": "List of recommendations to prioritize",
-                    "available_resources": "Available resources and capacity",
-                    "time_constraints": "Time constraints and deadlines",
-                    "stakeholder_preferences": "Stakeholder preferences and priorities"
-                }
-            },
-            {
-                "name": "create_implementation_plan",
-                "description": "Create detailed implementation plan for a recommendation",
-                "parameters": {
-                    "recommendation": "Recommendation to plan for",
-                    "available_resources": "Available resources and team capacity",
-                    "budget_constraints": "Budget constraints and limitations",
-                    "timeline_constraints": "Timeline constraints and deadlines"
-                }
-            },
-            {
-                "name": "predict_success",
-                "description": "Predict likelihood of success for a recommendation",
-                "parameters": {
-                    "recommendation": "Recommendation to predict success for",
-                    "historical_data": "Historical success rates and patterns",
-                    "organizational_capabilities": "Organizational capabilities and strengths",
-                    "market_conditions": "Current market conditions and trends"
-                }
-            },
-            {
-                "name": "comprehensive_decision_analysis",
-                "description": "Perform comprehensive decision analysis including recommendations, prioritization, planning, and success prediction",
-                "parameters": {
-                    "business_context": "Business context and objectives",
-                    "current_situation": "Current situation and challenges",
-                    "constraints": "Resource and time constraints",
-                    "preferences": "Stakeholder preferences and priorities"
-                }
-            }
-        ]
+        # Return empty list to avoid strands tool registration issues
+        return []
     
     async def can_process(self, request: AnalysisRequest) -> bool:
         """Check if this agent can process the given request."""

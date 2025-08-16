@@ -36,6 +36,9 @@ class DataType(str, Enum):
     IMAGE = "image"
     WEBPAGE = "webpage"
     PDF = "pdf"
+    DOCUMENT = "document"  # Generic document type
+    COMMUNICATION = "communication"  # Communication data
+    REPORT = "report"  # Report data
     API_RESPONSE = "api_response"
     SOCIAL_MEDIA = "social_media"
     DATABASE = "database"
