@@ -1,0 +1,404 @@
+{
+  "test_timestamp": "2025-08-15T16:06:46.082934",
+  "base_url": "http://127.0.0.1:8004",
+  "tests": [
+    {
+      "test": "health_check",
+      "status": "passed",
+      "response": {
+        "status": "healthy",
+        "agents": {
+          "UnifiedTextAgent_cf6cd076": {
+            "agent_type": "UnifiedTextAgent",
+            "supported_types": [
+              "text"
+            ],
+            "model": "mistral-small3.1:latest",
+            "capabilities": [
+              "text",
+              "sentiment_analysis",
+              "strands_framework",
+              "swarm",
+              "coordinated_analysis"
+            ],
+            "status": "active"
+          },
+          "UnifiedVisionAgent_b8e38e8e": {
+            "agent_type": "UnifiedVisionAgent",
+            "supported_types": [
+              "image",
+              "video"
+            ],
+            "model": "llava:latest",
+            "capabilities": [
+              "vision",
+              "image_analysis",
+              "video_analysis",
+              "sentiment_analysis",
+              "feature_extraction",
+              "quality_assessment",
+              "youtube_dl",
+              "yt_dlp_integration",
+              "youtube_analysis",
+              "video_summarization",
+              "scene_extraction",
+              "key_moments_identification",
+              "topic_identification",
+              "action_items_extraction",
+              "large_file_processing",
+              "chunked_analysis"
+            ],
+            "status": "active"
+          },
+          "UnifiedAudioAgent_0a43d20d": {
+            "agent_type": "UnifiedAudioAgent",
+            "supported_types": [
+              "audio"
+            ],
+            "model": "llava:latest",
+            "capabilities": [
+              "audio",
+              "transcription",
+              "sentiment_analysis",
+              "feature_extraction",
+              "quality_assessment",
+              "stream_processing",
+              "audio_summarization",
+              "key_points_extraction",
+              "action_items_extraction",
+              "topic_identification",
+              "large_file_processing",
+              "chunked_analysis"
+            ],
+            "status": "active"
+          },
+          "EnhancedWebAgent_5606a078": {
+            "agent_type": "EnhancedWebAgent",
+            "supported_types": [
+              "webpage"
+            ],
+            "model": "mistral-small3.1:latest",
+            "capabilities": [
+              "web",
+              "scraping",
+              "sentiment_analysis",
+              "yt_dlp_integration"
+            ],
+            "status": "active"
+          },
+          "KnowledgeGraphAgent_51c3369b": {
+            "agent_type": "KnowledgeGraphAgent",
+            "supported_types": [
+              "text",
+              "audio",
+              "video",
+              "webpage",
+              "pdf",
+              "social_media"
+            ],
+            "model": "mistral-small3.1:latest",
+            "capabilities": [
+              "entity_extraction",
+              "relationship_mapping",
+              "graph_analysis",
+              "graph_visualization",
+              "knowledge_inference",
+              "community_detection",
+              "chunk_based_processing",
+              "multilingual_support",
+              "language_detection",
+              "translation_at_query_time"
+            ],
+            "status": "active"
+          },
+          "EnhancedFileExtractionAgent_a3bec951": {
+            "agent_type": "EnhancedFileExtractionAgent",
+            "supported_types": [
+              "pdf"
+            ],
+            "model": "unknown",
+            "capabilities": [],
+            "status": "active"
+          },
+          "report_generation_agent": {
+            "agent_type": "ReportGenerationAgent",
+            "supported_types": [
+              "text",
+              "audio",
+              "video",
+              "webpage",
+              "pdf",
+              "social_media"
+            ],
+            "model": "unknown",
+            "capabilities": [],
+            "status": "active"
+          },
+          "data_export_agent": {
+            "agent_type": "DataExportAgent",
+            "supported_types": [
+              "text",
+              "audio",
+              "video",
+              "webpage",
+              "pdf",
+              "social_media"
+            ],
+            "model": "unknown",
+            "capabilities": [],
+            "status": "active"
+          },
+          "semantic_search_agent": {
+            "agent_type": "SemanticSearchAgent",
+            "supported_types": [
+              "text",
+              "audio",
+              "video",
+              "webpage",
+              "pdf",
+              "social_media"
+            ],
+            "model": "unknown",
+            "capabilities": [],
+            "status": "active"
+          },
+          "reflection_coordinator_agent": {
+            "agent_type": "ReflectionCoordinatorAgent",
+            "supported_types": [
+              "text",
+              "audio",
+              "video",
+              "webpage",
+              "pdf",
+              "social_media"
+            ],
+            "model": "unknown",
+            "capabilities": [],
+            "status": "active"
+          },
+          "PatternRecognitionAgent_dfceb1b5": {
+            "agent_type": "PatternRecognitionAgent",
+            "supported_types": [
+              "time_series",
+              "numerical",
+              "text",
+              "audio",
+              "video",
+              "image"
+            ],
+            "model": "unknown",
+            "capabilities": [
+              "temporal_analysis",
+              "seasonal_detection",
+              "trend_analysis",
+              "pattern_storage",
+              "vector_patterns",
+              "anomaly_detection"
+            ],
+            "status": "active"
+          },
+          "PredictiveAnalyticsAgent_03318022": {
+            "agent_type": "PredictiveAnalyticsAgent",
+            "supported_types": [
+              "time_series",
+              "numerical"
+            ],
+            "model": "unknown",
+            "capabilities": [],
+            "status": "active"
+          },
+          "ScenarioAnalysisAgent_71d039b9": {
+            "agent_type": "ScenarioAnalysisAgent",
+            "supported_types": [
+              "time_series",
+              "numerical",
+              "text"
+            ],
+            "model": "unknown",
+            "capabilities": [],
+            "status": "active"
+          },
+          "RealTimeMonitoringAgent_72b8e9ea": {
+            "agent_type": "RealTimeMonitoringAgent",
+            "supported_types": [
+              "time_series",
+              "numerical",
+              "text"
+            ],
+            "model": "unknown",
+            "capabilities": [],
+            "status": "active"
+          },
+          "DecisionSupportAgent_8c14bd41": {
+            "agent_type": "DecisionSupportAgent",
+            "supported_types": [
+              "text",
+              "numerical",
+              "time_series"
+            ],
+            "model": "unknown",
+            "capabilities": [],
+            "status": "active"
+          },
+          "RiskAssessmentAgent_093e7a26": {
+            "agent_type": "RiskAssessmentAgent",
+            "supported_types": [
+              "text",
+              "numerical",
+              "time_series"
+            ],
+            "model": "unknown",
+            "capabilities": [],
+            "status": "active"
+          },
+          "FaultDetectionAgent_121c5128": {
+            "agent_type": "FaultDetectionAgent",
+            "supported_types": [
+              "text",
+              "numerical",
+              "time_series"
+            ],
+            "model": "unknown",
+            "capabilities": [],
+            "status": "active"
+          }
+        },
+        "models": [
+          {
+            "model_id": "mistral-small3.1:latest",
+            "model_type": "ollama",
+            "capabilities": [
+              "text"
+            ],
+            "host": "http://localhost:11434",
+            "is_default": true,
+            "temperature": 0.1,
+            "max_tokens": 200
+          },
+          {
+            "model_id": "llava:latest",
+            "model_type": "ollama",
+            "capabilities": [
+              "audio",
+              "tool_calling"
+            ],
+            "host": "http://localhost:11434",
+            "is_default": true,
+            "temperature": 0.7,
+            "max_tokens": 200
+          }
+        ]
+      }
+    },
+    {
+      "test": "endpoint_documentation",
+      "status": "passed",
+      "response": {
+        "name": "Sentiment Analysis API",
+        "version": "1.0.0",
+        "description": "AI-powered sentiment analysis using Ollama locally hosted models",
+        "ollama_integration": true,
+        "available_models": [
+          "llama3.2:latest",
+          "mistral-small3.1:latest",
+          "llava:latest"
+        ],
+        "endpoints": {
+          "health": "/health",
+          "text_analysis": "/analyze/text",
+          "image_analysis": "/analyze/image",
+          "video_analysis": "/analyze/video",
+          "audio_analysis": "/analyze/audio",
+          "webpage_analysis": "/analyze/webpage",
+          "pdf_analysis": "/analyze/pdf",
+          "pdf_to_databases": "/process/pdf-to-databases",
+          "pdf_enhanced_multilingual": "/process/pdf-enhanced-multilingual",
+          "multilingual_pdf": "/process/multilingual-pdf",
+          "youtube_analysis": "/analyze/youtube",
+          "business_dashboard": "/business/dashboard",
+          "executive_summary": "/business/executive-summary",
+          "data_visualizations": "/business/visualizations",
+          "executive_report": "/business/executive-report",
+          "business_summary": "/business/summary",
+          "business_trends": "/business/trends",
+          "social_media_integration": "/integrate/social-media",
+          "database_connection": "/connect/database",
+          "external_api_fetch": "/fetch/external-api",
+          "market_data_analysis": "/analyze/market-data",
+          "news_monitoring": "/monitor/news",
+          "financial_data_integration": "/integrate/financial-data",
+          "comprehensive_analysis": "/analyze/comprehensive",
+          "cross_modal_insights": "/insights/cross-modal",
+          "business_intelligence_report": "/business/intelligence-report",
+          "content_story": "/story/content",
+          "data_story": "/story/data",
+          "actionable_insights": "/insights/actionable",
+          "export_analysis_results": "/export/analysis-results",
+          "generate_automated_reports": "/reports/automated",
+          "share_reports": "/reports/share",
+          "schedule_reports": "/reports/schedule",
+          "report_history": "/reports/history",
+          "export_history": "/export/history",
+          "semantic_search": "/semantic/search",
+          "query_routing": "/semantic/route",
+          "result_combination": "/semantic/combine",
+          "agent_capabilities": "/agents/capabilities",
+          "agent_reflection": "/reflection/coordinate",
+          "agent_questioning": "/reflection/question",
+          "reflection_insights": "/reflection/insights",
+          "response_validation": "/reflection/validate",
+          "models": "/models",
+          "agent_status": "/agents/status",
+          "predictive_analytics": "/analytics/predictive",
+          "scenario_analysis": "/analytics/scenario",
+          "decision_support": "/analytics/decision-support",
+          "risk_assessment": "/analytics/risk-assessment",
+          "fault_detection": "/analytics/fault-detection",
+          "performance_optimization": "/analytics/performance",
+          "apply_optimizations": "/analytics/optimize",
+          "advanced_analytics": "/advanced-analytics",
+          "ingest_content": "/ingest/content",
+          "ingest_url": "/ingest/url",
+          "ingest_file": "/ingest/file",
+          "get_languages": "/ingest/languages",
+          "get_language_config": "/ingest/language-config",
+          "strategic_assessment": "/strategic/assessment",
+          "art_of_war_deception": "/strategic/art-of-war-deception",
+          "comprehensive_strategic_analysis": "/strategic/comprehensive-analysis",
+          "strategic_status": "/strategic/status"
+        }
+      }
+    },
+    {
+      "test": "business_strategic_position_analysis",
+      "status": "passed",
+      "response": {
+        "success": true,
+        "components_count": 4,
+        "successful_components": 3,
+        "analysis_status": "completed",
+        "recommendations": [
+          "Focus on alliance building as primary strategy",
+          "Leverage operational excellence for competitive advantage",
+          "Build strategic partnerships to expand market presence",
+          "Maintain balanced approach between offensive and defensive strategies"
+        ],
+        "component_names": [
+          "art_of_war_scenario_analysis",
+          "multi_domain_strategic_analysis",
+          "market_data_analysis",
+          "business_intelligence_analysis"
+        ],
+        "missing_components": []
+      }
+    }
+  ],
+  "summary": {
+    "total_tests": 3,
+    "passed": 3,
+    "failed": 0,
+    "errors": 0,
+    "partial": 0,
+    "success_rate": 1.0
+  }
+}

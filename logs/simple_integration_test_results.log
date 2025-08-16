@@ -1,0 +1,37 @@
+2025-08-14 07:39:36,733 - __main__ - INFO - Starting Simple Integration Testing Suite
+2025-08-14 07:39:36,733 - __main__ - INFO - Starting Simple Integration Testing...
+2025-08-14 07:39:36,734 - __main__ - INFO - Setting up core system components...
+2025-08-14 07:39:36,734 - src.agents.base_agent - INFO - Initialized Strands agent DecisionSupportAgent_178960da
+2025-08-14 07:39:36,735 - src.core.decision_support.recommendation_engine - INFO - Initialized RecommendationEngine with model: llama3.2:latest
+2025-08-14 07:39:36,735 - src.core.decision_support.action_prioritizer - INFO - Initialized ActionPrioritizer with method: weighted_sum
+2025-08-14 07:39:36,735 - src.core.decision_support.implementation_planner - INFO - Initialized ImplementationPlanner
+2025-08-14 07:39:36,736 - src.core.decision_support.success_predictor - INFO - Initialized SuccessPredictor
+2025-08-14 07:39:36,736 - src.agents.decision_support_agent - INFO - Initialized Enhanced DecisionSupportAgent: DecisionSupportAgent_178960da
+2025-08-14 07:39:36,737 - src.agents.base_agent - INFO - Initialized Strands agent KnowledgeGraphAgent_cb64ed3a
+2025-08-14 07:39:37,246 - src.core.translation_service - INFO - Translation Service initialized
+2025-08-14 07:39:37,246 - src.core.model_management_service - INFO - Registered model: llama3.2:latest
+2025-08-14 07:39:37,246 - src.core.model_management_service - INFO - Registered model: llava:latest
+2025-08-14 07:39:37,246 - src.core.model_management_service - INFO - Registered model: mistral-small3.1:latest
+2025-08-14 07:39:37,247 - src.core.model_management_service - INFO - Registered model: llama3.2:3b
+2025-08-14 07:39:37,247 - src.agents.base_agent - INFO - Initialized Strands agent EntityExtractionAgent_5f1c9623
+2025-08-14 07:39:37,248 - src.agents.entity_extraction_agent - INFO - Enhanced Entity Extraction Agent EntityExtractionAgent_5f1c9623 initialized with model mistral-small3.1:latest
+2025-08-14 07:39:37,250 - src.core.decision_support.action_prioritizer - INFO - Initialized ActionPrioritizer with method: weighted_sum
+2025-08-14 07:39:37,251 - src.core.decision_support.implementation_planner - INFO - Initialized ImplementationPlanner
+2025-08-14 07:39:37,252 - __main__ - INFO - All core components initialized successfully
+2025-08-14 07:39:37,252 - __main__ - INFO - Testing decision support workflow...
+2025-08-14 07:39:38,277 - __main__ - INFO - Testing knowledge graph integration...
+2025-08-14 07:39:39,288 - __main__ - INFO - Testing monitoring and alerting systems...
+2025-08-14 07:39:40,299 - __main__ - INFO - Testing scenario analysis integration...
+2025-08-14 07:39:41,307 - __main__ - INFO - Testing action prioritization integration...
+2025-08-14 07:39:42,318 - __main__ - INFO - Generating simple integration test report...
+2025-08-14 07:39:42,321 - __main__ - INFO - ============================================================
+2025-08-14 07:39:42,321 - __main__ - INFO - SIMPLE INTEGRATION TEST RESULTS
+2025-08-14 07:39:42,321 - __main__ - INFO - ============================================================
+2025-08-14 07:39:42,322 - __main__ - INFO - Total Tests: 5
+2025-08-14 07:39:42,322 - __main__ - INFO - Passed: 0
+2025-08-14 07:39:42,323 - __main__ - INFO - Failed: 0
+2025-08-14 07:39:42,323 - __main__ - INFO - Errors: 5
+2025-08-14 07:39:42,323 - __main__ - INFO - Success Rate: 0.0%
+2025-08-14 07:39:42,324 - __main__ - INFO - Report saved to: Results\simple_integration_test_report_20250814_073942.json
+2025-08-14 07:39:42,324 - __main__ - INFO - ============================================================
+2025-08-14 07:39:42,325 - __main__ - INFO - Simple integration testing completed successfully!

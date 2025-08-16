@@ -1,0 +1,69 @@
+Exit code: 2
+STDOUT:
+============================= test session starts =============================
+platform win32 -- Python 3.13.5, pytest-8.4.1, pluggy-1.6.0 -- D:\AI\Sentiment\DIA3\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: D:\AI\Sentiment
+configfile: pyproject.toml
+plugins: anyio-4.10.0
+collecting ... collected 0 items / 4 errors
+
+=================================== ERRORS ====================================
+____________ ERROR collecting Test/integration/integration_test.py ____________
+ImportError while importing test module 'D:\AI\Sentiment\Test\integration\integration_test.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Python313\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Test\integration\integration_test.py:17: in <module>
+    from core.orchestrator import SentimentOrchestrator
+E   ModuleNotFoundError: No module named 'core'
+_________ ERROR collecting Test/integration/test_final_integration.py _________
+ImportError while importing test module 'D:\AI\Sentiment\Test\integration\test_final_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Python313\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Test\integration\test_final_integration.py:14: in <module>
+    from core.models import AnalysisRequest, DataType
+E   ModuleNotFoundError: No module named 'core'
+_________ ERROR collecting Test/integration/test_main_integration.py __________
+ImportError while importing test module 'D:\AI\Sentiment\Test\integration\test_main_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Python313\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Test\integration\test_main_integration.py:15: in <module>
+    from main import check_ollama_integration, get_optimization_status
+main.py:48: in <module>
+    from src.api.main import app
+src\api\main.py:11: in <module>
+    from loguru import logger
+E   ModuleNotFoundError: No module named 'loguru'
+------------------------------- Captured stdout -------------------------------
+\u26a0\ufe0f MCP server not available
+______ ERROR collecting Test/integration/test_main_integration_simple.py ______
+ImportError while importing test module 'D:\AI\Sentiment\Test\integration\test_main_integration_simple.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Python313\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Test\integration\test_main_integration_simple.py:14: in <module>
+    from agents.knowledge_graph_agent import KnowledgeGraphAgent
+src\agents\knowledge_graph_agent.py:13: in <module>
+    from loguru import logger
+E   ModuleNotFoundError: No module named 'loguru'
+=========================== short test summary info ===========================
+ERROR Test/integration/integration_test.py
+ERROR Test/integration/test_final_integration.py
+ERROR Test/integration/test_main_integration.py
+ERROR Test/integration/test_main_integration_simple.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 4 errors during collection !!!!!!!!!!!!!!!!!!!
+============================= 4 errors in 20.42s ==============================
+
+STDERR:
+

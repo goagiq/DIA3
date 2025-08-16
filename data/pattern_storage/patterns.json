@@ -1,0 +1,17 @@
+{
+  "test_pattern_001": {
+    "pattern_id": "test_pattern_001",
+    "pattern_type": "test",
+    "pattern_data": {
+      "test_id": "test_pattern_001",
+      "data": {
+        "key": "value",
+        "number": 42
+      },
+      "description": "Test pattern for verification"
+    },
+    "created_at": "2025-08-15T18:41:12.648096",
+    "version": 1,
+    "status": "active"
+  }
+}

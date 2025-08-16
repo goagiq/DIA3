@@ -1,0 +1,75 @@
+{
+  "total_tests": 11,
+  "passed_tests": 0,
+  "failed_tests": 11,
+  "success_rate": 0.0,
+  "test_results": [
+    {
+      "test_name": "Health Check",
+      "success": false,
+      "timestamp": "2025-08-15T18:26:41.894108",
+      "details": "HTTP 404"
+    },
+    {
+      "test_name": "Capabilities",
+      "success": false,
+      "timestamp": "2025-08-15T18:26:43.950650",
+      "details": "HTTP 404"
+    },
+    {
+      "test_name": "Domains",
+      "success": false,
+      "timestamp": "2025-08-15T18:26:46.005608",
+      "details": "HTTP 404"
+    },
+    {
+      "test_name": "Historical Patterns",
+      "success": false,
+      "timestamp": "2025-08-15T18:26:48.043956",
+      "details": "HTTP 404"
+    },
+    {
+      "test_name": "General Analysis",
+      "success": false,
+      "timestamp": "2025-08-15T18:26:50.101758",
+      "details": "HTTP 404"
+    },
+    {
+      "test_name": "Defense Analysis",
+      "success": false,
+      "timestamp": "2025-08-15T18:26:52.150333",
+      "details": "HTTP 404"
+    },
+    {
+      "test_name": "Intelligence Analysis",
+      "success": false,
+      "timestamp": "2025-08-15T18:26:55.197546",
+      "details": "HTTP 404"
+    },
+    {
+      "test_name": "Business Analysis",
+      "success": false,
+      "timestamp": "2025-08-15T18:26:58.269898",
+      "details": "HTTP 404"
+    },
+    {
+      "test_name": "Cybersecurity Analysis",
+      "success": false,
+      "timestamp": "2025-08-15T18:27:01.325892",
+      "details": "HTTP 404"
+    },
+    {
+      "test_name": "Geopolitical Analysis",
+      "success": false,
+      "timestamp": "2025-08-15T18:27:04.378066",
+      "details": "HTTP 404"
+    },
+    {
+      "test_name": "Error Handling",
+      "success": false,
+      "timestamp": "2025-08-15T18:27:07.424025",
+      "details": "Unexpected status: 404"
+    }
+  ],
+  "timestamp": "2025-08-15T18:27:07.425552"
+}

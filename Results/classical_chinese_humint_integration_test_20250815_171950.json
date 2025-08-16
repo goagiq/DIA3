@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-08-15T17:19:40.530546",
+  "tests": {
+    "agent_integration": {
+      "success": false,
+      "error": "DOCUMENT"
+    },
+    "api_endpoints": {
+      "health": {
+        "success": false,
+        "error": "Status 404"
+      },
+      "analyze": {
+        "success": false,
+        "error": "Status 404"
+      },
+      "strategic_deception": {
+        "success": false,
+        "error": "Status 404"
+      }
+    },
+    "mcp_integration": {
+      "success": false,
+      "error": "DOCUMENT"
+    }
+  },
+  "summary": {
+    "total_tests": 3,
+    "passed_tests": 0,
+    "failed_tests": 3,
+    "success_rate": 0.0
+  }
+}

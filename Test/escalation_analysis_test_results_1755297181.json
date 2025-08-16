@@ -1,0 +1,75 @@
+{
+  "total_tests": 11,
+  "passed_tests": 6,
+  "failed_tests": 5,
+  "success_rate": 0.5454545454545454,
+  "test_results": [
+    {
+      "test_name": "Health Check",
+      "success": true,
+      "timestamp": "2025-08-15T18:32:35.432901",
+      "details": "Service healthy, 5 domains supported"
+    },
+    {
+      "test_name": "Capabilities",
+      "success": true,
+      "timestamp": "2025-08-15T18:32:37.476350",
+      "details": "5 domains, 8 features"
+    },
+    {
+      "test_name": "Domains",
+      "success": true,
+      "timestamp": "2025-08-15T18:32:39.523794",
+      "details": "All expected domains present: ['defense', 'intelligence', 'business', 'cybersecurity', 'geopolitical']"
+    },
+    {
+      "test_name": "Historical Patterns",
+      "success": true,
+      "timestamp": "2025-08-15T18:32:41.572026",
+      "details": "5 patterns available"
+    },
+    {
+      "test_name": "General Analysis",
+      "success": true,
+      "timestamp": "2025-08-15T18:32:43.723558",
+      "details": "Analysis escalation_analysis_1755297163 completed for geopolitical domain, confidence: 0.95, 5 scenarios"
+    },
+    {
+      "test_name": "Defense Analysis",
+      "success": false,
+      "timestamp": "2025-08-15T18:32:45.755647",
+      "details": "HTTP 422"
+    },
+    {
+      "test_name": "Intelligence Analysis",
+      "success": false,
+      "timestamp": "2025-08-15T18:32:48.802897",
+      "details": "HTTP 422"
+    },
+    {
+      "test_name": "Business Analysis",
+      "success": false,
+      "timestamp": "2025-08-15T18:32:51.858067",
+      "details": "HTTP 422"
+    },
+    {
+      "test_name": "Cybersecurity Analysis",
+      "success": false,
+      "timestamp": "2025-08-15T18:32:54.922122",
+      "details": "HTTP 422"
+    },
+    {
+      "test_name": "Geopolitical Analysis",
+      "success": false,
+      "timestamp": "2025-08-15T18:32:57.970699",
+      "details": "HTTP 422"
+    },
+    {
+      "test_name": "Error Handling",
+      "success": true,
+      "timestamp": "2025-08-15T18:33:01.053588",
+      "details": "Properly handled invalid domain"
+    }
+  ],
+  "timestamp": "2025-08-15T18:33:01.053588"
+}

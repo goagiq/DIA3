@@ -1,0 +1,12 @@
+# Core dependencies for Python 3.13
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.5.0
+numpy>=1.26.0
+pandas>=2.1.0
+requests>=2.31.0
+python-dotenv>=1.0.0
+loguru>=0.7.0
+click>=8.1.0
+typer>=0.9.0
+rich>=13.7.0

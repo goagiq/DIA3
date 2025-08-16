@@ -1,0 +1,41 @@
+{
+  "strategic_analysis": {
+    "error": "call_unified_mcp_tool() got an unexpected keyword argument 'query'"
+  },
+  "cultural_analysis": {
+    "error": "call_unified_mcp_tool() got an unexpected keyword argument 'text'"
+  },
+  "pattern_analysis": {
+    "error": "call_unified_mcp_tool() got an unexpected keyword argument 'query'"
+  },
+  "correlation_analysis": {
+    "error": "call_unified_mcp_tool() got an unexpected keyword argument 'content'"
+  },
+  "business_intelligence": {
+    "error": "call_unified_mcp_tool() got an unexpected keyword argument 'content'"
+  },
+  "unified_summary": {
+    "executive_summary": {
+      "analysis_framework": "CIA/FBI Intelligence Officer Analysis Framework",
+      "total_analyses": 5,
+      "key_findings": []
+    },
+    "strategic_insights": [],
+    "cultural_insights": [],
+    "pattern_insights": [],
+    "correlation_insights": [],
+    "business_intelligence_insights": [],
+    "recommendations": [
+      "Continue monitoring for strategic deception indicators",
+      "Develop cultural intelligence capabilities",
+      "Establish pattern recognition systems",
+      "Implement cross-document correlation analysis",
+      "Maintain comprehensive business intelligence reporting"
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-08-15T16:45:38.126620",
+    "documents_analyzed": 5,
+    "analysis_framework": "CIA/FBI Intelligence Officer Analysis Framework"
+  }
+}

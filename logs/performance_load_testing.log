@@ -1,0 +1,9 @@
+Exit code: 1
+STDOUT:
+
+STDERR:
+Traceback (most recent call last):
+  File "D:\AI\Sentiment\Test\performance\load_testing.py", line 13, in <module>
+    import aiohttp
+ModuleNotFoundError: No module named 'aiohttp'
+

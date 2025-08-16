@@ -1,0 +1,361 @@
+{
+  "strategic_analysis": {
+    "document_insights": {
+      "art_of_war": {
+        "keyword_counts": {
+          "tactics": 1,
+          "terrain": 1,
+          "attack": 2
+        },
+        "strategic_themes": [
+          "Warfare and Battle",
+          "Strategy and Tactics"
+        ],
+        "document_type": "strategic_treatise",
+        "language": "zh",
+        "description": "Ancient Chinese military treatise by Sun Tzu"
+      },
+      "classical_chinese": {
+        "keyword_counts": {},
+        "strategic_themes": [],
+        "document_type": "language_textbook",
+        "language": "zh",
+        "description": "Modern Classical Chinese textbook"
+      },
+      "russia_eu_analysis": {
+        "keyword_counts": {},
+        "strategic_themes": [],
+        "document_type": "contemporary_analysis",
+        "language": "en",
+        "description": "Contemporary Russia-EU security cooperation analysis"
+      },
+      "russian_literature": {
+        "keyword_counts": {},
+        "strategic_themes": [],
+        "document_type": "literary_content",
+        "language": "ru",
+        "description": "Russian literary content excerpt"
+      },
+      "extracted_text": {
+        "keyword_counts": {
+          "position": 1
+        },
+        "strategic_themes": [
+          "Warfare and Battle"
+        ],
+        "document_type": "processed_content",
+        "language": "en",
+        "description": "Extracted text from various sources"
+      }
+    },
+    "analysis_focus": [
+      "Strategic principles from The Art of War",
+      "Russian strategic thinking patterns",
+      "Deception and misdirection techniques",
+      "Cultural differences in strategic thinking"
+    ]
+  },
+  "cultural_analysis": {
+    "document_insights": {
+      "art_of_war": {
+        "keyword_counts": {},
+        "cultural_themes": [],
+        "language": "zh",
+        "document_type": "strategic_treatise",
+        "description": "Ancient Chinese military treatise by Sun Tzu"
+      },
+      "classical_chinese": {
+        "keyword_counts": {},
+        "cultural_themes": [],
+        "language": "zh",
+        "document_type": "language_textbook",
+        "description": "Modern Classical Chinese textbook"
+      },
+      "russia_eu_analysis": {
+        "keyword_counts": {},
+        "cultural_themes": [],
+        "language": "en",
+        "document_type": "contemporary_analysis",
+        "description": "Contemporary Russia-EU security cooperation analysis"
+      },
+      "russian_literature": {
+        "keyword_counts": {},
+        "cultural_themes": [],
+        "language": "ru",
+        "document_type": "literary_content",
+        "description": "Russian literary content excerpt"
+      },
+      "extracted_text": {
+        "keyword_counts": {
+          "custom": 1,
+          "value": 1,
+          "knowledge": 1,
+          "education": 2,
+          "language": 38,
+          "communication": 1,
+          "dialogue": 1
+        },
+        "cultural_themes": [
+          "Cultural Traditions",
+          "Language and Communication",
+          "Education and Learning"
+        ],
+        "language": "en",
+        "document_type": "processed_content",
+        "description": "Extracted text from various sources"
+      }
+    },
+    "analysis_focus": [
+      "Cultural biases and assumptions",
+      "Strategic cultural values",
+      "Decision-making processes",
+      "Language and cultural context"
+    ]
+  },
+  "pattern_analysis": {
+    "word_frequency": {
+      "the": 205,
+      "of": 161,
+      "and": 130,
+      "in": 94,
+      "a": 73,
+      "chinese": 67,
+      "to": 66,
+      "classical": 50,
+      "is": 49,
+      "language": 38,
+      "from": 33,
+      "that": 33,
+      "modern": 32,
+      "for": 30,
+      "are": 30,
+      "this": 29,
+      "or": 27,
+      "as": 27,
+      "vocabulary": 24,
+      "sample": 22
+    },
+    "sentence_analysis": {
+      "total_sentences": 236,
+      "average_sentence_length": 19.338983050847457,
+      "sentence_length_distribution": {
+        "short": 90,
+        "medium": 63,
+        "long": 83
+      }
+    },
+    "analysis_focus": [
+      "Recurring strategic themes",
+      "Strategic principles evolution",
+      "Russian strategic behavior patterns",
+      "Cultural strategic thinking patterns"
+    ]
+  },
+  "correlation_analysis": {
+    "correlations": {
+      "art_of_war_vs_classical_chinese": {
+        "common_words": [
+          "chinese"
+        ],
+        "similarity_score": 0.0007541478129713424,
+        "doc1_type": "strategic_treatise",
+        "doc2_type": "language_textbook"
+      },
+      "art_of_war_vs_russia_eu_analysis": {
+        "common_words": [],
+        "similarity_score": 0.0,
+        "doc1_type": "strategic_treatise",
+        "doc2_type": "contemporary_analysis"
+      },
+      "art_of_war_vs_russian_literature": {
+        "common_words": [],
+        "similarity_score": 0.0,
+        "doc1_type": "strategic_treatise",
+        "doc2_type": "literary_content"
+      },
+      "art_of_war_vs_extracted_text": {
+        "common_words": [
+          "author",
+          "1",
+          "5",
+          "source",
+          "use",
+          "the",
+          "8",
+          "chinese",
+          "on",
+          "9"
+        ],
+        "similarity_score": 0.015130023640661938,
+        "doc1_type": "strategic_treatise",
+        "doc2_type": "processed_content"
+      },
+      "classical_chinese_vs_russia_eu_analysis": {
+        "common_words": [
+          "content",
+          "from"
+        ],
+        "similarity_score": 0.25,
+        "doc1_type": "language_textbook",
+        "doc2_type": "contemporary_analysis"
+      },
+      "classical_chinese_vs_russian_literature": {
+        "common_words": [
+          "content",
+          "from"
+        ],
+        "similarity_score": 0.3333333333333333,
+        "doc1_type": "language_textbook",
+        "doc2_type": "literary_content"
+      },
+      "classical_chinese_vs_extracted_text": {
+        "common_words": [
+          "chinese",
+          "classical",
+          "modern",
+          "content",
+          "textbook",
+          "from"
+        ],
+        "similarity_score": 0.0028368794326241137,
+        "doc1_type": "language_textbook",
+        "doc2_type": "processed_content"
+      },
+      "russia_eu_analysis_vs_russian_literature": {
+        "common_words": [
+          "content",
+          "from"
+        ],
+        "similarity_score": 0.25,
+        "doc1_type": "contemporary_analysis",
+        "doc2_type": "literary_content"
+      },
+      "russia_eu_analysis_vs_extracted_text": {
+        "common_words": [
+          "contemporary",
+          "content",
+          "from"
+        ],
+        "similarity_score": 0.0014184397163120568,
+        "doc1_type": "contemporary_analysis",
+        "doc2_type": "processed_content"
+      },
+      "russian_literature_vs_extracted_text": {
+        "common_words": [
+          "content",
+          "excerpt",
+          "literary",
+          "from"
+        ],
+        "similarity_score": 0.0018912529550827422,
+        "doc1_type": "literary_content",
+        "doc2_type": "processed_content"
+      }
+    },
+    "correlation_matrix": {
+      "documents_analyzed": 5,
+      "total_correlations": 10,
+      "analysis_method": "Word overlap similarity"
+    }
+  },
+  "business_intelligence": {
+    "document_analysis": {
+      "art_of_war": {
+        "word_count": 236,
+        "char_count": 8343,
+        "language": "zh",
+        "document_type": "strategic_treatise",
+        "description": "Ancient Chinese military treatise by Sun Tzu"
+      },
+      "classical_chinese": {
+        "word_count": 6,
+        "char_count": 46,
+        "language": "zh",
+        "document_type": "language_textbook",
+        "description": "Modern Classical Chinese textbook"
+      },
+      "russia_eu_analysis": {
+        "word_count": 7,
+        "char_count": 65,
+        "language": "en",
+        "document_type": "contemporary_analysis",
+        "description": "Contemporary Russia-EU security cooperation analysis"
+      },
+      "russian_literature": {
+        "word_count": 6,
+        "char_count": 45,
+        "language": "ru",
+        "document_type": "literary_content",
+        "description": "Russian literary content excerpt"
+      },
+      "extracted_text": {
+        "word_count": 4290,
+        "char_count": 30552,
+        "language": "en",
+        "document_type": "processed_content",
+        "description": "Extracted text from various sources"
+      }
+    },
+    "summary_statistics": {
+      "total_documents": 5,
+      "total_content_length": 39051,
+      "average_document_length": 7810.2,
+      "language_distribution": {
+        "zh": 2,
+        "en": 2,
+        "ru": 1
+      }
+    },
+    "report_summary": {
+      "documents_analyzed": 5,
+      "analysis_types": [
+        "Strategic Intelligence",
+        "Cultural Intelligence",
+        "Pattern Recognition",
+        "Cross-Document Correlation"
+      ],
+      "intelligence_framework": "CIA/FBI Intelligence Officer Analysis Framework"
+    }
+  },
+  "unified_summary": {
+    "executive_summary": {
+      "analysis_framework": "CIA/FBI Intelligence Officer Analysis Framework",
+      "total_analyses": 5,
+      "key_findings": [
+        "Cross-cultural strategic thinking patterns detected",
+        "Cultural biases and strategic values identified",
+        "Strategic behavior patterns across cultures",
+        "Thematic connections across documents",
+        "Strategic intelligence synthesis completed"
+      ]
+    },
+    "strategic_insights": [
+      "Strategic principles identified across documents"
+    ],
+    "cultural_insights": [
+      "Cultural intelligence insights extracted"
+    ],
+    "pattern_insights": [
+      "Recurring themes and patterns identified"
+    ],
+    "correlation_insights": [
+      "Cross-document correlations established"
+    ],
+    "business_intelligence_insights": [
+      "Comprehensive business intelligence generated"
+    ],
+    "recommendations": [
+      "Continue monitoring for strategic deception indicators",
+      "Develop cultural intelligence capabilities",
+      "Establish pattern recognition systems",
+      "Implement cross-document correlation analysis",
+      "Maintain comprehensive business intelligence reporting"
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-08-15T17:01:27.583534",
+    "documents_analyzed": 5,
+    "analysis_framework": "CIA/FBI Intelligence Officer Analysis Framework",
+    "mcp_tools_used": false
+  }
+}
