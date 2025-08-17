@@ -1,351 +1,265 @@
 #!/usr/bin/env python3
 """
-MCP Tool Manager CLI
-Command-line interface for managing MCP tools dynamically
+MCP Tool Manager
+Script to enable/disable MCP tools and manage their configuration
 """
 
+import json
 import sys
 import os
-import asyncio
-import argparse
-import json
-from typing import List, Optional
+from pathlib import Path
+from typing import Dict, List, Optional
 
-# Add src to path
+# Add src to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 
-from mcp_servers.dynamic_tool_manager import dynamic_tool_manager
-import logging
-
-# Configure logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-
-class MCPToolManagerCLI:
-    """CLI for managing MCP tools"""
+class MCPToolManager:
+    """Manages MCP tool configuration"""
     
-    def __init__(self):
-        self.manager = dynamic_tool_manager
+    def __init__(self, config_path: str = "mcp_tool_config.json"):
+        self.config_path = Path(config_path)
+        self.config = self._load_config()
     
-    async def list_tools(self, show_resources: bool = False):
-        """List all tools and their status"""
+    def _load_config(self) -> Dict:
+        """Load the MCP tool configuration"""
         try:
-            tool_statuses = self.manager.get_all_tool_statuses()
-            
-            if not tool_statuses:
-                print("No tools configured")
-                return
-            
-            print(f"\n{'Tool Name':<20} {'Status':<12} {'Priority':<10} {'CPU %':<8} {'Memory MB':<12}")
-            print("-" * 70)
-            
-            for tool_name, tool_info in tool_statuses.items():
-                status = tool_info.status.value
-                priority = tool_info.config.priority
-                cpu_percent = tool_info.resource_usage.cpu_percent
-                memory_mb = tool_info.resource_usage.memory_mb
-                
-                print(f"{tool_name:<20} {status:<12} {priority:<10} {cpu_percent:<8.1f} {memory_mb:<12.1f}")
-            
-            if show_resources:
-                await self.show_system_resources()
-                
-        except Exception as e:
-            logger.error(f"Error listing tools: {e}")
-            print(f"Error: {e}")
+            with open(self.config_path, 'r') as f:
+                return json.load(f)
+        except FileNotFoundError:
+            print(f"❌ Configuration file not found: {self.config_path}")
+            sys.exit(1)
+        except json.JSONDecodeError as e:
+            print(f"❌ Invalid JSON in configuration file: {e}")
+            sys.exit(1)
     
-    async def show_system_resources(self):
-        """Show system resource usage"""
+    def _save_config(self):
+        """Save the configuration back to file"""
         try:
-            resources = self.manager.get_system_resources()
-            resource_level = self.manager.get_resource_level()
-            
-            print(f"\n{'System Resources':<20}")
-            print("-" * 40)
-            print(f"{'CPU Usage':<20} {resources.get('cpu_percent', 0):<10.1f}%")
-            print(f"{'Memory Usage':<20} {resources.get('memory_percent', 0):<10.1f}%")
-            print(f"{'Available Memory':<20} {resources.get('memory_available_mb', 0):<10.1f} MB")
-            print(f"{'Disk Usage':<20} {resources.get('disk_percent', 0):<10.1f}%")
-            print(f"{'Resource Level':<20} {resource_level.value}")
-            
+            with open(self.config_path, 'w') as f:
+                json.dump(self.config, f, indent=2)
+            print(f"✅ Configuration saved to {self.config_path}")
         except Exception as e:
-            logger.error(f"Error showing system resources: {e}")
-            print(f"Error: {e}")
+            print(f"❌ Error saving configuration: {e}")
+            sys.exit(1)
     
-    async def enable_tool(self, tool_name: str):
+    def list_tools(self) -> None:
+        """List all available tools and their status"""
+        print("\n🔧 MCP Tools Status:")
+        print("=" * 50)
+        
+        for tool_name, config in self.config.get("tools", {}).items():
+            status = "🟢 ENABLED" if config.get("enabled", False) else "🔴 DISABLED"
+            priority = config.get("priority", "N/A")
+            print(f"{tool_name:25} | {status:12} | Priority: {priority}")
+        
+        print("=" * 50)
+    
+    def enable_tool(self, tool_name: str) -> None:
         """Enable a specific tool"""
-        try:
-            print(f"Enabling tool: {tool_name}")
-            success = await self.manager.enable_tool(tool_name)
-            
-            if success:
-                print(f"✅ Tool {tool_name} enabled successfully")
-            else:
-                print(f"❌ Failed to enable tool {tool_name}")
-                
-        except Exception as e:
-            logger.error(f"Error enabling tool {tool_name}: {e}")
-            print(f"Error: {e}")
+        if tool_name not in self.config.get("tools", {}):
+            print(f"❌ Tool '{tool_name}' not found")
+            self._show_available_tools()
+            return
+        
+        self.config["tools"][tool_name]["enabled"] = True
+        self._save_config()
+        print(f"✅ Tool '{tool_name}' enabled")
     
-    async def disable_tool(self, tool_name: str):
+    def disable_tool(self, tool_name: str) -> None:
         """Disable a specific tool"""
-        try:
-            print(f"Disabling tool: {tool_name}")
-            success = await self.manager.disable_tool(tool_name)
-            
-            if success:
-                print(f"✅ Tool {tool_name} disabled successfully")
-            else:
-                print(f"❌ Failed to disable tool {tool_name}")
-                
-        except Exception as e:
-            logger.error(f"Error disabling tool {tool_name}: {e}")
-            print(f"Error: {e}")
+        if tool_name not in self.config.get("tools", {}):
+            print(f"❌ Tool '{tool_name}' not found")
+            self._show_available_tools()
+            return
+        
+        self.config["tools"][tool_name]["enabled"] = False
+        self._save_config()
+        print(f"✅ Tool '{tool_name}' disabled")
     
-    async def pause_tool(self, tool_name: str):
-        """Pause a specific tool"""
-        try:
-            print(f"Pausing tool: {tool_name}")
-            success = await self.manager.pause_tool(tool_name)
-            
-            if success:
-                print(f"✅ Tool {tool_name} paused successfully")
-            else:
-                print(f"❌ Failed to pause tool {tool_name}")
-                
-        except Exception as e:
-            logger.error(f"Error pausing tool {tool_name}: {e}")
-            print(f"Error: {e}")
+    def enable_all_tools(self) -> None:
+        """Enable all tools"""
+        for tool_name in self.config.get("tools", {}):
+            self.config["tools"][tool_name]["enabled"] = True
+        
+        self._save_config()
+        print("✅ All tools enabled")
     
-    async def resume_tool(self, tool_name: str):
-        """Resume a specific tool"""
-        try:
-            print(f"Resuming tool: {tool_name}")
-            success = await self.manager.resume_tool(tool_name)
-            
-            if success:
-                print(f"✅ Tool {tool_name} resumed successfully")
-            else:
-                print(f"❌ Failed to resume tool {tool_name}")
-                
-        except Exception as e:
-            logger.error(f"Error resuming tool {tool_name}: {e}")
-            print(f"Error: {e}")
+    def disable_all_tools(self) -> None:
+        """Disable all tools"""
+        for tool_name in self.config.get("tools", {}):
+            self.config["tools"][tool_name]["enabled"] = False
+        
+        self._save_config()
+        print("✅ All tools disabled")
     
-    async def enable_multiple_tools(self, tool_names: List[str]):
-        """Enable multiple tools"""
-        try:
-            print(f"Enabling tools: {', '.join(tool_names)}")
-            
-            for tool_name in tool_names:
-                success = await self.manager.enable_tool(tool_name)
-                if success:
-                    print(f"✅ {tool_name} enabled")
+    def enable_core_tools(self) -> None:
+        """Enable core tools for basic functionality"""
+        core_tools = ["sentiment_analysis", "language_processing", "business_intelligence"]
+        
+        for tool_name in core_tools:
+            if tool_name in self.config.get("tools", {}):
+                self.config["tools"][tool_name]["enabled"] = True
+        
+        self._save_config()
+        print("✅ Core tools enabled (sentiment_analysis, language_processing, business_intelligence)")
+    
+    def enable_advanced_tools(self) -> None:
+        """Enable advanced tools for full functionality"""
+        advanced_tools = ["monte_carlo", "deception_analysis", "multi_domain_monte_carlo"]
+        
+        for tool_name in advanced_tools:
+            if tool_name in self.config.get("tools", {}):
+                self.config["tools"][tool_name]["enabled"] = True
+        
+        self._save_config()
+        print("✅ Advanced tools enabled (monte_carlo, deception_analysis, multi_domain_monte_carlo)")
+    
+    def _show_available_tools(self) -> None:
+        """Show available tool names"""
+        print("\n📋 Available tools:")
+        for tool_name in self.config.get("tools", {}):
+            print(f"  - {tool_name}")
+    
+    def show_tool_config(self, tool_name: str) -> None:
+        """Show detailed configuration for a specific tool"""
+        if tool_name not in self.config.get("tools", {}):
+            print(f"❌ Tool '{tool_name}' not found")
+            self._show_available_tools()
+            return
+        
+        config = self.config["tools"][tool_name]
+        print(f"\n🔧 Configuration for '{tool_name}':")
+        print("=" * 40)
+        for key, value in config.items():
+            print(f"{key:25}: {value}")
+    
+    def test_tool_availability(self) -> None:
+        """Test if enabled tools can be imported"""
+        print("\n🧪 Testing tool availability...")
+        
+        enabled_tools = [
+            name for name, config in self.config.get("tools", {}).items()
+            if config.get("enabled", False)
+        ]
+        
+        if not enabled_tools:
+            print("⚠️  No tools are currently enabled")
+            return
+        
+        for tool_name in enabled_tools:
+            try:
+                # Try to import the corresponding module
+                if tool_name == "monte_carlo":
+                    from core.monte_carlo.engine import MonteCarloEngine
+                    print(f"✅ {tool_name}: MonteCarloEngine available")
+                elif tool_name == "sentiment_analysis":
+                    from core.semantic_similarity_analyzer import SemanticSimilarityAnalyzer
+                    print(f"✅ {tool_name}: SemanticSimilarityAnalyzer available")
+                elif tool_name == "language_processing":
+                    from core.language_processing_service import LanguageProcessingService
+                    print(f"✅ {tool_name}: LanguageProcessingService available")
+                elif tool_name == "business_intelligence":
+                    from core.business_metrics import BusinessMetrics
+                    print(f"✅ {tool_name}: BusinessMetrics available")
+                elif tool_name == "deception_analysis":
+                    from core.enhanced_deception_detection_engine import EnhancedDeceptionDetectionEngine
+                    print(f"✅ {tool_name}: EnhancedDeceptionDetectionEngine available")
+                elif tool_name == "multi_domain_monte_carlo":
+                    from core.multi_domain_monte_carlo_engine import MultiDomainMonteCarloEngine
+                    print(f"✅ {tool_name}: MultiDomainMonteCarloEngine available")
                 else:
-                    print(f"❌ {tool_name} failed to enable")
+                    print(f"⚠️  {tool_name}: Import test not implemented")
                     
-        except Exception as e:
-            logger.error(f"Error enabling multiple tools: {e}")
-            print(f"Error: {e}")
-    
-    async def disable_multiple_tools(self, tool_names: List[str]):
-        """Disable multiple tools"""
-        try:
-            print(f"Disabling tools: {', '.join(tool_names)}")
-            
-            for tool_name in tool_names:
-                success = await self.manager.disable_tool(tool_name)
-                if success:
-                    print(f"✅ {tool_name} disabled")
-                else:
-                    print(f"❌ {tool_name} failed to disable")
-                    
-        except Exception as e:
-            logger.error(f"Error disabling multiple tools: {e}")
-            print(f"Error: {e}")
-    
-    async def set_auto_scaling(self, enabled: bool):
-        """Enable or disable auto-scaling"""
-        try:
-            self.manager.set_auto_scaling(enabled)
-            status = "enabled" if enabled else "disabled"
-            print(f"✅ Auto-scaling {status}")
-            
-        except Exception as e:
-            logger.error(f"Error setting auto-scaling: {e}")
-            print(f"Error: {e}")
-    
-    async def start_monitoring(self):
-        """Start resource monitoring"""
-        try:
-            await self.manager.start_monitoring()
-            print("✅ Resource monitoring started")
-            
-        except Exception as e:
-            logger.error(f"Error starting monitoring: {e}")
-            print(f"Error: {e}")
-    
-    async def stop_monitoring(self):
-        """Stop resource monitoring"""
-        try:
-            await self.manager.stop_monitoring()
-            print("✅ Resource monitoring stopped")
-            
-        except Exception as e:
-            logger.error(f"Error stopping monitoring: {e}")
-            print(f"Error: {e}")
-    
-    async def show_health(self):
-        """Show system health status"""
-        try:
-            tool_statuses = self.manager.get_all_tool_statuses()
-            system_resources = self.manager.get_system_resources()
-            
-            total_tools = len(tool_statuses)
-            active_tools = len([info for info in tool_statuses.values() 
-                              if info.status.value in ['enabled', 'paused']])
-            error_tools = len([info for info in tool_statuses.values() 
-                             if info.status.value == 'error'])
-            
-            health_score = 100
-            if total_tools > 0:
-                health_score = ((active_tools - error_tools) / total_tools) * 100
-            
-            print(f"\n{'System Health Status':<20}")
-            print("-" * 40)
-            print(f"{'Health Score':<20} {health_score:<10.1f}%")
-            print(f"{'Total Tools':<20} {total_tools}")
-            print(f"{'Active Tools':<20} {active_tools}")
-            print(f"{'Error Tools':<20} {error_tools}")
-            print(f"{'CPU Usage':<20} {system_resources.get('cpu_percent', 0):<10.1f}%")
-            print(f"{'Memory Usage':<20} {system_resources.get('memory_percent', 0):<10.1f}%")
-            print(f"{'Monitoring':<20} {'Active' if self.manager.running else 'Inactive'}")
-            print(f"{'Auto-scaling':<20} {'Enabled' if self.manager.auto_scaling_enabled else 'Disabled'}")
-            
-        except Exception as e:
-            logger.error(f"Error showing health status: {e}")
-            print(f"Error: {e}")
-    
-    async def update_tool_config(self, tool_name: str, **kwargs):
-        """Update tool configuration"""
-        try:
-            success = self.manager.update_tool_config(tool_name, **kwargs)
-            
-            if success:
-                print(f"✅ Configuration updated for {tool_name}")
-            else:
-                print(f"❌ Failed to update configuration for {tool_name}")
-                
-        except Exception as e:
-            logger.error(f"Error updating tool config: {e}")
-            print(f"Error: {e}")
+            except ImportError as e:
+                print(f"❌ {tool_name}: Import failed - {e}")
+            except Exception as e:
+                print(f"⚠️  {tool_name}: Error during test - {e}")
 
 
-async def main():
-    """Main CLI function"""
-    parser = argparse.ArgumentParser(description="MCP Tool Manager CLI")
-    parser.add_argument("command", choices=[
-        "list", "enable", "disable", "pause", "resume", 
-        "enable-multiple", "disable-multiple", "resources", "health",
-        "auto-scale", "start-monitoring", "stop-monitoring", "config"
-    ], help="Command to execute")
+def show_usage():
+    """Show usage information"""
+    print("""
+🔧 MCP Tool Manager
+
+Usage:
+  python mcp_tool_manager.py [command] [tool_name]
+
+Commands:
+  list                    - List all tools and their status
+  enable <tool_name>      - Enable a specific tool
+  disable <tool_name>     - Disable a specific tool
+  enable-all              - Enable all tools
+  disable-all             - Disable all tools
+  enable-core             - Enable core tools only
+  enable-advanced         - Enable advanced tools only
+  config <tool_name>      - Show detailed config for a tool
+  test                    - Test tool availability
+  help                    - Show this help message
+
+Examples:
+  python mcp_tool_manager.py list
+  python mcp_tool_manager.py enable monte_carlo
+  python mcp_tool_manager.py disable sentiment_analysis
+  python mcp_tool_manager.py enable-core
+  python mcp_tool_manager.py test
+""")
+
+
+def main():
+    """Main function"""
+    if len(sys.argv) < 2:
+        show_usage()
+        return
     
-    parser.add_argument("--tool", "-t", help="Tool name")
-    parser.add_argument("--tools", "-T", nargs="+", help="Multiple tool names")
-    parser.add_argument("--show-resources", "-r", action="store_true", help="Show system resources")
-    parser.add_argument("--enabled", "-e", type=bool, help="Enable/disable auto-scaling")
-    parser.add_argument("--priority", "-p", type=int, help="Tool priority (1-10)")
-    parser.add_argument("--max-cpu", type=float, help="Maximum CPU percentage")
-    parser.add_argument("--max-memory", type=float, help="Maximum memory in MB")
+    manager = MCPToolManager()
+    command = sys.argv[1].lower()
     
-    args = parser.parse_args()
+    if command == "list":
+        manager.list_tools()
     
-    cli = MCPToolManagerCLI()
+    elif command == "enable":
+        if len(sys.argv) < 3:
+            print("❌ Please specify a tool name")
+            manager._show_available_tools()
+            return
+        manager.enable_tool(sys.argv[2])
     
-    try:
-        if args.command == "list":
-            await cli.list_tools(args.show_resources)
-            
-        elif args.command == "enable":
-            if not args.tool:
-                print("Error: Tool name required")
-                return
-            await cli.enable_tool(args.tool)
-            
-        elif args.command == "disable":
-            if not args.tool:
-                print("Error: Tool name required")
-                return
-            await cli.disable_tool(args.tool)
-            
-        elif args.command == "pause":
-            if not args.tool:
-                print("Error: Tool name required")
-                return
-            await cli.pause_tool(args.tool)
-            
-        elif args.command == "resume":
-            if not args.tool:
-                print("Error: Tool name required")
-                return
-            await cli.resume_tool(args.tool)
-            
-        elif args.command == "enable-multiple":
-            if not args.tools:
-                print("Error: Tool names required")
-                return
-            await cli.enable_multiple_tools(args.tools)
-            
-        elif args.command == "disable-multiple":
-            if not args.tools:
-                print("Error: Tool names required")
-                return
-            await cli.disable_multiple_tools(args.tools)
-            
-        elif args.command == "resources":
-            await cli.show_system_resources()
-            
-        elif args.command == "health":
-            await cli.show_health()
-            
-        elif args.command == "auto-scale":
-            if args.enabled is None:
-                print("Error: --enabled parameter required")
-                return
-            await cli.set_auto_scaling(args.enabled)
-            
-        elif args.command == "start-monitoring":
-            await cli.start_monitoring()
-            
-        elif args.command == "stop-monitoring":
-            await cli.stop_monitoring()
-            
-        elif args.command == "config":
-            if not args.tool:
-                print("Error: Tool name required")
-                return
-            
-            config_updates = {}
-            if args.priority is not None:
-                config_updates["priority"] = args.priority
-            if args.max_cpu is not None:
-                config_updates["max_cpu_percent"] = args.max_cpu
-            if args.max_memory is not None:
-                config_updates["max_memory_mb"] = args.max_memory
-            
-            if not config_updates:
-                print("Error: No configuration updates specified")
-                return
-                
-            await cli.update_tool_config(args.tool, **config_updates)
-            
-    except KeyboardInterrupt:
-        print("\nOperation cancelled by user")
-    except Exception as e:
-        logger.error(f"CLI error: {e}")
-        print(f"Error: {e}")
+    elif command == "disable":
+        if len(sys.argv) < 3:
+            print("❌ Please specify a tool name")
+            manager._show_available_tools()
+            return
+        manager.disable_tool(sys.argv[2])
+    
+    elif command == "enable-all":
+        manager.enable_all_tools()
+    
+    elif command == "disable-all":
+        manager.disable_all_tools()
+    
+    elif command == "enable-core":
+        manager.enable_core_tools()
+    
+    elif command == "enable-advanced":
+        manager.enable_advanced_tools()
+    
+    elif command == "config":
+        if len(sys.argv) < 3:
+            print("❌ Please specify a tool name")
+            manager._show_available_tools()
+            return
+        manager.show_tool_config(sys.argv[2])
+    
+    elif command == "test":
+        manager.test_tool_availability()
+    
+    elif command == "help":
+        show_usage()
+    
+    else:
+        print(f"❌ Unknown command: {command}")
+        show_usage()
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()

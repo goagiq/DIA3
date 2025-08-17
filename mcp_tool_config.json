@@ -2,7 +2,7 @@
   "auto_scaling_enabled": true,
   "tools": {
     "monte_carlo": {
-      "enabled": false,
+      "enabled": true,
       "priority": 8,
       "max_cpu_percent": 80.0,
       "max_memory_mb": 4096.0,
@@ -14,7 +14,7 @@
       "resource_check_interval": 10
     },
     "sentiment_analysis": {
-      "enabled": false,
+      "enabled": true,
       "priority": 6,
       "max_cpu_percent": 60.0,
       "max_memory_mb": 2048.0,
