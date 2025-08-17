@@ -1,0 +1,1260 @@
+{
+  "analysis_timestamp": "20250817_105136",
+  "total_gaps_analyzed": 20,
+  "monte_carlo_simulations_per_gap": 10000,
+  "total_simulations": 200000,
+  "gaps": [
+    {
+      "id": "GAP_001",
+      "domain": "military_capabilities",
+      "category": "force_structure",
+      "description": "Adversary's next-generation weapon system development status and capabilities",
+      "current_knowledge_level": 0.3247240713084175,
+      "required_knowledge_level": 0.937678576602479,
+      "strategic_importance": 0.8123957592679836,
+      "collection_difficulty": 0.6190609389379256,
+      "time_criticality": 0.24041677639819287,
+      "adversary_awareness": 0.20919616423534187,
+      "collection_methods": [
+        "TECHINT",
+        "IMINT",
+        "OSINT"
+      ],
+      "impact_areas": [
+        "strategic_planning",
+        "force_structure",
+        "technology_investment"
+      ],
+      "estimated_collection_cost": 38460.96996241774,
+      "estimated_collection_time": 117
+    },
+    {
+      "id": "GAP_002",
+      "domain": "cyber_capabilities",
+      "category": "offensive_cyber",
+      "description": "Advanced persistent threat (APT) group infrastructure and operational patterns",
+      "current_knowledge_level": 0.3002251666834131,
+      "required_knowledge_level": 0.7357167044804851,
+      "strategic_importance": 0.755621931064197,
+      "collection_difficulty": 0.2394881053189702,
+      "time_criticality": 0.7497988950401423,
+      "adversary_awareness": 0.7569868963110251,
+      "collection_methods": [
+        "CYBERINT",
+        "SIGINT",
+        "OSINT"
+      ],
+      "impact_areas": [
+        "operational_execution",
+        "risk_assessment",
+        "decision_making"
+      ],
+      "estimated_collection_cost": 10381.59526209702,
+      "estimated_collection_time": 306
+    },
+    {
+      "id": "GAP_003",
+      "domain": "economic_intentions",
+      "category": "resource_allocation",
+      "description": "Adversary's defense budget allocation and procurement priorities",
+      "current_knowledge_level": 0.47048890577662994,
+      "required_knowledge_level": 0.8529132901220702,
+      "strategic_importance": 0.30494641365380215,
+      "collection_difficulty": 0.21614369752899104,
+      "time_criticality": 0.5722971942325502,
+      "adversary_awareness": 0.37990268020067886,
+      "collection_methods": [
+        "FININT",
+        "OSINT",
+        "HUMINT"
+      ],
+      "impact_areas": [
+        "resource_allocation",
+        "strategic_planning",
+        "force_structure"
+      ],
+      "estimated_collection_cost": 32866.17497467156,
+      "estimated_collection_time": 217
+    },
+    {
+      "id": "GAP_004",
+      "domain": "political_objectives",
+      "category": "strategic_goals",
+      "description": "Leadership's long-term strategic objectives and decision-making calculus",
+      "current_knowledge_level": 0.31981710597621504,
+      "required_knowledge_level": 0.814017496054259,
+      "strategic_importance": 0.8496231729751094,
+      "collection_difficulty": 0.3397716475108518,
+      "time_criticality": 0.5628109945722505,
+      "adversary_awareness": 0.5146901982034298,
+      "collection_methods": [
+        "HUMINT",
+        "OSINT",
+        "SIGINT"
+      ],
+      "impact_areas": [
+        "strategic_planning",
+        "decision_making",
+        "alliance_management"
+      ],
+      "estimated_collection_cost": 32760.702232798885,
+      "estimated_collection_time": 336
+    },
+    {
+      "id": "GAP_005",
+      "domain": "technological_advancements",
+      "category": "emerging_tech",
+      "description": "Artificial intelligence and autonomous systems development programs",
+      "current_knowledge_level": 0.5081845231526678,
+      "required_knowledge_level": 0.8126248129923856,
+      "strategic_importance": 0.30928547281190655,
+      "collection_difficulty": 0.8595412289793969,
+      "time_criticality": 0.6069593960609854,
+      "adversary_awareness": 0.3697915517779413,
+      "collection_methods": [
+        "TECHINT",
+        "OSINT",
+        "CYBERINT"
+      ],
+      "impact_areas": [
+        "technology_investment",
+        "strategic_planning",
+        "force_structure"
+      ],
+      "estimated_collection_cost": 17823.463587904957,
+      "estimated_collection_time": 121
+    },
+    {
+      "id": "GAP_006",
+      "domain": "strategic_doctrine",
+      "category": "military_strategy",
+      "description": "Adversary's military doctrine evolution and strategic thinking patterns",
+      "current_knowledge_level": 0.3640914962437608,
+      "required_knowledge_level": 0.7305095587111947,
+      "strategic_importance": 0.6466238370778892,
+      "collection_difficulty": 0.2240719647806529,
+      "time_criticality": 0.9183883618709039,
+      "adversary_awareness": 0.2811459871200119,
+      "collection_methods": [
+        "OSINT",
+        "HUMINT",
+        "SIGINT"
+      ],
+      "impact_areas": [
+        "strategic_planning",
+        "operational_execution",
+        "decision_making"
+      ],
+      "estimated_collection_cost": 334635.9193334512,
+      "estimated_collection_time": 31
+    },
+    {
+      "id": "GAP_007",
+      "domain": "operational_tactics",
+      "category": "tactical_methods",
+      "description": "New operational tactics and procedures being developed or employed",
+      "current_knowledge_level": 0.35509352469474686,
+      "required_knowledge_level": 0.7519854157170471,
+      "strategic_importance": 0.697390229473994,
+      "collection_difficulty": 0.22191930471889101,
+      "time_criticality": 0.8580562971354987,
+      "adversary_awareness": 0.41482789335883596,
+      "collection_methods": [
+        "IMINT",
+        "SIGINT",
+        "HUMINT"
+      ],
+      "impact_areas": [
+        "tactical_operations",
+        "operational_execution",
+        "risk_assessment"
+      ],
+      "estimated_collection_cost": 203623.61564088907,
+      "estimated_collection_time": 299
+    },
+    {
+      "id": "GAP_008",
+      "domain": "leadership_decision_making",
+      "category": "command_structure",
+      "description": "Command structure and decision-making processes within adversary leadership",
+      "current_knowledge_level": 0.5363631975138525,
+      "required_knowledge_level": 0.7816351922014588,
+      "strategic_importance": 0.6993107820837796,
+      "collection_difficulty": 0.5645839820180766,
+      "time_criticality": 0.9650548219144142,
+      "adversary_awareness": 0.691173694074706,
+      "collection_methods": [
+        "HUMINT",
+        "SIGINT",
+        "OSINT"
+      ],
+      "impact_areas": [
+        "decision_making",
+        "strategic_planning",
+        "alliance_management"
+      ],
+      "estimated_collection_cost": 376186.8539673166,
+      "estimated_collection_time": 82
+    },
+    {
+      "id": "GAP_009",
+      "domain": "resource_allocation",
+      "category": "logistics",
+      "description": "Logistics and supply chain vulnerabilities and capabilities",
+      "current_knowledge_level": 0.4520506993983089,
+      "required_knowledge_level": 0.9413138268160345,
+      "strategic_importance": 0.7249239733806793,
+      "collection_difficulty": 0.39319942741578034,
+      "time_criticality": 0.36664615513367416,
+      "adversary_awareness": 0.21568685734410176,
+      "collection_methods": [
+        "IMINT",
+        "OSINT",
+        "FININT"
+      ],
+      "impact_areas": [
+        "resource_allocation",
+        "operational_execution",
+        "tactical_operations"
+      ],
+      "estimated_collection_cost": 17661.83930318503,
+      "estimated_collection_time": 38
+    },
+    {
+      "id": "GAP_010",
+      "domain": "alliance_relationships",
+      "category": "diplomatic",
+      "description": "Alliance relationships and potential coalition formations",
+      "current_knowledge_level": 0.5633468615779944,
+      "required_knowledge_level": 0.749678920383543,
+      "strategic_importance": 0.3038654819865217,
+      "collection_difficulty": 0.770822999918384,
+      "time_criticality": 0.7361716094628554,
+      "adversary_awareness": 0.6103050176286912,
+      "collection_methods": [
+        "HUMINT",
+        "OSINT",
+        "SIGINT"
+      ],
+      "impact_areas": [
+        "alliance_management",
+        "strategic_planning",
+        "decision_making"
+      ],
+      "estimated_collection_cost": 387922.4698761134,
+      "estimated_collection_time": 290
+    },
+    {
+      "id": "GAP_011",
+      "domain": "military_capabilities",
+      "category": "force_structure",
+      "description": "Adversary's next-generation weapon system development status and capabilities",
+      "current_knowledge_level": 0.6557805271080094,
+      "required_knowledge_level": 0.8627692563754861,
+      "strategic_importance": 0.9404717728806464,
+      "collection_difficulty": 0.7950270044528596,
+      "time_criticality": 0.504505606724383,
+      "adversary_awareness": 0.16678708154328792,
+      "collection_methods": [
+        "TECHINT",
+        "IMINT",
+        "OSINT"
+      ],
+      "impact_areas": [
+        "strategic_planning",
+        "force_structure",
+        "technology_investment"
+      ],
+      "estimated_collection_cost": 191700.94357715052,
+      "estimated_collection_time": 91
+    },
+    {
+      "id": "GAP_012",
+      "domain": "cyber_capabilities",
+      "category": "offensive_cyber",
+      "description": "Advanced persistent threat (APT) group infrastructure and operational patterns",
+      "current_knowledge_level": 0.29510999321604825,
+      "required_knowledge_level": 0.8824015445845159,
+      "strategic_importance": 0.7462902299486491,
+      "collection_difficulty": 0.8210489198034285,
+      "time_criticality": 0.5249934326457544,
+      "adversary_awareness": 0.1837159721568112,
+      "collection_methods": [
+        "CYBERINT",
+        "SIGINT",
+        "OSINT"
+      ],
+      "impact_areas": [
+        "operational_execution",
+        "risk_assessment",
+        "decision_making"
+      ],
+      "estimated_collection_cost": 359489.94573926757,
+      "estimated_collection_time": 286
+    },
+    {
+      "id": "GAP_013",
+      "domain": "economic_intentions",
+      "category": "resource_allocation",
+      "description": "Adversary's defense budget allocation and procurement priorities",
+      "current_knowledge_level": 0.533037712698924,
+      "required_knowledge_level": 0.7589962299372389,
+      "strategic_importance": 0.47924782593292675,
+      "collection_difficulty": 0.22830351267690197,
+      "time_criticality": 0.7395966007172087,
+      "adversary_awareness": 0.17762357456828193,
+      "collection_methods": [
+        "FININT",
+        "OSINT",
+        "HUMINT"
+      ],
+      "impact_areas": [
+        "resource_allocation",
+        "strategic_planning",
+        "force_structure"
+      ],
+      "estimated_collection_cost": 225274.88591422734,
+      "estimated_collection_time": 208
+    },
+    {
+      "id": "GAP_014",
+      "domain": "political_objectives",
+      "category": "strategic_goals",
+      "description": "Leadership's long-term strategic objectives and decision-making calculus",
+      "current_knowledge_level": 0.11885751141204055,
+      "required_knowledge_level": 0.8591026028159451,
+      "strategic_importance": 0.5200491867534287,
+      "collection_difficulty": 0.555999483815292,
+      "time_criticality": 0.9168098265334838,
+      "adversary_awareness": 0.27450456040421245,
+      "collection_methods": [
+        "HUMINT",
+        "OSINT",
+        "SIGINT"
+      ],
+      "impact_areas": [
+        "strategic_planning",
+        "decision_making",
+        "alliance_management"
+      ],
+      "estimated_collection_cost": 211087.63228745857,
+      "estimated_collection_time": 200
+    },
+    {
+      "id": "GAP_015",
+      "domain": "technological_advancements",
+      "category": "emerging_tech",
+      "description": "Artificial intelligence and autonomous systems development programs",
+      "current_knowledge_level": 0.22183673484086164,
+      "required_knowledge_level": 0.9357133926394952,
+      "strategic_importance": 0.7192058265419752,
+      "collection_difficulty": 0.6863494531277932,
+      "time_criticality": 0.8924210551137319,
+      "adversary_awareness": 0.5370478336936553,
+      "collection_methods": [
+        "TECHINT",
+        "OSINT",
+        "CYBERINT"
+      ],
+      "impact_areas": [
+        "technology_investment",
+        "strategic_planning",
+        "force_structure"
+      ],
+      "estimated_collection_cost": 154860.50606047985,
+      "estimated_collection_time": 163
+    },
+    {
+      "id": "GAP_016",
+      "domain": "strategic_doctrine",
+      "category": "military_strategy",
+      "description": "Adversary's military doctrine evolution and strategic thinking patterns",
+      "current_knowledge_level": 0.37392074228974614,
+      "required_knowledge_level": 0.7546101093042084,
+      "strategic_importance": 0.5915569635092564,
+      "collection_difficulty": 0.8182961812432077,
+      "time_criticality": 0.3919105189047466,
+      "adversary_awareness": 0.18546156829047136,
+      "collection_methods": [
+        "OSINT",
+        "HUMINT",
+        "SIGINT"
+      ],
+      "impact_areas": [
+        "strategic_planning",
+        "operational_execution",
+        "decision_making"
+      ],
+      "estimated_collection_cost": 184585.9406577177,
+      "estimated_collection_time": 219
+    },
+    {
+      "id": "GAP_017",
+      "domain": "operational_tactics",
+      "category": "tactical_methods",
+      "description": "New operational tactics and procedures being developed or employed",
+      "current_knowledge_level": 0.16603115471660607,
+      "required_knowledge_level": 0.7569837906354854,
+      "strategic_importance": 0.5989754520383794,
+      "collection_difficulty": 0.7726103361457453,
+      "time_criticality": 0.8746575249307091,
+      "adversary_awareness": 0.1048664913718335,
+      "collection_methods": [
+        "IMINT",
+        "SIGINT",
+        "HUMINT"
+      ],
+      "impact_areas": [
+        "tactical_operations",
+        "operational_execution",
+        "risk_assessment"
+      ],
+      "estimated_collection_cost": 260266.1782630072,
+      "estimated_collection_time": 166
+    },
+    {
+      "id": "GAP_018",
+      "domain": "leadership_decision_making",
+      "category": "command_structure",
+      "description": "Command structure and decision-making processes within adversary leadership",
+      "current_knowledge_level": 0.3908979828153899,
+      "required_knowledge_level": 0.8731090082225675,
+      "strategic_importance": 0.488588633658965,
+      "collection_difficulty": 0.3708878655734419,
+      "time_criticality": 0.25146193795563754,
+      "adversary_awareness": 0.2531349537011492,
+      "collection_methods": [
+        "HUMINT",
+        "SIGINT",
+        "OSINT"
+      ],
+      "impact_areas": [
+        "decision_making",
+        "strategic_planning",
+        "alliance_management"
+      ],
+      "estimated_collection_cost": 283469.98098849715,
+      "estimated_collection_time": 209
+    },
+    {
+      "id": "GAP_019",
+      "domain": "resource_allocation",
+      "category": "logistics",
+      "description": "Logistics and supply chain vulnerabilities and capabilities",
+      "current_knowledge_level": 0.31817776142757637,
+      "required_knowledge_level": 0.9429455206802402,
+      "strategic_importance": 0.9737131064594777,
+      "collection_difficulty": 0.3762476070777549,
+      "time_criticality": 0.547523655303147,
+      "adversary_awareness": 0.31061481687173875,
+      "collection_methods": [
+        "IMINT",
+        "OSINT",
+        "FININT"
+      ],
+      "impact_areas": [
+        "resource_allocation",
+        "operational_execution",
+        "tactical_operations"
+      ],
+      "estimated_collection_cost": 149571.84224495912,
+      "estimated_collection_time": 110
+    },
+    {
+      "id": "GAP_020",
+      "domain": "alliance_relationships",
+      "category": "diplomatic",
+      "description": "Alliance relationships and potential coalition formations",
+      "current_knowledge_level": 0.260068608565171,
+      "required_knowledge_level": 0.9441537389581631,
+      "strategic_importance": 0.5877259093227618,
+      "collection_difficulty": 0.22313551303038387,
+      "time_criticality": 0.4105641232240147,
+      "adversary_awareness": 0.5440459412909547,
+      "collection_methods": [
+        "HUMINT",
+        "OSINT",
+        "SIGINT"
+      ],
+      "impact_areas": [
+        "alliance_management",
+        "strategic_planning",
+        "decision_making"
+      ],
+      "estimated_collection_cost": 343545.6712618357,
+      "estimated_collection_time": 82
+    }
+  ],
+  "collection_requirements": [
+    {
+      "gap_id": "GAP_006",
+      "priority_score": 0.015127827763994864,
+      "collection_methods": [
+        "OSINT",
+        "HUMINT",
+        "SIGINT"
+      ],
+      "timeline": 15,
+      "resources_required": {
+        "personnel": 133854.3677333805,
+        "technology": 100390.77580003535,
+        "operational": 66927.18386669025,
+        "analysis": 33463.591933345124
+      },
+      "success_probability": 0.2552029862041824,
+      "risk_factors": [
+        "Low success probability"
+      ],
+      "mitigation_strategies": [
+        "Increase resource allocation"
+      ]
+    },
+    {
+      "gap_id": "GAP_009",
+      "priority_score": 0.007010166247088973,
+      "collection_methods": [
+        "IMINT",
+        "OSINT",
+        "FININT"
+      ],
+      "timeline": 76,
+      "resources_required": {
+        "personnel": 7064.735721274012,
+        "technology": 5298.551790955508,
+        "operational": 3532.367860637006,
+        "analysis": 1766.183930318503
+      },
+      "success_probability": 0.21318682759451976,
+      "risk_factors": [
+        "Low success probability"
+      ],
+      "mitigation_strategies": [
+        "Increase resource allocation"
+      ]
+    },
+    {
+      "gap_id": "GAP_019",
+      "priority_score": 0.006522072824646237,
+      "collection_methods": [
+        "IMINT",
+        "OSINT",
+        "FININT"
+      ],
+      "timeline": 110,
+      "resources_required": {
+        "personnel": 59828.73689798365,
+        "technology": 44871.552673487735,
+        "operational": 29914.368448991823,
+        "analysis": 14957.184224495912
+      },
+      "success_probability": 0.1502074557444592,
+      "risk_factors": [
+        "Low success probability"
+      ],
+      "mitigation_strategies": [
+        "Increase resource allocation"
+      ]
+    },
+    {
+      "gap_id": "GAP_020",
+      "priority_score": 0.0029921749290467443,
+      "collection_methods": [
+        "HUMINT",
+        "OSINT",
+        "SIGINT"
+      ],
+      "timeline": 164,
+      "resources_required": {
+        "personnel": 137418.2685047343,
+        "technology": 103063.70137855072,
+        "operational": 68709.13425236715,
+        "analysis": 34354.567126183574
+      },
+      "success_probability": 0.13731877808205867,
+      "risk_factors": [
+        "Low success probability"
+      ],
+      "mitigation_strategies": [
+        "Increase resource allocation"
+      ]
+    },
+    {
+      "gap_id": "GAP_013",
+      "priority_score": 0.00235890840385483,
+      "collection_methods": [
+        "FININT",
+        "OSINT",
+        "HUMINT"
+      ],
+      "timeline": 208,
+      "resources_required": {
+        "personnel": 90109.95436569094,
+        "technology": 67582.4657742682,
+        "operational": 45054.97718284547,
+        "analysis": 22527.488591422734
+      },
+      "success_probability": 0.13648784219971,
+      "risk_factors": [
+        "Long collection timeline",
+        "Low success probability"
+      ],
+      "mitigation_strategies": [
+        "Prioritize critical information first",
+        "Increase resource allocation"
+      ]
+    },
+    {
+      "gap_id": "GAP_001",
+      "priority_score": 0.0016679862581970312,
+      "collection_methods": [
+        "TECHINT",
+        "IMINT",
+        "OSINT"
+      ],
+      "timeline": 234,
+      "resources_required": {
+        "personnel": 15384.387984967096,
+        "technology": 11538.29098872532,
+        "operational": 7692.193992483548,
+        "analysis": 3846.096996241774
+      },
+      "success_probability": 0.1023418103133671,
+      "risk_factors": [
+        "Low success probability"
+      ],
+      "mitigation_strategies": [
+        "Increase resource allocation"
+      ]
+    },
+    {
+      "gap_id": "GAP_014",
+      "priority_score": 0.0013897389443554712,
+      "collection_methods": [
+        "HUMINT",
+        "OSINT",
+        "SIGINT"
+      ],
+      "timeline": 100,
+      "resources_required": {
+        "personnel": 84435.05291498343,
+        "technology": 63326.28968623757,
+        "operational": 42217.52645749172,
+        "analysis": 21108.76322874586
+      },
+      "success_probability": 0.07280802424052045,
+      "risk_factors": [
+        "Long collection timeline",
+        "Low success probability"
+      ],
+      "mitigation_strategies": [
+        "Prioritize critical information first",
+        "Increase resource allocation"
+      ]
+    },
+    {
+      "gap_id": "GAP_018",
+      "priority_score": 0.0008407199185067641,
+      "collection_methods": [
+        "HUMINT",
+        "SIGINT",
+        "OSINT"
+      ],
+      "timeline": 418,
+      "resources_required": {
+        "personnel": 113387.99239539886,
+        "technology": 85040.99429654914,
+        "operational": 56693.99619769943,
+        "analysis": 28346.998098849715
+      },
+      "success_probability": 0.10040883656340133,
+      "risk_factors": [
+        "Long collection timeline",
+        "Low success probability"
+      ],
+      "mitigation_strategies": [
+        "Prioritize critical information first",
+        "Increase resource allocation"
+      ]
+    },
+    {
+      "gap_id": "GAP_003",
+      "priority_score": 0.000797790460081583,
+      "collection_methods": [
+        "FININT",
+        "OSINT",
+        "HUMINT"
+      ],
+      "timeline": 217,
+      "resources_required": {
+        "personnel": 13146.469989868623,
+        "technology": 9859.852492401467,
+        "operational": 6573.2349949343115,
+        "analysis": 3286.6174974671558
+      },
+      "success_probability": 0.09854512939174195,
+      "risk_factors": [
+        "Long collection timeline",
+        "Low success probability"
+      ],
+      "mitigation_strategies": [
+        "Prioritize critical information first",
+        "Increase resource allocation"
+      ]
+    },
+    {
+      "gap_id": "GAP_017",
+      "priority_score": 0.0006884146204334428,
+      "collection_methods": [
+        "IMINT",
+        "SIGINT",
+        "HUMINT"
+      ],
+      "timeline": 83,
+      "resources_required": {
+        "personnel": 104106.47130520288,
+        "technology": 78079.85347890215,
+        "operational": 52053.23565260144,
+        "analysis": 26026.61782630072
+      },
+      "success_probability": 0.05548668139547406,
+      "risk_factors": [
+        "High collection difficulty",
+        "Low success probability"
+      ],
+      "mitigation_strategies": [
+        "Employ multiple collection methods",
+        "Increase resource allocation"
+      ]
+    },
+    {
+      "gap_id": "GAP_015",
+      "priority_score": 0.000636761814397447,
+      "collection_methods": [
+        "TECHINT",
+        "OSINT",
+        "CYBERINT"
+      ],
+      "timeline": 81,
+      "resources_required": {
+        "personnel": 61944.20242419194,
+        "technology": 46458.15181814395,
+        "operational": 30972.10121209597,
+        "analysis": 15486.050606047986
+      },
+      "success_probability": 0.05000000000000001,
+      "risk_factors": [
+        "Low success probability"
+      ],
+      "mitigation_strategies": [
+        "Increase resource allocation"
+      ]
+    },
+    {
+      "gap_id": "GAP_007",
+      "priority_score": 0.0005874641244831205,
+      "collection_methods": [
+        "IMINT",
+        "SIGINT",
+        "HUMINT"
+      ],
+      "timeline": 149,
+      "resources_required": {
+        "personnel": 81449.44625635563,
+        "technology": 61087.08469226672,
+        "operational": 40724.723128177815,
+        "analysis": 20362.361564088907
+      },
+      "success_probability": 0.05000000000000001,
+      "risk_factors": [
+        "Long collection timeline",
+        "Low success probability"
+      ],
+      "mitigation_strategies": [
+        "Prioritize critical information first",
+        "Increase resource allocation"
+      ]
+    },
+    {
+      "gap_id": "GAP_004",
+      "priority_score": 0.0004985633732732906,
+      "collection_methods": [
+        "HUMINT",
+        "OSINT",
+        "SIGINT"
+      ],
+      "timeline": 336,
+      "resources_required": {
+        "personnel": 13104.280893119554,
+        "technology": 9828.210669839666,
+        "operational": 6552.140446559777,
+        "analysis": 3276.0702232798885
+      },
+      "success_probability": 0.05000000000000001,
+      "risk_factors": [
+        "Long collection timeline",
+        "Low success probability"
+      ],
+      "mitigation_strategies": [
+        "Prioritize critical information first",
+        "Increase resource allocation"
+      ]
+    },
+    {
+      "gap_id": "GAP_011",
+      "priority_score": 0.0004789641367977917,
+      "collection_methods": [
+        "TECHINT",
+        "IMINT",
+        "OSINT"
+      ],
+      "timeline": 91,
+      "resources_required": {
+        "personnel": 76680.37743086022,
+        "technology": 57510.283073145154,
+        "operational": 38340.18871543011,
+        "analysis": 19170.094357715054
+      },
+      "success_probability": 0.0641032938410321,
+      "risk_factors": [
+        "High collection difficulty",
+        "Low success probability"
+      ],
+      "mitigation_strategies": [
+        "Employ multiple collection methods",
+        "Increase resource allocation"
+      ]
+    },
+    {
+      "gap_id": "GAP_002",
+      "priority_score": 0.0004675993408025521,
+      "collection_methods": [
+        "CYBERINT",
+        "SIGINT",
+        "OSINT"
+      ],
+      "timeline": 306,
+      "resources_required": {
+        "personnel": 4152.638104838808,
+        "technology": 3114.478578629106,
+        "operational": 2076.319052419404,
+        "analysis": 1038.159526209702
+      },
+      "success_probability": 0.05000000000000001,
+      "risk_factors": [
+        "High adversary awareness",
+        "Long collection timeline",
+        "Low success probability"
+      ],
+      "mitigation_strategies": [
+        "Use covert collection techniques",
+        "Prioritize critical information first",
+        "Increase resource allocation"
+      ]
+    },
+    {
+      "gap_id": "GAP_012",
+      "priority_score": 0.0004360945457281895,
+      "collection_methods": [
+        "CYBERINT",
+        "SIGINT",
+        "OSINT"
+      ],
+      "timeline": 286,
+      "resources_required": {
+        "personnel": 143795.97829570703,
+        "technology": 107846.98372178027,
+        "operational": 71897.98914785351,
+        "analysis": 35948.99457392676
+      },
+      "success_probability": 0.05000000000000001,
+      "risk_factors": [
+        "High collection difficulty",
+        "Long collection timeline",
+        "Low success probability"
+      ],
+      "mitigation_strategies": [
+        "Employ multiple collection methods",
+        "Prioritize critical information first",
+        "Increase resource allocation"
+      ]
+    },
+    {
+      "gap_id": "GAP_008",
+      "priority_score": 0.0004091875774085005,
+      "collection_methods": [
+        "HUMINT",
+        "SIGINT",
+        "OSINT"
+      ],
+      "timeline": 41,
+      "resources_required": {
+        "personnel": 150474.74158692666,
+        "technology": 112856.05619019498,
+        "operational": 75237.37079346333,
+        "analysis": 37618.685396731664
+      },
+      "success_probability": 0.052129344473778955,
+      "risk_factors": [
+        "High adversary awareness",
+        "Low success probability"
+      ],
+      "mitigation_strategies": [
+        "Use covert collection techniques",
+        "Increase resource allocation"
+      ]
+    },
+    {
+      "gap_id": "GAP_016",
+      "priority_score": 0.00020409744502709504,
+      "collection_methods": [
+        "OSINT",
+        "HUMINT",
+        "SIGINT"
+      ],
+      "timeline": 438,
+      "resources_required": {
+        "personnel": 73834.37626308708,
+        "technology": 55375.78219731531,
+        "operational": 36917.18813154354,
+        "analysis": 18458.59406577177
+      },
+      "success_probability": 0.05000000000000001,
+      "risk_factors": [
+        "High collection difficulty",
+        "Long collection timeline",
+        "Low success probability"
+      ],
+      "mitigation_strategies": [
+        "Employ multiple collection methods",
+        "Prioritize critical information first",
+        "Increase resource allocation"
+      ]
+    },
+    {
+      "gap_id": "GAP_005",
+      "priority_score": 9.195405742944677e-05,
+      "collection_methods": [
+        "TECHINT",
+        "OSINT",
+        "CYBERINT"
+      ],
+      "timeline": 121,
+      "resources_required": {
+        "personnel": 7129.385435161983,
+        "technology": 5347.039076371487,
+        "operational": 3564.6927175809915,
+        "analysis": 1782.3463587904957
+      },
+      "success_probability": 0.05000000000000001,
+      "risk_factors": [
+        "High collection difficulty",
+        "Low success probability"
+      ],
+      "mitigation_strategies": [
+        "Employ multiple collection methods",
+        "Increase resource allocation"
+      ]
+    },
+    {
+      "gap_id": "GAP_010",
+      "priority_score": 6.248133981365366e-05,
+      "collection_methods": [
+        "HUMINT",
+        "OSINT",
+        "SIGINT"
+      ],
+      "timeline": 290,
+      "resources_required": {
+        "personnel": 155168.98795044536,
+        "technology": 116376.74096283402,
+        "operational": 77584.49397522268,
+        "analysis": 38792.24698761134
+      },
+      "success_probability": 0.05000000000000001,
+      "risk_factors": [
+        "High collection difficulty",
+        "High adversary awareness",
+        "Long collection timeline",
+        "Low success probability"
+      ],
+      "mitigation_strategies": [
+        "Employ multiple collection methods",
+        "Use covert collection techniques",
+        "Prioritize critical information first",
+        "Increase resource allocation"
+      ]
+    }
+  ],
+  "monte_carlo_results": [
+    {
+      "gap_id": "GAP_001",
+      "mean_impact": 0.05816993663040297,
+      "std_impact": 0.17110446680524977,
+      "min_impact": 0.0,
+      "max_impact": 0.7571458053878471,
+      "confidence_interval_95": [
+        0.0,
+        0.5973996642747389
+      ],
+      "risk_level": "LOW",
+      "success_probability": 0.1023418103133671
+    },
+    {
+      "gap_id": "GAP_002",
+      "mean_impact": 0.03135442431638239,
+      "std_impact": 0.1396794114282204,
+      "min_impact": 0.0,
+      "max_impact": 0.8180086324108266,
+      "confidence_interval_95": [
+        0.0,
+        0.6472766897913419
+      ],
+      "risk_level": "LOW",
+      "success_probability": 0.05000000000000001
+    },
+    {
+      "gap_id": "GAP_003",
+      "mean_impact": 0.041116731719274074,
+      "std_impact": 0.1252555710124474,
+      "min_impact": 0.0,
+      "max_impact": 0.5236932717356386,
+      "confidence_interval_95": [
+        0.0,
+        0.44182645087954453
+      ],
+      "risk_level": "LOW",
+      "success_probability": 0.09854512939174195
+    },
+    {
+      "gap_id": "GAP_004",
+      "mean_impact": 0.03112628193521661,
+      "std_impact": 0.13738746383690834,
+      "min_impact": 0.0,
+      "max_impact": 0.8677826359109971,
+      "confidence_interval_95": [
+        0.0,
+        0.628651751927737
+      ],
+      "risk_level": "LOW",
+      "success_probability": 0.05000000000000001
+    },
+    {
+      "gap_id": "GAP_005",
+      "mean_impact": 0.020338552768685673,
+      "std_impact": 0.08890663075664518,
+      "min_impact": 0.0,
+      "max_impact": 0.5070548762858029,
+      "confidence_interval_95": [
+        0.0,
+        0.40488347987201123
+      ],
+      "risk_level": "LOW",
+      "success_probability": 0.05000000000000001
+    },
+    {
+      "gap_id": "GAP_006",
+      "mean_impact": 0.16413327721295673,
+      "std_impact": 0.2820312575616046,
+      "min_impact": 0.0,
+      "max_impact": 0.8418067721033408,
+      "confidence_interval_95": [
+        0.0,
+        0.7185342430910848
+      ],
+      "risk_level": "LOW",
+      "success_probability": 0.2552029862041824
+    },
+    {
+      "gap_id": "GAP_007",
+      "mean_impact": 0.033601087423485734,
+      "std_impact": 0.1444873268507013,
+      "min_impact": 0.0,
+      "max_impact": 0.8081840948649076,
+      "confidence_interval_95": [
+        0.0,
+        0.6545322907496348
+      ],
+      "risk_level": "LOW",
+      "success_probability": 0.05000000000000001
+    },
+    {
+      "gap_id": "GAP_008",
+      "mean_impact": 0.032598401632986676,
+      "std_impact": 0.14056414014571175,
+      "min_impact": 0.0,
+      "max_impact": 0.8179367453681756,
+      "confidence_interval_95": [
+        0.0,
+        0.6352978374175309
+      ],
+      "risk_level": "LOW",
+      "success_probability": 0.052129344473778955
+    },
+    {
+      "gap_id": "GAP_009",
+      "mean_impact": 0.11515858923319454,
+      "std_impact": 0.2193953843550319,
+      "min_impact": 0.0,
+      "max_impact": 0.7191335726184144,
+      "confidence_interval_95": [
+        0.0,
+        0.5926173028314417
+      ],
+      "risk_level": "LOW",
+      "success_probability": 0.21318682759451976
+    },
+    {
+      "gap_id": "GAP_010",
+      "mean_impact": 0.019957465240354338,
+      "std_impact": 0.08815246260189301,
+      "min_impact": 0.0,
+      "max_impact": 0.5270378112592673,
+      "confidence_interval_95": [
+        0.0,
+        0.40551895434682755
+      ],
+      "risk_level": "LOW",
+      "success_probability": 0.05000000000000001
+    },
+    {
+      "gap_id": "GAP_011",
+      "mean_impact": 0.030685566645788875,
+      "std_impact": 0.12735770225647408,
+      "min_impact": 0.0,
+      "max_impact": 0.7373863841352519,
+      "confidence_interval_95": [
+        0.0,
+        0.556220779137052
+      ],
+      "risk_level": "LOW",
+      "success_probability": 0.0641032938410321
+    },
+    {
+      "gap_id": "GAP_012",
+      "mean_impact": 0.030318093590461,
+      "std_impact": 0.1343860089234119,
+      "min_impact": 0.0,
+      "max_impact": 0.8078879655871972,
+      "confidence_interval_95": [
+        0.0,
+        0.6157812725915567
+      ],
+      "risk_level": "LOW",
+      "success_probability": 0.05000000000000001
+    },
+    {
+      "gap_id": "GAP_013",
+      "mean_impact": 0.06563171175351996,
+      "std_impact": 0.1661689129948854,
+      "min_impact": 0.0,
+      "max_impact": 0.6319990789455286,
+      "confidence_interval_95": [
+        0.0,
+        0.5184568004598527
+      ],
+      "risk_level": "LOW",
+      "success_probability": 0.13648784219971
+    },
+    {
+      "gap_id": "GAP_014",
+      "mean_impact": 0.05105579741708614,
+      "std_impact": 0.1861632066233077,
+      "min_impact": 0.0,
+      "max_impact": 0.9296116059660403,
+      "confidence_interval_95": [
+        0.0,
+        0.7453100459014455
+      ],
+      "risk_level": "LOW",
+      "success_probability": 0.07280802424052045
+    },
+    {
+      "gap_id": "GAP_015",
+      "mean_impact": 0.03605211020238548,
+      "std_impact": 0.16375020344432323,
+      "min_impact": 0.0,
+      "max_impact": 1.0186367723723182,
+      "confidence_interval_95": [
+        0.0,
+        0.7671391701278226
+      ],
+      "risk_level": "LOW",
+      "success_probability": 0.05000000000000001
+    },
+    {
+      "gap_id": "GAP_016",
+      "mean_impact": 0.023887806224652742,
+      "std_impact": 0.10192019795382588,
+      "min_impact": 0.0,
+      "max_impact": 0.5955525051583326,
+      "confidence_interval_95": [
+        0.0,
+        0.4562953703635247
+      ],
+      "risk_level": "LOW",
+      "success_probability": 0.05000000000000001
+    },
+    {
+      "gap_id": "GAP_017",
+      "mean_impact": 0.03640591405271652,
+      "std_impact": 0.15445527539588028,
+      "min_impact": 0.0,
+      "max_impact": 0.8535393916342721,
+      "confidence_interval_95": [
+        0.0,
+        0.6929961332026128
+      ],
+      "risk_level": "LOW",
+      "success_probability": 0.05548668139547406
+    },
+    {
+      "gap_id": "GAP_018",
+      "mean_impact": 0.041993151549701506,
+      "std_impact": 0.12464617670055073,
+      "min_impact": 0.0,
+      "max_impact": 0.5317957948179386,
+      "confidence_interval_95": [
+        0.0,
+        0.4359978827260906
+      ],
+      "risk_level": "LOW",
+      "success_probability": 0.10040883656340133
+    },
+    {
+      "gap_id": "GAP_019",
+      "mean_impact": 0.10692170783746179,
+      "std_impact": 0.2565772062627852,
+      "min_impact": 0.0,
+      "max_impact": 0.9934130886994517,
+      "confidence_interval_95": [
+        0.0,
+        0.784931642850633
+      ],
+      "risk_level": "LOW",
+      "success_probability": 0.1502074557444592
+    },
+    {
+      "gap_id": "GAP_020",
+      "mean_impact": 0.07645922956145303,
+      "std_impact": 0.19321542460063457,
+      "min_impact": 0.0,
+      "max_impact": 0.7641895408809782,
+      "confidence_interval_95": [
+        0.0,
+        0.6072502817779595
+      ],
+      "risk_level": "LOW",
+      "success_probability": 0.13731877808205867
+    }
+  ],
+  "visualization_file": "Results\\intelligence_gap_analysis\\intelligence_gap_analysis_20250817_105133.png",
+  "system_diagram_file": "Results\\intelligence_gap_analysis\\intelligence_gap_analysis_system_20250817_105136.md",
+  "summary_statistics": {
+    "average_priority_score": 0.0021634484062683515,
+    "average_success_probability": 0.0919113505022123,
+    "average_impact": 0.05234829184740834,
+    "high_priority_gaps": 0,
+    "high_risk_gaps": 0,
+    "total_estimated_cost": 3816177.131135446
+  }
+}

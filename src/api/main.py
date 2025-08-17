@@ -50,6 +50,14 @@ except ImportError as e:
     logger.warning(f"Threat assessment routes not available: {e}")
     THREAT_ASSESSMENT_AVAILABLE = False
 
+# Import PDF generation routes
+try:
+    from src.api.pdf_generation_routes import router as pdf_generation_router
+    PDF_GENERATION_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"PDF generation routes not available: {e}")
+    PDF_GENERATION_AVAILABLE = False
+
 # Import language capabilities routes
 try:
     from src.api.language_capabilities_routes import router as language_capabilities_router
@@ -306,6 +314,13 @@ if LANGUAGE_CAPABILITIES_AVAILABLE:
     logger.info("✅ Language capabilities routes included")
 else:
     logger.warning("⚠️ Language capabilities routes not available")
+
+# Include PDF generation routes if available
+if PDF_GENERATION_AVAILABLE:
+    app.include_router(pdf_generation_router)
+    logger.info("✅ PDF generation routes included")
+else:
+    logger.warning("⚠️ PDF generation routes not available")
 
 # Include enhanced strategic analysis routes if available
 if ENHANCED_STRATEGIC_ANALYSIS_AVAILABLE:

@@ -303,6 +303,17 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"⚠️ Warning: Error initializing Phase 3 Advanced Forecasting & Prediction Components: {e}")
     
+    # Initialize Enhanced PDF Generation Service
+    print("Initializing Enhanced PDF Generation Service...")
+    try:
+        from src.core.enhanced_pdf_generation_service import enhanced_pdf_service
+        
+        print("✅ Enhanced PDF Generation Service initialized")
+    except ImportError as e:
+        print(f"⚠️ Warning: Enhanced PDF Generation Service not available: {e}")
+    except Exception as e:
+        print(f"⚠️ Warning: Error initializing Enhanced PDF Generation Service: {e}")
+    
     # Initialize Phase 4 Multi-Domain Integration Components
     print("Initializing Phase 4 Multi-Domain Integration Components...")
     try:

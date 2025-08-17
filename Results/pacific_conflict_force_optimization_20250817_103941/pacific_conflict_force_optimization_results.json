@@ -1,0 +1,701 @@
+{
+  "simulation_parameters": {
+    "n_simulations": 10000,
+    "timestamp": "20250817_103941",
+    "scenarios": [
+      "south_china_sea_conflict",
+      "taiwan_strait_crisis",
+      "east_china_sea_dispute",
+      "pacific_island_chain_defense"
+    ],
+    "force_compositions": [
+      "carrier_strike_group",
+      "amphibious_ready_group",
+      "surface_action_group",
+      "submarine_strike_group",
+      "air_combat_element"
+    ]
+  },
+  "scenario_results": {
+    "south_china_sea_conflict": {
+      "scenario_parameters": {
+        "distance": 1200,
+        "threat_level": "high",
+        "duration": 30,
+        "environmental_factors": 0.85
+      },
+      "force_composition_performance": {
+        "carrier_strike_group": {
+          "success_probability": 1.0,
+          "avg_casualty_rate": 0.05000000000000001,
+          "avg_mission_duration": 57.60000000000001,
+          "avg_resource_consumption": 58.46399999999998,
+          "casualty_distribution": {
+            "mean": 0.05000000000000001,
+            "std": 6.938893903907228e-18,
+            "min": 0.05,
+            "max": 0.05,
+            "percentiles": {
+              "25": 0.05,
+              "50": 0.05,
+              "75": 0.05,
+              "95": 0.05
+            }
+          }
+        },
+        "amphibious_ready_group": {
+          "success_probability": 1.0,
+          "avg_casualty_rate": 0.05000000000000001,
+          "avg_mission_duration": 57.60000000000001,
+          "avg_resource_consumption": 13.103999999999996,
+          "casualty_distribution": {
+            "mean": 0.05000000000000001,
+            "std": 6.938893903907228e-18,
+            "min": 0.05,
+            "max": 0.05,
+            "percentiles": {
+              "25": 0.05,
+              "50": 0.05,
+              "75": 0.05,
+              "95": 0.05
+            }
+          }
+        },
+        "surface_action_group": {
+          "success_probability": 1.0,
+          "avg_casualty_rate": 0.05000000000000001,
+          "avg_mission_duration": 57.60000000000001,
+          "avg_resource_consumption": 23.18399999999999,
+          "casualty_distribution": {
+            "mean": 0.05000000000000001,
+            "std": 6.938893903907228e-18,
+            "min": 0.05,
+            "max": 0.05,
+            "percentiles": {
+              "25": 0.05,
+              "50": 0.05,
+              "75": 0.05,
+              "95": 0.05
+            }
+          }
+        },
+        "submarine_strike_group": {
+          "success_probability": 1.0,
+          "avg_casualty_rate": 0.05000000000000001,
+          "avg_mission_duration": 57.60000000000001,
+          "avg_resource_consumption": 60.48000000000001,
+          "casualty_distribution": {
+            "mean": 0.05000000000000001,
+            "std": 6.938893903907228e-18,
+            "min": 0.05,
+            "max": 0.05,
+            "percentiles": {
+              "25": 0.05,
+              "50": 0.05,
+              "75": 0.05,
+              "95": 0.05
+            }
+          }
+        },
+        "air_combat_element": {
+          "success_probability": 1.0,
+          "avg_casualty_rate": 0.05000000000000001,
+          "avg_mission_duration": 57.60000000000001,
+          "avg_resource_consumption": 20.15999999999999,
+          "casualty_distribution": {
+            "mean": 0.05000000000000001,
+            "std": 6.938893903907228e-18,
+            "min": 0.05,
+            "max": 0.05,
+            "percentiles": {
+              "25": 0.05,
+              "50": 0.05,
+              "75": 0.05,
+              "95": 0.05
+            }
+          }
+        }
+      },
+      "success_probabilities": {
+        "carrier_strike_group": 1.0,
+        "amphibious_ready_group": 1.0,
+        "surface_action_group": 1.0,
+        "submarine_strike_group": 1.0,
+        "air_combat_element": 1.0
+      },
+      "risk_assessment": {
+        "carrier_strike_group": {
+          "risk_score": 0.020000000000000004,
+          "risk_level": "low",
+          "success_probability": 1.0,
+          "casualty_risk": 0.05000000000000001
+        },
+        "amphibious_ready_group": {
+          "risk_score": 0.020000000000000004,
+          "risk_level": "low",
+          "success_probability": 1.0,
+          "casualty_risk": 0.05000000000000001
+        },
+        "surface_action_group": {
+          "risk_score": 0.020000000000000004,
+          "risk_level": "low",
+          "success_probability": 1.0,
+          "casualty_risk": 0.05000000000000001
+        },
+        "submarine_strike_group": {
+          "risk_score": 0.020000000000000004,
+          "risk_level": "low",
+          "success_probability": 1.0,
+          "casualty_risk": 0.05000000000000001
+        },
+        "air_combat_element": {
+          "risk_score": 0.020000000000000004,
+          "risk_level": "low",
+          "success_probability": 1.0,
+          "casualty_risk": 0.05000000000000001
+        }
+      },
+      "resource_requirements": {}
+    },
+    "taiwan_strait_crisis": {
+      "scenario_parameters": {
+        "distance": 800,
+        "threat_level": "very_high",
+        "duration": 45,
+        "environmental_factors": 0.9
+      },
+      "force_composition_performance": {
+        "carrier_strike_group": {
+          "success_probability": 1.0,
+          "avg_casualty_rate": 0.05000000000000001,
+          "avg_mission_duration": 75.6,
+          "avg_resource_consumption": 76.73400000000001,
+          "casualty_distribution": {
+            "mean": 0.05000000000000001,
+            "std": 6.938893903907228e-18,
+            "min": 0.05,
+            "max": 0.05,
+            "percentiles": {
+              "25": 0.05,
+              "50": 0.05,
+              "75": 0.05,
+              "95": 0.05
+            }
+          }
+        },
+        "amphibious_ready_group": {
+          "success_probability": 1.0,
+          "avg_casualty_rate": 0.05000000000000001,
+          "avg_mission_duration": 75.6,
+          "avg_resource_consumption": 17.199000000000005,
+          "casualty_distribution": {
+            "mean": 0.05000000000000001,
+            "std": 6.938893903907228e-18,
+            "min": 0.05,
+            "max": 0.05,
+            "percentiles": {
+              "25": 0.05,
+              "50": 0.05,
+              "75": 0.05,
+              "95": 0.05
+            }
+          }
+        },
+        "surface_action_group": {
+          "success_probability": 1.0,
+          "avg_casualty_rate": 0.05000000000000001,
+          "avg_mission_duration": 75.6,
+          "avg_resource_consumption": 30.428999999999988,
+          "casualty_distribution": {
+            "mean": 0.05000000000000001,
+            "std": 6.938893903907228e-18,
+            "min": 0.05,
+            "max": 0.05,
+            "percentiles": {
+              "25": 0.05,
+              "50": 0.05,
+              "75": 0.05,
+              "95": 0.05
+            }
+          }
+        },
+        "submarine_strike_group": {
+          "success_probability": 1.0,
+          "avg_casualty_rate": 0.05000000000000001,
+          "avg_mission_duration": 75.6,
+          "avg_resource_consumption": 79.38000000000002,
+          "casualty_distribution": {
+            "mean": 0.05000000000000001,
+            "std": 6.938893903907228e-18,
+            "min": 0.05,
+            "max": 0.05,
+            "percentiles": {
+              "25": 0.05,
+              "50": 0.05,
+              "75": 0.05,
+              "95": 0.05
+            }
+          }
+        },
+        "air_combat_element": {
+          "success_probability": 1.0,
+          "avg_casualty_rate": 0.05000000000000001,
+          "avg_mission_duration": 75.6,
+          "avg_resource_consumption": 26.459999999999994,
+          "casualty_distribution": {
+            "mean": 0.05000000000000001,
+            "std": 6.938893903907228e-18,
+            "min": 0.05,
+            "max": 0.05,
+            "percentiles": {
+              "25": 0.05,
+              "50": 0.05,
+              "75": 0.05,
+              "95": 0.05
+            }
+          }
+        }
+      },
+      "success_probabilities": {
+        "carrier_strike_group": 1.0,
+        "amphibious_ready_group": 1.0,
+        "surface_action_group": 1.0,
+        "submarine_strike_group": 1.0,
+        "air_combat_element": 1.0
+      },
+      "risk_assessment": {
+        "carrier_strike_group": {
+          "risk_score": 0.020000000000000004,
+          "risk_level": "low",
+          "success_probability": 1.0,
+          "casualty_risk": 0.05000000000000001
+        },
+        "amphibious_ready_group": {
+          "risk_score": 0.020000000000000004,
+          "risk_level": "low",
+          "success_probability": 1.0,
+          "casualty_risk": 0.05000000000000001
+        },
+        "surface_action_group": {
+          "risk_score": 0.020000000000000004,
+          "risk_level": "low",
+          "success_probability": 1.0,
+          "casualty_risk": 0.05000000000000001
+        },
+        "submarine_strike_group": {
+          "risk_score": 0.020000000000000004,
+          "risk_level": "low",
+          "success_probability": 1.0,
+          "casualty_risk": 0.05000000000000001
+        },
+        "air_combat_element": {
+          "risk_score": 0.020000000000000004,
+          "risk_level": "low",
+          "success_probability": 1.0,
+          "casualty_risk": 0.05000000000000001
+        }
+      },
+      "resource_requirements": {}
+    },
+    "east_china_sea_dispute": {
+      "scenario_parameters": {
+        "distance": 600,
+        "threat_level": "medium",
+        "duration": 20,
+        "environmental_factors": 0.88
+      },
+      "force_composition_performance": {
+        "carrier_strike_group": {
+          "success_probability": 1.0,
+          "avg_casualty_rate": 0.05000000000000001,
+          "avg_mission_duration": 31.199999999999996,
+          "avg_resource_consumption": 31.668,
+          "casualty_distribution": {
+            "mean": 0.05000000000000001,
+            "std": 6.938893903907228e-18,
+            "min": 0.05,
+            "max": 0.05,
+            "percentiles": {
+              "25": 0.05,
+              "50": 0.05,
+              "75": 0.05,
+              "95": 0.05
+            }
+          }
+        },
+        "amphibious_ready_group": {
+          "success_probability": 1.0,
+          "avg_casualty_rate": 0.05000000000000001,
+          "avg_mission_duration": 31.199999999999996,
+          "avg_resource_consumption": 7.098,
+          "casualty_distribution": {
+            "mean": 0.05000000000000001,
+            "std": 6.938893903907228e-18,
+            "min": 0.05,
+            "max": 0.05,
+            "percentiles": {
+              "25": 0.05,
+              "50": 0.05,
+              "75": 0.05,
+              "95": 0.05
+            }
+          }
+        },
+        "surface_action_group": {
+          "success_probability": 1.0,
+          "avg_casualty_rate": 0.05000000000000001,
+          "avg_mission_duration": 31.199999999999996,
+          "avg_resource_consumption": 12.558,
+          "casualty_distribution": {
+            "mean": 0.05000000000000001,
+            "std": 6.938893903907228e-18,
+            "min": 0.05,
+            "max": 0.05,
+            "percentiles": {
+              "25": 0.05,
+              "50": 0.05,
+              "75": 0.05,
+              "95": 0.05
+            }
+          }
+        },
+        "submarine_strike_group": {
+          "success_probability": 1.0,
+          "avg_casualty_rate": 0.05000000000000001,
+          "avg_mission_duration": 31.199999999999996,
+          "avg_resource_consumption": 32.76,
+          "casualty_distribution": {
+            "mean": 0.05000000000000001,
+            "std": 6.938893903907228e-18,
+            "min": 0.05,
+            "max": 0.05,
+            "percentiles": {
+              "25": 0.05,
+              "50": 0.05,
+              "75": 0.05,
+              "95": 0.05
+            }
+          }
+        },
+        "air_combat_element": {
+          "success_probability": 1.0,
+          "avg_casualty_rate": 0.05000000000000001,
+          "avg_mission_duration": 31.199999999999996,
+          "avg_resource_consumption": 10.919999999999996,
+          "casualty_distribution": {
+            "mean": 0.05000000000000001,
+            "std": 6.938893903907228e-18,
+            "min": 0.05,
+            "max": 0.05,
+            "percentiles": {
+              "25": 0.05,
+              "50": 0.05,
+              "75": 0.05,
+              "95": 0.05
+            }
+          }
+        }
+      },
+      "success_probabilities": {
+        "carrier_strike_group": 1.0,
+        "amphibious_ready_group": 1.0,
+        "surface_action_group": 1.0,
+        "submarine_strike_group": 1.0,
+        "air_combat_element": 1.0
+      },
+      "risk_assessment": {
+        "carrier_strike_group": {
+          "risk_score": 0.020000000000000004,
+          "risk_level": "low",
+          "success_probability": 1.0,
+          "casualty_risk": 0.05000000000000001
+        },
+        "amphibious_ready_group": {
+          "risk_score": 0.020000000000000004,
+          "risk_level": "low",
+          "success_probability": 1.0,
+          "casualty_risk": 0.05000000000000001
+        },
+        "surface_action_group": {
+          "risk_score": 0.020000000000000004,
+          "risk_level": "low",
+          "success_probability": 1.0,
+          "casualty_risk": 0.05000000000000001
+        },
+        "submarine_strike_group": {
+          "risk_score": 0.020000000000000004,
+          "risk_level": "low",
+          "success_probability": 1.0,
+          "casualty_risk": 0.05000000000000001
+        },
+        "air_combat_element": {
+          "risk_score": 0.020000000000000004,
+          "risk_level": "low",
+          "success_probability": 1.0,
+          "casualty_risk": 0.05000000000000001
+        }
+      },
+      "resource_requirements": {}
+    },
+    "pacific_island_chain_defense": {
+      "scenario_parameters": {
+        "distance": 2000,
+        "threat_level": "medium",
+        "duration": 60,
+        "environmental_factors": 0.8
+      },
+      "force_composition_performance": {
+        "carrier_strike_group": {
+          "success_probability": 1.0,
+          "avg_casualty_rate": 0.05000000000000001,
+          "avg_mission_duration": 144.0,
+          "avg_resource_consumption": 146.16000000000003,
+          "casualty_distribution": {
+            "mean": 0.05000000000000001,
+            "std": 6.938893903907228e-18,
+            "min": 0.05,
+            "max": 0.05,
+            "percentiles": {
+              "25": 0.05,
+              "50": 0.05,
+              "75": 0.05,
+              "95": 0.05
+            }
+          }
+        },
+        "amphibious_ready_group": {
+          "success_probability": 1.0,
+          "avg_casualty_rate": 0.05000000000000001,
+          "avg_mission_duration": 144.0,
+          "avg_resource_consumption": 32.76,
+          "casualty_distribution": {
+            "mean": 0.05000000000000001,
+            "std": 6.938893903907228e-18,
+            "min": 0.05,
+            "max": 0.05,
+            "percentiles": {
+              "25": 0.05,
+              "50": 0.05,
+              "75": 0.05,
+              "95": 0.05
+            }
+          }
+        },
+        "surface_action_group": {
+          "success_probability": 1.0,
+          "avg_casualty_rate": 0.05000000000000001,
+          "avg_mission_duration": 144.0,
+          "avg_resource_consumption": 57.960000000000015,
+          "casualty_distribution": {
+            "mean": 0.05000000000000001,
+            "std": 6.938893903907228e-18,
+            "min": 0.05,
+            "max": 0.05,
+            "percentiles": {
+              "25": 0.05,
+              "50": 0.05,
+              "75": 0.05,
+              "95": 0.05
+            }
+          }
+        },
+        "submarine_strike_group": {
+          "success_probability": 1.0,
+          "avg_casualty_rate": 0.05000000000000001,
+          "avg_mission_duration": 144.0,
+          "avg_resource_consumption": 151.2,
+          "casualty_distribution": {
+            "mean": 0.05000000000000001,
+            "std": 6.938893903907228e-18,
+            "min": 0.05,
+            "max": 0.05,
+            "percentiles": {
+              "25": 0.05,
+              "50": 0.05,
+              "75": 0.05,
+              "95": 0.05
+            }
+          }
+        },
+        "air_combat_element": {
+          "success_probability": 1.0,
+          "avg_casualty_rate": 0.05000000000000001,
+          "avg_mission_duration": 144.0,
+          "avg_resource_consumption": 50.39999999999999,
+          "casualty_distribution": {
+            "mean": 0.05000000000000001,
+            "std": 6.938893903907228e-18,
+            "min": 0.05,
+            "max": 0.05,
+            "percentiles": {
+              "25": 0.05,
+              "50": 0.05,
+              "75": 0.05,
+              "95": 0.05
+            }
+          }
+        }
+      },
+      "success_probabilities": {
+        "carrier_strike_group": 1.0,
+        "amphibious_ready_group": 1.0,
+        "surface_action_group": 1.0,
+        "submarine_strike_group": 1.0,
+        "air_combat_element": 1.0
+      },
+      "risk_assessment": {
+        "carrier_strike_group": {
+          "risk_score": 0.020000000000000004,
+          "risk_level": "low",
+          "success_probability": 1.0,
+          "casualty_risk": 0.05000000000000001
+        },
+        "amphibious_ready_group": {
+          "risk_score": 0.020000000000000004,
+          "risk_level": "low",
+          "success_probability": 1.0,
+          "casualty_risk": 0.05000000000000001
+        },
+        "surface_action_group": {
+          "risk_score": 0.020000000000000004,
+          "risk_level": "low",
+          "success_probability": 1.0,
+          "casualty_risk": 0.05000000000000001
+        },
+        "submarine_strike_group": {
+          "risk_score": 0.020000000000000004,
+          "risk_level": "low",
+          "success_probability": 1.0,
+          "casualty_risk": 0.05000000000000001
+        },
+        "air_combat_element": {
+          "risk_score": 0.020000000000000004,
+          "risk_level": "low",
+          "success_probability": 1.0,
+          "casualty_risk": 0.05000000000000001
+        }
+      },
+      "resource_requirements": {}
+    }
+  },
+  "force_composition_analysis": {
+    "carrier_strike_group": {
+      "total_platforms": 11,
+      "total_cost": 31.0,
+      "capabilities": {
+        "air_power": 0.95,
+        "sea_control": 0.9,
+        "anti_submarine": 6.52,
+        "strategic_strike": 0,
+        "survivability": 7.21
+      },
+      "cost_efficiency": 0.5025806451612903
+    },
+    "amphibious_ready_group": {
+      "total_platforms": 7,
+      "total_cost": 10.5,
+      "capabilities": {
+        "air_power": 0,
+        "sea_control": 0,
+        "anti_submarine": 2.51,
+        "strategic_strike": 0,
+        "survivability": 2.38
+      },
+      "cost_efficiency": 0.4657142857142857
+    },
+    "surface_action_group": {
+      "total_platforms": 7,
+      "total_cost": 13.5,
+      "capabilities": {
+        "air_power": 0,
+        "sea_control": 0,
+        "anti_submarine": 4.04,
+        "strategic_strike": 0,
+        "survivability": 3.9299999999999997
+      },
+      "cost_efficiency": 0.5903703703703703
+    },
+    "submarine_strike_group": {
+      "total_platforms": 8,
+      "total_cost": 30.0,
+      "capabilities": {
+        "air_power": 0,
+        "sea_control": 0,
+        "anti_submarine": 5.359999999999999,
+        "strategic_strike": 0,
+        "survivability": 6.92
+      },
+      "cost_efficiency": 0.4093333333333333
+    },
+    "air_combat_element": {
+      "total_platforms": 9,
+      "total_cost": 13.0,
+      "capabilities": {
+        "air_power": 0,
+        "sea_control": 0,
+        "anti_submarine": 0,
+        "strategic_strike": 1.84,
+        "survivability": 4.4
+      },
+      "cost_efficiency": 0.48000000000000004
+    }
+  },
+  "optimization_recommendations": {
+    "optimal_force_compositions": {
+      "south_china_sea_conflict": {
+        "composition": "carrier_strike_group",
+        "success_probability": 1.0,
+        "risk_level": "low"
+      },
+      "taiwan_strait_crisis": {
+        "composition": "carrier_strike_group",
+        "success_probability": 1.0,
+        "risk_level": "low"
+      },
+      "east_china_sea_dispute": {
+        "composition": "carrier_strike_group",
+        "success_probability": 1.0,
+        "risk_level": "low"
+      },
+      "pacific_island_chain_defense": {
+        "composition": "carrier_strike_group",
+        "success_probability": 1.0,
+        "risk_level": "low"
+      }
+    },
+    "scenario_specific_recommendations": {},
+    "resource_allocation": {
+      "most_cost_effective": [
+        "surface_action_group",
+        0.5903703703703703
+      ],
+      "cost_effectiveness_ranking": [
+        [
+          "surface_action_group",
+          0.5903703703703703
+        ],
+        [
+          "carrier_strike_group",
+          0.5025806451612903
+        ],
+        [
+          "air_combat_element",
+          0.48000000000000004
+        ],
+        [
+          "amphibious_ready_group",
+          0.4657142857142857
+        ],
+        [
+          "submarine_strike_group",
+          0.4093333333333333
+        ]
+      ]
+    },
+    "risk_mitigation": {},
+    "overall_best_composition": {
+      "composition": "carrier_strike_group",
+      "avg_success_rate": 1.0
+    }
+  }
+}

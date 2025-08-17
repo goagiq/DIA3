@@ -471,6 +471,38 @@ class SentimentOrchestrator:
                 del self.request_cache[cache_key]
                 del self.cache_timestamps[cache_key]
 
+        # Check if this is a PDF generation request
+        if hasattr(request, 'pdf_generation') and request.pdf_generation:
+            from src.core.pdf_generation_service import pdf_service
+            try:
+                result = await pdf_service.generate_pdf_from_markdown(
+                    markdown_file=str(request.content),
+                    output_name=getattr(request, 'output_name', None),
+                    title=getattr(request, 'title', None)
+                )
+                
+                # Convert to AnalysisResult format
+                from src.core.models import SentimentResult
+                return AnalysisResult(
+                    request_id=request.id,
+                    data_type=request.data_type,
+                    sentiment=SentimentResult(
+                        label="success" if result["success"] else "error",
+                        confidence=1.0 if result["success"] else 0.0,
+                        reasoning=result.get("message", "PDF generation completed")
+                    ),
+                    processing_time=0.0,
+                    raw_content=str(request.content),
+                    extracted_text="",
+                    metadata=result,
+                    model_used="pdf_generation_service",
+                    reflection_enabled=request.reflection_enabled,
+                    quality_score=1.0 if result["success"] else 0.0
+                )
+            except Exception as e:
+                logger.error(f"PDF generation failed: {e}")
+                raise ValueError(f"PDF generation failed: {str(e)}")
+
         # Find suitable agent
         agent = await self._find_suitable_agent(request)
         if not agent:

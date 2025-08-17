@@ -1,0 +1,113 @@
+{
+  "process_id": "decision_analysis_economic_competition_1755432479",
+  "scenario_type": "economic_competition",
+  "adversary_type": "business_competitor",
+  "strategic_objectives": [
+    "Market share expansion",
+    "Competitive advantage establishment",
+    "Supply chain control",
+    "Innovation leadership"
+  ],
+  "decision_tree": {
+    "root": {
+      "decision": "Strategic Initiative Launch",
+      "probability": 1.0,
+      "timeline_months": 6,
+      "children": {
+        "aggressive_approach": {
+          "decision": "Aggressive Expansion",
+          "probability": 1.4881791192674865,
+          "resource_commitment": 2.4781990508814173,
+          "expected_outcome": 0.7,
+          "risk_level": "HIGH",
+          "timeline_months": 5
+        },
+        "moderate_approach": {
+          "decision": "Moderate Expansion",
+          "probability": -0.5161343394506148,
+          "resource_commitment": 2.0651658757345146,
+          "expected_outcome": 0.6,
+          "risk_level": "MEDIUM",
+          "timeline_months": 6
+        },
+        "defensive_approach": {
+          "decision": "Defensive Consolidation",
+          "probability": -0.3440895596337432,
+          "resource_commitment": 1.6521327005876119,
+          "expected_outcome": 0.5,
+          "risk_level": "LOW",
+          "timeline_months": 8
+        }
+      }
+    }
+  },
+  "capability_assessment": {
+    "military_force_strength": 1.2348744677041634,
+    "economic_resource_availability": 2.2748095372006283,
+    "political_political_will": 1.535756470867403,
+    "risk_tolerance": 1.860223899084358,
+    "decision_speed": 6.836669636198258,
+    "resource_commitment": 2.0651658757345146
+  },
+  "risk_tolerance": 1.0,
+  "decision_timeline": {
+    "short_term": 12,
+    "medium_term": 24,
+    "long_term": 60
+  },
+  "art_of_war_analysis": {
+    "the_way": {
+      "domestic_support": 0.5956404671658578,
+      "stakeholder_alignment": 0.37731911447236843,
+      "purpose_clarity": 0.5784205574298511,
+      "values_consistency": 0.4568517330467239,
+      "overall_score": 0.5020579680287003
+    },
+    "heaven": {
+      "market_timing": 0.5446808883982431,
+      "economic_conditions": 0.9807775139383574,
+      "seasonal_factors": 0.831024224858278,
+      "external_pressures": 0.4528263191350154,
+      "overall_score": 0.7023272365824734
+    },
+    "earth": {
+      "geographic_advantage": 0.3922602936284279,
+      "resource_availability": 0.4725815232361755,
+      "strategic_depth": 0.5541958353221044,
+      "logistical_capability": 0.5832799906315225,
+      "overall_score": 0.5005794107045576
+    },
+    "command": {
+      "leadership_effectiveness": 0.622967208449442,
+      "decision_making": 0.7888335969303257,
+      "strategic_vision": 0.5388181132092671,
+      "execution_capability": 0.5918283652521654,
+      "overall_score": 0.6356118209603001
+    },
+    "method": {
+      "operational_efficiency": 0.5389481840545041,
+      "process_discipline": 0.8554468409318955,
+      "resource_allocation": 0.7325619640074038,
+      "performance_monitoring": 0.18555512217358083,
+      "overall_score": 0.578128027791846
+    }
+  },
+  "recommendations": [
+    "Implement immediate defensive countermeasures",
+    "Increase intelligence gathering and monitoring",
+    "Develop contingency plans for escalation scenarios",
+    "Strengthen critical infrastructure protection",
+    "Prepare for high-intensity adversary operations",
+    "Develop asymmetric response capabilities",
+    "Enhance early warning systems",
+    "Exploit adversary's weak moral influence and internal divisions",
+    "Exploit geographic and positional weaknesses",
+    "Exploit organizational inefficiencies and process weaknesses",
+    "Maintain strategic flexibility and multiple response options",
+    "Develop comprehensive intelligence picture of adversary capabilities",
+    "Build strong alliances and partnerships",
+    "Invest in technological superiority and innovation"
+  ],
+  "confidence_level": 0.95,
+  "timestamp": "2025-08-17T08:07:59.587026"
+}

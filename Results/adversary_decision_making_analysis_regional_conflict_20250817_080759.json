@@ -1,0 +1,112 @@
+{
+  "process_id": "decision_analysis_regional_conflict_1755432479",
+  "scenario_type": "regional_conflict",
+  "adversary_type": "regional_power",
+  "strategic_objectives": [
+    "Territorial expansion and resource control",
+    "Regional influence and dominance",
+    "Security buffer zone establishment",
+    "Economic corridor development"
+  ],
+  "decision_tree": {
+    "root": {
+      "decision": "Strategic Initiative Launch",
+      "probability": 1.0,
+      "timeline_months": 6,
+      "children": {
+        "aggressive_approach": {
+          "decision": "Aggressive Expansion",
+          "probability": 1.4854625990122825,
+          "resource_commitment": 2.4631631449172824,
+          "expected_outcome": 0.7,
+          "risk_level": "HIGH",
+          "timeline_months": 5
+        },
+        "moderate_approach": {
+          "decision": "Moderate Expansion",
+          "probability": -0.5140969492592119,
+          "resource_commitment": 2.0526359540977355,
+          "expected_outcome": 0.6,
+          "risk_level": "MEDIUM",
+          "timeline_months": 6
+        },
+        "defensive_approach": {
+          "decision": "Defensive Consolidation",
+          "probability": -0.3427312995061413,
+          "resource_commitment": 1.6421087632781886,
+          "expected_outcome": 0.5,
+          "risk_level": "LOW",
+          "timeline_months": 8
+        }
+      }
+    }
+  },
+  "capability_assessment": {
+    "military_force_strength": 2.0507410870321525,
+    "economic_resource_availability": 1.8899281426848586,
+    "political_political_will": 1.7326336384005248,
+    "risk_tolerance": 1.8568282487653531,
+    "decision_speed": 6.720564820965477,
+    "resource_commitment": 2.0526359540977355
+  },
+  "risk_tolerance": 1.0,
+  "decision_timeline": {
+    "short_term": 6,
+    "medium_term": 18,
+    "long_term": 36
+  },
+  "art_of_war_analysis": {
+    "the_way": {
+      "domestic_support": 0.6575968315761136,
+      "stakeholder_alignment": 0.3530567859699555,
+      "purpose_clarity": 0.5240101639086427,
+      "values_consistency": 0.733345718359923,
+      "overall_score": 0.5670023749536587
+    },
+    "heaven": {
+      "market_timing": 0.593483125162139,
+      "economic_conditions": 0.7906712336518942,
+      "seasonal_factors": 0.5938623634461919,
+      "external_pressures": 0.14880868585915386,
+      "overall_score": 0.5317063520298447
+    },
+    "earth": {
+      "geographic_advantage": 0.9750101043585554,
+      "resource_availability": 0.6353321195434076,
+      "strategic_depth": 0.5642610580572559,
+      "logistical_capability": 0.4783132890244284,
+      "overall_score": 0.6632291427459118
+    },
+    "command": {
+      "leadership_effectiveness": 0.7017966650013465,
+      "decision_making": 0.6856195017386546,
+      "strategic_vision": 0.6976033454337068,
+      "execution_capability": 0.7362257299019607,
+      "overall_score": 0.7053113105189172
+    },
+    "method": {
+      "operational_efficiency": 0.5263643248788525,
+      "process_discipline": 0.5415308197458415,
+      "resource_allocation": 0.6685336960479946,
+      "performance_monitoring": 0.6820159362413938,
+      "overall_score": 0.6046111942285206
+    }
+  },
+  "recommendations": [
+    "Implement immediate defensive countermeasures",
+    "Increase intelligence gathering and monitoring",
+    "Develop contingency plans for escalation scenarios",
+    "Strengthen critical infrastructure protection",
+    "Prepare for high-intensity adversary operations",
+    "Develop asymmetric response capabilities",
+    "Enhance early warning systems",
+    "Exploit adversary's weak moral influence and internal divisions",
+    "Leverage timing advantages and external pressure",
+    "Maintain strategic flexibility and multiple response options",
+    "Develop comprehensive intelligence picture of adversary capabilities",
+    "Build strong alliances and partnerships",
+    "Invest in technological superiority and innovation"
+  ],
+  "confidence_level": 0.95,
+  "timestamp": "2025-08-17T08:07:59.550273"
+}

@@ -1,0 +1,113 @@
+{
+  "process_id": "decision_analysis_economic_competition_1755433653",
+  "scenario_type": "economic_competition",
+  "adversary_type": "business_competitor",
+  "strategic_objectives": [
+    "Market share expansion",
+    "Competitive advantage establishment",
+    "Supply chain control",
+    "Innovation leadership"
+  ],
+  "decision_tree": {
+    "root": {
+      "decision": "Strategic Initiative Launch",
+      "probability": 1.0,
+      "timeline_months": 6,
+      "children": {
+        "aggressive_approach": {
+          "decision": "Aggressive Expansion",
+          "probability": 1.4881791192674865,
+          "resource_commitment": 2.4781990508814173,
+          "expected_outcome": 0.7,
+          "risk_level": "HIGH",
+          "timeline_months": 5
+        },
+        "moderate_approach": {
+          "decision": "Moderate Expansion",
+          "probability": -0.5161343394506148,
+          "resource_commitment": 2.0651658757345146,
+          "expected_outcome": 0.6,
+          "risk_level": "MEDIUM",
+          "timeline_months": 6
+        },
+        "defensive_approach": {
+          "decision": "Defensive Consolidation",
+          "probability": -0.3440895596337432,
+          "resource_commitment": 1.6521327005876119,
+          "expected_outcome": 0.5,
+          "risk_level": "LOW",
+          "timeline_months": 8
+        }
+      }
+    }
+  },
+  "capability_assessment": {
+    "military_force_strength": 1.2348744677041634,
+    "economic_resource_availability": 2.2748095372006283,
+    "political_political_will": 1.535756470867403,
+    "risk_tolerance": 1.860223899084358,
+    "decision_speed": 6.836669636198258,
+    "resource_commitment": 2.0651658757345146
+  },
+  "risk_tolerance": 1.0,
+  "decision_timeline": {
+    "short_term": 12,
+    "medium_term": 24,
+    "long_term": 60
+  },
+  "art_of_war_analysis": {
+    "the_way": {
+      "domestic_support": 0.639018955931665,
+      "stakeholder_alignment": 0.7648216437256764,
+      "purpose_clarity": 0.3146025582291376,
+      "values_consistency": 0.8166443233113585,
+      "overall_score": 0.6337718702994594
+    },
+    "heaven": {
+      "market_timing": 0.7138502028040156,
+      "economic_conditions": 0.2757379791285904,
+      "seasonal_factors": 0.38926487754133,
+      "external_pressures": 0.533221642697709,
+      "overall_score": 0.4780186755429112
+    },
+    "earth": {
+      "geographic_advantage": 0.28820609384446005,
+      "resource_availability": 0.5983549422272677,
+      "strategic_depth": 0.7005452786456091,
+      "logistical_capability": 0.3998228225269867,
+      "overall_score": 0.4967322843110809
+    },
+    "command": {
+      "leadership_effectiveness": 0.40060865387259137,
+      "decision_making": 0.6885845086233072,
+      "strategic_vision": 0.5928433816692502,
+      "execution_capability": 0.5386249973429322,
+      "overall_score": 0.5551653853770202
+    },
+    "method": {
+      "operational_efficiency": 0.5873378666073334,
+      "process_discipline": 0.3287234412112851,
+      "resource_allocation": 0.8677234197636812,
+      "performance_monitoring": 1.0,
+      "overall_score": 0.695946181895575
+    }
+  },
+  "recommendations": [
+    "Implement immediate defensive countermeasures",
+    "Increase intelligence gathering and monitoring",
+    "Develop contingency plans for escalation scenarios",
+    "Strengthen critical infrastructure protection",
+    "Prepare for high-intensity adversary operations",
+    "Develop asymmetric response capabilities",
+    "Enhance early warning systems",
+    "Leverage timing advantages and external pressure",
+    "Exploit geographic and positional weaknesses",
+    "Target adversary leadership and decision-making processes",
+    "Maintain strategic flexibility and multiple response options",
+    "Develop comprehensive intelligence picture of adversary capabilities",
+    "Build strong alliances and partnerships",
+    "Invest in technological superiority and innovation"
+  ],
+  "confidence_level": 0.95,
+  "timestamp": "2025-08-17T08:27:33.959893"
+}

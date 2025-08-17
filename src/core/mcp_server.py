@@ -561,8 +561,41 @@ class OptimizedMCPServer:
                         "pdf_path": pdf_path,
                         "language": language
                     }
+
+            # PDF Generation Tools
+            @self.mcp.tool(description="Generate PDF-ready HTML from markdown with mermaid diagrams")
+            async def generate_pdf_from_markdown(
+                markdown_file: str,
+                output_name: str = None,
+                title: str = None
+            ) -> Dict[str, Any]:
+                """Generate PDF-ready HTML from markdown file with embedded mermaid diagrams."""
+                try:
+                    from src.core.pdf_generation_service import pdf_service
+                    
+                    result = await pdf_service.generate_pdf_from_markdown(
+                        markdown_file=markdown_file,
+                        output_name=output_name,
+                        title=title
+                    )
+                    return result
+                except Exception as e:
+                    logger.error(f"Error generating PDF: {e}")
+                    return {"success": False, "error": str(e)}
+
+            @self.mcp.tool(description="Generate PDFs for all white papers")
+            async def generate_white_paper_pdfs() -> Dict[str, Any]:
+                """Generate PDFs for all white papers with embedded diagrams."""
+                try:
+                    from src.core.pdf_generation_service import pdf_service
+                    
+                    result = await pdf_service.generate_white_paper_pdfs()
+                    return result
+                except Exception as e:
+                    logger.error(f"Error generating white paper PDFs: {e}")
+                    return {"success": False, "error": str(e)}
             
-            logger.info("✅ Registered 12 tools with streamable HTTP support")
+            logger.info("✅ Registered 14 tools with streamable HTTP support")
             
         except Exception as e:
             logger.error(f"❌ Error registering tools: {e}")

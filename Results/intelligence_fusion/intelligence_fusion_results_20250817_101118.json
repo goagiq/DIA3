@@ -1,0 +1,249 @@
+{
+  "fused_intelligence": {
+    "fused_id": "29e2669a-9336-4098-a64d-d40d419fd95c",
+    "timestamp": "2025-08-17T10:10:50.557749",
+    "sources_used": [
+      "HUMINT_001",
+      "SIGINT_001",
+      "OSINT_001",
+      "GEOINT_001"
+    ],
+    "fused_content": "[0.26] Local informant reports increased military activity in the northern region. Multiple convoys observed moving toward border areas. Informant has high reliability rating and previous reports have been 85% accurate. | [0.31] Intercepted communications indicate coordination between multiple units. Encryption patterns suggest military command structure. Signal strength and clarity indicate high-quality intelligence. | [0.15] Social media posts and news reports confirm military movements. Satellite imagery analysis shows vehicle concentrations. Open source analysis suggests coordinated military exercise. | [0.29] Satellite imagery analysis reveals significant military buildup in three locations. Thermal signatures indicate active equipment. Terrain analysis shows optimal defensive positions being established.",
+    "overall_confidence": 0.8460360116428619,
+    "source_correlations": {
+      "HUMINT_001_SIGINT_001": 0.06976744186046512,
+      "HUMINT_001_OSINT_001": 0.06818181818181818,
+      "HUMINT_001_GEOINT_001": 0.0425531914893617,
+      "SIGINT_001_OSINT_001": 0.05405405405405406,
+      "SIGINT_001_GEOINT_001": 0.05128205128205128,
+      "OSINT_001_GEOINT_001": 0.13513513513513514
+    },
+    "intelligence_gaps": [
+      "Missing IMINT intelligence",
+      "Missing MASINT intelligence"
+    ],
+    "metadata": {
+      "temporal_correlations": {
+        "time_gaps": [
+          0.9999999988888889,
+          0.9999999927777777,
+          1.0000000055555556
+        ],
+        "temporal_clusters": [
+          [
+            "IntelligenceReport(source_id='GEOINT_001', source_type=<IntelligenceSource.GEOINT: 'GEOINT'>, content='Satellite imagery analysis reveals significant military buildup in three locations. Thermal signatures indicate active equipment. Terrain analysis shows optimal defensive positions being established.', timestamp=datetime.datetime(2025, 8, 17, 6, 10, 50, 553710), location={'lat': 45.1, 'lon': -75.1}, confidence=0.88, reliability_score=0.92, classification='SECRET', metadata={})",
+            "IntelligenceReport(source_id='OSINT_001', source_type=<IntelligenceSource.OSINT: 'OSINT'>, content='Social media posts and news reports confirm military movements. Satellite imagery analysis shows vehicle concentrations. Open source analysis suggests coordinated military exercise.', timestamp=datetime.datetime(2025, 8, 17, 7, 10, 50, 553706), location={'lat': 45.2, 'lon': -75.2}, confidence=0.7, reliability_score=0.75, classification='UNCLASSIFIED', metadata={})",
+            "IntelligenceReport(source_id='HUMINT_001', source_type=<IntelligenceSource.HUMINT: 'HUMINT'>, content='Local informant reports increased military activity in the northern region. Multiple convoys observed moving toward border areas. Informant has high reliability rating and previous reports have been 85% accurate.', timestamp=datetime.datetime(2025, 8, 17, 8, 10, 50, 553680), location={'lat': 45.0, 'lon': -75.0}, confidence=0.85, reliability_score=0.9, classification='SECRET', metadata={})",
+            "IntelligenceReport(source_id='SIGINT_001', source_type=<IntelligenceSource.SIGINT: 'SIGINT'>, content='Intercepted communications indicate coordination between multiple units. Encryption patterns suggest military command structure. Signal strength and clarity indicate high-quality intelligence.', timestamp=datetime.datetime(2025, 8, 17, 9, 10, 50, 553700), location={'lat': 44.8, 'lon': -74.8}, confidence=0.9, reliability_score=0.95, classification='TOP SECRET', metadata={})"
+          ]
+        ],
+        "temporal_consistency": 0.5000000002314815
+      },
+      "spatial_correlations": {
+        "spatial_clusters": [],
+        "geographic_coverage": 1.0,
+        "spatial_consistency": 0.0
+      },
+      "source_count": 4
+    }
+  },
+  "predictive_intelligence": {
+    "prediction_id": "1f648f88-ba19-4e3b-a1d6-677a40577036",
+    "timestamp": "2025-08-17T10:11:15.723742",
+    "timeframe": "30 days",
+    "scenario": "Regional Military Buildup Analysis",
+    "predictions": [
+      84.55414685105067,
+      88.70985001941982,
+      82.7998632817372,
+      78.73822774419585,
+      85.75974338567637,
+      86.5924189886016,
+      88.95827777803657,
+      91.03635441060835,
+      93.14728199580271,
+      95.04748044082078,
+      96.19195428575465,
+      94.78462350889104,
+      96.25773961185233,
+      100.5482125063823,
+      101.25062383490108,
+      101.90237438804117,
+      101.86214687321112,
+      101.64155653010667,
+      99.77103137125509,
+      96.12930264145064,
+      99.10193959921718,
+      97.60286826131366,
+      101.38983264452612,
+      102.73193862127107,
+      104.42471937906092,
+      105.99923980942559,
+      108.5013321517933,
+      110.18123970197367,
+      110.38453193126941,
+      111.05965496775659
+    ],
+    "confidence_intervals": {
+      "lower_bound": [
+        32.5757983193268,
+        34.355687585399195,
+        32.35608214474541,
+        30.248676785009607,
+        33.70962386232486,
+        33.454716969189384,
+        34.23585496732223,
+        35.6140431144917,
+        36.084363954008396,
+        36.91169208773994,
+        37.37516271209138,
+        36.37579691036252,
+        37.21725616892961,
+        38.434587706765605,
+        39.192012459499956,
+        40.03354461072907,
+        39.011634542697166,
+        39.45748386167962,
+        37.93349802818373,
+        36.682897303951485,
+        37.978695467799696,
+        37.624446102003674,
+        38.22026090613614,
+        40.45579195016586,
+        39.86828631943602,
+        41.221505671186534,
+        40.89390025048366,
+        42.550401011952296,
+        42.22818032664961,
+        43.097321673060854
+      ],
+      "upper_bound": [
+        136.87976805374691,
+        142.7161358022157,
+        134.25952299919746,
+        127.61584158279315,
+        138.8490598193131,
+        139.8544416742989,
+        144.29029144432812,
+        147.25301801143706,
+        150.60597761283887,
+        153.14353864694257,
+        154.89666059968172,
+        152.71768750386624,
+        155.38304602413837,
+        162.44168936026367,
+        163.7390023178886,
+        164.77469722288626,
+        164.43450458895208,
+        164.26915423676024,
+        161.1832621372008,
+        155.48354321010845,
+        160.31947543685038,
+        158.3108881594096,
+        163.9544173726666,
+        165.28004119377763,
+        168.75005947214052,
+        171.4026158562637,
+        175.0251786972694,
+        178.09725230974095,
+        178.5068296567105,
+        178.4787318336095
+      ],
+      "mean": [
+        84.59423291711393,
+        88.6515055179936,
+        83.09565056992582,
+        78.82748381005791,
+        85.81327401575946,
+        86.89671260362987,
+        89.10381919532614,
+        91.33052967977872,
+        93.3613402727376,
+        95.24487406898828,
+        96.25443037367431,
+        94.96440599136223,
+        96.40369648345015,
+        100.56816277389146,
+        101.39737191141457,
+        102.2226316428436,
+        101.81811584283922,
+        101.88975154415718,
+        99.88780077424104,
+        96.28567356157271,
+        99.19991485909149,
+        97.83945549709195,
+        101.40298527966483,
+        102.94243677067313,
+        104.50459409055335,
+        106.19491610691203,
+        108.57935102341739,
+        110.24874153409672,
+        110.49561752662719,
+        111.23230739033755
+      ],
+      "median": [
+        84.35537226543508,
+        88.57069927305022,
+        82.88329483447436,
+        78.78337196547977,
+        85.60864948193742,
+        86.74935985723988,
+        88.98193249720114,
+        91.1793840968399,
+        93.3229392604999,
+        95.18518258174188,
+        96.26204897945127,
+        94.99724830137762,
+        96.28625627800147,
+        100.55021064701009,
+        101.26341205432405,
+        102.05172703905177,
+        101.80878190893003,
+        101.76157850154708,
+        99.89352756379759,
+        96.30268910604286,
+        99.07741465618699,
+        97.68304321259512,
+        101.38675356342684,
+        102.84427305240465,
+        104.54787214077962,
+        106.2905941899921,
+        108.67281527526436,
+        110.22542674734348,
+        110.28382484651938,
+        111.16707220218902
+      ]
+    },
+    "confidence_level": 0.95,
+    "risk_assessment": {
+      "volatility": 36.73289771715114,
+      "var_95": 48.57082954721138,
+      "expected_shortfall": 41.66523153259573,
+      "max_drawdown": 0.32788532694520334,
+      "tail_risk": 37.30377927701812,
+      "upside_potential": 173.70377800285948
+    },
+    "uncertainty_metrics": {
+      "initial_uncertainty": 27.928667426620564,
+      "final_uncertainty": 36.73289771715114,
+      "uncertainty_growth": 8.804230290530576,
+      "prediction_horizon_effect": 3.0,
+      "model_uncertainty": 12.813023681235988
+    },
+    "recommendations": [
+      "Address intelligence gaps: Missing IMINT intelligence, Missing MASINT intelligence",
+      "Maintain continuous intelligence monitoring"
+    ],
+    "metadata": {
+      "num_simulations": 10000
+    }
+  },
+  "visualizations": {
+    "prediction_plot": "Results\\intelligence_fusion\\prediction_plot_20250817_101116.png",
+    "risk_assessment": "Results\\intelligence_fusion\\risk_assessment_20250817_101117.png"
+  },
+  "analysis_metadata": {
+    "timestamp": "2025-08-17T10:11:18.216459",
+    "system_version": "DIA3 Intelligence Fusion System v1.0"
+  }
+}

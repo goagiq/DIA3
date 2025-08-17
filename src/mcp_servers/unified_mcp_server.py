@@ -97,6 +97,14 @@ except ImportError as e:
     logger.warning(f"Force projection MCP tools not available: {e}")
     FORCE_PROJECTION_MCP_AVAILABLE = False
 
+# Import PDF generation MCP tools
+try:
+    from src.mcp_servers.pdf_generation_mcp_tools import pdf_generation_mcp_tools
+    PDF_GENERATION_MCP_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"PDF generation MCP tools not available: {e}")
+    PDF_GENERATION_MCP_AVAILABLE = False
+
 # Import strategic intelligence forecast MCP tools
 try:
     from src.mcp_servers.strategic_intelligence_forecast_mcp_tools import StrategicIntelligenceForecastMCPTools
@@ -232,6 +240,17 @@ class UnifiedMCPServer:
                 self.strategic_intelligence_forecast_mcp_tools = None
         else:
             self.strategic_intelligence_forecast_mcp_tools = None
+
+        # Initialize PDF generation MCP tools
+        if PDF_GENERATION_MCP_AVAILABLE:
+            try:
+                self.pdf_generation_mcp_tools = pdf_generation_mcp_tools
+                logger.info("✅ PDF Generation MCP Tools initialized")
+            except Exception as e:
+                logger.warning(f"⚠️ Could not initialize PDF Generation MCP Tools: {e}")
+                self.pdf_generation_mcp_tools = None
+        else:
+            self.pdf_generation_mcp_tools = None
 
         # Initialize enhanced strategic analysis engine if available
         if ENHANCED_STRATEGIC_ANALYSIS_AVAILABLE:
@@ -2028,6 +2047,16 @@ class UnifiedMCPServer:
                         "name": tool["function"]["name"],
                         "description": tool["function"]["description"],
                         "type": "strategic_intelligence_forecast"
+                    })
+            
+            # Add PDF Generation tools if available
+            if hasattr(self, 'pdf_generation_mcp_tools') and self.pdf_generation_mcp_tools:
+                pdf_generation_tools = self.pdf_generation_mcp_tools.get_tools()
+                for tool in pdf_generation_tools:
+                    tools.append({
+                        "name": tool["name"],
+                        "description": tool["description"],
+                        "type": "pdf_generation"
                     })
             
             return tools
