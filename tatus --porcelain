@@ -1,0 +1,9 @@
+[1mdiff --git a/Results/classical_literature_integration_summary.md b/Results/classical_literature_integration_summary.md[m
+[1mindex 1b6bdae..b9574ad 100644[m
+[1m--- a/Results/classical_literature_integration_summary.md[m
+[1m+++ b/Results/classical_literature_integration_summary.md[m
+[36m@@ -250,3 +250,4 @@[m [mThe classical literature processing is now fully integrated and can be:[m
+ [m
+ [m
+ [m
+[41m+[m
