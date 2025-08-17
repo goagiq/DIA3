@@ -1,0 +1,36 @@
+{
+  "timestamp": "2025-08-16T18:33:56.590011",
+  "test_duration": 75.44924,
+  "total_tests": 5,
+  "passed_tests": 1,
+  "failed_tests": 4,
+  "success_rate": 20.0,
+  "test_results": [
+    {
+      "test": "MCP Server Status",
+      "status": "PASS",
+      "message": "MCP server is running on port 8000"
+    },
+    {
+      "test": "Dynamic Tool Manager",
+      "status": "WARNING",
+      "message": "Monte Carlo tools not found in dynamic tool manager"
+    },
+    {
+      "test": "MCP Client Communication",
+      "status": "ERROR",
+      "message": "Error testing MCP client communication: 'MCPAgentTool' object has no attribute 'name'"
+    },
+    {
+      "test": "Monte Carlo API Endpoints",
+      "status": "WARNING",
+      "message": "Monte Carlo simulation endpoint returned 500"
+    },
+    {
+      "test": "Orchestrator Integration",
+      "status": "WARNING",
+      "message": "No Monte Carlo agents found in orchestrator"
+    }
+  ],
+  "overall_status": "FAIL"
+}

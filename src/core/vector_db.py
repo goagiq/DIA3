@@ -80,9 +80,22 @@ class VectorDBManager:
 
             logger.info("ChromaDB collections initialized successfully")
 
+        except KeyboardInterrupt:
+            logger.warning("ChromaDB initialization interrupted - continuing without collections")
+            # Create empty collections to prevent errors
+            self.results_collection = None
+            self.aggregated_collection = None
+            self.metadata_collection = None
+            self.semantic_collection = None
+            self.multilingual_collection = None
         except Exception as e:
             logger.error(f"Failed to initialize ChromaDB collections: {e}")
-            raise
+            # Create empty collections to prevent errors
+            self.results_collection = None
+            self.aggregated_collection = None
+            self.metadata_collection = None
+            self.semantic_collection = None
+            self.multilingual_collection = None
 
     async def store_result(self, result: AnalysisResult) -> str:
         """Store a sentiment analysis result in the vector database."""

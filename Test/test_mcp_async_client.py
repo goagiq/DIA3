@@ -1,175 +1,154 @@
+#!/usr/bin/env python3
 """
-Async MCP client test using mcp-client library
+Test MCP server using the proper async MCP client approach with streamable HTTP.
+Based on the working Phase 1-5 implementation.
 """
+
 import sys
 import os
 import asyncio
 
-# Add src to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+# Add the project root to the Python path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 
-async def test_async_mcp_client():
-    """Test MCP client using mcp-client library with async API."""
-    
-    print("🔍 Testing Async MCP Client...")
-    print("=" * 50)
+async def test_mcp_async_client():
+    """Test MCP server using the proper async client approach."""
+    print("=== TESTING MCP SERVER WITH ASYNC CLIENT ===")
     
     try:
-        # Import the MCP client library
+        # Import the required modules
         from mcp.client.streamable_http import streamablehttp_client
         
-        print("✅ MCP client library imported successfully")
+        print("✅ Successfully imported streamable HTTP client")
         
-        # Create the streamable HTTP client
-        print("1. Creating streamable HTTP client...")
-        client = streamablehttp_client("http://localhost:8000/mcp")
-        
-        print("   ✅ Streamable HTTP client created")
-        
-        # Test the client using async context manager
-        print("\n2. Testing client connection...")
-        
-        async with client as mcp_client:
-            print("   ✅ MCP client connection established")
-            
-            # Initialize the client
-            print("   Initializing MCP client...")
-            init_result = await mcp_client.initialize(
-                protocol_version="2024-11-05",
-                capabilities={},
-                client_info={"name": "test_client", "version": "1.0.0"}
-            )
-            
-            print("   ✅ MCP client initialized")
-            print(f"   Server: {init_result.server_info.name}")
-            print(f"   Version: {init_result.server_info.version}")
-            
-            # List tools
-            print("\n3. Listing available tools...")
-            tools_result = await mcp_client.list_tools()
-            
-            print(f"   ✅ Found {len(tools_result.tools)} MCP tools")
-            
-            # Look for Phase 5 tools
-            phase5_tools = [tool for tool in tools_result.tools if 'phase5' in tool.name.lower()]
-            if phase5_tools:
-                print(f"   🎯 Found {len(phase5_tools)} Phase 5 tools:")
-                for tool in phase5_tools:
-                    print(f"      - {tool.name}")
-                    print(f"        Description: {tool.description[:100]}...")
-            else:
-                print("   ⚠️ No Phase 5 tools found")
+        # Test the client connection using the proper async approach
+        try:
+            # Create the MCP client using the proper async approach
+            async with streamablehttp_client("http://localhost:8000/mcp") as client:
+                print("✅ Successfully connected to MCP server")
                 
-            # Show all available tools (first 10)
-            print("\n   📋 All available tools (showing first 10):")
-            for i, tool in enumerate(tools_result.tools[:10]):
-                print(f"      {i+1}. {tool.name}")
-                print(f"         Description: {tool.description[:80]}...")
-            
-            if len(tools_result.tools) > 10:
-                print(f"      ... and {len(tools_result.tools) - 10} more tools")
-            
-            # Test Phase 5 tool calls
-            print("\n4. Testing Phase 5 tool calls...")
-            if phase5_tools:
-                # Test the first Phase 5 tool
-                test_tool = phase5_tools[0]
-                print(f"   Testing tool: {test_tool.name}")
+                # Test initialize
+                result = await client.initialize({
+                    "protocolVersion": "2024-11-05",
+                    "capabilities": {},
+                    "clientInfo": {"name": "test", "version": "1.0.0"}
+                })
+                print(f"✅ Initialize result: {result}")
                 
-                try:
-                    # Call the tool
-                    result = await mcp_client.call_tool(test_tool.name, {})
-                    print("   ✅ Tool call successful")
-                    print(f"   Result: {str(result.content)[:200]}...")
-                except Exception as e:
-                    print(f"   ❌ Error calling tool: {e}")
-            else:
-                print("   ⚠️ No Phase 5 tools available for testing")
-        
-        print("\n" + "=" * 50)
-        print("🏁 Async MCP Client Test Complete")
-        print("\n📋 Summary:")
-        print("✅ MCP client library working")
-        print("✅ MCP server accessible via proper protocol")
-        print("✅ Tools can be listed and called")
-        if 'phase5_tools' in locals() and phase5_tools:
-            print(f"✅ {len(phase5_tools)} Phase 5 tools available")
-        else:
-            print("⚠️ No Phase 5 tools found")
-        
+                # Test list tools
+                tools_result = await client.list_tools()
+                print(f"✅ List tools result: {tools_result}")
+                
+                if 'tools' in tools_result:
+                    tools = tools_result['tools']
+                    print(f"✅ Retrieved {len(tools)} tools via streamable HTTP client")
+                    
+                    # Look for Monte Carlo tools
+                    monte_carlo_tools = [
+                        tool for tool in tools 
+                        if 'monte_carlo' in tool.get('name', '').lower()
+                    ]
+                    print(f"✅ Found {len(monte_carlo_tools)} Monte Carlo tools")
+                    
+                    # Print tool names for verification
+                    tool_names = [tool.get('name', 'unknown') for tool in tools]
+                    print(f"✅ Available tools: {tool_names}")
+                    
+                    # Test calling a Monte Carlo tool if available
+                    if monte_carlo_tools:
+                        tool_name = monte_carlo_tools[0]['name']
+                        print(f"\nTesting Monte Carlo tool: {tool_name}")
+                        
+                        # Test tool call
+                        call_result = await client.call_tool(tool_name, {})
+                        print(f"✅ Tool call result: {call_result}")
+                    
+                    return True
+                else:
+                    print("❌ No tools found in client response")
+                    return False
+                    
+        except Exception as e:
+            print(f"❌ Error with streamable HTTP client: {e}")
+            return False
+            
     except ImportError as e:
-        print(f"❌ Import Error: {e}")
-        print("💡 Make sure the MCP client library is installed:")
-        print("   pip install mcp-client")
-        
+        print(f"❌ Import error: {e}")
+        return False
     except Exception as e:
-        print(f"❌ Error: {e}")
-        print("💡 Check if the MCP server is running on port 8000")
+        print(f"❌ Error testing MCP client: {e}")
+        return False
 
 
-def test_phase5_api_endpoints():
-    """Test Phase 5 API endpoints directly."""
-    
-    print("\n🔍 Testing Phase 5 API Endpoints...")
-    print("=" * 50)
+def test_dynamic_tool_management():
+    """Test the Dynamic Tool Management API."""
+    print("\n=== TESTING DYNAMIC TOOL MANAGEMENT API ===")
     
     try:
         import requests
-        
-        # Test Phase 5 health endpoint
-        print("1. Testing Phase 5 health endpoint...")
-        response = requests.get("http://localhost:8003/ml-forecasting/phase5/health")
-        print(f"   Status Code: {response.status_code}")
-        
-        if response.status_code == 200:
-            result = response.json()
-            print("   ✅ Phase 5 health check successful")
-            print(f"   Phase: {result.get('phase', 'Unknown')}")
-            print(f"   Status: {result.get('status', 'Unknown')}")
-            print(f"   Components: {list(result.get('components', {}).keys())}")
-            print(f"   Endpoints: {len(result.get('endpoints', []))} available")
-        else:
-            print(f"   ❌ Phase 5 health check failed: {response.text}")
-        
-        # Test a Phase 5 endpoint
-        print("\n2. Testing Phase 5 explain-model-predictions endpoint...")
-        test_data = {
-            "model_output": {"prediction": 0.85, "confidence": 0.92},
-            "input_data": {"feature1": 1.0, "feature2": 0.5},
-            "explanation_type": "comprehensive"
-        }
-        
-        response = requests.post(
-            "http://localhost:8003/ml-forecasting/phase5/explain-model-predictions",
-            json=test_data
+        response = requests.get(
+            'http://localhost:8003/mcp/tools/status', 
+            timeout=5
         )
-        
-        print(f"   Status Code: {response.status_code}")
+        print(f"✅ API Status: {response.status_code}")
         
         if response.status_code == 200:
-            result = response.json()
-            print("   ✅ Phase 5 explain-model-predictions successful")
-            print(f"   Explanation: {result.get('explanation', {}).get('summary', 'N/A')[:100]}...")
+            data = response.json()
+            print(f"✅ API Response: {len(data)} tool statuses retrieved")
+            
+            # Check for Monte Carlo tools
+            monte_carlo_tools = [
+                name for name in data.keys() 
+                if 'monte_carlo' in name.lower()
+            ]
+            print(f"✅ Found {len(monte_carlo_tools)} Monte Carlo tools: {monte_carlo_tools}")
+            
+            return True
         else:
-            print(f"   ❌ Phase 5 explain-model-predictions failed: {response.text[:200]}...")
-        
-        print("\n" + "=" * 50)
-        print("🏁 Phase 5 API Endpoints Test Complete")
-        
+            print(f"❌ API returned status code: {response.status_code}")
+            return False
+            
     except Exception as e:
-        print(f"❌ Error testing Phase 5 API endpoints: {e}")
+        print(f"❌ Error testing Dynamic Tool Management API: {e}")
+        return False
 
 
 async def main():
-    """Main async function."""
-    # Test async MCP client
-    await test_async_mcp_client()
+    """Main test function."""
+    print("🚀 Starting MCP Async Client Test")
+    print("=" * 60)
     
-    # Test Phase 5 API endpoints
-    test_phase5_api_endpoints()
+    # Test results
+    results = {}
+    
+    # Test 1: MCP Server with async client
+    results['mcp_async_client'] = await test_mcp_async_client()
+    
+    # Test 2: Dynamic Tool Management API
+    results['dynamic_tool_management'] = test_dynamic_tool_management()
+    
+    # Summary
+    print("\n" + "=" * 60)
+    print("📊 TEST RESULTS SUMMARY")
+    print("=" * 60)
+    
+    for test_name, result in results.items():
+        status = "✅ PASS" if result else "❌ FAIL"
+        print(f"{test_name.replace('_', ' ').title()}: {status}")
+    
+    # Overall result
+    all_passed = all(results.values())
+    if all_passed:
+        print("\n🎉 ALL TESTS PASSED - Phase 7 Issues Resolved!")
+        print("Both MCP Tools session management and Dynamic Tool Management API are working.")
+        print("The 'Missing session ID' issue has been resolved using proper async MCP client.")
+    else:
+        print("\n⚠️ Some tests failed. Please check the output above for details.")
+    
+    return all_passed
 
 
 if __name__ == "__main__":
-    # Run the async test
-    asyncio.run(main())
+    success = asyncio.run(main())
+    exit(0 if success else 1)

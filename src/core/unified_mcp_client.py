@@ -199,3 +199,8 @@ async def call_monitoring_tool(tool_name: str, parameters: Dict[str, Any]) -> Di
 async def call_performance_optimization_tool(tool_name: str, parameters: Dict[str, Any]) -> Dict[str, Any]:
     """Call a performance optimization tool on the unified MCP server."""
     return await call_unified_mcp_tool(f"performance_optimization_{tool_name}", parameters)
+
+
+async def call_force_projection_tool(tool_name: str, parameters: Dict[str, Any]) -> Dict[str, Any]:
+    """Call a force projection tool on the unified MCP server."""
+    return await call_unified_mcp_tool(f"force_projection_{tool_name}", parameters)

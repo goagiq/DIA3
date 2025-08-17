@@ -1,0 +1,36 @@
+{
+  "timestamp": "2025-08-16T17:54:43.132947",
+  "test_duration": 64.734647,
+  "total_tests": 5,
+  "passed_tests": 1,
+  "failed_tests": 4,
+  "success_rate": 20.0,
+  "test_results": [
+    {
+      "test": "MCP Server Status",
+      "status": "PASS",
+      "message": "MCP server is running on port 8000"
+    },
+    {
+      "test": "Dynamic Tool Manager",
+      "status": "WARNING",
+      "message": "Monte Carlo tools not found in dynamic tool manager"
+    },
+    {
+      "test": "MCP Client Communication",
+      "status": "SKIP",
+      "message": "MCP client libraries not available: No module named 'strands'"
+    },
+    {
+      "test": "Monte Carlo API Endpoints",
+      "status": "WARNING",
+      "message": "Monte Carlo health endpoint returned 404"
+    },
+    {
+      "test": "Orchestrator Integration",
+      "status": "ERROR",
+      "message": "Error testing orchestrator integration: 'SentimentOrchestrator' object has no attribute 'get_registered_agents'"
+    }
+  ],
+  "overall_status": "FAIL"
+}

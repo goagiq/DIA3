@@ -89,6 +89,22 @@ except ImportError as e:
     logger.warning(f"⚠️ Phase 1 ML/DL/RL Forecasting Components not available: {e}")
     ML_FORECASTING_AVAILABLE = False
 
+# Import force projection MCP tools
+try:
+    from src.mcp_servers.force_projection_mcp_tools import ForceProjectionMCPTools
+    FORCE_PROJECTION_MCP_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Force projection MCP tools not available: {e}")
+    FORCE_PROJECTION_MCP_AVAILABLE = False
+
+# Import strategic intelligence forecast MCP tools
+try:
+    from src.mcp_servers.strategic_intelligence_forecast_mcp_tools import StrategicIntelligenceForecastMCPTools
+    STRATEGIC_INTELLIGENCE_FORECAST_MCP_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Strategic intelligence forecast MCP tools not available: {e}")
+    STRATEGIC_INTELLIGENCE_FORECAST_MCP_AVAILABLE = False
+
 # Import configuration
 # flake8: noqa: E402
 from config.mcp_config import ConsolidatedMCPServerConfig
@@ -194,6 +210,28 @@ class UnifiedMCPServer:
                 self.multi_domain_strategic_engine = None
         else:
             self.multi_domain_strategic_engine = None
+        
+        # Initialize force projection MCP tools
+        if FORCE_PROJECTION_MCP_AVAILABLE:
+            try:
+                self.force_projection_mcp_tools = ForceProjectionMCPTools(self.orchestrator)
+                logger.info("✅ Force Projection MCP Tools initialized")
+            except Exception as e:
+                logger.warning(f"⚠️ Could not initialize Force Projection MCP Tools: {e}")
+                self.force_projection_mcp_tools = None
+        else:
+            self.force_projection_mcp_tools = None
+        
+        # Initialize strategic intelligence forecast MCP tools
+        if STRATEGIC_INTELLIGENCE_FORECAST_MCP_AVAILABLE:
+            try:
+                self.strategic_intelligence_forecast_mcp_tools = StrategicIntelligenceForecastMCPTools()
+                logger.info("✅ Strategic Intelligence Forecast MCP Tools initialized")
+            except Exception as e:
+                logger.warning(f"⚠️ Could not initialize Strategic Intelligence Forecast MCP Tools: {e}")
+                self.strategic_intelligence_forecast_mcp_tools = None
+        else:
+            self.strategic_intelligence_forecast_mcp_tools = None
 
         # Initialize enhanced strategic analysis engine if available
         if ENHANCED_STRATEGIC_ANALYSIS_AVAILABLE:
@@ -205,6 +243,33 @@ class UnifiedMCPServer:
                 self.enhanced_strategic_analysis_engine = None
         else:
             self.enhanced_strategic_analysis_engine = None
+
+        # Initialize Monte Carlo MCP tools if available
+        try:
+            from src.mcp_servers.monte_carlo_mcp_tools import get_monte_carlo_mcp_tools
+            from src.mcp_servers.monte_carlo_visualization_mcp_tools import get_monte_carlo_visualization_mcp_tools
+            self.monte_carlo_mcp_tools = get_monte_carlo_mcp_tools()
+            self.monte_carlo_visualization_mcp_tools = get_monte_carlo_visualization_mcp_tools()
+            logger.info("✅ Monte Carlo MCP tools initialized")
+            logger.info("✅ Monte Carlo Visualization MCP tools initialized")
+        except ImportError as e:
+            logger.warning(f"⚠️ Monte Carlo MCP tools not available: {e}")
+            self.monte_carlo_mcp_tools = None
+        except Exception as e:
+            logger.warning(f"⚠️ Failed to initialize Monte Carlo MCP tools: {e}")
+            self.monte_carlo_mcp_tools = None
+
+        # Import Multi-Domain Monte Carlo MCP tools
+        try:
+            from src.mcp_servers.multi_domain_monte_carlo_mcp_tools import MultiDomainMonteCarloMCPTools
+            self.multi_domain_monte_carlo_tools = MultiDomainMonteCarloMCPTools()
+            logger.info("✅ Multi-Domain Monte Carlo MCP tools initialized")
+        except ImportError as e:
+            logger.warning(f"⚠️ Multi-Domain Monte Carlo MCP tools not available: {e}")
+            self.multi_domain_monte_carlo_tools = None
+        except Exception as e:
+            logger.warning(f"⚠️ Failed to initialize Multi-Domain Monte Carlo MCP tools: {e}")
+            self.multi_domain_monte_carlo_tools = None
 
         # Initialize MCP server
         self._initialize_mcp()
@@ -1859,6 +1924,118 @@ class UnifiedMCPServer:
             logger.error(f"Error creating MCP HTTP app: {e}")
             return None
 
+    def get_tools_info(self) -> List[Dict[str, Any]]:
+        """Get information about available MCP tools."""
+        try:
+            if not self.mcp:
+                return []
+            
+            # Get tools from the MCP server
+            tools = []
+            
+            # Add basic tool information
+            tools.append({
+                "name": "process_content",
+                "description": "Enhanced unified content processing with bulk import, Open Library support, and intelligent MCP tool detection",
+                "type": "content_processing"
+            })
+            
+            tools.append({
+                "name": "extract_text_from_content",
+                "description": "Extract text from various content types",
+                "type": "content_processing"
+            })
+            
+            tools.append({
+                "name": "summarize_content",
+                "description": "Summarize content of any type",
+                "type": "content_processing"
+            })
+            
+            tools.append({
+                "name": "translate_content",
+                "description": "Translate content to different languages",
+                "type": "content_processing"
+            })
+            
+            tools.append({
+                "name": "convert_content_format",
+                "description": "Convert content between different formats",
+                "type": "content_processing"
+            })
+            
+            tools.append({
+                "name": "analyze_sentiment",
+                "description": "Analyze sentiment of text content",
+                "type": "sentiment_analysis"
+            })
+            
+            tools.append({
+                "name": "extract_entities",
+                "description": "Extract entities from text content",
+                "type": "entity_extraction"
+            })
+            
+            tools.append({
+                "name": "generate_knowledge_graph",
+                "description": "Generate knowledge graph from content",
+                "type": "knowledge_graph"
+            })
+            
+            tools.append({
+                "name": "analyze_business_intelligence",
+                "description": "Analyze business intelligence from content",
+                "type": "business_intelligence"
+            })
+            
+            tools.append({
+                "name": "create_visualizations",
+                "description": "Create visualizations from data",
+                "type": "visualization"
+            })
+            
+            # Add Monte Carlo tools if available
+            if hasattr(self, 'monte_carlo_mcp_tools') and self.monte_carlo_mcp_tools:
+                tools.append({
+                    "name": "monte_carlo_simulation",
+                    "description": "Run Monte Carlo simulations",
+                    "type": "simulation"
+                })
+            
+            # Add Multi-Domain Monte Carlo tools if available
+            if hasattr(self, 'multi_domain_monte_carlo_tools') and self.multi_domain_monte_carlo_tools:
+                tools.append({
+                    "name": "multi_domain_monte_carlo_simulation",
+                    "description": "Run multi-domain Monte Carlo simulations for defense, business, financial, and cybersecurity",
+                    "type": "multi_domain_simulation"
+                })
+            
+            # Add Force Projection tools if available
+            if hasattr(self, 'force_projection_mcp_tools') and self.force_projection_mcp_tools:
+                force_projection_tools = self.force_projection_mcp_tools.get_tools()
+                for tool_name, tool_info in force_projection_tools.items():
+                    tools.append({
+                        "name": tool_name,
+                        "description": tool_info["description"],
+                        "type": "force_projection"
+                    })
+            
+            # Add Strategic Intelligence Forecast tools if available
+            if hasattr(self, 'strategic_intelligence_forecast_mcp_tools') and self.strategic_intelligence_forecast_mcp_tools:
+                strategic_intelligence_forecast_tools = self.strategic_intelligence_forecast_mcp_tools.get_tools()
+                for tool in strategic_intelligence_forecast_tools:
+                    tools.append({
+                        "name": tool["function"]["name"],
+                        "description": tool["function"]["description"],
+                        "type": "strategic_intelligence_forecast"
+                    })
+            
+            return tools
+            
+        except Exception as e:
+            logger.error(f"Error getting tools info: {e}")
+            return []
+
     async def _process_bulk_import_request(self, content: str, language: str, options: Dict[str, Any]) -> Dict[str, Any]:
         """Process bulk import request with multiple URLs."""
         try:
@@ -3295,6 +3472,220 @@ This report contains comprehensive analysis results including deception analysis
         else:
             logger.warning("⚠️ Phase 1 ML/DL/RL Forecasting tools not available - components not initialized")
 
+        # Phase 1: Monte Carlo Simulation Tools
+        try:
+            if self.monte_carlo_mcp_tools:
+                @self.mcp.tool(description="Health check for Monte Carlo simulation engine")
+                async def monte_carlo_health_check() -> Dict[str, Any]:
+                    """Health check for Monte Carlo simulation engine."""
+                    return await self.monte_carlo_mcp_tools.monte_carlo_health_check_tool()
+
+                @self.mcp.tool(description="Run Monte Carlo simulation with predefined scenarios")
+                async def monte_carlo_run_simulation(
+                    scenario_name: str,
+                    num_iterations: int = 1000,
+                    parameters: Dict[str, Any] = None
+                ) -> Dict[str, Any]:
+                    """Run Monte Carlo simulation with predefined scenarios."""
+                    return await self.monte_carlo_mcp_tools.monte_carlo_run_simulation_tool(
+                        scenario_name, num_iterations, parameters
+                    )
+
+                @self.mcp.tool(description="Run Monte Carlo simulation with custom scenario")
+                async def monte_carlo_run_scenario(
+                    scenario_parameters: Dict[str, Any],
+                    num_iterations: int = 1000
+                ) -> Dict[str, Any]:
+                    """Run Monte Carlo simulation with custom scenario."""
+                    return await self.monte_carlo_mcp_tools.monte_carlo_run_scenario_tool(
+                        scenario_parameters, num_iterations
+                    )
+
+                @self.mcp.tool(description="Run custom Monte Carlo simulation")
+                async def monte_carlo_run_custom(
+                    variables: Dict[str, Any],
+                    correlations: List[List[float]] = None,
+                    num_iterations: int = 1000
+                ) -> Dict[str, Any]:
+                    """Run custom Monte Carlo simulation."""
+                    return await self.monte_carlo_mcp_tools.monte_carlo_run_custom_tool(
+                        variables, correlations, num_iterations
+                    )
+
+                @self.mcp.tool(description="Run time series Monte Carlo simulation")
+                async def monte_carlo_run_time_series(
+                    time_series_data: List[float],
+                    forecast_periods: int = 12,
+                    num_iterations: int = 1000
+                ) -> Dict[str, Any]:
+                    """Run time series Monte Carlo simulation."""
+                    return await self.monte_carlo_mcp_tools.monte_carlo_run_time_series_tool(
+                        time_series_data, forecast_periods, num_iterations
+                    )
+
+                @self.mcp.tool(description="Analyze Monte Carlo simulation results")
+                async def monte_carlo_analyze_results(
+                    simulation_id: str,
+                    analysis_type: str = "comprehensive"
+                ) -> Dict[str, Any]:
+                    """Analyze Monte Carlo simulation results."""
+                    return await self.monte_carlo_mcp_tools.monte_carlo_analyze_results_tool(
+                        simulation_id, analysis_type
+                    )
+
+                @self.mcp.tool(description="List available Monte Carlo scenarios")
+                async def monte_carlo_list_scenarios() -> Dict[str, Any]:
+                    """List available Monte Carlo scenarios."""
+                    return await self.monte_carlo_mcp_tools.monte_carlo_list_scenarios_tool()
+
+                @self.mcp.tool(description="Get information about a specific scenario")
+                async def monte_carlo_get_scenario_info(
+                    scenario_name: str
+                ) -> Dict[str, Any]:
+                    """Get information about a specific scenario."""
+                    return await self.monte_carlo_mcp_tools.monte_carlo_get_scenario_info_tool(scenario_name)
+
+                @self.mcp.tool(description="List available probability distributions")
+                async def monte_carlo_list_distributions() -> Dict[str, Any]:
+                    """List available probability distributions."""
+                    return await self.monte_carlo_mcp_tools.monte_carlo_list_distributions_tool()
+
+                @self.mcp.tool(description="Get information about a specific distribution")
+                async def monte_carlo_get_distribution_info(
+                    distribution_name: str
+                ) -> Dict[str, Any]:
+                    """Get information about a specific distribution."""
+                    return await self.monte_carlo_mcp_tools.monte_carlo_get_distribution_info_tool(distribution_name)
+
+                @self.mcp.tool(description="Generate correlation matrix for variables")
+                async def monte_carlo_generate_correlation_matrix(
+                    size: int,
+                    method: str = "random",
+                    parameters: Dict[str, Any] = None
+                ) -> Dict[str, Any]:
+                    """Generate correlation matrix for variables."""
+                    return await self.monte_carlo_mcp_tools.monte_carlo_generate_correlation_matrix_tool(
+                        size, method, parameters
+                    )
+
+                @self.mcp.tool(description="Estimate correlation from historical data")
+                async def monte_carlo_estimate_correlation(
+                    data: List[List[float]]
+                ) -> Dict[str, Any]:
+                    """Estimate correlation from historical data."""
+                    return await self.monte_carlo_mcp_tools.monte_carlo_estimate_correlation_tool(data)
+
+                @self.mcp.tool(description="Get Monte Carlo engine status")
+                async def monte_carlo_get_engine_status() -> Dict[str, Any]:
+                    """Get Monte Carlo engine status."""
+                    return await self.monte_carlo_mcp_tools.monte_carlo_get_engine_status_tool()
+
+                @self.mcp.tool(description="Validate Monte Carlo configuration")
+                async def monte_carlo_validate_configuration(
+                    config: Dict[str, Any]
+                ) -> Dict[str, Any]:
+                    """Validate Monte Carlo configuration."""
+                    return await self.monte_carlo_mcp_tools.monte_carlo_validate_configuration_tool(config)
+
+                logger.info("✅ Phase 1 Monte Carlo Simulation tools registered")
+            else:
+                logger.warning("⚠️ Phase 1 Monte Carlo Simulation tools not available - components not initialized")
+        except Exception as e:
+            logger.error(f"Failed to register Monte Carlo tools: {e}")
+            logger.warning("⚠️ Phase 1 Monte Carlo Simulation tools not available")
+
+        # Multi-Domain Monte Carlo Tools
+        try:
+            if hasattr(self, 'multi_domain_monte_carlo_tools') and self.multi_domain_monte_carlo_tools:
+                
+                @self.mcp.tool(description="Run defense domain Monte Carlo simulation")
+                async def multi_domain_defense_simulation(
+                    scenario_name: str = "military_capability",
+                    num_iterations: int = 10000,
+                    confidence_level: float = 0.95,
+                    custom_variables: Dict[str, Any] = None
+                ) -> Dict[str, Any]:
+                    """Run Monte Carlo simulation for defense domain."""
+                    return await self.multi_domain_monte_carlo_tools.run_defense_simulation(
+                        scenario_name, num_iterations, confidence_level, custom_variables
+                    )
+
+                @self.mcp.tool(description="Run business domain Monte Carlo simulation")
+                async def multi_domain_business_simulation(
+                    scenario_name: str = "market_analysis",
+                    num_iterations: int = 10000,
+                    confidence_level: float = 0.95,
+                    custom_variables: Dict[str, Any] = None
+                ) -> Dict[str, Any]:
+                    """Run Monte Carlo simulation for business domain."""
+                    return await self.multi_domain_monte_carlo_tools.run_business_simulation(
+                        scenario_name, num_iterations, confidence_level, custom_variables
+                    )
+
+                @self.mcp.tool(description="Run financial domain Monte Carlo simulation")
+                async def multi_domain_financial_simulation(
+                    scenario_name: str = "portfolio_risk",
+                    num_iterations: int = 10000,
+                    confidence_level: float = 0.95,
+                    custom_variables: Dict[str, Any] = None
+                ) -> Dict[str, Any]:
+                    """Run Monte Carlo simulation for financial domain."""
+                    return await self.multi_domain_monte_carlo_tools.run_financial_simulation(
+                        scenario_name, num_iterations, confidence_level, custom_variables
+                    )
+
+                @self.mcp.tool(description="Run cybersecurity domain Monte Carlo simulation")
+                async def multi_domain_cybersecurity_simulation(
+                    scenario_name: str = "threat_assessment",
+                    num_iterations: int = 10000,
+                    confidence_level: float = 0.95,
+                    custom_variables: Dict[str, Any] = None
+                ) -> Dict[str, Any]:
+                    """Run Monte Carlo simulation for cybersecurity domain."""
+                    return await self.multi_domain_monte_carlo_tools.run_cybersecurity_simulation(
+                        scenario_name, num_iterations, confidence_level, custom_variables
+                    )
+
+                @self.mcp.tool(description="Run custom multi-domain Monte Carlo simulation")
+                async def multi_domain_custom_simulation(
+                    domain: str,
+                    scenario_name: str,
+                    simulation_type: str,
+                    variables: Dict[str, Any],
+                    correlations: List[List[float]] = None,
+                    num_iterations: int = 10000,
+                    confidence_level: float = 0.95
+                ) -> Dict[str, Any]:
+                    """Run custom Monte Carlo simulation with user-defined parameters."""
+                    return await self.multi_domain_monte_carlo_tools.run_custom_simulation(
+                        domain, scenario_name, simulation_type, variables, correlations, num_iterations, confidence_level
+                    )
+
+                @self.mcp.tool(description="Get available scenarios for all domains")
+                async def multi_domain_get_scenarios() -> Dict[str, Any]:
+                    """Get available scenarios for all domains."""
+                    return await self.multi_domain_monte_carlo_tools.get_available_scenarios()
+
+                @self.mcp.tool(description="Get performance summary across all domains")
+                async def multi_domain_get_performance() -> Dict[str, Any]:
+                    """Get performance summary across all domains."""
+                    return await self.multi_domain_monte_carlo_tools.get_performance_summary()
+
+                @self.mcp.tool(description="Generate simulation report")
+                async def multi_domain_generate_report(
+                    simulation_id: str,
+                    report_format: str = "json"
+                ) -> Dict[str, Any]:
+                    """Generate comprehensive report for a simulation."""
+                    return await self.multi_domain_monte_carlo_tools.generate_simulation_report(simulation_id, report_format)
+
+                logger.info("✅ Multi-Domain Monte Carlo tools registered")
+            else:
+                logger.warning("⚠️ Multi-Domain Monte Carlo tools not available - components not initialized")
+        except Exception as e:
+            logger.error(f"Failed to register Multi-Domain Monte Carlo tools: {e}")
+            logger.warning("⚠️ Multi-Domain Monte Carlo tools not available")
+
         # Phase 5: Model Interpretability & Explainable AI Tools
         try:
             from src.mcp_servers.phase5_interpretability_mcp_tools import phase5_interpretability_mcp_tools
@@ -3389,18 +3780,107 @@ This report contains comprehensive analysis results including deception analysis
             logger.warning("⚠️ Phase 5 Model Interpretability & Explainable AI tools not available")
 
     def run(self, host: str = "localhost", port: int = 8000, debug: bool = False):
-        """Run the MCP server (legacy method - use get_http_app for integration)."""
+        """Run the MCP server using stdio (FastMCP is stdio-based)."""
         if not self.mcp:
             logger.error("MCP server not available")
             return
 
         try:
-            logger.info(f"🚀 Starting Unified MCP Server on {host}:{port}")
-            self.mcp.run(host=host, port=port, debug=debug)
+            logger.info(f"🚀 Starting Unified MCP Server via stdio")
+            # FastMCP uses stdio, not HTTP parameters
+            self.mcp.run()
         except Exception as e:
             logger.error(f"Error running MCP server: {e}")
+    
+    def get_http_app(self):
+        """Get FastAPI app for HTTP integration."""
+        if not self.mcp:
+            logger.error("MCP server not available")
+            return None
+
+        try:
+            from fastapi import FastAPI
+            from fastapi.middleware.cors import CORSMiddleware
+            
+            app = FastAPI(title="Unified MCP Server", version="1.0.0")
+            
+            # Add CORS middleware
+            app.add_middleware(
+                CORSMiddleware,
+                allow_origins=["*"],
+                allow_credentials=True,
+                allow_methods=["*"],
+                allow_headers=["*"],
+            )
+            
+            # Add health check endpoint
+            @app.get("/health")
+            async def health_check():
+                return {"status": "healthy", "service": "unified_mcp_server"}
+            
+            # Add MCP endpoint for JSON-RPC
+            @app.post("/")
+            async def mcp_endpoint(request: dict):
+                try:
+                    # Handle MCP requests via stdio
+                    # This is a simplified approach - in practice, you'd need proper MCP HTTP transport
+                    return {"jsonrpc": "2.0", "id": request.get("id"), "result": {"message": "MCP endpoint available"}}
+                except Exception as e:
+                    return {"jsonrpc": "2.0", "id": request.get("id"), "error": {"message": str(e)}}
+            
+            return app
+            
+        except Exception as e:
+            logger.error(f"Error creating HTTP app: {e}")
+            return None
 
 
 def create_unified_mcp_server() -> UnifiedMCPServer:
     """Create and return a unified MCP server instance."""
     return UnifiedMCPServer()
+
+
+# Create module-level FastAPI app for uvicorn
+try:
+    server = create_unified_mcp_server()
+    app = server.get_http_app()
+    if app is None:
+        # Fallback: create a basic FastAPI app
+        from fastapi import FastAPI
+        app = FastAPI(title="Unified MCP Server", version="1.0.0")
+        @app.get("/health")
+        async def health_check():
+            return {"status": "healthy", "service": "unified_mcp_server"}
+except Exception as e:
+    logger.error(f"Failed to create FastAPI app: {e}")
+    # Fallback: create a basic FastAPI app
+    from fastapi import FastAPI
+    app = FastAPI(title="Unified MCP Server", version="1.0.0")
+    @app.get("/health")
+    async def health_check():
+        return {"status": "healthy", "service": "unified_mcp_server"}
+
+if __name__ == "__main__":
+    """Run the unified MCP server directly."""
+    import asyncio
+    import threading
+    
+    def run_server():
+        """Run the server in a separate thread to avoid asyncio conflicts."""
+        try:
+            server = create_unified_mcp_server()
+            server.run(host="localhost", port=8000, debug=True)
+        except Exception as e:
+            print(f"Error running MCP server: {e}")
+    
+    # Run in a separate thread to avoid asyncio conflicts
+    server_thread = threading.Thread(target=run_server, daemon=True)
+    server_thread.start()
+    
+    try:
+        # Keep the main thread alive
+        while True:
+            import time
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print("Shutting down MCP server...")

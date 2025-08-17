@@ -1,0 +1,1219 @@
+[
+  {
+    "adversary_type": "peer_adversary",
+    "domain_type": "defense",
+    "simulation_id": "1e1d718a-7c4a-4eae-ae75-f70eae56a35b",
+    "timestamp": "2025-08-16T23:37:17.661307",
+    "analysis": {
+      "simulation_id": "1e1d718a-7c4a-4eae-ae75-f70eae56a35b",
+      "adversary_type": "peer_adversary",
+      "domain_type": "defense",
+      "threat_assessment": {
+        "threat_level": "LOW",
+        "threat_description": "Low force projection capability",
+        "overall_effectiveness_score": 0.2620584490806893,
+        "strongest_capability_areas": [
+          [
+            "air_force",
+            0.5
+          ],
+          [
+            "naval_forces",
+            0.5
+          ],
+          [
+            "ground_forces",
+            0.5
+          ]
+        ],
+        "potential_vulnerabilities": [
+          [
+            "logistics_support",
+            0.6979771359196418
+          ],
+          [
+            "organizational_efficiency",
+            0.7172426851821929
+          ]
+        ],
+        "adversary_type": "peer_adversary",
+        "domain_type": "defense",
+        "assessment_timestamp": "2025-08-16T23:37:17.661123"
+      },
+      "effectiveness_analysis": {
+        "overall_effectiveness": 0.2620584490806893,
+        "capability_scores": {
+          "air_force": 0.5,
+          "naval_forces": 0.5,
+          "ground_forces": 0.5,
+          "strategic_forces": 0.5
+        },
+        "readiness_score": 0.7655320037547112,
+        "environmental_score": 0.6846440065088567,
+        "effectiveness_breakdown": {
+          "capability_contribution": 0.5,
+          "readiness_contribution": 0.7655320037547112,
+          "environmental_contribution": 0.6846440065088567
+        }
+      },
+      "log_normal_analysis": {},
+      "capability_breakdown": {
+        "air_force": {
+          "fighter_aircraft": {
+            "distribution_type": "log_normal",
+            "mu": 4.5,
+            "sigma": 0.8,
+            "theoretical_mean": 123.96509077982394,
+            "theoretical_std": 117.37346302077661,
+            "skewness": 3.689292296091298,
+            "actual_mean": 124.0952331575565,
+            "actual_median": 89.83045236840005,
+            "percentiles": {
+              "p10": 32.01360073715633,
+              "p25": 52.55853950340891,
+              "p50": 89.83045236840005,
+              "p75": 153.98646579632856,
+              "p90": 250.89219349141646,
+              "p95": 335.01207577572916,
+              "p99": 578.1681307599407
+            },
+            "confidence_interval": {
+              "lower_bound": 121.76975285701002,
+              "upper_bound": 126.420713458103,
+              "confidence_level": 0.95,
+              "margin_of_error": 2.325480300546491
+            },
+            "units": "squadrons",
+            "description": "Fighter aircraft squadrons"
+          },
+          "bomber_aircraft": {
+            "distribution_type": "log_normal",
+            "mu": 3.2,
+            "sigma": 0.6,
+            "theoretical_mean": 29.370771113289447,
+            "theoretical_std": 19.3341210732838,
+            "skewness": 2.2600838884867054,
+            "actual_mean": 29.623639697850937,
+            "actual_median": 24.766898661159793,
+            "percentiles": {
+              "p10": 11.571185284029486,
+              "p25": 16.490648461588506,
+              "p50": 24.766898661159793,
+              "p75": 37.20037800584698,
+              "p90": 53.47665781397705,
+              "p95": 66.78992602095505,
+              "p99": 100.12932911439314
+            },
+            "confidence_interval": {
+              "lower_bound": 29.23810084409708,
+              "upper_bound": 30.009178551604794,
+              "confidence_level": 0.95,
+              "margin_of_error": 0.3855388537538566
+            },
+            "units": "wings",
+            "description": "Bomber aircraft wings"
+          },
+          "air_defense_systems": {
+            "distribution_type": "log_normal",
+            "mu": 5.1,
+            "sigma": 0.9,
+            "theoretical_mean": 245.9184556788219,
+            "theoretical_std": 274.71501996303766,
+            "skewness": 4.7453296017972315,
+            "actual_mean": 241.18041074916218,
+            "actual_median": 163.17260747825463,
+            "percentiles": {
+              "p10": 51.77529367719833,
+              "p25": 87.34478127085444,
+              "p50": 163.17260747825463,
+              "p75": 298.12345637156545,
+              "p90": 509.96660629307786,
+              "p95": 714.0356664048833,
+              "p99": 1248.9545843363655
+            },
+            "confidence_interval": {
+              "lower_bound": 236.06528873510197,
+              "upper_bound": 246.29553276322238,
+              "confidence_level": 0.95,
+              "margin_of_error": 5.1151220140601925
+            },
+            "units": "batteries",
+            "description": "Air defense system batteries"
+          },
+          "airlift_capacity": {
+            "distribution_type": "log_normal",
+            "mu": 4.8,
+            "sigma": 0.7,
+            "theoretical_mean": 155.2442991983601,
+            "theoretical_std": 123.44764869991164,
+            "skewness": 2.8883566031310934,
+            "actual_mean": 154.70790753907576,
+            "actual_median": 120.63053327608877,
+            "percentiles": {
+              "p10": 49.23589207376214,
+              "p25": 74.72173425645238,
+              "p50": 120.63053327608877,
+              "p75": 195.45326890885514,
+              "p90": 297.9007831379219,
+              "p95": 378.1696096424215,
+              "p99": 626.0032548061534
+            },
+            "confidence_interval": {
+              "lower_bound": 152.2987016881744,
+              "upper_bound": 157.11711338997713,
+              "confidence_level": 0.95,
+              "margin_of_error": 2.409205850901376
+            },
+            "units": "tonnes/day",
+            "description": "Airlift capacity in tonnes per day"
+          }
+        },
+        "naval_forces": {
+          "surface_combatants": {
+            "distribution_type": "log_normal",
+            "mu": 4.2,
+            "sigma": 0.8,
+            "theoretical_mean": 91.83559797815683,
+            "theoretical_std": 86.95240003030315,
+            "skewness": 3.689292296091298,
+            "actual_mean": 91.93240054241842,
+            "actual_median": 67.1983402106994,
+            "percentiles": {
+              "p10": 23.79689195963091,
+              "p25": 39.20270706433296,
+              "p50": 67.1983402106994,
+              "p75": 115.24588413215035,
+              "p90": 184.76060369419181,
+              "p95": 251.37211282653698,
+              "p99": 420.15889082157565
+            },
+            "confidence_interval": {
+              "lower_bound": 90.28826350660991,
+              "upper_bound": 93.57653757822693,
+              "confidence_level": 0.95,
+              "margin_of_error": 1.6441370358085117
+            },
+            "units": "vessels",
+            "description": "Surface combatant vessels"
+          },
+          "submarines": {
+            "distribution_type": "log_normal",
+            "mu": 3.8,
+            "sigma": 0.7,
+            "theoretical_mean": 57.11118603414491,
+            "theoretical_std": 45.413852017652026,
+            "skewness": 2.8883566031310934,
+            "actual_mean": 57.33058618049298,
+            "actual_median": 44.95926174362071,
+            "percentiles": {
+              "p10": 18.116135832765746,
+              "p25": 27.831075976610943,
+              "p50": 44.95926174362071,
+              "p75": 72.49970475570339,
+              "p90": 109.71648870996493,
+              "p95": 141.98045829546987,
+              "p99": 231.9579692198087
+            },
+            "confidence_interval": {
+              "lower_bound": 56.44537967255406,
+              "upper_bound": 58.2157926884319,
+              "confidence_level": 0.95,
+              "margin_of_error": 0.8852065079389211
+            },
+            "units": "submarines",
+            "description": "Submarine fleet"
+          },
+          "amphibious_ships": {
+            "distribution_type": "log_normal",
+            "mu": 3.5,
+            "sigma": 0.6,
+            "theoretical_mean": 39.646394072572605,
+            "theoretical_std": 26.09833361751294,
+            "skewness": 2.2600838884867054,
+            "actual_mean": 39.81333824671624,
+            "actual_median": 33.527424291811,
+            "percentiles": {
+              "p10": 15.552276427565511,
+              "p25": 22.147499394542233,
+              "p50": 33.527424291811,
+              "p75": 49.80382974577303,
+              "p90": 71.58522014881306,
+              "p95": 88.12999065449146,
+              "p99": 133.32685748617007
+            },
+            "confidence_interval": {
+              "lower_bound": 39.30547649023344,
+              "upper_bound": 40.321200003199046,
+              "confidence_level": 0.95,
+              "margin_of_error": 0.5078617564828017
+            },
+            "units": "ships",
+            "description": "Amphibious assault ships"
+          },
+          "naval_aviation": {
+            "distribution_type": "log_normal",
+            "mu": 4.0,
+            "sigma": 0.7,
+            "theoretical_mean": 69.75576014390317,
+            "theoretical_std": 55.46860411303798,
+            "skewness": 2.8883566031310934,
+            "actual_mean": 69.95893479434615,
+            "actual_median": 54.413653944118956,
+            "percentiles": {
+              "p10": 22.16769600771412,
+              "p25": 34.03217467689924,
+              "p50": 54.413653944118956,
+              "p75": 87.67325256393725,
+              "p90": 135.90456043340373,
+              "p95": 177.48489904866392,
+              "p99": 279.18289297549734
+            },
+            "confidence_interval": {
+              "lower_bound": 68.86555502123075,
+              "upper_bound": 71.05231456746155,
+              "confidence_level": 0.95,
+              "margin_of_error": 1.093379773115405
+            },
+            "units": "aircraft",
+            "description": "Naval aviation aircraft"
+          }
+        },
+        "ground_forces": {
+          "armored_divisions": {
+            "distribution_type": "log_normal",
+            "mu": 4.6,
+            "sigma": 0.8,
+            "theoretical_mean": 137.00261318646898,
+            "theoretical_std": 129.71773788438972,
+            "skewness": 3.689292296091298,
+            "actual_mean": 138.00277648814583,
+            "actual_median": 98.88911534424106,
+            "percentiles": {
+              "p10": 35.91458719120379,
+              "p25": 58.87652240099171,
+              "p50": 98.88911534424106,
+              "p75": 169.392212474652,
+              "p90": 279.50946380144427,
+              "p95": 375.87984303725625,
+              "p99": 635.8554701280281
+            },
+            "confidence_interval": {
+              "lower_bound": 135.39544665550264,
+              "upper_bound": 140.61010632078901,
+              "confidence_level": 0.95,
+              "margin_of_error": 2.6073298326431815
+            },
+            "units": "divisions",
+            "description": "Armored divisions"
+          },
+          "mechanized_infantry": {
+            "distribution_type": "log_normal",
+            "mu": 5.2,
+            "sigma": 0.9,
+            "theoretical_mean": 271.78192543430924,
+            "theoretical_std": 303.60705082172035,
+            "skewness": 4.7453296017972315,
+            "actual_mean": 270.52516784288713,
+            "actual_median": 180.80619916965662,
+            "percentiles": {
+              "p10": 56.94563591766325,
+              "p25": 98.55272652496464,
+              "p50": 180.80619916965662,
+              "p75": 331.14571017337573,
+              "p90": 572.5910524344686,
+              "p95": 793.4547868653707,
+              "p99": 1455.9114394666537
+            },
+            "confidence_interval": {
+              "lower_bound": 264.5520262194998,
+              "upper_bound": 276.49830946627446,
+              "confidence_level": 0.95,
+              "margin_of_error": 5.973141623387347
+            },
+            "units": "brigades",
+            "description": "Mechanized infantry brigades"
+          },
+          "artillery_units": {
+            "distribution_type": "log_normal",
+            "mu": 4.8,
+            "sigma": 0.7,
+            "theoretical_mean": 155.2442991983601,
+            "theoretical_std": 123.44764869991164,
+            "skewness": 2.8883566031310934,
+            "actual_mean": 156.0183775186881,
+            "actual_median": 122.50380635152189,
+            "percentiles": {
+              "p10": 49.94549166689241,
+              "p25": 76.84682066791166,
+              "p50": 122.50380635152189,
+              "p75": 196.7274030008203,
+              "p90": 295.86406346384,
+              "p95": 380.4095693971794,
+              "p99": 636.8719103996216
+            },
+            "confidence_interval": {
+              "lower_bound": 153.5953378239925,
+              "upper_bound": 158.44141721338372,
+              "confidence_level": 0.95,
+              "margin_of_error": 2.4230396946956048
+            },
+            "units": "battalions",
+            "description": "Artillery battalions"
+          },
+          "special_forces": {
+            "distribution_type": "log_normal",
+            "mu": 3.9,
+            "sigma": 0.6,
+            "theoretical_mean": 59.14546984988227,
+            "theoretical_std": 38.93413865788723,
+            "skewness": 2.2600838884867054,
+            "actual_mean": 59.469977965724304,
+            "actual_median": 49.88031599940232,
+            "percentiles": {
+              "p10": 22.938996033343855,
+              "p25": 32.9874908694711,
+              "p50": 49.88031599940232,
+              "p75": 73.68246331456675,
+              "p90": 106.69350426288887,
+              "p95": 135.43250784438126,
+              "p99": 205.4683215913941
+            },
+            "confidence_interval": {
+              "lower_bound": 58.695329429652425,
+              "upper_bound": 60.24462650179618,
+              "confidence_level": 0.95,
+              "margin_of_error": 0.7746485360718761
+            },
+            "units": "teams",
+            "description": "Special forces teams"
+          }
+        },
+        "strategic_forces": {
+          "icbm_silos": {
+            "distribution_type": "log_normal",
+            "mu": 3.2,
+            "sigma": 0.5,
+            "theoretical_mean": 27.798998642669666,
+            "theoretical_std": 14.815208067046381,
+            "skewness": 1.7501896550697178,
+            "actual_mean": 27.67288359495119,
+            "actual_median": 24.40019000079444,
+            "percentiles": {
+              "p10": 12.98637160063876,
+              "p25": 17.4897186280809,
+              "p50": 24.40019000079444,
+              "p75": 34.232915326618375,
+              "p90": 46.00709834231745,
+              "p95": 54.95819191213169,
+              "p99": 78.82788030630734
+            },
+            "confidence_interval": {
+              "lower_bound": 27.388442541546425,
+              "upper_bound": 27.957324648355957,
+              "confidence_level": 0.95,
+              "margin_of_error": 0.2844410534047664
+            },
+            "units": "silos",
+            "description": "ICBM silos"
+          },
+          "mobile_missiles": {
+            "distribution_type": "log_normal",
+            "mu": 3.8,
+            "sigma": 0.7,
+            "theoretical_mean": 57.11118603414491,
+            "theoretical_std": 45.413852017652026,
+            "skewness": 2.8883566031310934,
+            "actual_mean": 57.54274744810276,
+            "actual_median": 44.527142396094476,
+            "percentiles": {
+              "p10": 18.28883356429902,
+              "p25": 27.95304538108975,
+              "p50": 44.527142396094476,
+              "p75": 72.34167571243957,
+              "p90": 111.10491594722235,
+              "p95": 142.70002347526253,
+              "p99": 235.42775012263237
+            },
+            "confidence_interval": {
+              "lower_bound": 56.64009379109135,
+              "upper_bound": 58.445401105114165,
+              "confidence_level": 0.95,
+              "margin_of_error": 0.9026536570114091
+            },
+            "units": "launchers",
+            "description": "Mobile missile launchers"
+          },
+          "strategic_bombers": {
+            "distribution_type": "log_normal",
+            "mu": 3.5,
+            "sigma": 0.6,
+            "theoretical_mean": 39.646394072572605,
+            "theoretical_std": 26.09833361751294,
+            "skewness": 2.2600838884867054,
+            "actual_mean": 39.593563881651896,
+            "actual_median": 33.202800958541616,
+            "percentiles": {
+              "p10": 15.32720486701661,
+              "p25": 22.003317060114064,
+              "p50": 33.202800958541616,
+              "p75": 49.88079932548008,
+              "p90": 71.58466856898949,
+              "p95": 88.25661723905914,
+              "p99": 128.90998967486274
+            },
+            "confidence_interval": {
+              "lower_bound": 39.090234170656366,
+              "upper_bound": 40.096893592647426,
+              "confidence_level": 0.95,
+              "margin_of_error": 0.5033297109955281
+            },
+            "units": "aircraft",
+            "description": "Strategic bomber aircraft"
+          },
+          "nuclear_submarines": {
+            "distribution_type": "log_normal",
+            "mu": 3.0,
+            "sigma": 0.5,
+            "theoretical_mean": 22.75989509352673,
+            "theoretical_std": 12.129666457739873,
+            "skewness": 1.7501896550697178,
+            "actual_mean": 22.683131155892358,
+            "actual_median": 19.996154049728275,
+            "percentiles": {
+              "p10": 10.697318078529426,
+              "p25": 14.332679868111168,
+              "p50": 19.996154049728275,
+              "p75": 27.93380803580198,
+              "p90": 37.73803232211752,
+              "p95": 45.319895013445446,
+              "p99": 63.64812948253713
+            },
+            "confidence_interval": {
+              "lower_bound": 22.44703955862614,
+              "upper_bound": 22.919222753158575,
+              "confidence_level": 0.95,
+              "margin_of_error": 0.23609159726621587
+            },
+            "units": "submarines",
+            "description": "Nuclear submarines"
+          }
+        }
+      },
+      "risk_metrics": {
+        "threat_level": "LOW",
+        "effectiveness_score": 0.2620584490806893,
+        "base_risk_score": 0.3,
+        "effectiveness_risk_contribution": 0.13102922454034466,
+        "total_risk_score": 0.43102922454034465,
+        "risk_category": "MEDIUM"
+      },
+      "recommendations": [
+        "Continue routine monitoring and assessment",
+        "Maintain baseline defensive capabilities",
+        "Periodic review of threat assessment",
+        "Monitor for right-skewed capability growth patterns",
+        "Prepare for potential rapid capability escalation",
+        "Consider asymmetric response strategies"
+      ]
+    }
+  },
+  {
+    "adversary_type": "cyber_adversary",
+    "domain_type": "cyber",
+    "simulation_id": "0e7b514b-0828-4b96-883a-b72685f44687",
+    "timestamp": "2025-08-16T23:37:17.854803",
+    "analysis": {
+      "simulation_id": "0e7b514b-0828-4b96-883a-b72685f44687",
+      "adversary_type": "cyber_adversary",
+      "domain_type": "cyber",
+      "threat_assessment": {
+        "threat_level": "MINIMAL_THREAT",
+        "threat_description": "Minimal threat level",
+        "overall_effectiveness_score": 0.26234083725618734,
+        "strongest_capability_areas": [
+          [
+            "cyber_offensive",
+            0.5
+          ],
+          [
+            "cyber_defensive",
+            0.5
+          ]
+        ],
+        "potential_vulnerabilities": [
+          [
+            "logistics_support",
+            0.7007473422967146
+          ],
+          [
+            "organizational_efficiency",
+            0.7211100083535329
+          ]
+        ],
+        "adversary_type": "cyber_adversary",
+        "domain_type": "cyber",
+        "assessment_timestamp": "2025-08-16T23:37:17.854346"
+      },
+      "effectiveness_analysis": {
+        "overall_effectiveness": 0.26234083725618734,
+        "capability_scores": {
+          "cyber_offensive": 0.5,
+          "cyber_defensive": 0.5
+        },
+        "readiness_score": 0.7666233121763254,
+        "environmental_score": 0.684406104248101,
+        "effectiveness_breakdown": {
+          "capability_contribution": 0.5,
+          "readiness_contribution": 0.7666233121763254,
+          "environmental_contribution": 0.684406104248101
+        }
+      },
+      "log_normal_analysis": {},
+      "capability_breakdown": {
+        "cyber_offensive": {
+          "malware_capabilities": {
+            "distribution_type": "log_normal",
+            "mu": 4.2,
+            "sigma": 0.8,
+            "theoretical_mean": 91.83559797815683,
+            "theoretical_std": 86.95240003030315,
+            "skewness": 3.689292296091298,
+            "actual_mean": 92.01160032948094,
+            "actual_median": 67.04909567118798,
+            "percentiles": {
+              "p10": 24.15718754563954,
+              "p25": 38.80114841776694,
+              "p50": 67.04909567118798,
+              "p75": 114.2488962159592,
+              "p90": 187.80520789456838,
+              "p95": 248.32402802192078,
+              "p99": 431.6117883782776
+            },
+            "confidence_interval": {
+              "lower_bound": 90.29520326816493,
+              "upper_bound": 93.72799739079696,
+              "confidence_level": 0.95,
+              "margin_of_error": 1.7163970613160187
+            },
+            "units": "score",
+            "description": "Malware development capabilities"
+          },
+          "exploit_development": {
+            "distribution_type": "log_normal",
+            "mu": 4.0,
+            "sigma": 0.7,
+            "theoretical_mean": 69.75576014390317,
+            "theoretical_std": 55.46860411303798,
+            "skewness": 2.8883566031310934,
+            "actual_mean": 68.22719929071788,
+            "actual_median": 54.24176869223991,
+            "percentiles": {
+              "p10": 21.817703200604573,
+              "p25": 33.97535580037557,
+              "p50": 54.24176869223991,
+              "p75": 86.67535792425532,
+              "p90": 129.16128766738242,
+              "p95": 162.98799526827182,
+              "p99": 268.2996084978185
+            },
+            "confidence_interval": {
+              "lower_bound": 67.21091812930585,
+              "upper_bound": 69.2434804521299,
+              "confidence_level": 0.95,
+              "margin_of_error": 1.0162811614120302
+            },
+            "units": "score",
+            "description": "Exploit development capabilities"
+          },
+          "social_engineering": {
+            "distribution_type": "log_normal",
+            "mu": 3.8,
+            "sigma": 0.6,
+            "theoretical_mean": 53.51703422749116,
+            "theoretical_std": 35.22906549665672,
+            "skewness": 2.2600838884867054,
+            "actual_mean": 53.11167812525181,
+            "actual_median": 44.60565422442245,
+            "percentiles": {
+              "p10": 20.606119538411264,
+              "p25": 29.756092521027462,
+              "p50": 44.60565422442245,
+              "p75": 66.85711812421376,
+              "p90": 96.49313251731292,
+              "p95": 118.91739067489016,
+              "p99": 174.1207159592463
+            },
+            "confidence_interval": {
+              "lower_bound": 52.437345130350295,
+              "upper_bound": 53.78601112015332,
+              "confidence_level": 0.95,
+              "margin_of_error": 0.6743329949015117
+            },
+            "units": "score",
+            "description": "Social engineering capabilities"
+          },
+          "infrastructure_attack": {
+            "distribution_type": "log_normal",
+            "mu": 4.5,
+            "sigma": 0.9,
+            "theoretical_mean": 134.96291000681063,
+            "theoretical_std": 150.76679956551789,
+            "skewness": 4.7453296017972315,
+            "actual_mean": 135.54476265535635,
+            "actual_median": 91.0270411742876,
+            "percentiles": {
+              "p10": 28.7023309548206,
+              "p25": 49.917598318689684,
+              "p50": 91.0270411742876,
+              "p75": 166.28243353342378,
+              "p90": 283.3904647076168,
+              "p95": 394.5833673512869,
+              "p99": 742.4742685838988
+            },
+            "confidence_interval": {
+              "lower_bound": 132.62378679454127,
+              "upper_bound": 138.46573851617143,
+              "confidence_level": 0.95,
+              "margin_of_error": 2.920975860815083
+            },
+            "units": "score",
+            "description": "Infrastructure attack capabilities"
+          }
+        },
+        "cyber_defensive": {
+          "threat_detection": {
+            "distribution_type": "log_normal",
+            "mu": 4.3,
+            "sigma": 0.7,
+            "theoretical_mean": 94.1604272094068,
+            "theoretical_std": 74.87478380593082,
+            "skewness": 2.8883566031310934,
+            "actual_mean": 94.3008080914186,
+            "actual_median": 74.3987791904607,
+            "percentiles": {
+              "p10": 29.70213236679268,
+              "p25": 46.361269312894365,
+              "p50": 74.3987791904607,
+              "p75": 117.8603507380996,
+              "p90": 181.5688678704615,
+              "p95": 232.01027840688926,
+              "p99": 367.7043141400512
+            },
+            "confidence_interval": {
+              "lower_bound": 92.81419932117988,
+              "upper_bound": 95.78741686165732,
+              "confidence_level": 0.95,
+              "margin_of_error": 1.486608770238714
+            },
+            "units": "score",
+            "description": "Threat detection capabilities"
+          },
+          "incident_response": {
+            "distribution_type": "log_normal",
+            "mu": 4.1,
+            "sigma": 0.8,
+            "theoretical_mean": 83.09628535834376,
+            "theoretical_std": 78.67778513544935,
+            "skewness": 3.689292296091298,
+            "actual_mean": 82.76133436044178,
+            "actual_median": 61.06581810648146,
+            "percentiles": {
+              "p10": 21.570733360340796,
+              "p25": 35.15873894621364,
+              "p50": 61.06581810648146,
+              "p75": 102.86333899170573,
+              "p90": 165.30641109515955,
+              "p95": 225.06411932947316,
+              "p99": 398.74338295404533
+            },
+            "confidence_interval": {
+              "lower_bound": 81.25222774471352,
+              "upper_bound": 84.27044097617004,
+              "confidence_level": 0.95,
+              "margin_of_error": 1.5091066157282607
+            },
+            "units": "score",
+            "description": "Incident response capabilities"
+          },
+          "vulnerability_management": {
+            "distribution_type": "log_normal",
+            "mu": 4.0,
+            "sigma": 0.6,
+            "theoretical_mean": 65.3658532140099,
+            "theoretical_std": 43.02887776502178,
+            "skewness": 2.2600838884867054,
+            "actual_mean": 64.77271458291281,
+            "actual_median": 54.63890831586533,
+            "percentiles": {
+              "p10": 24.963256683097008,
+              "p25": 36.028521947489246,
+              "p50": 54.63890831586533,
+              "p75": 81.54395482021111,
+              "p90": 116.1225134291822,
+              "p95": 142.7432646744325,
+              "p99": 216.47747164029772
+            },
+            "confidence_interval": {
+              "lower_bound": 63.94891295680523,
+              "upper_bound": 65.5965162090204,
+              "confidence_level": 0.95,
+              "margin_of_error": 0.8238016261075838
+            },
+            "units": "score",
+            "description": "Vulnerability management capabilities"
+          },
+          "security_awareness": {
+            "distribution_type": "log_normal",
+            "mu": 3.9,
+            "sigma": 0.7,
+            "theoretical_mean": 63.11762190174501,
+            "theoretical_std": 50.19006852770007,
+            "skewness": 2.8883566031310934,
+            "actual_mean": 62.817419475457235,
+            "actual_median": 49.92394460286962,
+            "percentiles": {
+              "p10": 20.279683109029058,
+              "p25": 31.251609715795603,
+              "p50": 49.92394460286962,
+              "p75": 79.00982597725476,
+              "p90": 118.82465452288722,
+              "p95": 151.8904839778221,
+              "p99": 242.27995820305281
+            },
+            "confidence_interval": {
+              "lower_bound": 61.8624180570917,
+              "upper_bound": 63.77242089382277,
+              "confidence_level": 0.95,
+              "margin_of_error": 0.9550014183655307
+            },
+            "units": "score",
+            "description": "Security awareness capabilities"
+          }
+        }
+      },
+      "risk_metrics": {
+        "threat_level": "MINIMAL_THREAT",
+        "effectiveness_score": 0.26234083725618734,
+        "base_risk_score": 0.1,
+        "effectiveness_risk_contribution": 0.13117041862809367,
+        "total_risk_score": 0.23117041862809368,
+        "risk_category": "LOW"
+      },
+      "recommendations": [
+        "Continue routine monitoring and assessment",
+        "Maintain baseline defensive capabilities",
+        "Periodic review of threat assessment",
+        "Monitor for right-skewed capability growth patterns",
+        "Prepare for potential rapid capability escalation",
+        "Consider asymmetric response strategies"
+      ]
+    }
+  },
+  {
+    "adversary_type": "business_competitor",
+    "domain_type": "business",
+    "simulation_id": "21d2a65b-5477-4265-83e6-127ca063ada6",
+    "timestamp": "2025-08-16T23:37:18.105350",
+    "analysis": {
+      "simulation_id": "21d2a65b-5477-4265-83e6-127ca063ada6",
+      "adversary_type": "business_competitor",
+      "domain_type": "business",
+      "threat_assessment": {
+        "threat_level": "MINIMAL_COMPETITION",
+        "threat_description": "Minimal competitive threat level",
+        "overall_effectiveness_score": 0.2621898169196753,
+        "strongest_capability_areas": [
+          [
+            "market_presence",
+            0.5
+          ],
+          [
+            "financial_capabilities",
+            0.5
+          ],
+          [
+            "operational_capabilities",
+            0.5
+          ]
+        ],
+        "potential_vulnerabilities": [
+          [
+            "logistics_support",
+            0.6969918613440256
+          ],
+          [
+            "organizational_efficiency",
+            0.7207836826262869
+          ]
+        ],
+        "adversary_type": "business_competitor",
+        "domain_type": "business",
+        "assessment_timestamp": "2025-08-16T23:37:18.105131"
+      },
+      "effectiveness_analysis": {
+        "overall_effectiveness": 0.2621898169196753,
+        "capability_scores": {
+          "market_presence": 0.5,
+          "financial_capabilities": 0.5,
+          "operational_capabilities": 0.5
+        },
+        "readiness_score": 0.7663388109785002,
+        "environmental_score": 0.6842660535094082,
+        "effectiveness_breakdown": {
+          "capability_contribution": 0.5,
+          "readiness_contribution": 0.7663388109785002,
+          "environmental_contribution": 0.6842660535094082
+        }
+      },
+      "log_normal_analysis": {},
+      "capability_breakdown": {
+        "market_presence": {
+          "market_share": {
+            "distribution_type": "log_normal",
+            "mu": 4.0,
+            "sigma": 0.8,
+            "theoretical_mean": 75.18862829202311,
+            "theoretical_std": 71.19060395874801,
+            "skewness": 3.689292296091298,
+            "actual_mean": 74.26989395665606,
+            "actual_median": 53.73112730631273,
+            "percentiles": {
+              "p10": 19.12702278067428,
+              "p25": 31.66138474593483,
+              "p50": 53.73112730631273,
+              "p75": 92.76115209928165,
+              "p90": 150.60733433549683,
+              "p95": 202.19395902371812,
+              "p99": 337.66274370615514
+            },
+            "confidence_interval": {
+              "lower_bound": 72.93146271025668,
+              "upper_bound": 75.60832520305544,
+              "confidence_level": 0.95,
+              "margin_of_error": 1.338431246399376
+            },
+            "units": "percentage",
+            "description": "Market share percentage"
+          },
+          "geographic_reach": {
+            "distribution_type": "log_normal",
+            "mu": 3.8,
+            "sigma": 0.7,
+            "theoretical_mean": 57.11118603414491,
+            "theoretical_std": 45.413852017652026,
+            "skewness": 2.8883566031310934,
+            "actual_mean": 57.205853076374424,
+            "actual_median": 44.837761318626946,
+            "percentiles": {
+              "p10": 18.26890237354328,
+              "p25": 27.48796479423366,
+              "p50": 44.837761318626946,
+              "p75": 71.9177079009641,
+              "p90": 111.09088529207932,
+              "p95": 141.72265530448007,
+              "p99": 230.029976555063
+            },
+            "confidence_interval": {
+              "lower_bound": 56.309545847145316,
+              "upper_bound": 58.10216030560353,
+              "confidence_level": 0.95,
+              "margin_of_error": 0.896307229229112
+            },
+            "units": "countries",
+            "description": "Geographic presence in countries"
+          },
+          "brand_recognition": {
+            "distribution_type": "log_normal",
+            "mu": 4.2,
+            "sigma": 0.6,
+            "theoretical_mean": 79.8380334050845,
+            "theoretical_std": 52.555589982734425,
+            "skewness": 2.2600838884867054,
+            "actual_mean": 79.54861609325448,
+            "actual_median": 66.84713262279763,
+            "percentiles": {
+              "p10": 30.77823158095166,
+              "p25": 44.69010557314856,
+              "p50": 66.84713262279763,
+              "p75": 99.79140070513084,
+              "p90": 143.103789789522,
+              "p95": 176.88838293274034,
+              "p99": 257.6780070836968
+            },
+            "confidence_interval": {
+              "lower_bound": 78.53751778133382,
+              "upper_bound": 80.55971440517514,
+              "confidence_level": 0.95,
+              "margin_of_error": 1.0110983119206673
+            },
+            "units": "score",
+            "description": "Brand recognition score"
+          },
+          "customer_base": {
+            "distribution_type": "log_normal",
+            "mu": 5.0,
+            "sigma": 0.9,
+            "theoretical_mean": 222.51622048381586,
+            "theoretical_std": 248.57242935905217,
+            "skewness": 4.7453296017972315,
+            "actual_mean": 220.1444172959032,
+            "actual_median": 147.21102942399085,
+            "percentiles": {
+              "p10": 45.50909194473564,
+              "p25": 79.39200421211243,
+              "p50": 147.21102942399085,
+              "p75": 272.0812308944134,
+              "p90": 467.62034895574976,
+              "p95": 649.9985558934256,
+              "p99": 1203.3619885134851
+            },
+            "confidence_interval": {
+              "lower_bound": 215.48195450727923,
+              "upper_bound": 224.80688008452717,
+              "confidence_level": 0.95,
+              "margin_of_error": 4.662462788623962
+            },
+            "units": "millions",
+            "description": "Customer base in millions"
+          }
+        },
+        "financial_capabilities": {
+          "revenue_generation": {
+            "distribution_type": "log_normal",
+            "mu": 4.5,
+            "sigma": 0.8,
+            "theoretical_mean": 123.96509077982394,
+            "theoretical_std": 117.37346302077661,
+            "skewness": 3.689292296091298,
+            "actual_mean": 123.56679049203251,
+            "actual_median": 90.07413759039078,
+            "percentiles": {
+              "p10": 32.64806929329695,
+              "p25": 53.064349921952115,
+              "p50": 90.07413759039078,
+              "p75": 153.91077635598634,
+              "p90": 252.4490947371577,
+              "p95": 328.72126376531736,
+              "p99": 564.2119079044306
+            },
+            "confidence_interval": {
+              "lower_bound": 121.26907543677589,
+              "upper_bound": 125.86450554728913,
+              "confidence_level": 0.95,
+              "margin_of_error": 2.297715055256618
+            },
+            "units": "billions",
+            "description": "Annual revenue in billions"
+          },
+          "profit_margins": {
+            "distribution_type": "log_normal",
+            "mu": 3.5,
+            "sigma": 0.6,
+            "theoretical_mean": 39.646394072572605,
+            "theoretical_std": 26.09833361751294,
+            "skewness": 2.2600838884867054,
+            "actual_mean": 39.830247099285316,
+            "actual_median": 33.22804593764535,
+            "percentiles": {
+              "p10": 15.572377389459705,
+              "p25": 22.169083143141773,
+              "p50": 33.22804593764535,
+              "p75": 50.0123410294686,
+              "p90": 71.34722949548203,
+              "p95": 89.35507648440726,
+              "p99": 136.78242426598203
+            },
+            "confidence_interval": {
+              "lower_bound": 39.32316435389412,
+              "upper_bound": 40.33732984467651,
+              "confidence_level": 0.95,
+              "margin_of_error": 0.5070827453911976
+            },
+            "units": "percentage",
+            "description": "Profit margin percentage"
+          },
+          "cash_reserves": {
+            "distribution_type": "log_normal",
+            "mu": 4.2,
+            "sigma": 0.7,
+            "theoretical_mean": 85.1998778373226,
+            "theoretical_std": 67.74950605495914,
+            "skewness": 2.8883566031310934,
+            "actual_mean": 84.9648630710328,
+            "actual_median": 66.20806262927042,
+            "percentiles": {
+              "p10": 27.586168299468962,
+              "p25": 41.590245666173075,
+              "p50": 66.20806262927042,
+              "p75": 106.34061314434186,
+              "p90": 165.556879646701,
+              "p95": 217.27374202462326,
+              "p99": 337.0639950871584
+            },
+            "confidence_interval": {
+              "lower_bound": 83.66510558005041,
+              "upper_bound": 86.26462056201518,
+              "confidence_level": 0.95,
+              "margin_of_error": 1.2997574909823812
+            },
+            "units": "billions",
+            "description": "Cash reserves in billions"
+          },
+          "investment_capacity": {
+            "distribution_type": "log_normal",
+            "mu": 3.8,
+            "sigma": 0.7,
+            "theoretical_mean": 57.11118603414491,
+            "theoretical_std": 45.413852017652026,
+            "skewness": 2.8883566031310934,
+            "actual_mean": 56.81844816448536,
+            "actual_median": 44.55622786775747,
+            "percentiles": {
+              "p10": 18.311345332884322,
+              "p25": 27.91958564361635,
+              "p50": 44.55622786775747,
+              "p75": 71.65989844885704,
+              "p90": 108.95853731156697,
+              "p95": 140.32332223295677,
+              "p99": 223.77517216687588
+            },
+            "confidence_interval": {
+              "lower_bound": 55.952746944084915,
+              "upper_bound": 57.68414938488581,
+              "confidence_level": 0.95,
+              "margin_of_error": 0.8657012204004468
+            },
+            "units": "billions",
+            "description": "Investment capacity in billions"
+          }
+        },
+        "operational_capabilities": {
+          "production_capacity": {
+            "distribution_type": "log_normal",
+            "mu": 4.8,
+            "sigma": 0.8,
+            "theoretical_mean": 167.3353696211041,
+            "theoretical_std": 158.43760283429157,
+            "skewness": 3.689292296091298,
+            "actual_mean": 165.96972051519796,
+            "actual_median": 122.86065873961658,
+            "percentiles": {
+              "p10": 43.53923595094215,
+              "p25": 70.08935110703611,
+              "p50": 122.86065873961658,
+              "p75": 209.2965804119029,
+              "p90": 333.61978361094555,
+              "p95": 443.0460656316697,
+              "p99": 764.599582419945
+            },
+            "confidence_interval": {
+              "lower_bound": 162.95465439462316,
+              "upper_bound": 168.98478663577276,
+              "confidence_level": 0.95,
+              "margin_of_error": 3.015066120574805
+            },
+            "units": "units/day",
+            "description": "Production capacity units per day"
+          },
+          "supply_chain_strength": {
+            "distribution_type": "log_normal",
+            "mu": 4.0,
+            "sigma": 0.7,
+            "theoretical_mean": 69.75576014390317,
+            "theoretical_std": 55.46860411303798,
+            "skewness": 2.8883566031310934,
+            "actual_mean": 70.46784946705682,
+            "actual_median": 55.39206245709206,
+            "percentiles": {
+              "p10": 22.456696309850162,
+              "p25": 34.77029401977771,
+              "p50": 55.39206245709206,
+              "p75": 88.74420254672069,
+              "p90": 133.00132173841757,
+              "p95": 171.0398594814093,
+              "p99": 282.44674731864
+            },
+            "confidence_interval": {
+              "lower_bound": 69.35469781495927,
+              "upper_bound": 71.58100111915438,
+              "confidence_level": 0.95,
+              "margin_of_error": 1.11315165209756
+            },
+            "units": "score",
+            "description": "Supply chain strength score"
+          },
+          "technology_advantage": {
+            "distribution_type": "log_normal",
+            "mu": 4.2,
+            "sigma": 0.8,
+            "theoretical_mean": 91.83559797815683,
+            "theoretical_std": 86.95240003030315,
+            "skewness": 3.689292296091298,
+            "actual_mean": 91.38172959569349,
+            "actual_median": 65.85434346063468,
+            "percentiles": {
+              "p10": 23.65699457738405,
+              "p25": 38.79519635221113,
+              "p50": 65.85434346063468,
+              "p75": 113.79323116118427,
+              "p90": 187.31163163456216,
+              "p95": 248.91382022549843,
+              "p99": 417.7579151877764
+            },
+            "confidence_interval": {
+              "lower_bound": 89.67460299001614,
+              "upper_bound": 93.08885620137083,
+              "confidence_level": 0.95,
+              "margin_of_error": 1.7071266056773462
+            },
+            "units": "score",
+            "description": "Technology advantage score"
+          },
+          "workforce_quality": {
+            "distribution_type": "log_normal",
+            "mu": 4.5,
+            "sigma": 0.6,
+            "theoretical_mean": 107.77007257140046,
+            "theoretical_std": 70.94262602554721,
+            "skewness": 2.2600838884867054,
+            "actual_mean": 106.90925176594166,
+            "actual_median": 88.79814879862015,
+            "percentiles": {
+              "p10": 41.57172979141568,
+              "p25": 59.21116018213315,
+              "p50": 88.79814879862015,
+              "p75": 133.9713507454311,
+              "p90": 191.8091143911735,
+              "p95": 239.38308754179295,
+              "p99": 369.4368972039508
+            },
+            "confidence_interval": {
+              "lower_bound": 105.50912698983355,
+              "upper_bound": 108.30937654204978,
+              "confidence_level": 0.95,
+              "margin_of_error": 1.4001247761081144
+            },
+            "units": "score",
+            "description": "Workforce quality score"
+          }
+        }
+      },
+      "risk_metrics": {
+        "threat_level": "MINIMAL_COMPETITION",
+        "effectiveness_score": 0.2621898169196753,
+        "base_risk_score": 0.05,
+        "effectiveness_risk_contribution": 0.13109490845983765,
+        "total_risk_score": 0.18109490845983767,
+        "risk_category": "MINIMAL"
+      },
+      "recommendations": [
+        "Continue routine monitoring and assessment",
+        "Maintain baseline defensive capabilities",
+        "Periodic review of threat assessment",
+        "Monitor for right-skewed capability growth patterns",
+        "Prepare for potential rapid capability escalation",
+        "Consider asymmetric response strategies"
+      ]
+    }
+  }
+]

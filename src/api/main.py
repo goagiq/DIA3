@@ -98,6 +98,22 @@ except ImportError as e:
     logger.warning(f"Phase 6 advanced forecasting routes not available: {e}")
     PHASE6_ADVANCED_FORECASTING_AVAILABLE = False
 
+# Import multi-domain Monte Carlo routes
+try:
+    from src.api.routes.multi_domain_monte_carlo_routes import router as multi_domain_monte_carlo_router
+    MULTI_DOMAIN_MONTE_CARLO_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Multi-domain Monte Carlo routes not available: {e}")
+    MULTI_DOMAIN_MONTE_CARLO_AVAILABLE = False
+
+# Import Phase 6 Monte Carlo visualization routes
+try:
+    from src.api.routes.monte_carlo_visualization_routes import router as monte_carlo_visualization_router
+    PHASE6_MONTE_CARLO_VISUALIZATION_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Phase 6 Monte Carlo visualization routes not available: {e}")
+    PHASE6_MONTE_CARLO_VISUALIZATION_AVAILABLE = False
+
 # Import Phase 6 reinforcement learning routes
 try:
     from src.api.routes.reinforcement_learning_routes import router as reinforcement_learning_router, set_orchestrator as set_rl_orchestrator
@@ -105,6 +121,30 @@ try:
 except ImportError as e:
     logger.warning(f"Phase 6 reinforcement learning routes not available: {e}")
     PHASE6_REINFORCEMENT_LEARNING_AVAILABLE = False
+
+# Import Phase 1 Monte Carlo routes
+try:
+    from src.api.routes.monte_carlo_routes import router as monte_carlo_router
+    PHASE1_MONTE_CARLO_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Phase 1 Monte Carlo routes not available: {e}")
+    PHASE1_MONTE_CARLO_AVAILABLE = False
+
+# Import force projection routes
+try:
+    from src.api.force_projection_routes import router as force_projection_router, set_force_projection_engine
+    FORCE_PROJECTION_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Force projection routes not available: {e}")
+    FORCE_PROJECTION_AVAILABLE = False
+
+# Import strategic intelligence forecast routes
+try:
+    from src.api.strategic_intelligence_forecast_routes import router as strategic_intelligence_forecast_router, set_orchestrator as set_strategic_intelligence_orchestrator
+    STRATEGIC_INTELLIGENCE_FORECAST_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Strategic intelligence forecast routes not available: {e}")
+    STRATEGIC_INTELLIGENCE_FORECAST_AVAILABLE = False
 
 # from src.core.unified_mcp_client import call_unified_mcp_tool
 
@@ -164,6 +204,32 @@ async def lifespan(app: FastAPI):
                 logger.info("✅ Phase 6 reinforcement learning routes orchestrator reference set")
             except Exception as e:
                 logger.warning(f"⚠️ Failed to set orchestrator reference for Phase 6 reinforcement learning routes: {e}")
+        
+        # Set global orchestrator instance for Monte Carlo routes
+        try:
+            from src.core.orchestrator import set_orchestrator_instance
+            set_orchestrator_instance(orchestrator)
+            logger.info("✅ Global orchestrator instance set for Monte Carlo routes")
+        except Exception as e:
+            logger.warning(f"⚠️ Failed to set global orchestrator instance: {e}")
+        
+        # Initialize force projection engine if available
+        if FORCE_PROJECTION_AVAILABLE:
+            try:
+                from src.core.force_projection_engine import ForceProjectionEngine
+                force_projection_engine = ForceProjectionEngine(orchestrator)
+                set_force_projection_engine(force_projection_engine)
+                logger.info("✅ Force projection engine initialized and set")
+            except Exception as e:
+                logger.warning(f"⚠️ Failed to initialize force projection engine: {e}")
+        
+        # Set orchestrator reference for strategic intelligence forecast routes if available
+        if STRATEGIC_INTELLIGENCE_FORECAST_AVAILABLE:
+            try:
+                set_strategic_intelligence_orchestrator(orchestrator)
+                logger.info("✅ Strategic intelligence forecast routes orchestrator reference set")
+            except Exception as e:
+                logger.warning(f"⚠️ Failed to set orchestrator reference for strategic intelligence forecast routes: {e}")
     except Exception as e:
         logger.error(f"❌ Failed to initialize orchestrator: {e}")
         orchestrator = None
@@ -269,12 +335,55 @@ if PHASE6_ADVANCED_FORECASTING_AVAILABLE:
 else:
     logger.warning("⚠️ Phase 6 advanced forecasting routes not available")
 
+# Include Phase 6 Monte Carlo visualization routes if available
+if PHASE6_MONTE_CARLO_VISUALIZATION_AVAILABLE:
+    app.include_router(monte_carlo_visualization_router)
+    logger.info("✅ Phase 6 Monte Carlo visualization routes included")
+else:
+    logger.warning("⚠️ Phase 6 Monte Carlo visualization routes not available")
+
 # Include Phase 6 reinforcement learning routes if available
 if PHASE6_REINFORCEMENT_LEARNING_AVAILABLE:
     app.include_router(reinforcement_learning_router)
     logger.info("✅ Phase 6 reinforcement learning routes included")
 else:
     logger.warning("⚠️ Phase 6 reinforcement learning routes not available")
+
+# Include Phase 1 Monte Carlo routes if available
+if PHASE1_MONTE_CARLO_AVAILABLE:
+    app.include_router(monte_carlo_router)
+    logger.info("✅ Phase 1 Monte Carlo routes included")
+else:
+    logger.warning("⚠️ Phase 1 Monte Carlo routes not available")
+
+# Import and include MCP Tool Management routes
+try:
+    from src.api.routes.mcp_tool_management import router as mcp_tool_management_router
+    app.include_router(mcp_tool_management_router)
+    logger.info("✅ MCP Tool Management routes included")
+except ImportError as e:
+    logger.warning(f"⚠️ MCP Tool Management routes not available: {e}")
+
+# Import and include Multi-Domain Monte Carlo routes
+if MULTI_DOMAIN_MONTE_CARLO_AVAILABLE:
+    app.include_router(multi_domain_monte_carlo_router)
+    logger.info("✅ Multi-Domain Monte Carlo routes included")
+else:
+    logger.warning("⚠️ Multi-Domain Monte Carlo routes not available")
+
+# Include force projection routes if available
+if FORCE_PROJECTION_AVAILABLE:
+    app.include_router(force_projection_router)
+    logger.info("✅ Force projection routes included")
+else:
+    logger.warning("⚠️ Force projection routes not available")
+
+# Include strategic intelligence forecast routes if available
+if STRATEGIC_INTELLIGENCE_FORECAST_AVAILABLE:
+    app.include_router(strategic_intelligence_forecast_router)
+    logger.info("✅ Strategic intelligence forecast routes included")
+else:
+    logger.warning("⚠️ Strategic intelligence forecast routes not available")
 
 
 # Request models

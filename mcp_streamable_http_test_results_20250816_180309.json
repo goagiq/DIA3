@@ -1,0 +1,36 @@
+{
+  "timestamp": "2025-08-16T18:03:09.274063",
+  "test_duration": 13.303409,
+  "total_tests": 5,
+  "passed_tests": 0,
+  "failed_tests": 5,
+  "success_rate": 0.0,
+  "test_results": [
+    {
+      "test": "MCP Server Health",
+      "status": "FAIL",
+      "message": "MCP server health check failed: 404"
+    },
+    {
+      "test": "MCP Initialize",
+      "status": "FAIL",
+      "message": "MCP initialize HTTP error: 404"
+    },
+    {
+      "test": "MCP Tools List",
+      "status": "FAIL",
+      "message": "MCP tools/list HTTP error: 404"
+    },
+    {
+      "test": "Streamable HTTP Client",
+      "status": "SKIP",
+      "message": "Required libraries not available: No module named 'strands'"
+    },
+    {
+      "test": "Monte Carlo Tool Call",
+      "status": "FAIL",
+      "message": "Tools list HTTP error: 404"
+    }
+  ],
+  "overall_status": "FAIL"
+}

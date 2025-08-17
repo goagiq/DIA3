@@ -1,0 +1,98 @@
+================================================================================
+ADVERSARY MILITARY CAPABILITY ASSESSMENT
+Monte Carlo Simulation Analysis Report
+================================================================================
+Generated: 2025-08-16 23:03:04
+Simulation Iterations: 10,000
+Execution Time: 0.18 seconds
+
+EXECUTIVE SUMMARY
+----------------------------------------
+Overall Military Capability Score: 0.533 (53.3%)
+Threat Level: MEDIUM
+
+CAPABILITY BREAKDOWN
+----------------------------------------
+Spending Power: 0.942 (94.2%)
+Manpower: 0.500 (50.0%)
+Equipment: 0.299 (29.9%)
+Training: 0.398 (39.8%)
+Logistics: 0.699 (69.9%)
+Intelligence: 0.199 (19.9%)
+Cyber: 0.492 (49.2%)
+Nuclear: 0.100 (10.0%)
+Alliances: 0.604 (60.4%)
+Economics: 0.652 (65.2%)
+
+RISK ASSESSMENT
+----------------------------------------
+Low Risk Risk: NO
+Medium Risk Risk: YES
+High Risk Risk: NO
+
+KEY STATISTICS
+----------------------------------------
+Military Spending:
+  Mean: 94.224
+  Std Dev: 28.855
+  Range: 29.546 - 267.361
+
+Force Strength:
+  Mean: 500283.690
+  Std Dev: 50181.229
+  Range: 294704.801 - 685295.107
+
+Equipment Modernization:
+  Mean: 0.299
+  Std Dev: 0.137
+  Range: 0.009 - 0.854
+
+Training Effectiveness:
+  Mean: 0.398
+  Std Dev: 0.147
+  Range: 0.026 - 0.897
+
+Logistics Capability:
+  Mean: 0.699
+  Std Dev: 0.100
+  Range: 0.362 - 1.121
+
+Intelligence Capability:
+  Mean: 0.199
+  Std Dev: 0.120
+  Range: 0.002 - 0.755
+
+Cyber Capability:
+  Mean: 0.985
+  Std Dev: 0.978
+  Range: 0.000 - 8.422
+
+Nuclear Capability:
+  Mean: 0.100
+  Std Dev: 0.091
+  Range: 0.000 - 0.674
+
+Alliance Support:
+  Mean: 0.604
+  Std Dev: 0.151
+  Range: -0.016 - 1.145
+
+Economic Stability:
+  Mean: 0.652
+  Std Dev: 0.120
+  Range: 0.164 - 1.074
+
+RISK METRICS
+----------------------------------------
+
+STRATEGIC RECOMMENDATIONS
+----------------------------------------
+1. MEDIUM THREAT LEVEL: Adversary has moderate military capability requiring monitoring
+2. Maintain current defensive posture with periodic reassessment
+3. Focus on intelligence collection and early warning systems
+
+CONFIDENCE INTERVALS (95%)
+----------------------------------------
+================================================================================
+END OF REPORT
+================================================================================

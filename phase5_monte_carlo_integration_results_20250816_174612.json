@@ -1,0 +1,126 @@
+{
+  "test_suite": "Phase 5 Monte Carlo Integration",
+  "timestamp": "2025-08-16T17:46:12.492718",
+  "summary": {
+    "total_tests": 19,
+    "passed_tests": 14,
+    "failed_tests": 5,
+    "success_rate": 73.68421052631578
+  },
+  "results": [
+    {
+      "test": "Phase 5 Engine Features",
+      "success": true,
+      "details": "Features: {'parallel_processing': True, 'caching': True, 'audit_logging': True, 'security_compliance': True, 'real_time_data': True, 'event_handlers': True}",
+      "timestamp": "2025-08-16T17:46:12.141817"
+    },
+    {
+      "test": "Phase 5 Advanced Analytics",
+      "success": true,
+      "details": "Analytics: {'failure_analysis': True, 'risk_prioritization': True, 'stress_testing': True, 'failure_thresholds': True}, Methods working: True",
+      "timestamp": "2025-08-16T17:46:12.152245"
+    },
+    {
+      "test": "Phase 5 MCP Tools",
+      "success": false,
+      "details": "Error: 200, message='Attempt to decode JSON with unexpected mimetype: text/event-stream', url='http://localhost:8000/mcp'",
+      "timestamp": "2025-08-16T17:46:12.419137"
+    },
+    {
+      "test": "Phase 5 API Endpoints",
+      "success": false,
+      "details": "API not responding: 404",
+      "timestamp": "2025-08-16T17:46:12.423750"
+    },
+    {
+      "test": "Phase 5 Performance Optimization",
+      "success": true,
+      "details": "Performance features: {'parallel_processing': True, 'caching': True, 'memory_optimization': True}",
+      "timestamp": "2025-08-16T17:46:12.425970"
+    },
+    {
+      "test": "Phase 5 Security Compliance",
+      "success": true,
+      "details": "Security features: {'audit_logging': True, 'data_classification': True, 'audit_event_logging': True, 'audit_logging_working': True}",
+      "timestamp": "2025-08-16T17:46:12.428418"
+    },
+    {
+      "test": "Phase 5 Stress Testing",
+      "success": true,
+      "details": "Stress test scenarios: ['extreme_market', 'correlation_breakdown', 'volatility_spike', 'tail_risk_events', 'systemic_risk', 'aggregate']",
+      "timestamp": "2025-08-16T17:46:12.433611"
+    },
+    {
+      "test": "Phase 5 Failure Analysis",
+      "success": true,
+      "details": "Components: True, Structure: True",
+      "timestamp": "2025-08-16T17:46:12.443114"
+    },
+    {
+      "test": "Phase 5 Risk Prioritization",
+      "success": true,
+      "details": "Components: True, Structure: True",
+      "timestamp": "2025-08-16T17:46:12.444808"
+    },
+    {
+      "test": "Phase 5 Engine Features",
+      "success": true,
+      "details": "Features: {'parallel_processing': True, 'caching': True, 'audit_logging': True, 'security_compliance': True, 'real_time_data': True, 'event_handlers': True}",
+      "timestamp": "2025-08-16T17:46:12.448515"
+    },
+    {
+      "test": "Phase 5 Advanced Analytics",
+      "success": true,
+      "details": "Analytics: {'failure_analysis': True, 'risk_prioritization': True, 'stress_testing': True, 'failure_thresholds': True}, Methods working: True",
+      "timestamp": "2025-08-16T17:46:12.462791"
+    },
+    {
+      "test": "Phase 5 Performance Optimization",
+      "success": true,
+      "details": "Performance features: {'parallel_processing': True, 'caching': True, 'memory_optimization': True}",
+      "timestamp": "2025-08-16T17:46:12.465328"
+    },
+    {
+      "test": "Phase 5 Security Compliance",
+      "success": true,
+      "details": "Security features: {'audit_logging': True, 'data_classification': True, 'audit_event_logging': True, 'audit_logging_working': True}",
+      "timestamp": "2025-08-16T17:46:12.466406"
+    },
+    {
+      "test": "Phase 5 Stress Testing",
+      "success": true,
+      "details": "Stress test scenarios: ['extreme_market', 'correlation_breakdown', 'volatility_spike', 'tail_risk_events', 'systemic_risk', 'aggregate']",
+      "timestamp": "2025-08-16T17:46:12.471855"
+    },
+    {
+      "test": "Phase 5 Failure Analysis",
+      "success": true,
+      "details": "Components: True, Structure: True",
+      "timestamp": "2025-08-16T17:46:12.477688"
+    },
+    {
+      "test": "Phase 5 Risk Prioritization",
+      "success": true,
+      "details": "Components: True, Structure: True",
+      "timestamp": "2025-08-16T17:46:12.479437"
+    },
+    {
+      "test": "Phase 5 API Endpoints",
+      "success": false,
+      "details": "API not responding: 404",
+      "timestamp": "2025-08-16T17:46:12.484619"
+    },
+    {
+      "test": "Phase 5 MCP Tools",
+      "success": false,
+      "details": "Error: 200, message='Attempt to decode JSON with unexpected mimetype: text/event-stream', url='http://localhost:8000/mcp'",
+      "timestamp": "2025-08-16T17:46:12.490015"
+    },
+    {
+      "test": "Phase 5 Complete Integration",
+      "success": false,
+      "details": "Tests passed: 7/9",
+      "timestamp": "2025-08-16T17:46:12.490607"
+    }
+  ]
+}

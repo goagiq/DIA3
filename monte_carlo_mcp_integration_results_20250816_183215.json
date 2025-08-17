@@ -1,0 +1,36 @@
+{
+  "timestamp": "2025-08-16T18:32:15.355077",
+  "test_duration": 47.677945,
+  "total_tests": 5,
+  "passed_tests": 1,
+  "failed_tests": 4,
+  "success_rate": 20.0,
+  "test_results": [
+    {
+      "test": "MCP Server Status",
+      "status": "PASS",
+      "message": "MCP server is running on port 8000"
+    },
+    {
+      "test": "Dynamic Tool Manager",
+      "status": "ERROR",
+      "message": "Error testing dynamic tool manager: No module named 'src'"
+    },
+    {
+      "test": "MCP Client Communication",
+      "status": "ERROR",
+      "message": "Error testing MCP client communication: 'MCPAgentTool' object has no attribute 'name'"
+    },
+    {
+      "test": "Monte Carlo API Endpoints",
+      "status": "WARNING",
+      "message": "Monte Carlo simulation endpoint returned 500"
+    },
+    {
+      "test": "Orchestrator Integration",
+      "status": "ERROR",
+      "message": "Error testing orchestrator integration: No module named 'src'"
+    }
+  ],
+  "overall_status": "FAIL"
+}

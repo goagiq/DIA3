@@ -1,0 +1,134 @@
+================================================================================
+ADVERSARY FORCE PROJECTION CAPABILITIES ANALYSIS
+================================================================================
+
+EXECUTIVE SUMMARY
+----------------------------------------
+Threat Level: LOW
+Overall Effectiveness: 0.261
+Assessment: Low force projection capability
+
+CAPABILITY ANALYSIS
+----------------------------------------
+
+Air Force:
+  Fighter Aircraft:
+    Mean: 124.10 squadrons
+    Median: 89.83 squadrons
+    95% CI: [121.77, 126.42]
+  Bomber Aircraft:
+    Mean: 29.62 wings
+    Median: 24.77 wings
+    95% CI: [29.24, 30.01]
+  Air Defense Systems:
+    Mean: 241.18 batteries
+    Median: 163.17 batteries
+    95% CI: [236.07, 246.30]
+  Airlift Capacity:
+    Mean: 154.71 tonnes/day
+    Median: 120.63 tonnes/day
+    95% CI: [152.30, 157.12]
+
+Naval Forces:
+  Surface Combatants:
+    Mean: 91.93 vessels
+    Median: 67.20 vessels
+    95% CI: [90.29, 93.58]
+  Submarines:
+    Mean: 57.33 submarines
+    Median: 44.96 submarines
+    95% CI: [56.45, 58.22]
+  Amphibious Ships:
+    Mean: 39.81 ships
+    Median: 33.53 ships
+    95% CI: [39.31, 40.32]
+  Naval Aviation:
+    Mean: 69.96 aircraft
+    Median: 54.41 aircraft
+    95% CI: [68.87, 71.05]
+
+Ground Forces:
+  Armored Divisions:
+    Mean: 138.00 divisions
+    Median: 98.89 divisions
+    95% CI: [135.40, 140.61]
+  Mechanized Infantry:
+    Mean: 270.53 brigades
+    Median: 180.81 brigades
+    95% CI: [264.55, 276.50]
+  Artillery Units:
+    Mean: 156.02 battalions
+    Median: 122.50 battalions
+    95% CI: [153.60, 158.44]
+  Special Forces:
+    Mean: 59.47 teams
+    Median: 49.88 teams
+    95% CI: [58.70, 60.24]
+
+Strategic Forces:
+  Icbm Silos:
+    Mean: 27.67 silos
+    Median: 24.40 silos
+    95% CI: [27.39, 27.96]
+  Mobile Missiles:
+    Mean: 57.54 launchers
+    Median: 44.53 launchers
+    95% CI: [56.64, 58.45]
+  Strategic Bombers:
+    Mean: 39.59 aircraft
+    Median: 33.20 aircraft
+    95% CI: [39.09, 40.10]
+  Nuclear Submarines:
+    Mean: 22.68 submarines
+    Median: 20.00 submarines
+    95% CI: [22.45, 22.92]
+
+OPERATIONAL READINESS ANALYSIS
+----------------------------------------
+Personnel Training: 0.750
+Equipment Maintenance: 0.800
+Logistics Support: 0.698
+Command Control: 0.850
+
+ENVIRONMENTAL FACTORS ANALYSIS
+----------------------------------------
+Geographic Distance: 0.645
+Alliance Support: 0.601
+Economic Sustainability: 0.699
+Political Stability: 0.747
+
+THREAT ASSESSMENT
+----------------------------------------
+Threat Level: LOW
+Description: Low force projection capability
+
+Strongest Capability Areas:
+  - Air Force: 0.500
+  - Naval Forces: 0.500
+  - Ground Forces: 0.500
+
+Potential Vulnerabilities:
+  - Logistics Support: 0.698
+  - Personnel Training: 0.750
+
+STRATEGIC RECOMMENDATIONS
+----------------------------------------
+1. Routine intelligence monitoring
+2. Maintenance of basic defensive capabilities
+3. Focus on diplomatic and economic engagement
+4. Prioritize counter-capabilities against air force
+5. Prioritize counter-capabilities against naval forces
+6. Prioritize counter-capabilities against ground forces
+7. Exploit potential vulnerability in logistics support
+8. Exploit potential vulnerability in personnel training
+
+SIMULATION METADATA
+----------------------------------------
+Adversary Type: peer_adversary
+Time Horizon: 24 months
+Number of Iterations: 10,000
+Confidence Level: 95.0%
+Execution Time: 0.25 seconds
+Timestamp: 2025-08-16T23:20:22.745207
+
+================================================================================

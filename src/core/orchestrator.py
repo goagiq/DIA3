@@ -197,6 +197,11 @@ class SentimentOrchestrator:
             # Intelligence Data Adapter
             from src.core.streaming.intelligence_data_adapter import IntelligenceDataAdapter
             self.intelligence_data_adapter = IntelligenceDataAdapter()
+            
+            # Multi-Domain Monte Carlo Engine
+            from src.core.multi_domain_monte_carlo_engine import MultiDomainMonteCarloEngine
+            self.multi_domain_monte_carlo_engine = MultiDomainMonteCarloEngine()
+            logger.info("✅ Multi-Domain Monte Carlo Engine initialized")
             logger.info("✅ Phase 3 Intelligence Data Adapter initialized")
             
         except ImportError as e:
@@ -307,11 +312,37 @@ class SentimentOrchestrator:
         except Exception as e:
             logger.warning(f"⚠️ Error initializing Phase 5 Model Interpretability & Explainable AI components: {e}")
 
+        # Phase 1: Monte Carlo Simulation Agent
+        try:
+            from src.core.agents.monte_carlo_agent import MonteCarloAgent
+            
+            monte_carlo_agent = MonteCarloAgent()
+            self._register_agent(monte_carlo_agent, [
+                DataType.NUMERICAL, DataType.TIME_SERIES
+            ])
+            logger.info("✅ Phase 1 Monte Carlo Simulation Agent registered")
+        except ImportError as e:
+            logger.warning(f"⚠️ Phase 1 Monte Carlo Simulation Agent not available: {e}")
+        except Exception as e:
+            logger.warning(f"⚠️ Error initializing Phase 1 Monte Carlo Simulation Agent: {e}")
+
+        # Force Projection Engine
+        try:
+            from src.core.force_projection_engine import ForceProjectionEngine
+            
+            self.force_projection_engine = ForceProjectionEngine()
+            logger.info("✅ Force Projection Engine initialized")
+        except ImportError as e:
+            logger.warning(f"⚠️ Force Projection Engine not available: {e}")
+        except Exception as e:
+            logger.warning(f"⚠️ Error initializing Force Projection Engine: {e}")
+
         logger.info(
             f"Registered {len(self.agents)} unified agents including "
             f"GraphRAG-inspired Knowledge Graph Agent, File Extraction Agent, "
             f"Phase 4 Export & Automation Agents, Phase 5 Semantic Search & Agent Reflection Agents, "
-            f"Phase 1 Pattern Recognition Agent, Phase 1 ML/DL/RL Forecasting Components, Phase 2 Predictive Analytics Agent, Phase 2.2 Scenario Analysis Agent, Phase 2.3 Real-Time Monitoring Agent, "
+            f"Phase 1 Pattern Recognition Agent, Phase 1 ML/DL/RL Forecasting Components, Phase 1 Monte Carlo Simulation Agent, "
+            f"Phase 2 Predictive Analytics Agent, Phase 2.2 Scenario Analysis Agent, Phase 2.3 Real-Time Monitoring Agent, "
             f"Phase 3.1 Decision Support Agent, Phase 3.2 Risk Assessment Agent, Phase 3.3 Fault Detection Agent, "
             f"Phase 3 Advanced Forecasting & Prediction Components (Ensemble Forecasting, Enhanced Scenario Predictor, Intelligence Data Adapter), "
             f"Phase 4 Classical Chinese HUMINT Analysis Agent, "
@@ -785,3 +816,20 @@ class SentimentOrchestrator:
         except Exception as e:
             logger.error(f"Error getting duplicate stats: {e}")
             return {}
+
+    def get_registered_agents(self) -> List[str]:
+        """Get list of registered agent names."""
+        return list(self.agents.keys())
+
+
+# Global orchestrator instance
+_orchestrator_instance: Optional[SentimentOrchestrator] = None
+
+def get_orchestrator() -> Optional[SentimentOrchestrator]:
+    """Get the global orchestrator instance."""
+    return _orchestrator_instance
+
+def set_orchestrator_instance(orch: SentimentOrchestrator):
+    """Set the global orchestrator instance."""
+    global _orchestrator_instance
+    _orchestrator_instance = orch

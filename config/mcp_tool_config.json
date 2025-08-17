@@ -1,0 +1,170 @@
+{
+  "auto_scaling_enabled": true,
+  "tools": {
+    "monte_carlo": {
+      "enabled": true,
+      "priority": 8,
+      "max_cpu_percent": 80.0,
+      "max_memory_mb": 4096.0,
+      "max_gpu_percent": 90.0,
+      "auto_scale": true,
+      "dependencies": [],
+      "startup_timeout": 30,
+      "health_check_interval": 60,
+      "resource_check_interval": 10,
+      "description": "Monte Carlo simulation engine for risk assessment and scenario analysis"
+    },
+    "sentiment_analysis": {
+      "enabled": true,
+      "priority": 6,
+      "max_cpu_percent": 60.0,
+      "max_memory_mb": 2048.0,
+      "max_gpu_percent": 70.0,
+      "auto_scale": true,
+      "dependencies": [],
+      "startup_timeout": 20,
+      "health_check_interval": 60,
+      "resource_check_interval": 15,
+      "description": "Sentiment analysis and text processing tools"
+    },
+    "language_processing": {
+      "enabled": true,
+      "priority": 7,
+      "max_cpu_percent": 70.0,
+      "max_memory_mb": 3072.0,
+      "max_gpu_percent": 80.0,
+      "auto_scale": true,
+      "dependencies": [],
+      "startup_timeout": 25,
+      "health_check_interval": 60,
+      "resource_check_interval": 12,
+      "description": "Natural language processing and multilingual support"
+    },
+    "business_intelligence": {
+      "enabled": true,
+      "priority": 5,
+      "max_cpu_percent": 50.0,
+      "max_memory_mb": 1536.0,
+      "max_gpu_percent": 60.0,
+      "auto_scale": true,
+      "dependencies": [],
+      "startup_timeout": 15,
+      "health_check_interval": 60,
+      "resource_check_interval": 20,
+      "description": "Business intelligence and analytics tools"
+    },
+    "deception_analysis": {
+      "enabled": true,
+      "priority": 9,
+      "max_cpu_percent": 85.0,
+      "max_memory_mb": 5120.0,
+      "max_gpu_percent": 95.0,
+      "auto_scale": true,
+      "dependencies": ["language_processing"],
+      "startup_timeout": 45,
+      "health_check_interval": 60,
+      "resource_check_interval": 8,
+      "description": "Advanced deception detection and Art of War analysis"
+    },
+    "deep_learning": {
+      "enabled": false,
+      "priority": 4,
+      "max_cpu_percent": 90.0,
+      "max_memory_mb": 8192.0,
+      "max_gpu_percent": 95.0,
+      "auto_scale": true,
+      "dependencies": [],
+      "startup_timeout": 60,
+      "health_check_interval": 60,
+      "resource_check_interval": 5,
+      "description": "Deep learning models and neural network processing"
+    },
+    "reinforcement_learning": {
+      "enabled": false,
+      "priority": 3,
+      "max_cpu_percent": 85.0,
+      "max_memory_mb": 6144.0,
+      "max_gpu_percent": 90.0,
+      "auto_scale": true,
+      "dependencies": [],
+      "startup_timeout": 50,
+      "health_check_interval": 60,
+      "resource_check_interval": 6,
+      "description": "Reinforcement learning agents and training"
+    },
+    "audio_processing": {
+      "enabled": true,
+      "priority": 6,
+      "max_cpu_percent": 65.0,
+      "max_memory_mb": 2560.0,
+      "max_gpu_percent": 75.0,
+      "auto_scale": true,
+      "dependencies": [],
+      "startup_timeout": 20,
+      "health_check_interval": 60,
+      "resource_check_interval": 15,
+      "description": "Audio processing and speech recognition"
+    },
+    "video_processing": {
+      "enabled": false,
+      "priority": 2,
+      "max_cpu_percent": 95.0,
+      "max_memory_mb": 10240.0,
+      "max_gpu_percent": 95.0,
+      "auto_scale": true,
+      "dependencies": [],
+      "startup_timeout": 90,
+      "health_check_interval": 60,
+      "resource_check_interval": 3,
+      "description": "Video processing and computer vision"
+    },
+    "data_ingestion": {
+      "enabled": true,
+      "priority": 7,
+      "max_cpu_percent": 55.0,
+      "max_memory_mb": 2048.0,
+      "max_gpu_percent": 50.0,
+      "auto_scale": true,
+      "dependencies": [],
+      "startup_timeout": 15,
+      "health_check_interval": 60,
+      "resource_check_interval": 18,
+      "description": "Data ingestion and processing pipeline"
+    },
+    "force_projection": {
+      "enabled": true,
+      "priority": 8,
+      "max_cpu_percent": 75.0,
+      "max_memory_mb": 4096.0,
+      "max_gpu_percent": 80.0,
+      "auto_scale": true,
+      "dependencies": ["monte_carlo"],
+      "startup_timeout": 30,
+      "health_check_interval": 60,
+      "resource_check_interval": 10,
+      "description": "Adversary force projection simulation using log-normal distribution"
+    }
+  },
+  "resource_thresholds": {
+    "critical_cpu_percent": 90.0,
+    "critical_memory_percent": 90.0,
+    "high_cpu_percent": 70.0,
+    "high_memory_percent": 70.0,
+    "medium_cpu_percent": 50.0,
+    "medium_memory_percent": 50.0
+  },
+  "auto_scaling_rules": {
+    "disable_low_priority_threshold": 3,
+    "pause_non_essential_threshold": 5,
+    "resume_paused_threshold": 30.0,
+    "health_check_failure_limit": 3
+  },
+  "monitoring": {
+    "enabled": true,
+    "check_interval_seconds": 10,
+    "health_check_interval_seconds": 60,
+    "resource_history_size": 100,
+    "alert_on_critical": true,
+    "alert_on_high": false
+  }
+}

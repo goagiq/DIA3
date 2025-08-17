@@ -1,0 +1,36 @@
+{
+  "timestamp": "2025-08-16T17:58:13.188814",
+  "test_duration": 64.664501,
+  "total_tests": 5,
+  "passed_tests": 3,
+  "failed_tests": 2,
+  "success_rate": 60.0,
+  "test_results": [
+    {
+      "test": "MCP Server Status",
+      "status": "PASS",
+      "message": "MCP server is running on port 8000"
+    },
+    {
+      "test": "Dynamic Tool Manager",
+      "status": "PASS",
+      "message": "Monte Carlo tools registered in dynamic tool manager"
+    },
+    {
+      "test": "MCP Client Communication",
+      "status": "SKIP",
+      "message": "MCP client libraries not available: No module named 'strands'"
+    },
+    {
+      "test": "Monte Carlo API Endpoints",
+      "status": "WARNING",
+      "message": "Monte Carlo simulation endpoint returned 500"
+    },
+    {
+      "test": "Orchestrator Integration",
+      "status": "PASS",
+      "message": "Found 1 Monte Carlo agents in orchestrator"
+    }
+  ],
+  "overall_status": "FAIL"
+}

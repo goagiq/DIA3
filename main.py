@@ -41,11 +41,16 @@ config = SentimentConfig()
 # Global flags for strategic assessment capabilities
 STRATEGIC_ANALYTICS_AVAILABLE = True
 
-def get_safe_port(host: str, default_port: int) -> int:
-    """Get a safe port to use, checking if the default is available."""
+def get_safe_port(host: str, default_port: int, reserved_ports: List[int] = None) -> int:
+    """Get a safe port to use, checking if the default is available and avoiding reserved ports."""
     import socket
     
+    if reserved_ports is None:
+        reserved_ports = [8000]  # Reserve port 8000 for standalone MCP server
+    
     def is_port_available(port):
+        if port in reserved_ports:
+            return False
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             try:
                 s.bind((host, port))
@@ -56,7 +61,7 @@ def get_safe_port(host: str, default_port: int) -> int:
     if is_port_available(default_port):
         return default_port
     
-    # Try next 10 ports
+    # Try next 10 ports, avoiding reserved ports
     for port in range(default_port + 1, default_port + 11):
         if is_port_available(port):
             print(f"⚠️ Port {default_port} is in use, using port {port}")
@@ -130,15 +135,73 @@ def initialize_language_capabilities_engine():
         print(f"⚠️ Warning: Could not initialize language capabilities engine: {e}")
         return None
 
+def initialize_force_projection_engine():
+    """Initialize the force projection engine."""
+    try:
+        from src.core.force_projection_engine import ForceProjectionEngine
+        
+        # Initialize the force projection engine
+        engine = ForceProjectionEngine()
+        print("✅ Force projection engine initialized")
+        return engine
+    except Exception as e:
+        print(f"⚠️ Warning: Could not initialize force projection engine: {e}")
+        return None
+
 def start_standalone_mcp_server(host: str = "localhost", port: int = 8000):
     """Start standalone MCP server for Strands integration."""
     try:
         from src.mcp_servers.standalone_mcp_server import start_standalone_mcp_server as start_server
+        import socket
         
-        # Start the standalone MCP server
-        server = start_server(host, port)
-        print("✅ Standalone MCP server started")
-        return server
+        # First, try to use the specified port (8000 for MCP)
+        try:
+            # Test if port is available
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.bind((host, port))
+                s.close()
+            
+            # Port is available, start the server
+            server = start_server(host, port)
+            if server and server.is_server_running():
+                print(f"✅ Standalone MCP server started on port {port}")
+                return server
+            else:
+                print(f"⚠️ Warning: MCP server failed to start on port {port}")
+                
+        except OSError:
+            print(f"⚠️ Port {port} is in use, trying alternative ports...")
+        
+        # If the preferred port is not available, try alternative ports
+        # but avoid the main API server port range (8003-8013)
+        alternative_ports = [8001, 8002, 8014, 8015, 8016, 8017, 8018, 8019, 8020]
+        
+        for alt_port in alternative_ports:
+            try:
+                # Test if port is available
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                    s.bind((host, alt_port))
+                    s.close()
+                
+                # Port is available, start the server
+                server = start_server(host, alt_port)
+                if server and server.is_server_running():
+                    print(f"✅ Standalone MCP server started on port {alt_port} (original port {port} was in use)")
+                    return server
+                else:
+                    print(f"⚠️ Warning: MCP server failed to start on port {alt_port}")
+                    continue
+                    
+            except OSError:
+                # Port is in use, try next port
+                continue
+            except Exception as e:
+                print(f"⚠️ Warning: Error starting MCP server on port {alt_port}: {e}")
+                continue
+        
+        print(f"⚠️ Warning: Could not find available port for MCP server")
+        return None
+        
     except Exception as e:
         print(f"⚠️ Warning: Could not start standalone MCP server: {e}")
         return None
@@ -198,6 +261,9 @@ if __name__ == "__main__":
     
     # Initialize language capabilities engine
     language_capabilities_engine = initialize_language_capabilities_engine()
+    
+    # Initialize force projection engine
+    force_projection_engine = initialize_force_projection_engine()
     
     # Initialize Phase 1 ML/DL/RL Forecasting Components
     print("Initializing Phase 1 ML/DL/RL Forecasting Components...")
@@ -302,7 +368,7 @@ if __name__ == "__main__":
     
     # Get API configuration and ensure port is available
     api_host = config.api.host
-    api_port = get_safe_port(api_host, config.api.port)
+    api_port = get_safe_port(api_host, config.api.port, reserved_ports=[8000])
     
     print("\nStarting FastAPI server with Comprehensive Strategic Assessment & MCP integration...")
     
@@ -353,7 +419,6 @@ if __name__ == "__main__":
     try:
         standalone_mcp_server = start_standalone_mcp_server(host="localhost", port=8000)
         if standalone_mcp_server and standalone_mcp_server.is_server_running():
-            print("✅ Standalone MCP server started on port 8000")
             print("🔧 Available for Strands integration with Streamable HTTP transport")
         else:
             print("⚠️ Warning: Standalone MCP server failed to start")
@@ -536,6 +601,37 @@ if __name__ == "__main__":
     print("   - /api/v1/reinforcement-learning/multi-agent-coordination - Multi-agent coordination")
     print("   - /api/v1/reinforcement-learning/optimize-weights - RL weight optimization")
     print("   - Test: .venv/Scripts/python.exe Test/test_phase6_advanced_forecasting.py")
+    print("")
+    print("🎲 Phase 1 Monte Carlo Simulation Endpoints:")
+    print("   - /api/v1/monte-carlo/health - Monte Carlo service health check")
+    print("   - /api/v1/monte-carlo/simulate - Run Monte Carlo simulation")
+    print("   - /api/v1/monte-carlo/scenario/{type} - Run scenario simulation")
+    print("   - /api/v1/monte-carlo/custom - Run custom simulation")
+    print("   - /api/v1/monte-carlo/time-series - Run time series simulation")
+    print("   - /api/v1/monte-carlo/analyze - Analyze simulation results")
+    print("   - /api/v1/monte-carlo/scenarios - List available scenarios")
+    print("   - /api/v1/monte-carlo/scenarios/{type} - Get scenario information")
+    print("   - /api/v1/monte-carlo/distributions - List available distributions")
+    print("   - /api/v1/monte-carlo/distributions/{type} - Get distribution information")
+    print("   - /api/v1/monte-carlo/correlation-matrix - Generate correlation matrix")
+    print("   - /api/v1/monte-carlo/estimate-correlation - Estimate correlation from samples")
+    print("   - /api/v1/monte-carlo/status - Get engine status")
+    print("   - /api/v1/monte-carlo/validate-configuration - Validate configuration")
+    print("   - Test: .venv/Scripts/python.exe Test/test_phase1_monte_carlo.py")
+    print("")
+    print("🌐 Multi-Domain Monte Carlo Simulation Endpoints:")
+    print("   - /api/v1/multi-domain-monte-carlo/health - Multi-domain Monte Carlo health check")
+    print("   - /api/v1/multi-domain-monte-carlo/scenarios - Get available scenarios")
+    print("   - /api/v1/multi-domain-monte-carlo/performance - Get performance summary")
+    print("   - /api/v1/multi-domain-monte-carlo/simulate/defense - Defense domain simulation")
+    print("   - /api/v1/multi-domain-monte-carlo/simulate/business - Business domain simulation")
+    print("   - /api/v1/multi-domain-monte-carlo/simulate/financial - Financial domain simulation")
+    print("   - /api/v1/multi-domain-monte-carlo/simulate/cybersecurity - Cybersecurity domain simulation")
+    print("   - /api/v1/multi-domain-monte-carlo/simulate/custom - Custom domain simulation")
+    print("   - /api/v1/multi-domain-monte-carlo/simulate/batch - Batch simulations")
+    print("   - /api/v1/multi-domain-monte-carlo/simulation/{id} - Get simulation result")
+    print("   - /api/v1/multi-domain-monte-carlo/report - Generate simulation report")
+    print("   - Test: .venv/Scripts/python.exe Test/test_multi_domain_monte_carlo.py")
     print("")
     print("🎯 Phase 7 Testing & Deployment Endpoints:")
     print("   - /mcp-health - MCP server health check (standalone)")
