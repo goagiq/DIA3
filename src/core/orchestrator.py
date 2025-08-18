@@ -852,6 +852,31 @@ class SentimentOrchestrator:
     def get_registered_agents(self) -> List[str]:
         """Get list of registered agent names."""
         return list(self.agents.keys())
+    
+    def get_registered_services(self) -> Dict[str, Any]:
+        """Get list of registered services and their capabilities."""
+        services = {}
+        for agent_name, agent in self.agents.items():
+            services[agent_name] = {
+                "type": "agent",
+                "capabilities": [cap.value for cap in agent.supported_data_types] if hasattr(agent, 'supported_data_types') else [],
+                "status": "active"
+            }
+        
+        # Add core services
+        services["model_manager"] = {
+            "type": "service",
+            "capabilities": ["model_management", "model_selection"],
+            "status": "active"
+        }
+        
+        services["duplicate_detection"] = {
+            "type": "service", 
+            "capabilities": ["duplicate_detection", "content_analysis"],
+            "status": "active"
+        }
+        
+        return services
 
 
 # Global orchestrator instance

@@ -50,21 +50,7 @@ except ImportError as e:
     logger.warning(f"Threat assessment routes not available: {e}")
     THREAT_ASSESSMENT_AVAILABLE = False
 
-# Import PDF generation routes
-try:
-    from src.api.pdf_generation_routes import router as pdf_generation_router
-    PDF_GENERATION_AVAILABLE = True
-except ImportError as e:
-    logger.warning(f"PDF generation routes not available: {e}")
-    PDF_GENERATION_AVAILABLE = False
 
-# Import Word generation routes
-try:
-    from src.api.word_generation_routes import router as word_generation_router
-    WORD_GENERATION_AVAILABLE = True
-except ImportError as e:
-    logger.warning(f"Word generation routes not available: {e}")
-    WORD_GENERATION_AVAILABLE = False
 
 # Import language capabilities routes
 try:
@@ -97,6 +83,14 @@ try:
 except ImportError as e:
     logger.warning(f"ML forecasting routes not available: {e}")
     ML_FORECASTING_AVAILABLE = False
+
+# Import interactive visualization routes
+try:
+    from src.api.visualization_routes import router as visualization_router
+    VISUALIZATION_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Interactive visualization routes not available: {e}")
+    VISUALIZATION_AVAILABLE = False
 
 # Import Phase 5 interpretability routes
 try:
@@ -323,19 +317,7 @@ if LANGUAGE_CAPABILITIES_AVAILABLE:
 else:
     logger.warning("⚠️ Language capabilities routes not available")
 
-# Include PDF generation routes if available
-if PDF_GENERATION_AVAILABLE:
-    app.include_router(pdf_generation_router)
-    logger.info("✅ PDF generation routes included")
-else:
-    logger.warning("⚠️ PDF generation routes not available")
 
-# Include Word generation routes if available
-if WORD_GENERATION_AVAILABLE:
-    app.include_router(word_generation_router)
-    logger.info("✅ Word generation routes included")
-else:
-    logger.warning("⚠️ Word generation routes not available")
 
 # Include enhanced strategic analysis routes if available
 if ENHANCED_STRATEGIC_ANALYSIS_AVAILABLE:
@@ -350,6 +332,13 @@ if ML_FORECASTING_AVAILABLE:
     logger.info("✅ ML forecasting routes included")
 else:
     logger.warning("⚠️ ML forecasting routes not available")
+
+# Include interactive visualization routes if available
+if VISUALIZATION_AVAILABLE:
+    app.include_router(visualization_router)
+    logger.info("✅ Interactive visualization routes included")
+else:
+    logger.warning("⚠️ Interactive visualization routes not available")
 
 # Include Phase 5 interpretability routes if available
 if PHASE5_INTERPRETABILITY_AVAILABLE:

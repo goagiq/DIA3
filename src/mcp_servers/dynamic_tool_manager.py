@@ -720,3 +720,39 @@ class DynamicMCPToolManager:
 
 # Global instance
 dynamic_tool_manager = DynamicMCPToolManager()
+
+# Register visualization tools
+try:
+    from src.mcp_servers.interactive_visualization_mcp_tools import interactive_visualization_mcp_tools
+    
+    # Add visualization tools to the dynamic tool manager
+    visualization_tools = [
+        {
+            "name": "interactive_visualization",
+            "description": "Interactive visualization system for forecasting and prediction charts",
+            "enabled": True,
+            "priority": 7,
+            "max_cpu_percent": 60.0,
+            "max_memory_mb": 1024.0,
+            "auto_scale": True,
+            "dependencies": [],
+            "startup_timeout": 30,
+            "health_check_interval": 60,
+            "resource_check_interval": 10
+        }
+    ]
+    
+    for tool_config in visualization_tools:
+        config = ToolConfig(**tool_config)
+        dynamic_tool_manager.configs[tool_config["name"]] = config
+        
+        # Register the tool factory
+        def create_visualization_tool():
+            return interactive_visualization_mcp_tools
+        
+        dynamic_tool_manager.register_tool_factory(tool_config["name"], create_visualization_tool)
+    
+    logger.info("✅ Interactive visualization tools registered with dynamic tool manager")
+    
+except ImportError as e:
+    logger.warning(f"⚠️ Interactive visualization tools not available: {e}")

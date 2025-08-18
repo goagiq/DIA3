@@ -1,0 +1,4 @@
+markdown==3.5.1
+weasyprint==60.2
+mermaid-cli==10.6.1
+

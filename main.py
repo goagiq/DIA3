@@ -135,6 +135,31 @@ def initialize_language_capabilities_engine():
         print(f"⚠️ Warning: Could not initialize language capabilities engine: {e}")
         return None
 
+def initialize_visualization_system():
+    """Initialize the interactive visualization system."""
+    try:
+        from src.core.visualization.interactive_forecasting_charts import (
+            InteractiveForecastingCharts, 
+            MonteCarloVisualizationHelper,
+            ChartColors
+        )
+        from src.core.monte_carlo.visualization_integration import MonteCarloVisualizationIntegration
+        
+        # Initialize visualization components
+        visualizer = InteractiveForecastingCharts()
+        mc_helper = MonteCarloVisualizationHelper()
+        mc_integration = MonteCarloVisualizationIntegration()
+        
+        print("✅ Interactive visualization system initialized")
+        return {
+            "visualizer": visualizer,
+            "mc_helper": mc_helper,
+            "mc_integration": mc_integration
+        }
+    except Exception as e:
+        print(f"⚠️ Warning: Could not initialize visualization system: {e}")
+        return None
+
 def initialize_force_projection_engine():
     """Initialize the force projection engine."""
     try:
@@ -262,6 +287,9 @@ if __name__ == "__main__":
     # Initialize language capabilities engine
     language_capabilities_engine = initialize_language_capabilities_engine()
     
+    # Initialize interactive visualization system
+    visualization_system = initialize_visualization_system()
+    
     # Initialize force projection engine
     force_projection_engine = initialize_force_projection_engine()
     
@@ -303,27 +331,7 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"⚠️ Warning: Error initializing Phase 3 Advanced Forecasting & Prediction Components: {e}")
     
-    # Initialize Enhanced PDF Generation Service
-    print("Initializing Enhanced PDF Generation Service...")
-    try:
-        from src.core.enhanced_pdf_generation_service import enhanced_pdf_service
-        
-        print("✅ Enhanced PDF Generation Service initialized")
-    except ImportError as e:
-        print(f"⚠️ Warning: Enhanced PDF Generation Service not available: {e}")
-    except Exception as e:
-        print(f"⚠️ Warning: Error initializing Enhanced PDF Generation Service: {e}")
-    
-    # Initialize Enhanced Word Generation Service
-    print("Initializing Enhanced Word Generation Service...")
-    try:
-        from src.core.enhanced_word_generation_service import enhanced_word_service
-        
-        print("✅ Enhanced Word Generation Service initialized")
-    except ImportError as e:
-        print(f"⚠️ Warning: Enhanced Word Generation Service not available: {e}")
-    except Exception as e:
-        print(f"⚠️ Warning: Error initializing Enhanced Word Generation Service: {e}")
+
     
     # Initialize Phase 4 Multi-Domain Integration Components
     print("Initializing Phase 4 Multi-Domain Integration Components...")
@@ -658,7 +666,11 @@ if __name__ == "__main__":
     print("🎯 Phase 7 Testing & Deployment Endpoints:")
     print("   - /mcp-health - MCP server health check (standalone)")
     print("   - /mcp - MCP server integration (integrated)")
+    print("   - /mcp/stream - MCP streamable HTTP protocol endpoint")
     print("   - Standalone MCP Server: http://localhost:8000")
+    print("   - MCP Endpoint: http://localhost:8000/mcp")
+    print("   - MCP Stream Endpoint: http://localhost:8000/mcp/stream")
+    print("   - Headers: Accept: application/json, text/event-stream")
     print("   - Streamable HTTP MCP Client: Available for Strands integration")
     print("   - Test: .venv/Scripts/python.exe Test/test_phase7_integration.py")
     print("   - Demo: .venv/Scripts/python.exe examples/phase7_mcp_client_demo.py")

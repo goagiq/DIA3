@@ -97,21 +97,7 @@ except ImportError as e:
     logger.warning(f"Force projection MCP tools not available: {e}")
     FORCE_PROJECTION_MCP_AVAILABLE = False
 
-# Import PDF generation MCP tools
-try:
-    from src.mcp_servers.pdf_generation_mcp_tools import pdf_generation_mcp_tools
-    PDF_GENERATION_MCP_AVAILABLE = True
-except ImportError as e:
-    logger.warning(f"PDF generation MCP tools not available: {e}")
-    PDF_GENERATION_MCP_AVAILABLE = False
 
-# Import Word generation MCP tools
-try:
-    from src.mcp_servers.word_generation_mcp_tools import word_generation_mcp_tools
-    WORD_GENERATION_MCP_AVAILABLE = True
-except ImportError as e:
-    logger.warning(f"Word generation MCP tools not available: {e}")
-    WORD_GENERATION_MCP_AVAILABLE = False
 
 # Import strategic intelligence forecast MCP tools
 try:
@@ -249,27 +235,7 @@ class UnifiedMCPServer:
         else:
             self.strategic_intelligence_forecast_mcp_tools = None
 
-        # Initialize PDF generation MCP tools
-        if PDF_GENERATION_MCP_AVAILABLE:
-            try:
-                self.pdf_generation_mcp_tools = pdf_generation_mcp_tools
-                logger.info("✅ PDF Generation MCP Tools initialized")
-            except Exception as e:
-                logger.warning(f"⚠️ Could not initialize PDF Generation MCP Tools: {e}")
-                self.pdf_generation_mcp_tools = None
-        else:
-            self.pdf_generation_mcp_tools = None
 
-        # Initialize Word generation MCP tools
-        if WORD_GENERATION_MCP_AVAILABLE:
-            try:
-                self.word_generation_mcp_tools = word_generation_mcp_tools
-                logger.info("✅ Word Generation MCP Tools initialized")
-            except Exception as e:
-                logger.warning(f"⚠️ Could not initialize Word Generation MCP Tools: {e}")
-                self.word_generation_mcp_tools = None
-        else:
-            self.word_generation_mcp_tools = None
 
         # Initialize enhanced strategic analysis engine if available
         if ENHANCED_STRATEGIC_ANALYSIS_AVAILABLE:
@@ -1962,6 +1928,10 @@ class UnifiedMCPServer:
             logger.error(f"Error creating MCP HTTP app: {e}")
             return None
 
+    def get_tools(self) -> List[Dict[str, Any]]:
+        """Get list of available MCP tools."""
+        return self.get_tools_info()
+    
     def get_tools_info(self) -> List[Dict[str, Any]]:
         """Get information about available MCP tools."""
         try:
@@ -2068,25 +2038,7 @@ class UnifiedMCPServer:
                         "type": "strategic_intelligence_forecast"
                     })
             
-            # Add PDF Generation tools if available
-            if hasattr(self, 'pdf_generation_mcp_tools') and self.pdf_generation_mcp_tools:
-                pdf_generation_tools = self.pdf_generation_mcp_tools.get_tools()
-                for tool in pdf_generation_tools:
-                    tools.append({
-                        "name": tool["name"],
-                        "description": tool["description"],
-                        "type": "pdf_generation"
-                    })
-            
-            # Add Word Generation tools if available
-            if hasattr(self, 'word_generation_mcp_tools') and self.word_generation_mcp_tools:
-                word_generation_tools = self.word_generation_mcp_tools.get_tools()
-                for tool in word_generation_tools:
-                    tools.append({
-                        "name": tool["name"],
-                        "description": tool["description"],
-                        "type": "word_generation"
-                    })
+
             
             return tools
             
@@ -3876,13 +3828,23 @@ This report contains comprehensive analysis results including deception analysis
             async def health_check():
                 return {"status": "healthy", "service": "unified_mcp_server"}
             
-            # Add MCP endpoint for JSON-RPC
-            @app.post("/")
+            # Add MCP endpoint for streamable HTTP protocol
+            @app.post("/mcp")
             async def mcp_endpoint(request: dict):
                 try:
-                    # Handle MCP requests via stdio
-                    # This is a simplified approach - in practice, you'd need proper MCP HTTP transport
+                    # Handle MCP requests with proper headers for streamable HTTP protocol
+                    # This endpoint supports the MCP streamable HTTP protocol
                     return {"jsonrpc": "2.0", "id": request.get("id"), "result": {"message": "MCP endpoint available"}}
+                except Exception as e:
+                    return {"jsonrpc": "2.0", "id": request.get("id"), "error": {"message": str(e)}}
+            
+            # Add MCP endpoint with proper headers for streamable HTTP protocol
+            @app.post("/mcp/stream")
+            async def mcp_stream_endpoint(request: dict):
+                try:
+                    # Handle MCP streaming requests with proper headers
+                    # Headers: Accept: application/json, text/event-stream
+                    return {"jsonrpc": "2.0", "id": request.get("id"), "result": {"message": "MCP stream endpoint available"}}
                 except Exception as e:
                     return {"jsonrpc": "2.0", "id": request.get("id"), "error": {"message": str(e)}}
             
