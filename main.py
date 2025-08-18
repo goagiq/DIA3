@@ -173,6 +173,22 @@ def initialize_force_projection_engine():
         print(f"⚠️ Warning: Could not initialize force projection engine: {e}")
         return None
 
+def initialize_enhanced_markdown_export_service():
+    """Initialize the enhanced markdown export service."""
+    try:
+        from src.core.export.enhanced_markdown_export_service import EnhancedMarkdownExportService
+        
+        # Initialize with default output directory
+        output_dir = Path("docs/white_papers/generated_pdfs")
+        output_dir.mkdir(parents=True, exist_ok=True)
+        enhanced_export_service = EnhancedMarkdownExportService(str(output_dir))
+        
+        print("✅ Enhanced markdown export service initialized")
+        return enhanced_export_service
+    except Exception as e:
+        print(f"⚠️ Warning: Could not initialize enhanced markdown export service: {e}")
+        return None
+
 def start_standalone_mcp_server(host: str = "localhost", port: int = 8000):
     """Start standalone MCP server for Strands integration."""
     try:
@@ -293,6 +309,9 @@ if __name__ == "__main__":
     # Initialize force projection engine
     force_projection_engine = initialize_force_projection_engine()
     
+    # Initialize enhanced markdown export service
+    enhanced_markdown_export_service = initialize_enhanced_markdown_export_service()
+    
     # Initialize Phase 1 ML/DL/RL Forecasting Components
     print("Initializing Phase 1 ML/DL/RL Forecasting Components...")
     try:
@@ -405,8 +424,8 @@ if __name__ == "__main__":
     # Integrate MCP server with FastAPI if available
     if mcp_server:
         try:
-            # Create MCP app at root path - FastMCP handles routing internally
-            mcp_app = mcp_server.get_http_app(path="")
+            # Create MCP app - FastMCP handles routing internally
+            mcp_app = mcp_server.get_http_app()
             if mcp_app:
                 # Mount the MCP app to the FastAPI app
                 from src.api.main import app
@@ -433,6 +452,7 @@ if __name__ == "__main__":
                     
         except Exception as e:
             print(f"⚠️ Warning: Could not integrate MCP server: {e}")
+            print(f"   Error details: {type(e).__name__}: {str(e)}")
             # Add fallback MCP endpoint
             from src.api.main import app
             @app.get("/mcp")

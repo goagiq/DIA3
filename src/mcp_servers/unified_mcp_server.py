@@ -105,6 +105,14 @@ except ImportError as e:
     logger.warning(f"Markdown export MCP tools not available: {e}")
     MARKDOWN_EXPORT_MCP_AVAILABLE = False
 
+# Import enhanced markdown export MCP tools
+try:
+    from src.mcp_servers.enhanced_markdown_export_mcp_tools import EnhancedMarkdownExportMCPTools
+    ENHANCED_MARKDOWN_EXPORT_MCP_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Enhanced markdown export MCP tools not available: {e}")
+    ENHANCED_MARKDOWN_EXPORT_MCP_AVAILABLE = False
+
 # Import simple markdown export MCP tools
 try:
     from src.mcp_servers.simple_markdown_export_mcp_tools import SimpleMarkdownExportMCPTools
@@ -250,6 +258,17 @@ class UnifiedMCPServer:
                 self.markdown_export_mcp_tools = None
         else:
             self.markdown_export_mcp_tools = None
+        
+        # Initialize enhanced markdown export MCP tools
+        if ENHANCED_MARKDOWN_EXPORT_MCP_AVAILABLE:
+            try:
+                self.enhanced_markdown_export_mcp_tools = EnhancedMarkdownExportMCPTools()
+                logger.info("✅ Enhanced Markdown Export MCP Tools initialized")
+            except Exception as e:
+                logger.warning(f"⚠️ Could not initialize Enhanced Markdown Export MCP Tools: {e}")
+                self.enhanced_markdown_export_mcp_tools = None
+        else:
+            self.enhanced_markdown_export_mcp_tools = None
         
         # Initialize simple markdown export MCP tools
         if SIMPLE_MARKDOWN_EXPORT_MCP_AVAILABLE:
@@ -2076,6 +2095,16 @@ class UnifiedMCPServer:
                         "type": "markdown_export"
                     })
             
+            # Add Enhanced Markdown Export tools if available
+            if hasattr(self, 'enhanced_markdown_export_mcp_tools') and self.enhanced_markdown_export_mcp_tools:
+                enhanced_markdown_export_tools = self.enhanced_markdown_export_mcp_tools.get_tools()
+                for tool in enhanced_markdown_export_tools:
+                    tools.append({
+                        "name": tool["function"]["name"],
+                        "description": tool["function"]["description"],
+                        "type": "enhanced_markdown_export"
+                    })
+            
             # Add Strategic Intelligence Forecast tools if available
             if hasattr(self, 'strategic_intelligence_forecast_mcp_tools') and self.strategic_intelligence_forecast_mcp_tools:
                 strategic_intelligence_forecast_tools = self.strategic_intelligence_forecast_mcp_tools.get_tools()
@@ -3869,6 +3898,39 @@ This report contains comprehensive analysis results including deception analysis
         except Exception as e:
             logger.error(f"Failed to register Markdown Export tools: {e}")
             logger.warning("⚠️ Markdown Export tools not available")
+        
+        # Register Enhanced Markdown Export tools if available
+        try:
+            if hasattr(self, 'enhanced_markdown_export_mcp_tools') and self.enhanced_markdown_export_mcp_tools:
+                enhanced_markdown_export_tools = self.enhanced_markdown_export_mcp_tools.get_tools()
+                
+                for tool in enhanced_markdown_export_tools:
+                    tool_name = tool["function"]["name"]
+                    tool_description = tool["function"]["description"]
+                    
+                    # Create dynamic tool registration
+                    def create_enhanced_markdown_tool(tool_name, tool_description):
+                        @self.mcp.tool(description=tool_description)
+                        async def enhanced_markdown_tool(**kwargs):
+                            """Dynamic enhanced markdown export tool."""
+                            method_name = tool_name
+                            if hasattr(self.enhanced_markdown_export_mcp_tools, method_name):
+                                method = getattr(self.enhanced_markdown_export_mcp_tools, method_name)
+                                return await method(**kwargs)
+                            else:
+                                return {"success": False, "error": f"Method {method_name} not found"}
+                        
+                        return enhanced_markdown_tool
+                    
+                    # Register the tool
+                    create_enhanced_markdown_tool(tool_name, tool_description)
+                
+                logger.info("✅ Enhanced Markdown Export tools registered")
+            else:
+                logger.warning("⚠️ Enhanced Markdown Export tools not available")
+        except Exception as e:
+            logger.error(f"Failed to register Enhanced Markdown Export tools: {e}")
+            logger.warning("⚠️ Enhanced Markdown Export tools not available")
         
         # Register Simple Markdown Export tools if available
         try:

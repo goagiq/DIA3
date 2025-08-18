@@ -100,6 +100,14 @@ except ImportError as e:
     logger.warning(f"Markdown export routes not available: {e}")
     MARKDOWN_EXPORT_AVAILABLE = False
 
+# Import enhanced markdown export routes
+try:
+    from src.api.enhanced_markdown_export_routes import router as enhanced_markdown_export_router
+    ENHANCED_MARKDOWN_EXPORT_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Enhanced markdown export routes not available: {e}")
+    ENHANCED_MARKDOWN_EXPORT_AVAILABLE = False
+
 # Import simple markdown export routes
 try:
     from src.api.simple_markdown_export_routes import router as simple_markdown_export_router
@@ -362,6 +370,13 @@ if MARKDOWN_EXPORT_AVAILABLE:
     logger.info("✅ Markdown export routes included")
 else:
     logger.warning("⚠️ Markdown export routes not available")
+
+# Include enhanced markdown export routes if available
+if ENHANCED_MARKDOWN_EXPORT_AVAILABLE:
+    app.include_router(enhanced_markdown_export_router)
+    logger.info("✅ Enhanced markdown export routes included")
+else:
+    logger.warning("⚠️ Enhanced markdown export routes not available")
 
 # Include simple markdown export routes if available
 if SIMPLE_MARKDOWN_EXPORT_AVAILABLE:
