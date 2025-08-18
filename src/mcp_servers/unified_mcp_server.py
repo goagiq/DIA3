@@ -105,6 +105,14 @@ except ImportError as e:
     logger.warning(f"PDF generation MCP tools not available: {e}")
     PDF_GENERATION_MCP_AVAILABLE = False
 
+# Import Word generation MCP tools
+try:
+    from src.mcp_servers.word_generation_mcp_tools import word_generation_mcp_tools
+    WORD_GENERATION_MCP_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Word generation MCP tools not available: {e}")
+    WORD_GENERATION_MCP_AVAILABLE = False
+
 # Import strategic intelligence forecast MCP tools
 try:
     from src.mcp_servers.strategic_intelligence_forecast_mcp_tools import StrategicIntelligenceForecastMCPTools
@@ -251,6 +259,17 @@ class UnifiedMCPServer:
                 self.pdf_generation_mcp_tools = None
         else:
             self.pdf_generation_mcp_tools = None
+
+        # Initialize Word generation MCP tools
+        if WORD_GENERATION_MCP_AVAILABLE:
+            try:
+                self.word_generation_mcp_tools = word_generation_mcp_tools
+                logger.info("✅ Word Generation MCP Tools initialized")
+            except Exception as e:
+                logger.warning(f"⚠️ Could not initialize Word Generation MCP Tools: {e}")
+                self.word_generation_mcp_tools = None
+        else:
+            self.word_generation_mcp_tools = None
 
         # Initialize enhanced strategic analysis engine if available
         if ENHANCED_STRATEGIC_ANALYSIS_AVAILABLE:
@@ -2057,6 +2076,16 @@ class UnifiedMCPServer:
                         "name": tool["name"],
                         "description": tool["description"],
                         "type": "pdf_generation"
+                    })
+            
+            # Add Word Generation tools if available
+            if hasattr(self, 'word_generation_mcp_tools') and self.word_generation_mcp_tools:
+                word_generation_tools = self.word_generation_mcp_tools.get_tools()
+                for tool in word_generation_tools:
+                    tools.append({
+                        "name": tool["name"],
+                        "description": tool["description"],
+                        "type": "word_generation"
                     })
             
             return tools

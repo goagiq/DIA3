@@ -156,6 +156,19 @@
       "health_check_interval": 60,
       "resource_check_interval": 20,
       "description": "PDF generation with mermaid diagram support and professional styling"
+    },
+    "word_generation": {
+      "enabled": true,
+      "priority": 6,
+      "max_cpu_percent": 40.0,
+      "max_memory_mb": 2048.0,
+      "max_gpu_percent": 0.0,
+      "auto_scale": true,
+      "dependencies": [],
+      "startup_timeout": 15,
+      "health_check_interval": 60,
+      "resource_check_interval": 20,
+      "description": "Word document generation with mermaid diagram support and professional styling"
     }
   },
   "resource_thresholds": {

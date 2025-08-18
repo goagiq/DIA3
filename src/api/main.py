@@ -58,6 +58,14 @@ except ImportError as e:
     logger.warning(f"PDF generation routes not available: {e}")
     PDF_GENERATION_AVAILABLE = False
 
+# Import Word generation routes
+try:
+    from src.api.word_generation_routes import router as word_generation_router
+    WORD_GENERATION_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Word generation routes not available: {e}")
+    WORD_GENERATION_AVAILABLE = False
+
 # Import language capabilities routes
 try:
     from src.api.language_capabilities_routes import router as language_capabilities_router
@@ -321,6 +329,13 @@ if PDF_GENERATION_AVAILABLE:
     logger.info("✅ PDF generation routes included")
 else:
     logger.warning("⚠️ PDF generation routes not available")
+
+# Include Word generation routes if available
+if WORD_GENERATION_AVAILABLE:
+    app.include_router(word_generation_router)
+    logger.info("✅ Word generation routes included")
+else:
+    logger.warning("⚠️ Word generation routes not available")
 
 # Include enhanced strategic analysis routes if available
 if ENHANCED_STRATEGIC_ANALYSIS_AVAILABLE:

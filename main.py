@@ -314,6 +314,17 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"⚠️ Warning: Error initializing Enhanced PDF Generation Service: {e}")
     
+    # Initialize Enhanced Word Generation Service
+    print("Initializing Enhanced Word Generation Service...")
+    try:
+        from src.core.enhanced_word_generation_service import enhanced_word_service
+        
+        print("✅ Enhanced Word Generation Service initialized")
+    except ImportError as e:
+        print(f"⚠️ Warning: Enhanced Word Generation Service not available: {e}")
+    except Exception as e:
+        print(f"⚠️ Warning: Error initializing Enhanced Word Generation Service: {e}")
+    
     # Initialize Phase 4 Multi-Domain Integration Components
     print("Initializing Phase 4 Multi-Domain Integration Components...")
     try:
