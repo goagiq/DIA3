@@ -1,0 +1,26 @@
+# Markdown Export Dependencies
+# Core markdown processing
+markdown==3.5.1
+markdownify==0.11.6
+
+# PDF generation
+reportlab==4.0.7
+weasyprint==60.2
+
+# Word document generation
+python-docx==1.1.0
+
+# Mermaid diagram conversion
+mermaid-cli==10.6.1
+
+# Image processing
+Pillow==10.1.0
+
+# Additional utilities
+requests==2.31.0
+pathlib2==2.3.7
+typing-extensions==4.8.0
+
+# Logging and progress tracking
+loguru==0.7.2
+tqdm==4.66.1

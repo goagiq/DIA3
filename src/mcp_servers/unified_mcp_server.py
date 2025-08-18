@@ -105,6 +105,14 @@ except ImportError as e:
     logger.warning(f"Markdown export MCP tools not available: {e}")
     MARKDOWN_EXPORT_MCP_AVAILABLE = False
 
+# Import simple markdown export MCP tools
+try:
+    from src.mcp_servers.simple_markdown_export_mcp_tools import SimpleMarkdownExportMCPTools
+    SIMPLE_MARKDOWN_EXPORT_MCP_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Simple markdown export MCP tools not available: {e}")
+    SIMPLE_MARKDOWN_EXPORT_MCP_AVAILABLE = False
+
 
 
 # Import strategic intelligence forecast MCP tools
@@ -242,6 +250,17 @@ class UnifiedMCPServer:
                 self.markdown_export_mcp_tools = None
         else:
             self.markdown_export_mcp_tools = None
+        
+        # Initialize simple markdown export MCP tools
+        if SIMPLE_MARKDOWN_EXPORT_MCP_AVAILABLE:
+            try:
+                self.simple_markdown_export_mcp_tools = SimpleMarkdownExportMCPTools()
+                logger.info("✅ Simple Markdown Export MCP Tools initialized")
+            except Exception as e:
+                logger.warning(f"⚠️ Could not initialize Simple Markdown Export MCP Tools: {e}")
+                self.simple_markdown_export_mcp_tools = None
+        else:
+            self.simple_markdown_export_mcp_tools = None
         
         # Initialize strategic intelligence forecast MCP tools
         if STRATEGIC_INTELLIGENCE_FORECAST_MCP_AVAILABLE:
@@ -3850,6 +3869,39 @@ This report contains comprehensive analysis results including deception analysis
         except Exception as e:
             logger.error(f"Failed to register Markdown Export tools: {e}")
             logger.warning("⚠️ Markdown Export tools not available")
+        
+        # Register Simple Markdown Export tools if available
+        try:
+            if hasattr(self, 'simple_markdown_export_mcp_tools') and self.simple_markdown_export_mcp_tools:
+                simple_markdown_export_tools = self.simple_markdown_export_mcp_tools.get_tools()
+                
+                for tool in simple_markdown_export_tools:
+                    tool_name = tool["function"]["name"]
+                    tool_description = tool["function"]["description"]
+                    
+                    # Create dynamic tool registration
+                    def create_simple_markdown_tool(tool_name, tool_description):
+                        @self.mcp.tool(description=tool_description)
+                        async def simple_markdown_tool(**kwargs):
+                            """Dynamic simple markdown export tool."""
+                            method_name = tool_name
+                            if hasattr(self.simple_markdown_export_mcp_tools, method_name):
+                                method = getattr(self.simple_markdown_export_mcp_tools, method_name)
+                                return await method(**kwargs)
+                            else:
+                                return {"success": False, "error": f"Method {method_name} not found"}
+                        
+                        return simple_markdown_tool
+                    
+                    # Register the tool
+                    create_simple_markdown_tool(tool_name, tool_description)
+                
+                logger.info("✅ Simple Markdown Export tools registered")
+            else:
+                logger.warning("⚠️ Simple Markdown Export tools not available")
+        except Exception as e:
+            logger.error(f"Failed to register Simple Markdown Export tools: {e}")
+            logger.warning("⚠️ Simple Markdown Export tools not available")
 
     async def ensure_tools_registered(self):
         """Ensure tools are registered (async)."""

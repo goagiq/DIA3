@@ -100,6 +100,14 @@ except ImportError as e:
     logger.warning(f"Markdown export routes not available: {e}")
     MARKDOWN_EXPORT_AVAILABLE = False
 
+# Import simple markdown export routes
+try:
+    from src.api.simple_markdown_export_routes import router as simple_markdown_export_router
+    SIMPLE_MARKDOWN_EXPORT_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Simple markdown export routes not available: {e}")
+    SIMPLE_MARKDOWN_EXPORT_AVAILABLE = False
+
 # Import Phase 5 interpretability routes
 try:
     from src.api.routes.phase5_interpretability_routes import router as phase5_interpretability_router
@@ -354,6 +362,13 @@ if MARKDOWN_EXPORT_AVAILABLE:
     logger.info("✅ Markdown export routes included")
 else:
     logger.warning("⚠️ Markdown export routes not available")
+
+# Include simple markdown export routes if available
+if SIMPLE_MARKDOWN_EXPORT_AVAILABLE:
+    app.include_router(simple_markdown_export_router)
+    logger.info("✅ Simple markdown export routes included")
+else:
+    logger.warning("⚠️ Simple markdown export routes not available")
 
 # Include Phase 5 interpretability routes if available
 if PHASE5_INTERPRETABILITY_AVAILABLE:
