@@ -92,6 +92,14 @@ except ImportError as e:
     logger.warning(f"Interactive visualization routes not available: {e}")
     VISUALIZATION_AVAILABLE = False
 
+# Import markdown export routes
+try:
+    from src.api.markdown_export_routes import router as markdown_export_router
+    MARKDOWN_EXPORT_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Markdown export routes not available: {e}")
+    MARKDOWN_EXPORT_AVAILABLE = False
+
 # Import Phase 5 interpretability routes
 try:
     from src.api.routes.phase5_interpretability_routes import router as phase5_interpretability_router
@@ -339,6 +347,13 @@ if VISUALIZATION_AVAILABLE:
     logger.info("✅ Interactive visualization routes included")
 else:
     logger.warning("⚠️ Interactive visualization routes not available")
+
+# Include markdown export routes if available
+if MARKDOWN_EXPORT_AVAILABLE:
+    app.include_router(markdown_export_router)
+    logger.info("✅ Markdown export routes included")
+else:
+    logger.warning("⚠️ Markdown export routes not available")
 
 # Include Phase 5 interpretability routes if available
 if PHASE5_INTERPRETABILITY_AVAILABLE:
@@ -1738,6 +1753,180 @@ async def export_analysis_results(request: ExportRequest):
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Export failed: {str(e)}")
+
+
+# Markdown to PDF export endpoint
+@app.post("/export/markdown-to-pdf")
+async def export_markdown_to_pdf(
+    markdown_content: str,
+    output_filename: Optional[str] = None,
+    template_name: str = "whitepaper",
+    custom_template: Optional[Dict[str, Any]] = None
+):
+    """Export markdown content to PDF."""
+    try:
+        from src.core.reporting.export_manager import ExportManager
+        
+        export_manager = ExportManager()
+        result = await export_manager.export_markdown_to_pdf(
+            markdown_content,
+            output_filename,
+            template_name,
+            custom_template
+        )
+        
+        if not result.get("success", False):
+            raise HTTPException(
+                status_code=500,
+                detail=result.get("error", "PDF export failed")
+            )
+        
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"PDF export failed: {str(e)}")
+
+
+# Markdown to Word export endpoint
+@app.post("/export/markdown-to-word")
+async def export_markdown_to_word(
+    markdown_content: str,
+    output_filename: Optional[str] = None,
+    template_name: str = "whitepaper",
+    custom_template: Optional[Dict[str, Any]] = None
+):
+    """Export markdown content to Word document."""
+    try:
+        from src.core.reporting.export_manager import ExportManager
+        
+        export_manager = ExportManager()
+        result = await export_manager.export_markdown_to_word(
+            markdown_content,
+            output_filename,
+            template_name,
+            custom_template
+        )
+        
+        if not result.get("success", False):
+            raise HTTPException(
+                status_code=500,
+                detail=result.get("error", "Word export failed")
+            )
+        
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Word export failed: {str(e)}")
+
+
+# Markdown to both PDF and Word export endpoint
+@app.post("/export/markdown-to-both")
+async def export_markdown_to_both(
+    markdown_content: str,
+    output_filename: Optional[str] = None,
+    template_name: str = "whitepaper",
+    custom_template: Optional[Dict[str, Any]] = None
+):
+    """Export markdown content to both PDF and Word documents."""
+    try:
+        from src.core.reporting.export_manager import ExportManager
+        
+        export_manager = ExportManager()
+        result = await export_manager.export_markdown_to_both(
+            markdown_content,
+            output_filename,
+            template_name,
+            custom_template
+        )
+        
+        if not result.get("success", False):
+            raise HTTPException(
+                status_code=500,
+                detail=result.get("error", "Dual export failed")
+            )
+        
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Dual export failed: {str(e)}")
+
+
+# Get export status endpoint
+@app.get("/export/status/{operation_id}")
+async def get_export_status(operation_id: str):
+    """Get the status of an export operation."""
+    try:
+        from src.core.reporting.export_manager import ExportManager
+        
+        export_manager = ExportManager()
+        status = export_manager.get_export_status(operation_id)
+        
+        if status is None:
+            raise HTTPException(
+                status_code=404,
+                detail="Export operation not found"
+            )
+        
+        return status
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get export status: {str(e)}")
+
+
+# Cancel export endpoint
+@app.post("/export/cancel/{operation_id}")
+async def cancel_export(operation_id: str):
+    """Cancel an export operation."""
+    try:
+        from src.core.reporting.export_manager import ExportManager
+        
+        export_manager = ExportManager()
+        cancelled = export_manager.cancel_export(operation_id)
+        
+        if not cancelled:
+            raise HTTPException(
+                status_code=404,
+                detail="Export operation not found"
+            )
+        
+        return {"success": True, "message": "Export cancelled successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to cancel export: {str(e)}")
+
+
+# List templates endpoint
+@app.get("/export/templates")
+async def list_templates():
+    """List available templates."""
+    try:
+        from src.core.reporting.export_manager import ExportManager
+        
+        export_manager = ExportManager()
+        templates = export_manager.list_templates()
+        
+        return {"templates": templates}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to list templates: {str(e)}")
+
+
+# Create custom template endpoint
+@app.post("/export/templates")
+async def create_custom_template(
+    template_name: str,
+    template_config: Dict[str, Any]
+):
+    """Create a custom template."""
+    try:
+        from src.core.reporting.export_manager import ExportManager
+        
+        export_manager = ExportManager()
+        success = export_manager.create_custom_template(template_name, template_config)
+        
+        if not success:
+            raise HTTPException(
+                status_code=500,
+                detail="Failed to create custom template"
+            )
+        
+        return {"success": True, "message": "Custom template created successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to create template: {str(e)}")
 
 
 # Generate automated reports endpoint

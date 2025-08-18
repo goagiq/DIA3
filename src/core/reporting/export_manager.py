@@ -7,6 +7,7 @@ Provides multiple format export capabilities including:
 - Excel export
 - PDF export
 - HTML export
+- Markdown to PDF/Word export
 """
 
 import json
@@ -33,7 +34,15 @@ class ExportManager:
         self.output_dir.mkdir(exist_ok=True)
         
         # Supported formats
-        self.supported_formats = ["json", "csv", "excel", "html"]
+        self.supported_formats = ["json", "csv", "excel", "html", "pdf", "word"]
+        
+        # Initialize markdown export service
+        try:
+            from src.core.export import MarkdownExportService
+            self.markdown_service = MarkdownExportService(str(self.output_dir))
+        except ImportError:
+            logger.warning("Markdown export service not available")
+            self.markdown_service = None
     
     def export_data(self, 
                    data: Dict[str, Any],
@@ -299,3 +308,176 @@ class ExportManager:
         except Exception as e:
             logger.error(f"Error reading export {filename}: {e}")
             return None
+    
+    async def export_markdown_to_pdf(self,
+                                   markdown_content: str,
+                                   output_filename: Optional[str] = None,
+                                   template_name: str = "whitepaper",
+                                   custom_template: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """Export markdown content to PDF.
+        
+        Args:
+            markdown_content: Markdown content to export
+            output_filename: Optional custom output filename
+            template_name: Template to use for styling
+            custom_template: Optional custom template configuration
+            
+        Returns:
+            Export result dictionary
+        """
+        if not self.markdown_service:
+            return {
+                "success": False,
+                "error": "Markdown export service not available",
+                "message": "Markdown export requires additional dependencies"
+            }
+        
+        try:
+            result = await self.markdown_service.export_markdown_to_pdf(
+                markdown_content,
+                output_filename,
+                template_name,
+                custom_template
+            )
+            return result
+        except Exception as e:
+            logger.error(f"Error exporting markdown to PDF: {e}")
+            return {
+                "success": False,
+                "error": str(e),
+                "message": "Markdown to PDF export failed"
+            }
+    
+    async def export_markdown_to_word(self,
+                                    markdown_content: str,
+                                    output_filename: Optional[str] = None,
+                                    template_name: str = "whitepaper",
+                                    custom_template: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """Export markdown content to Word document.
+        
+        Args:
+            markdown_content: Markdown content to export
+            output_filename: Optional custom output filename
+            template_name: Template to use for styling
+            custom_template: Optional custom template configuration
+            
+        Returns:
+            Export result dictionary
+        """
+        if not self.markdown_service:
+            return {
+                "success": False,
+                "error": "Markdown export service not available",
+                "message": "Markdown export requires additional dependencies"
+            }
+        
+        try:
+            result = await self.markdown_service.export_markdown_to_word(
+                markdown_content,
+                output_filename,
+                template_name,
+                custom_template
+            )
+            return result
+        except Exception as e:
+            logger.error(f"Error exporting markdown to Word: {e}")
+            return {
+                "success": False,
+                "error": str(e),
+                "message": "Markdown to Word export failed"
+            }
+    
+    async def export_markdown_to_both(self,
+                                    markdown_content: str,
+                                    output_filename: Optional[str] = None,
+                                    template_name: str = "whitepaper",
+                                    custom_template: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """Export markdown content to both PDF and Word documents.
+        
+        Args:
+            markdown_content: Markdown content to export
+            output_filename: Optional custom output filename (without extension)
+            template_name: Template to use for styling
+            custom_template: Optional custom template configuration
+            
+        Returns:
+            Export result dictionary
+        """
+        if not self.markdown_service:
+            return {
+                "success": False,
+                "error": "Markdown export service not available",
+                "message": "Markdown export requires additional dependencies"
+            }
+        
+        try:
+            result = await self.markdown_service.export_markdown_to_both(
+                markdown_content,
+                output_filename,
+                template_name,
+                custom_template
+            )
+            return result
+        except Exception as e:
+            logger.error(f"Error exporting markdown to both formats: {e}")
+            return {
+                "success": False,
+                "error": str(e),
+                "message": "Markdown to both formats export failed"
+            }
+    
+    def get_export_status(self, operation_id: str) -> Optional[Dict[str, Any]]:
+        """Get the status of an export operation.
+        
+        Args:
+            operation_id: Operation identifier
+            
+        Returns:
+            Status dictionary or None if not found
+        """
+        if not self.markdown_service:
+            return None
+        
+        return self.markdown_service.get_export_status(operation_id)
+    
+    def cancel_export(self, operation_id: str) -> bool:
+        """Cancel an export operation.
+        
+        Args:
+            operation_id: Operation identifier
+            
+        Returns:
+            True if cancelled, False if not found
+        """
+        if not self.markdown_service:
+            return False
+        
+        return self.markdown_service.cancel_export(operation_id)
+    
+    def list_templates(self) -> List[Dict[str, Any]]:
+        """List available templates.
+        
+        Returns:
+            List of template information
+        """
+        if not self.markdown_service:
+            return []
+        
+        return self.markdown_service.list_templates()
+    
+    def create_custom_template(self, 
+                             template_name: str,
+                             template_config: Dict[str, Any]) -> bool:
+        """Create a custom template.
+        
+        Args:
+            template_name: Name for the template
+            template_config: Template configuration
+            
+        Returns:
+            True if successful, False otherwise
+        """
+        if not self.markdown_service:
+            return False
+        
+        return self.markdown_service.create_custom_template(template_name, template_config)

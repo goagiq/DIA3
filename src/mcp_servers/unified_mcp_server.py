@@ -97,6 +97,14 @@ except ImportError as e:
     logger.warning(f"Force projection MCP tools not available: {e}")
     FORCE_PROJECTION_MCP_AVAILABLE = False
 
+# Import markdown export MCP tools
+try:
+    from src.mcp_servers.markdown_export_mcp_tools import MarkdownExportMCPTools
+    MARKDOWN_EXPORT_MCP_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Markdown export MCP tools not available: {e}")
+    MARKDOWN_EXPORT_MCP_AVAILABLE = False
+
 
 
 # Import strategic intelligence forecast MCP tools
@@ -224,6 +232,17 @@ class UnifiedMCPServer:
         else:
             self.force_projection_mcp_tools = None
         
+        # Initialize markdown export MCP tools
+        if MARKDOWN_EXPORT_MCP_AVAILABLE:
+            try:
+                self.markdown_export_mcp_tools = MarkdownExportMCPTools()
+                logger.info("✅ Markdown Export MCP Tools initialized")
+            except Exception as e:
+                logger.warning(f"⚠️ Could not initialize Markdown Export MCP Tools: {e}")
+                self.markdown_export_mcp_tools = None
+        else:
+            self.markdown_export_mcp_tools = None
+        
         # Initialize strategic intelligence forecast MCP tools
         if STRATEGIC_INTELLIGENCE_FORECAST_MCP_AVAILABLE:
             try:
@@ -278,8 +297,8 @@ class UnifiedMCPServer:
         # Initialize MCP server
         self._initialize_mcp()
 
-        # Register tools
-        self._register_tools()
+        # Register tools (will be done asynchronously when needed)
+        self._tools_registered = False
 
         logger.info("✅ Unified MCP Server initialized successfully")
 
@@ -299,7 +318,7 @@ class UnifiedMCPServer:
             logger.error(f"❌ Error initializing MCP server: {e}")
             self.mcp = None
 
-    def _register_tools(self):
+    async def _register_tools(self):
         """Register all 25 consolidated tools."""
         if not self.mcp:
             logger.warning("MCP server not available - skipping tool registration")
@@ -2026,6 +2045,16 @@ class UnifiedMCPServer:
                         "name": tool_name,
                         "description": tool_info["description"],
                         "type": "force_projection"
+                    })
+            
+            # Add Markdown Export tools if available
+            if hasattr(self, 'markdown_export_mcp_tools') and self.markdown_export_mcp_tools:
+                markdown_export_tools = self.markdown_export_mcp_tools.get_tools()
+                for tool in markdown_export_tools:
+                    tools.append({
+                        "name": tool["function"]["name"],
+                        "description": tool["function"]["description"],
+                        "type": "markdown_export"
                     })
             
             # Add Strategic Intelligence Forecast tools if available
@@ -3789,6 +3818,45 @@ This report contains comprehensive analysis results including deception analysis
             logger.error(f"Failed to register Phase 5 interpretability tools: {e}")
             logger.warning("⚠️ Phase 5 Model Interpretability & Explainable AI tools not available")
 
+        # Register Markdown Export tools if available
+        try:
+            if hasattr(self, 'markdown_export_mcp_tools') and self.markdown_export_mcp_tools:
+                markdown_export_tools = self.markdown_export_mcp_tools.get_tools()
+                
+                for tool in markdown_export_tools:
+                    tool_name = tool["function"]["name"]
+                    tool_description = tool["function"]["description"]
+                    
+                    # Create dynamic tool registration
+                    def create_markdown_tool(tool_name, tool_description):
+                        @self.mcp.tool(description=tool_description)
+                        async def markdown_tool(**kwargs):
+                            """Dynamic markdown export tool."""
+                            method_name = tool_name
+                            if hasattr(self.markdown_export_mcp_tools, method_name):
+                                method = getattr(self.markdown_export_mcp_tools, method_name)
+                                return await method(**kwargs)
+                            else:
+                                return {"success": False, "error": f"Method {method_name} not found"}
+                        
+                        return markdown_tool
+                    
+                    # Register the tool
+                    create_markdown_tool(tool_name, tool_description)
+                
+                logger.info("✅ Markdown Export tools registered")
+            else:
+                logger.warning("⚠️ Markdown Export tools not available")
+        except Exception as e:
+            logger.error(f"Failed to register Markdown Export tools: {e}")
+            logger.warning("⚠️ Markdown Export tools not available")
+
+    async def ensure_tools_registered(self):
+        """Ensure tools are registered (async)."""
+        if not self._tools_registered and self.mcp:
+            await self._register_tools()
+            self._tools_registered = True
+
     def run(self, host: str = "localhost", port: int = 8000, debug: bool = False):
         """Run the MCP server using stdio (FastMCP is stdio-based)."""
         if not self.mcp:
@@ -3797,6 +3865,9 @@ This report contains comprehensive analysis results including deception analysis
 
         try:
             logger.info(f"🚀 Starting Unified MCP Server via stdio")
+            # Register tools asynchronously before running
+            import asyncio
+            asyncio.run(self.ensure_tools_registered())
             # FastMCP uses stdio, not HTTP parameters
             self.mcp.run()
         except Exception as e:
