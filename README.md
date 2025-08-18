@@ -308,6 +308,7 @@ graph TB
         StrategicIntelligenceTools[Strategic Intelligence Tools]
         VisualizationTools[Visualization Tools]
         MultiDomainTools[Multi-Domain Tools]
+        MarkdownExportTools[Markdown Export Tools]
     end
     
     subgraph "Dynamic Management"
@@ -330,6 +331,7 @@ graph TB
     ToolRegistry --> StrategicIntelligenceTools
     ToolRegistry --> VisualizationTools
     ToolRegistry --> MultiDomainTools
+    ToolRegistry --> MarkdownExportTools
     
     UnifiedServer --> DynamicToolManager
     DynamicToolManager --> ToolLoader
@@ -358,6 +360,7 @@ graph TB
         ForceProjectionRoutes[Force Projection Routes]
         MLForecastingRoutes[ML Forecasting Routes]
         MonitoringRoutes[Monitoring Routes]
+        MarkdownExportRoutes[Markdown Export Routes]
     end
     
     subgraph "Request Processing"
@@ -371,6 +374,7 @@ graph TB
         OrchestratorAPI[Orchestrator API]
         MCPIntegration[MCP Integration]
         DatabaseConnector[Database Connector]
+        ExportService[Export Service]
     end
     
     FastAPIMain --> RouteManager
@@ -381,6 +385,7 @@ graph TB
     RouteManager --> ForceProjectionRoutes
     RouteManager --> MLForecastingRoutes
     RouteManager --> MonitoringRoutes
+    RouteManager --> MarkdownExportRoutes
     
     Middleware --> RequestValidator
     RequestValidator --> RateLimiter
@@ -390,6 +395,7 @@ graph TB
     FastAPIMain --> OrchestratorAPI
     FastAPIMain --> MCPIntegration
     FastAPIMain --> DatabaseConnector
+    MarkdownExportRoutes --> ExportService
 ```
 
 ### 7. Vector Database System
@@ -446,6 +452,7 @@ graph TB
 - UV package manager
 - Redis (optional, for caching)
 - Ollama (for local LLM inference)
+- Mermaid CLI (for diagram rendering in markdown export)
 
 ### Installation
 
@@ -462,6 +469,9 @@ source .venv/Scripts/activate  # Windows: .venv\Scripts\activate
 
 # Install dependencies
 uv sync
+
+# Install Mermaid CLI for diagram rendering (optional)
+npm install -g @mermaid-js/mermaid-cli
 
 # Set up environment variables
 cp .env.example .env
@@ -498,6 +508,17 @@ The system exposes REST APIs at `http://localhost:8000`:
 - `POST /monte-carlo` - Monte Carlo simulations
 - `GET /health` - System health check
 
+#### Markdown Export API
+
+Export markdown content to PDF and Word documents:
+
+- `POST /api/v1/markdown-export/export` - Export markdown content to PDF/Word
+- `POST /api/v1/markdown-export/export-file` - Export markdown file to PDF/Word
+- `GET /api/v1/markdown-export/download/{filename}` - Download exported files
+- `GET /api/v1/markdown-export/files` - List exported files
+- `DELETE /api/v1/markdown-export/files/{filename}` - Delete exported files
+- `GET /api/v1/markdown-export/health` - Export service health check
+
 ### MCP Tools
 
 Available MCP tools for external integration:
@@ -507,6 +528,18 @@ Available MCP tools for external integration:
 - `strategic_intelligence_forecast` - Strategic forecasting
 - `multi_domain_analysis` - Multi-domain Monte Carlo analysis
 - `visualization_generator` - Generate analysis visualizations
+
+#### Markdown Export MCP Tools
+
+Export markdown content to various formats:
+
+- `markdown_export_to_pdf` - Export markdown content to PDF
+- `markdown_export_to_word` - Export markdown content to Word document
+- `markdown_export_batch` - Batch export multiple markdown files
+- `markdown_export_list_files` - List exported files
+- `markdown_export_get_file_info` - Get file information
+- `markdown_export_delete_file` - Delete exported files
+- `markdown_export_cleanup` - Clean up exported files
 
 ## 📊 Key Features
 
@@ -521,6 +554,7 @@ Available MCP tools for external integration:
 - **Force Projection**: Military capability assessment
 - **Strategic Intelligence**: Threat evaluation and forecasting
 - **Multi-Domain Analysis**: Cross-domain correlation analysis
+- **Markdown Export**: Convert markdown content to PDF and Word documents with embedded images, tables, and Mermaid diagrams
 
 ### Scalability & Performance
 - **Agent Swarm**: Parallel processing with multiple specialized agents
@@ -533,6 +567,7 @@ Available MCP tools for external integration:
 - **REST APIs**: Comprehensive REST API endpoints
 - **WebSocket Support**: Real-time communication
 - **External APIs**: YouTube, OpenAI, and other service integrations
+- **Document Export**: PDF and Word document generation with professional formatting
 
 ## 🛠️ Development
 
@@ -544,10 +579,12 @@ DIA3/
 │   ├── agents/           # AI agent implementations
 │   ├── api/             # FastAPI routes and endpoints
 │   ├── core/            # Core engine implementations
+│   │   └── export/      # Markdown export service
 │   ├── mcp_servers/     # MCP server implementations
 │   └── config/          # Configuration management
 ├── tests/               # Test suites
 ├── docs/                # Documentation
+│   └── white_papers/    # Whitepapers and exported documents
 ├── examples/            # Usage examples
 ├── scripts/             # Utility scripts
 └── Results/             # Analysis results and reports
@@ -605,6 +642,15 @@ The system includes comprehensive monitoring capabilities:
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 📚 Documentation
+
+Additional documentation is available in the `docs/` directory:
+
+- `docs/MARKDOWN_EXPORT_GUIDE.md` - Comprehensive guide for markdown export functionality
+- `docs/white_papers/` - Whitepapers and exported documents
+- `docs/guides/` - Implementation and usage guides
+- `docs/plans/` - Development and integration plans
 
 ## 🆘 Support
 
