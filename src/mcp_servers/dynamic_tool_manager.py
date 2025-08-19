@@ -721,7 +721,112 @@ class DynamicMCPToolManager:
 # Global instance
 dynamic_tool_manager = DynamicMCPToolManager()
 
-# Register visualization tools
+# Comprehensive tool registration system
+def register_all_mcp_tools():
+    """Register all available MCP tools with the dynamic tool manager."""
+    
+    # Tool mapping: config_name -> (module_path, class_name, description)
+    tool_mappings = {
+        # Monte Carlo and Simulation Tools
+        "monte_carlo": ("src.mcp_servers.monte_carlo_mcp_tools", "MonteCarloMCPTools", "Monte Carlo simulation engine for risk assessment and scenario analysis"),
+        "monte_carlo_visualization": ("src.mcp_servers.monte_carlo_visualization_mcp_tools", "MonteCarloVisualizationMCPTools", "Monte Carlo visualization and charting tools"),
+        "multi_domain_monte_carlo": ("src.mcp_servers.multi_domain_monte_carlo_mcp_tools", "MultiDomainMonteCarloMCPTools", "Multi-domain Monte Carlo simulation tools"),
+        
+        # Markdown Export Tools
+        "simple_markdown_export": ("src.mcp_servers.simple_markdown_export_mcp_tools", "SimpleMarkdownExportMCPTools", "Simple markdown export tools for PDF and Word conversion"),
+        "enhanced_markdown_export": ("src.mcp_servers.enhanced_markdown_export_mcp_tools", "EnhancedMarkdownExportMCPTools", "Enhanced markdown export tools with advanced formatting"),
+        "markdown_export": ("src.mcp_servers.markdown_export_mcp_tools", "MarkdownExportMCPTools", "Comprehensive markdown export tools"),
+        
+        # Strategic and Intelligence Tools
+        "strategic_intelligence_forecast": ("src.mcp_servers.strategic_intelligence_forecast_mcp_tools", "StrategicIntelligenceForecastMCPTools", "Strategic intelligence forecasting tools"),
+        "force_projection": ("src.mcp_servers.force_projection_mcp_tools", "ForceProjectionMCPTools", "Force projection and military analysis tools"),
+        "enhanced_analytics": ("src.mcp_servers.enhanced_mcp_tools", "EnhancedMCPTools", "Enhanced analytics and advanced features"),
+        "interpretability": ("src.mcp_servers.phase5_interpretability_mcp_tools", "Phase5InterpretabilityMCPTools", "Interpretability and explainability tools"),
+        
+        # Visualization Tools
+        "interactive_visualization": ("src.mcp_servers.interactive_visualization_mcp_tools", "InteractiveVisualizationMCPTools", "Interactive visualization and dashboard tools"),
+        
+        # Removed all problematic tools that cause import errors:
+        # - audio_processing (consolidated_mcp_server import error)
+        # - video_processing (consolidated_mcp_server import error)
+        # - pdf_processing (consolidated_mcp_server import error)
+        # - website_processing (consolidated_mcp_server import error)
+        # - strategic_analysis (class not found)
+        # - predictive_analytics (Position import error)
+        # - scenario_analysis (Position import error)
+        # - decision_support (Position import error)
+        # - monitoring (Position import error)
+        # - sentiment_analysis (class not found)
+        # - language_processing (class not found)
+        # - business_intelligence (class not found)
+        # - deception_analysis (class not found)
+        # - data_ingestion (class not found)
+    }
+    
+    registered_count = 0
+    failed_count = 0
+    
+    for tool_name, (module_path, class_name, description) in tool_mappings.items():
+        try:
+            # Import the module and class
+            module = __import__(module_path, fromlist=[class_name])
+            tool_class = getattr(module, class_name)
+            
+            # Create tool factory
+            def create_tool_factory(tool_class):
+                def factory():
+                    return tool_class()
+                return factory
+            
+            # Register the tool factory
+            dynamic_tool_manager.register_tool_factory(tool_name, create_tool_factory(tool_class))
+            
+            # Add configuration if not already present
+            if tool_name not in dynamic_tool_manager.configs:
+                # Get default config from the configuration file
+                config_data = dynamic_tool_manager.configs.get(tool_name, {})
+                config = ToolConfig(
+                    name=tool_name,
+                    enabled=config_data.get("enabled", True),
+                    priority=config_data.get("priority", 5),
+                    max_cpu_percent=config_data.get("max_cpu_percent", 80.0),
+                    max_memory_mb=config_data.get("max_memory_mb", 2048.0),
+                    max_gpu_percent=config_data.get("max_gpu_percent", 90.0),
+                    auto_scale=config_data.get("auto_scale", True),
+                    dependencies=config_data.get("dependencies", []),
+                    startup_timeout=config_data.get("startup_timeout", 30),
+                    health_check_interval=config_data.get("health_check_interval", 60),
+                    resource_check_interval=config_data.get("resource_check_interval", 10),
+                    description=description
+                )
+                dynamic_tool_manager.configs[tool_name] = config
+            
+            registered_count += 1
+            logger.info(f"✅ Registered MCP tool: {tool_name}")
+            
+        except ImportError as e:
+            logger.warning(f"⚠️ Could not import {tool_name} from {module_path}.{class_name}: {e}")
+            failed_count += 1
+        except AttributeError as e:
+            logger.warning(f"⚠️ Could not find class {class_name} in {module_path}: {e}")
+            failed_count += 1
+        except Exception as e:
+            logger.error(f"❌ Error registering tool {tool_name}: {e}")
+            failed_count += 1
+    
+    logger.info(f"✅ Registered {registered_count} MCP tools, {failed_count} failed")
+    return registered_count, failed_count
+
+# Register all available MCP tools
+try:
+    registered_count, failed_count = register_all_mcp_tools()
+    logger.info(f"🎯 Total MCP tools registered: {registered_count}")
+    if failed_count > 0:
+        logger.warning(f"⚠️ {failed_count} tools failed to register")
+except Exception as e:
+    logger.error(f"❌ Error in comprehensive tool registration: {e}")
+
+# Legacy registration for backward compatibility
 try:
     from src.mcp_servers.interactive_visualization_mcp_tools import interactive_visualization_mcp_tools
     
