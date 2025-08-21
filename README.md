@@ -444,6 +444,127 @@ graph TB
     VectorDB --> Monitoring
 ```
 
+### 8. Data.gov Integration System
+
+Comprehensive integration with Data.gov APIs for economic, trade, and environmental data analysis.
+
+```mermaid
+graph TB
+    subgraph "Data.gov Integration Layer"
+        DGSearch[Data.gov Search]
+        DGPackage[Package Details]
+        DGGroup[Group Management]
+        DGTag[Tag Management]
+    end
+    
+    subgraph "MCP Tools Layer"
+        MCPPackageSearch[datagov_package_search]
+        MCPPackageShow[datagov_package_show]
+        MCPGroupList[datagov_group_list]
+        MCPTagList[datagov_tag_list]
+        MCPTradeAnalysis[datagov_trade_analysis]
+        MCPEconomicForecast[datagov_economic_forecast]
+        MCPEnvironmentalAnalysis[datagov_environmental_analysis]
+        MCPNLQuery[datagov_natural_language_query]
+    end
+    
+    subgraph "API Endpoints Layer"
+        APITradeAnalysis[POST /api/datagov/trade-analysis]
+        APIEconomicForecast[POST /api/datagov/economic-forecast]
+        APIEnvironmentalAnalysis[POST /api/datagov/environmental-analysis]
+        APINLQuery[POST /api/datagov/natural-language-query]
+        APITradeData[GET /api/datagov/trade-data/{country}]
+        APIEconomicData[GET /api/datagov/economic-forecast/{country}]
+        APIEnvironmentalData[GET /api/datagov/environmental-data/{country}]
+        APIHealth[GET /api/datagov/health]
+    end
+    
+    subgraph "Analysis Engine Layer"
+        TradeAnalysis[Trade Analysis Engine]
+        EconomicForecast[Economic Forecasting Engine]
+        EnvironmentalAnalysis[Environmental Analysis Engine]
+        NLProcessor[Natural Language Processor]
+        DataIngestion[Data Ingestion Manager]
+        QueryProcessor[Query Processor]
+    end
+    
+    subgraph "Data Processing Layer"
+        DataValidation[Data Validation]
+        DataTransformation[Data Transformation]
+        DataAggregation[Data Aggregation]
+        CacheManager[Cache Manager]
+    end
+    
+    subgraph "External Data Sources"
+        DataGovAPI[(Data.gov API)]
+        TradeDatasets[(Trade Datasets)]
+        EconomicDatasets[(Economic Datasets)]
+        EnvironmentalDatasets[(Environmental Datasets)]
+    end
+    
+    subgraph "Output Layer"
+        Reports[Analysis Reports]
+        Visualizations[Data Visualizations]
+        Forecasts[Forecast Results]
+        Recommendations[Strategic Recommendations]
+    end
+    
+    %% Data.gov API connections
+    DGSearch --> DataGovAPI
+    DGPackage --> DataGovAPI
+    DGGroup --> DataGovAPI
+    DGTag --> DataGovAPI
+    
+    %% MCP Tools connections
+    MCPPackageSearch --> DGSearch
+    MCPPackageShow --> DGPackage
+    MCPGroupList --> DGGroup
+    MCPTagList --> DGTag
+    MCPTradeAnalysis --> TradeAnalysis
+    MCPEconomicForecast --> EconomicForecast
+    MCPEnvironmentalAnalysis --> EnvironmentalAnalysis
+    MCPNLQuery --> NLProcessor
+    
+    %% API Endpoints connections
+    APITradeAnalysis --> TradeAnalysis
+    APIEconomicForecast --> EconomicForecast
+    APIEnvironmentalAnalysis --> EnvironmentalAnalysis
+    APINLQuery --> NLProcessor
+    APITradeData --> TradeAnalysis
+    APIEconomicData --> EconomicForecast
+    APIEnvironmentalData --> EnvironmentalAnalysis
+    
+    %% Analysis Engine connections
+    TradeAnalysis --> DataIngestion
+    EconomicForecast --> DataIngestion
+    EnvironmentalAnalysis --> DataIngestion
+    NLProcessor --> QueryProcessor
+    
+    %% Data Processing connections
+    DataIngestion --> DataValidation
+    DataValidation --> DataTransformation
+    DataTransformation --> DataAggregation
+    DataAggregation --> CacheManager
+    
+    %% External Data connections
+    DataIngestion --> DataGovAPI
+    DataIngestion --> TradeDatasets
+    DataIngestion --> EconomicDatasets
+    DataIngestion --> EnvironmentalDatasets
+    
+    %% Output connections
+    TradeAnalysis --> Reports
+    EconomicForecast --> Forecasts
+    EnvironmentalAnalysis --> Visualizations
+    NLProcessor --> Recommendations
+    
+    %% Cache connections
+    CacheManager --> TradeAnalysis
+    CacheManager --> EconomicForecast
+    CacheManager --> EnvironmentalAnalysis
+    CacheManager --> NLProcessor
+```
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -508,6 +629,19 @@ The system exposes REST APIs at `http://localhost:8000`:
 - `POST /monte-carlo` - Monte Carlo simulations
 - `GET /health` - System health check
 
+#### Data.gov API Endpoints
+
+Comprehensive Data.gov integration for economic, trade, and environmental analysis:
+
+- `POST /api/datagov/trade-analysis` - Analyze trade data with forecasting
+- `POST /api/datagov/economic-forecast` - Generate economic forecasts
+- `POST /api/datagov/environmental-analysis` - Analyze environmental data
+- `POST /api/datagov/natural-language-query` - Process natural language queries
+- `GET /api/datagov/trade-data/{country}` - Get trade data for specific country
+- `GET /api/datagov/economic-forecast/{country}` - Get economic forecast for country
+- `GET /api/datagov/environmental-data/{country}` - Get environmental data for country
+- `GET /api/datagov/health` - Data.gov service health check
+
 #### Markdown Export API
 
 Export markdown content to PDF and Word documents:
@@ -528,6 +662,19 @@ Available MCP tools for external integration:
 - `strategic_intelligence_forecast` - Strategic forecasting
 - `multi_domain_analysis` - Multi-domain Monte Carlo analysis
 - `visualization_generator` - Generate analysis visualizations
+
+#### Data.gov MCP Tools
+
+Comprehensive Data.gov integration tools:
+
+- `datagov_package_search` - Search for datasets on Data.gov
+- `datagov_package_show` - Get details for specific datasets
+- `datagov_group_list` - List groups on Data.gov
+- `datagov_tag_list` - List tags on Data.gov
+- `datagov_trade_analysis` - Analyze trade data with forecasting
+- `datagov_economic_forecast` - Generate economic forecasts
+- `datagov_environmental_analysis` - Analyze environmental data
+- `datagov_natural_language_query` - Process natural language queries
 
 #### Markdown Export MCP Tools
 
@@ -554,7 +701,18 @@ Export markdown content to various formats:
 - **Force Projection**: Military capability assessment
 - **Strategic Intelligence**: Threat evaluation and forecasting
 - **Multi-Domain Analysis**: Cross-domain correlation analysis
+- **Data.gov Integration**: Comprehensive economic, trade, and environmental data analysis
 - **Markdown Export**: Convert markdown content to PDF and Word documents with embedded images, tables, and Mermaid diagrams
+
+### Data.gov Integration Capabilities
+- **Trade Analysis**: Multi-country trade flow analysis with forecasting
+- **Economic Forecasting**: GDP, inflation, employment, and economic indicator predictions
+- **Environmental Analysis**: Environmental policy and performance correlation analysis
+- **Natural Language Queries**: Process complex queries against Data.gov datasets
+- **Scenario-Based Forecasting**: Comprehensive scenario analysis for trade wars, economic crises, and policy changes
+- **Seasonal Pattern Analysis**: Identify and predict seasonal patterns in trade and economic data
+- **Supply Chain Analysis**: Vulnerability assessment and resilience modeling
+- **Currency Risk Analysis**: Financial risk assessment and hedging strategies
 
 ### Scalability & Performance
 - **Agent Swarm**: Parallel processing with multiple specialized agents
@@ -566,7 +724,7 @@ Export markdown content to various formats:
 - **MCP Protocol**: Model Context Protocol for tool integration
 - **REST APIs**: Comprehensive REST API endpoints
 - **WebSocket Support**: Real-time communication
-- **External APIs**: YouTube, OpenAI, and other service integrations
+- **External APIs**: YouTube, OpenAI, Data.gov, and other service integrations
 - **Document Export**: PDF and Word document generation with professional formatting
 
 ## 🛠️ Development
@@ -578,12 +736,18 @@ DIA3/
 ├── src/
 │   ├── agents/           # AI agent implementations
 │   ├── api/             # FastAPI routes and endpoints
+│   │   └── datagov_routes.py  # Data.gov API endpoints
 │   ├── core/            # Core engine implementations
+│   │   ├── datagov/     # Data.gov integration core
 │   │   └── export/      # Markdown export service
 │   ├── mcp_servers/     # MCP server implementations
+│   │   └── datagov_mcp_server.py  # Data.gov MCP server
 │   └── config/          # Configuration management
+│       └── datagov_config.py  # Data.gov configuration
 ├── tests/               # Test suites
 ├── docs/                # Documentation
+│   ├── architecture/    # System architecture docs
+│   │   └── datagov_forecasting_scenarios.md  # Data.gov scenarios
 │   └── white_papers/    # Whitepapers and exported documents
 ├── examples/            # Usage examples
 ├── scripts/             # Utility scripts
@@ -648,6 +812,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 Additional documentation is available in the `docs/` directory:
 
 - `docs/MARKDOWN_EXPORT_GUIDE.md` - Comprehensive guide for markdown export functionality
+- `docs/architecture/datagov_forecasting_scenarios.md` - Data.gov integration scenarios and usage guide
 - `docs/white_papers/` - Whitepapers and exported documents
 - `docs/guides/` - Implementation and usage guides
 - `docs/plans/` - Development and integration plans
