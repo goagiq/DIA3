@@ -11,6 +11,7 @@ from typing import Dict, Any, List, Optional
 from uuid import uuid4
 
 from loguru import logger
+from .utils.file_path_utils import FilePathUtils
 
 
 class ReportManager:
@@ -49,10 +50,11 @@ class ReportManager:
             with open(report_path, 'w', encoding='utf-8') as f:
                 f.write(content)
             
-            # Create report metadata
+            # Create report metadata with file protocol prefix
             report_info = {
                 "filename": final_filename,
                 "path": str(report_path),
+                "file_url": FilePathUtils.prepend_file_protocol(report_path),
                 "relative_path": f"Results/reports/{final_filename}",
                 "report_type": report_type,
                 "size_bytes": len(content),
@@ -69,7 +71,8 @@ class ReportManager:
             return {
                 "success": True,
                 "report_info": report_info,
-                "message": f"Report saved successfully to {report_path}"
+                "message": f"Report saved successfully to {report_path}",
+                "file_url": report_info["file_url"]
             }
             
         except Exception as e:

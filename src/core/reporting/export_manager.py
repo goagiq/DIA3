@@ -19,6 +19,7 @@ from pathlib import Path
 import logging
 
 logger = logging.getLogger(__name__)
+from ..utils.file_path_utils import FilePathUtils
 
 
 class ExportManager:
@@ -91,6 +92,7 @@ class ExportManager:
                 "success": True,
                 "filename": filename,
                 "filepath": str(filepath),
+                "file_url": FilePathUtils.prepend_file_protocol(filepath),
                 "format": format,
                 "size": filepath.stat().st_size,
                 "message": f"Data exported successfully to {filename}"

@@ -16,6 +16,7 @@ from pathlib import Path
 import logging
 
 logger = logging.getLogger(__name__)
+from ..utils.file_path_utils import FilePathUtils
 
 
 class ReportGenerator:
@@ -210,7 +211,8 @@ class ReportGenerator:
             with open(filepath, 'w') as f:
                 json.dump(report_content, f, indent=2)
         
-        return str(filepath)
+        # Return the file path with protocol prefix
+        return FilePathUtils.prepend_file_protocol(filepath)
     
     def _convert_to_html(self, report_content: Dict[str, Any]) -> str:
         """Convert report content to HTML format."""
