@@ -473,9 +473,9 @@ graph TB
         APIEconomicForecast[POST /api/datagov/economic-forecast]
         APIEnvironmentalAnalysis[POST /api/datagov/environmental-analysis]
         APINLQuery[POST /api/datagov/natural-language-query]
-        APITradeData[GET /api/datagov/trade-data/{country}]
-        APIEconomicData[GET /api/datagov/economic-forecast/{country}]
-        APIEnvironmentalData[GET /api/datagov/environmental-data/{country}]
+        APITradeData[GET /api/datagov/trade-data/country]
+        APIEconomicData[GET /api/datagov/economic-forecast/country]
+        APIEnvironmentalData[GET /api/datagov/environmental-data/country]
         APIHealth[GET /api/datagov/health]
     end
     
