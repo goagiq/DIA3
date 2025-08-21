@@ -565,6 +565,259 @@ graph TB
     CacheManager --> NLProcessor
 ```
 
+### 9. Knowledge Graph System
+
+Advanced knowledge graph construction, analysis, and querying system with GraphRAG-inspired architecture.
+
+```mermaid
+graph TB
+    subgraph "Knowledge Graph Core"
+        KGAgent[Knowledge Graph Agent]
+        KGCoordinator[Knowledge Graph Coordinator]
+        MultiDomainKG[Multi-Domain Knowledge Graph]
+        EnhancedKG[Enhanced Knowledge Graph]
+    end
+    
+    subgraph "Entity Processing Layer"
+        EntityExtractor[Entity Extraction Engine]
+        EntityValidator[Entity Validator]
+        EntityClustering[Entity Clustering]
+        ChineseExtractor[Enhanced Chinese Extractor]
+    end
+    
+    subgraph "Relationship Processing Layer"
+        RelationshipMapper[Relationship Mapping Engine]
+        SemanticAnalyzer[Semantic Similarity Analyzer]
+        RelationshipOptimizer[Relationship Optimizer]
+        PatternMatcher[Pattern Matcher]
+    end
+    
+    subgraph "Graph Analysis Layer"
+        CommunityDetector[Community Detection]
+        PathFinder[Path Finding Engine]
+        CentralityAnalyzer[Centrality Analysis]
+        GraphMetrics[Graph Metrics Calculator]
+    end
+    
+    subgraph "Storage & Query Layer"
+        NetworkXGraph[(NetworkX Graph)]
+        VectorDB[(Vector Database)]
+        GraphCache[Graph Cache]
+        QueryEngine[Query Engine]
+    end
+    
+    subgraph "Visualization Layer"
+        GraphViz[Graph Visualization]
+        HTMLExport[HTML Export]
+        PNGExport[PNG Export]
+        InteractiveViz[Interactive Visualization]
+    end
+    
+    subgraph "MCP Tools Layer"
+        MCPGenerateKG[generate_knowledge_graph]
+        MCPQueryKG[query_knowledge_graph]
+        MCPAnalyzeCommunities[analyze_graph_communities]
+        MCPFindPaths[find_entity_paths]
+        MCPEntityContext[get_entity_context]
+        MCPGraphReport[generate_graph_report]
+    end
+    
+    subgraph "API Endpoints Layer"
+        APISearchKG[POST /search/knowledge-graph]
+        APICombinedSearch[POST /search/combined]
+        APISearchStats[GET /search/statistics]
+        APIKGSearch[POST /api/knowledge-graph/search]
+    end
+    
+    subgraph "Data Input Layer"
+        TextContent[Text Content]
+        PDFContent[PDF Content]
+        AudioContent[Audio Content]
+        VideoContent[Video Content]
+        WebContent[Web Content]
+        SocialContent[Social Media Content]
+    end
+    
+    subgraph "Output Layer"
+        KnowledgeGraph[(Knowledge Graph)]
+        EntityReports[Entity Reports]
+        RelationshipReports[Relationship Reports]
+        AnalysisReports[Analysis Reports]
+        Visualizations[Graph Visualizations]
+    end
+    
+    %% Core connections
+    KGAgent --> EntityExtractor
+    KGAgent --> RelationshipMapper
+    KGCoordinator --> KGAgent
+    MultiDomainKG --> KGAgent
+    EnhancedKG --> KGAgent
+    
+    %% Entity processing connections
+    EntityExtractor --> EntityValidator
+    EntityValidator --> EntityClustering
+    ChineseExtractor --> EntityExtractor
+    
+    %% Relationship processing connections
+    RelationshipMapper --> SemanticAnalyzer
+    SemanticAnalyzer --> RelationshipOptimizer
+    RelationshipOptimizer --> PatternMatcher
+    
+    %% Graph analysis connections
+    CommunityDetector --> PathFinder
+    PathFinder --> CentralityAnalyzer
+    CentralityAnalyzer --> GraphMetrics
+    
+    %% Storage connections
+    NetworkXGraph --> VectorDB
+    VectorDB --> GraphCache
+    GraphCache --> QueryEngine
+    
+    %% Visualization connections
+    GraphViz --> HTMLExport
+    GraphViz --> PNGExport
+    GraphViz --> InteractiveViz
+    
+    %% MCP Tools connections
+    MCPGenerateKG --> KGAgent
+    MCPQueryKG --> QueryEngine
+    MCPAnalyzeCommunities --> CommunityDetector
+    MCPFindPaths --> PathFinder
+    MCPEntityContext --> QueryEngine
+    MCPGraphReport --> GraphViz
+    
+    %% API Endpoints connections
+    APISearchKG --> QueryEngine
+    APICombinedSearch --> QueryEngine
+    APISearchStats --> GraphMetrics
+    APIKGSearch --> QueryEngine
+    
+    %% Data input connections
+    TextContent --> KGAgent
+    PDFContent --> KGAgent
+    AudioContent --> KGAgent
+    VideoContent --> KGAgent
+    WebContent --> KGAgent
+    SocialContent --> KGAgent
+    
+    %% Output connections
+    KGAgent --> KnowledgeGraph
+    EntityExtractor --> EntityReports
+    RelationshipMapper --> RelationshipReports
+    GraphMetrics --> AnalysisReports
+    GraphViz --> Visualizations
+    
+    %% Graph storage connections
+    KGAgent --> NetworkXGraph
+    NetworkXGraph --> GraphViz
+    QueryEngine --> NetworkXGraph
+```
+
+### Knowledge Graph Architecture Components
+
+```mermaid
+graph LR
+    subgraph "Agent Types"
+        BasicKG[Basic Knowledge Graph Agent]
+        EnhancedKG[Enhanced Knowledge Graph Agent]
+        MultiDomainKG[Multi-Domain Knowledge Graph Agent]
+        CoordinatorKG[Knowledge Graph Coordinator]
+    end
+    
+    subgraph "Entity Types"
+        PERSON[PERSON - Individuals]
+        ORGANIZATION[ORGANIZATION - Companies]
+        LOCATION[LOCATION - Places]
+        EVENT[EVENT - Occurrences]
+        CONCEPT[CONCEPT - Abstract Ideas]
+        OBJECT[OBJECT - Physical Items]
+        TECHNOLOGY[TECHNOLOGY - Tools/Systems]
+        METHOD[METHOD - Processes]
+        PROCESS[PROCESS - Workflows]
+    end
+    
+    subgraph "Relationship Types"
+        IS_A[IS_A - Hierarchical]
+        PART_OF[PART_OF - Component]
+        LOCATED_IN[LOCATED_IN - Spatial]
+        WORKS_FOR[WORKS_FOR - Employment]
+        CREATED_BY[CREATED_BY - Attribution]
+        USES[USES - Dependency]
+        IMPLEMENTS[IMPLEMENTS - Implementation]
+        SIMILAR_TO[SIMILAR_TO - Similarity]
+        OPPOSES[OPPOSES - Opposition]
+        SUPPORTS[SUPPORTS - Support]
+        LEADS_TO[LEADS_TO - Causal]
+        DEPENDS_ON[DEPENDS_ON - Dependency]
+        RELATED_TO[RELATED_TO - General]
+    end
+    
+    subgraph "Analysis Algorithms"
+        Louvain[Louvain Community Detection]
+        LabelProp[Label Propagation]
+        GirvanNewman[Girvan-Newman]
+        ShortestPath[Shortest Path]
+        Centrality[Centrality Analysis]
+        PageRank[PageRank Algorithm]
+    end
+    
+    subgraph "Processing Features"
+        ChunkProcessing[Chunk-based Processing]
+        ConfidenceScoring[Confidence Scoring]
+        LanguageSupport[Multi-language Support]
+        ErrorHandling[Robust Error Handling]
+        FallbackStrategies[Fallback Strategies]
+        CacheOptimization[Cache Optimization]
+    end
+    
+    %% Agent connections
+    BasicKG --> EnhancedKG
+    EnhancedKG --> MultiDomainKG
+    MultiDomainKG --> CoordinatorKG
+    
+    %% Entity connections
+    BasicKG --> PERSON
+    BasicKG --> ORGANIZATION
+    BasicKG --> LOCATION
+    EnhancedKG --> EVENT
+    EnhancedKG --> CONCEPT
+    EnhancedKG --> OBJECT
+    MultiDomainKG --> TECHNOLOGY
+    MultiDomainKG --> METHOD
+    MultiDomainKG --> PROCESS
+    
+    %% Relationship connections
+    BasicKG --> IS_A
+    BasicKG --> PART_OF
+    BasicKG --> LOCATED_IN
+    EnhancedKG --> WORKS_FOR
+    EnhancedKG --> CREATED_BY
+    EnhancedKG --> USES
+    MultiDomainKG --> IMPLEMENTS
+    MultiDomainKG --> SIMILAR_TO
+    MultiDomainKG --> OPPOSES
+    CoordinatorKG --> SUPPORTS
+    CoordinatorKG --> LEADS_TO
+    CoordinatorKG --> DEPENDS_ON
+    CoordinatorKG --> RELATED_TO
+    
+    %% Analysis connections
+    EnhancedKG --> Louvain
+    EnhancedKG --> LabelProp
+    MultiDomainKG --> GirvanNewman
+    MultiDomainKG --> ShortestPath
+    CoordinatorKG --> Centrality
+    CoordinatorKG --> PageRank
+    
+    %% Processing connections
+    BasicKG --> ChunkProcessing
+    EnhancedKG --> ConfidenceScoring
+    MultiDomainKG --> LanguageSupport
+    CoordinatorKG --> ErrorHandling
+    CoordinatorKG --> FallbackStrategies
+    CoordinatorKG --> CacheOptimization
+```
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -642,6 +895,15 @@ Comprehensive Data.gov integration for economic, trade, and environmental analys
 - `GET /api/datagov/environmental-data/{country}` - Get environmental data for country
 - `GET /api/datagov/health` - Data.gov service health check
 
+#### Knowledge Graph API Endpoints
+
+Advanced knowledge graph search and analysis endpoints:
+
+- `POST /search/knowledge-graph` - Search knowledge graph with queries
+- `POST /search/combined` - Combined semantic and knowledge graph search
+- `GET /search/statistics` - Get search statistics and index information
+- `POST /api/knowledge-graph/search` - Advanced knowledge graph search
+
 #### Markdown Export API
 
 Export markdown content to PDF and Word documents:
@@ -676,6 +938,17 @@ Comprehensive Data.gov integration tools:
 - `datagov_environmental_analysis` - Analyze environmental data
 - `datagov_natural_language_query` - Process natural language queries
 
+#### Knowledge Graph MCP Tools
+
+Advanced knowledge graph construction and analysis tools:
+
+- `generate_knowledge_graph` - Generate knowledge graph from content
+- `query_knowledge_graph` - Query knowledge graph with natural language
+- `analyze_graph_communities` - Analyze community structures in graph
+- `find_entity_paths` - Find paths between entities in graph
+- `get_entity_context` - Get context and relationships for entities
+- `generate_graph_report` - Generate comprehensive graph analysis reports
+
 #### Markdown Export MCP Tools
 
 Export markdown content to various formats:
@@ -702,6 +975,7 @@ Export markdown content to various formats:
 - **Strategic Intelligence**: Threat evaluation and forecasting
 - **Multi-Domain Analysis**: Cross-domain correlation analysis
 - **Data.gov Integration**: Comprehensive economic, trade, and environmental data analysis
+- **Knowledge Graph Analysis**: GraphRAG-inspired entity extraction, relationship mapping, and graph analysis
 - **Markdown Export**: Convert markdown content to PDF and Word documents with embedded images, tables, and Mermaid diagrams
 
 ### Data.gov Integration Capabilities
@@ -713,6 +987,16 @@ Export markdown content to various formats:
 - **Seasonal Pattern Analysis**: Identify and predict seasonal patterns in trade and economic data
 - **Supply Chain Analysis**: Vulnerability assessment and resilience modeling
 - **Currency Risk Analysis**: Financial risk assessment and hedging strategies
+
+### Knowledge Graph Capabilities
+- **Entity Extraction**: Advanced extraction of 9 entity types (PERSON, ORGANIZATION, LOCATION, EVENT, CONCEPT, OBJECT, TECHNOLOGY, METHOD, PROCESS)
+- **Relationship Mapping**: 13 relationship types with semantic analysis and pattern matching
+- **Graph Analysis**: Community detection, path finding, centrality analysis, and graph metrics
+- **Multi-Domain Support**: Language-based domain separation and cross-domain relationships
+- **Visualization**: Interactive HTML, PNG exports, and comprehensive graph reports
+- **Query Processing**: Natural language queries with semantic search integration
+- **Multi-Modal Input**: Support for text, PDF, audio, video, web, and social media content
+- **Enhanced Chinese Support**: Specialized Chinese entity extraction and validation
 
 ### Scalability & Performance
 - **Agent Swarm**: Parallel processing with multiple specialized agents
@@ -735,11 +1019,16 @@ Export markdown content to various formats:
 DIA3/
 ├── src/
 │   ├── agents/           # AI agent implementations
+│   │   ├── knowledge_graph_agent.py  # Knowledge Graph Agent
+│   │   ├── enhanced_knowledge_graph_agent.py  # Enhanced Knowledge Graph Agent
+│   │   ├── multi_domain_knowledge_graph_agent.py  # Multi-Domain Knowledge Graph Agent
+│   │   └── knowledge_graph_coordinator.py  # Knowledge Graph Coordinator
 │   ├── api/             # FastAPI routes and endpoints
 │   │   └── datagov_routes.py  # Data.gov API endpoints
 │   ├── core/            # Core engine implementations
 │   │   ├── datagov/     # Data.gov integration core
-│   │   └── export/      # Markdown export service
+│   │   ├── export/      # Markdown export service
+│   │   └── improved_knowledge_graph_utility.py  # Knowledge Graph utilities
 │   ├── mcp_servers/     # MCP server implementations
 │   │   └── datagov_mcp_server.py  # Data.gov MCP server
 │   └── config/          # Configuration management
@@ -813,6 +1102,7 @@ Additional documentation is available in the `docs/` directory:
 
 - `docs/MARKDOWN_EXPORT_GUIDE.md` - Comprehensive guide for markdown export functionality
 - `docs/architecture/datagov_forecasting_scenarios.md` - Data.gov integration scenarios and usage guide
+- `docs/guides/KNOWLEDGE_GRAPH_AGENT_GUIDE.md` - Knowledge Graph agent implementation and usage guide
 - `docs/white_papers/` - Whitepapers and exported documents
 - `docs/guides/` - Implementation and usage guides
 - `docs/plans/` - Development and integration plans
