@@ -1,0 +1,77 @@
+graph TB
+    %% DIA3 Consolidated High-Level Architecture
+    
+    subgraph "User Interface Layer"
+        UI[Web Interface<br/>Streamlit Dashboard]
+        API[REST API<br/>FastAPI Gateway]
+        MCP[MCP Protocol<br/>External Integration]
+    end
+    
+    subgraph "Intelligence Core"
+        Orchestrator[Central Orchestrator<br/>Request Management & Coordination]
+        StrategicEngine[Strategic Analysis<br/>Multi-Domain Intelligence]
+        AnalyticsEngine[Advanced Analytics<br/>Predictive & Pattern Recognition]
+    end
+    
+    subgraph "Agent Ecosystem"
+        SpecializedAgents[Specialized Agents<br/>Text, Vision, Audio, Web, Strategic]
+        ProcessingAgents[Processing Agents<br/>Data Ingestion, Translation, Multi-Modal]
+        IntelligenceAgents[Intelligence Agents<br/>Knowledge Graph, Deception, Business]
+    end
+    
+    subgraph "Data & Analytics"
+        DataProcessing[Data Processing<br/>Multi-Modal Integration]
+        Analytics[Analytics Services<br/>Semantic Search, Monitoring, Risk Assessment]
+        Storage[(Data Storage<br/>Vector DB, Cache, Files, Results)]
+    end
+    
+    subgraph "External Systems"
+        AI_Models[AI Models<br/>Ollama, OpenAI]
+        ExternalAPIs[External APIs<br/>YouTube, Web Services]
+        Monitoring[Monitoring<br/>Grafana, Prometheus]
+    end
+    
+    %% Primary Data Flow
+    UI --> API
+    API --> Orchestrator
+    MCP --> Orchestrator
+    
+    Orchestrator --> StrategicEngine
+    Orchestrator --> AnalyticsEngine
+    Orchestrator --> SpecializedAgents
+    Orchestrator --> ProcessingAgents
+    Orchestrator --> IntelligenceAgents
+    
+    SpecializedAgents --> DataProcessing
+    ProcessingAgents --> DataProcessing
+    IntelligenceAgents --> Analytics
+    
+    DataProcessing --> Storage
+    Analytics --> Storage
+    
+    %% External Integrations
+    SpecializedAgents --> AI_Models
+    IntelligenceAgents --> ExternalAPIs
+    Analytics --> Monitoring
+    
+    %% Cross-Component Intelligence
+    StrategicEngine --> AnalyticsEngine
+    StrategicEngine --> IntelligenceAgents
+    AnalyticsEngine --> IntelligenceAgents
+    
+    %% Results Flow
+    Storage --> UI
+    Analytics --> UI
+    
+    %% Styling
+    classDef interfaceLayer fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    classDef coreLayer fill:#e8f5e8,stroke:#388e3c,stroke-width:3px
+    classDef agentLayer fill:#fff3e0,stroke:#f57c00,stroke-width:3px
+    classDef dataLayer fill:#fce4ec,stroke:#c2185b,stroke-width:3px
+    classDef externalLayer fill:#e8eaf6,stroke:#3f51b5,stroke-width:3px
+    
+    class UI,API,MCP interfaceLayer
+    class Orchestrator,StrategicEngine,AnalyticsEngine coreLayer
+    class SpecializedAgents,ProcessingAgents,IntelligenceAgents agentLayer
+    class DataProcessing,Analytics,Storage dataLayer
+    class AI_Models,ExternalAPIs,Monitoring externalLayer

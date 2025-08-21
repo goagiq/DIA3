@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIA3 High-Level Architecture</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>russia_eu_strategic_positioning_interactive
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .mermaid {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .description {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DIA3 High-Level Architecture</h1>
+        <div class="mermaid">
+graph TB
+    subgraph "DIA3 Platform"
+        subgraph "User Interface Layer"
+            UI[Web UI<br/>Streamlit]
+            API[API Gateway<br/>FastAPI]
+            MCP[MCP Server<br/>Model Context Protocol]
+        end
+        
+        subgraph "Core Intelligence Layer"
+            Orchestrator[Orchestrator<br/>Central Coordinator]
+            StrategicEngine[Strategic Analysis<br/>Multi-Domain Engine]
+            AnalyticsEngine[Advanced Analytics<br/>Predictive & Pattern Recognition]
+        end
+        
+        subgraph "Agent Swarm Layer"
+            TextAgent[Text Agent<br/>NLP & Analysis]
+            VisionAgent[Vision Agent<br/>Image & Video]
+            AudioAgent[Audio Agent<br/>Speech & Audio]
+            WebAgent[Web Agent<br/>Web Intelligence]
+            FileAgent[File Agent<br/>Document Processing]
+            StrategicAgent[Strategic Agent<br/>Military & Business]
+        end
+        
+        subgraph "Data Processing Layer"
+            MultiModal[Multi-Modal<br/>Integration Engine]
+            DataIngestion[Data Ingestion<br/>& Processing]
+            VectorDB[Vector Database<br/>ChromaDB]
+        end
+        
+        subgraph "External Intelligence"
+            Ollama[Ollama LLM<br/>Local AI]
+            OpenAI[OpenAI API<br/>Cloud AI]
+            WebAPIs[Web APIs<br/>External Data]
+        end
+    end
+    
+    User[Users] --> UI
+    User --> API
+    User --> MCP
+    
+    UI --> Orchestrator
+    API --> Orchestrator
+    MCP --> Orchestrator
+    
+    Orchestrator --> StrategicEngine
+    Orchestrator --> AnalyticsEngine
+    
+    Orchestrator --> TextAgent
+    Orchestrator --> VisionAgent
+    Orchestrator --> AudioAgent
+    Orchestrator --> WebAgent
+    Orchestrator --> FileAgent
+    Orchestrator --> StrategicAgent
+    
+    Orchestrator --> MultiModal
+    Orchestrator --> DataIngestion
+    Orchestrator --> VectorDB
+    
+    TextAgent --> Ollama
+    VisionAgent --> OpenAI
+    AudioAgent --> OpenAI
+    WebAgent --> WebAPIs
+    StrategicAgent --> OpenAI
+    
+    MultiModal --> VectorDB
+    DataIngestion --> VectorDB
+    VectorDB --> AnalyticsEngine
+    VectorDB --> StrategicEngine
+    
+    StrategicEngine --> Orchestrator
+    AnalyticsEngine --> Orchestrator
+    Orchestrator --> UI
+    Orchestrator --> API
+    Orchestrator --> MCP
+    
+    classDef userLayer fill:#e1f5fe
+    classDef coreLayer fill:#f3e5f5
+    classDef agentLayer fill:#e8f5e8
+    classDef dataLayer fill:#fff3e0
+    classDef externalLayer fill:#fce4ec
+    
+    class UI,API,MCP userLayer
+    class Orchestrator,StrategicEngine,AnalyticsEngine coreLayer
+    class TextAgent,VisionAgent,AudioAgent,WebAgent,FileAgent,StrategicAgent agentLayer
+    class MultiModal,DataIngestion,VectorDB dataLayer
+    class Ollama,OpenAI,WebAPIs externalLayer
+        </div>
+        <div class="description">
+            <h3>Architecture Overview</h3>
+            <p>The DIA3 (Distributed Intelligence Analysis System) platform is a comprehensive distributed intelligence analysis system that combines multiple AI agents, strategic analysis engines, and advanced analytics to provide deep insights across various domains.</p>
+            
+            <h4>Key Components:</h4>
+            <ul>
+                <li><strong>User Interface Layer:</strong> Web UI (Streamlit), API Gateway (FastAPI), and MCP Server for Model Context Protocol</li>
+                <li><strong>Core Intelligence Layer:</strong> Central Orchestrator, Strategic Analysis Engine, and Advanced Analytics Engine</li>
+                <li><strong>Agent Swarm Layer:</strong> Specialized agents for text, vision, audio, web, file processing, and strategic analysis</li>
+                <li><strong>Data Processing Layer:</strong> Multi-modal integration, data ingestion, and vector database (ChromaDB)</li>
+                <li><strong>External Intelligence:</strong> Ollama LLM (local), OpenAI API (cloud), and external web APIs</li>
+            </ul>
+            
+            <h4>Data Flow:</h4>
+            <p>Users interact through various interfaces → Orchestrator coordinates all operations → Specialized agents process different data types → Results are stored in vector database → Analytics engines provide insights → Results returned to users</p>
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+    </script>
+</body>
+</html>

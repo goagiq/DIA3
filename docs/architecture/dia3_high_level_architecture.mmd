@@ -1,0 +1,86 @@
+graph TB
+    subgraph "DIA3 Platform"
+        subgraph "User Interface Layer"
+            UI[Web UI<br/>Streamlit]
+            API[API Gateway<br/>FastAPI]
+            MCP[MCP Server<br/>Model Context Protocol]
+        end
+        
+        subgraph "Core Intelligence Layer"
+            Orchestrator[Orchestrator<br/>Central Coordinator]
+            StrategicEngine[Strategic Analysis<br/>Multi-Domain Engine]
+            AnalyticsEngine[Advanced Analytics<br/>Predictive & Pattern Recognition]
+        end
+        
+        subgraph "Agent Swarm Layer"
+            TextAgent[Text Agent<br/>NLP & Analysis]
+            VisionAgent[Vision Agent<br/>Image & Video]
+            AudioAgent[Audio Agent<br/>Speech & Audio]
+            WebAgent[Web Agent<br/>Web Intelligence]
+            FileAgent[File Agent<br/>Document Processing]
+            StrategicAgent[Strategic Agent<br/>Military & Business]
+        end
+        
+        subgraph "Data Processing Layer"
+            MultiModal[Multi-Modal<br/>Integration Engine]
+            DataIngestion[Data Ingestion<br/>& Processing]
+            VectorDB[Vector Database<br/>ChromaDB]
+        end
+        
+        subgraph "External Intelligence"
+            Ollama[Ollama LLM<br/>Local AI]
+            OpenAI[OpenAI API<br/>Cloud AI]
+            WebAPIs[Web APIs<br/>External Data]
+        end
+    end
+    
+    User[Users] --> UI
+    User --> API
+    User --> MCP
+    
+    UI --> Orchestrator
+    API --> Orchestrator
+    MCP --> Orchestrator
+    
+    Orchestrator --> StrategicEngine
+    Orchestrator --> AnalyticsEngine
+    
+    Orchestrator --> TextAgent
+    Orchestrator --> VisionAgent
+    Orchestrator --> AudioAgent
+    Orchestrator --> WebAgent
+    Orchestrator --> FileAgent
+    Orchestrator --> StrategicAgent
+    
+    Orchestrator --> MultiModal
+    Orchestrator --> DataIngestion
+    Orchestrator --> VectorDB
+    
+    TextAgent --> Ollama
+    VisionAgent --> OpenAI
+    AudioAgent --> OpenAI
+    WebAgent --> WebAPIs
+    StrategicAgent --> OpenAI
+    
+    MultiModal --> VectorDB
+    DataIngestion --> VectorDB
+    VectorDB --> AnalyticsEngine
+    VectorDB --> StrategicEngine
+    
+    StrategicEngine --> Orchestrator
+    AnalyticsEngine --> Orchestrator
+    Orchestrator --> UI
+    Orchestrator --> API
+    Orchestrator --> MCP
+    
+    classDef userLayer fill:#e1f5fe
+    classDef coreLayer fill:#f3e5f5
+    classDef agentLayer fill:#e8f5e8
+    classDef dataLayer fill:#fff3e0
+    classDef externalLayer fill:#fce4ec
+    
+    class UI,API,MCP userLayer
+    class Orchestrator,StrategicEngine,AnalyticsEngine coreLayer
+    class TextAgent,VisionAgent,AudioAgent,WebAgent,FileAgent,StrategicAgent agentLayer
+    class MultiModal,DataIngestion,VectorDB dataLayer
+    class Ollama,OpenAI,WebAPIs externalLayer

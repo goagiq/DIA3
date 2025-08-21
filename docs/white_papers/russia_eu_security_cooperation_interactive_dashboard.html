@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Russia-EU Security Cooperation: Interactive Analysis Dashboard</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/dist/vis-network.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-grid-4 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .card h3 {
+            color: #2a5298;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .network-container {
+            height: 500px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .timeline-container {
+            height: 200px;
+            overflow-x: auto;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .control-group label {
+            color: white;
+            font-weight: bold;
+        }
+
+        .control-group select, .control-group input {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            background: white;
+            color: #333;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .relationship-strength {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .strength-bar {
+            flex: 1;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .strength-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            transition: width 0.3s ease;
+        }
+
+        .strength-value {
+            min-width: 40px;
+            text-align: right;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid, .dashboard-grid-3, .dashboard-grid-4 {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="header">
+            <h1>Russia-EU Security Cooperation Analysis</h1>
+            <p>Interactive Dashboard for Libya and Syria Conflicts Scenario</p>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label>View Mode:</label>
+                <select id="viewMode">
+                    <option value="network">Network View</option>
+                    <option value="metrics">Metrics View</option>
+                    <option value="timeline">Timeline View</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label>Relationship Type:</label>
+                <select id="relationshipType">
+                    <option value="all">All Relationships</option>
+                    <option value="cooperation">Cooperation</option>
+                    <option value="competition">Competition</option>
+                    <option value="support">Strategic Support</option>
+                    <option value="economic">Economic Dependencies</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label>Strength Threshold:</label>
+                <input type="range" id="strengthThreshold" min="0" max="1" step="0.1" value="0.3">
+                <span id="thresholdValue">0.3</span>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>Strategic Network Visualization</h3>
+                <div id="networkContainer" class="network-container"></div>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #ff6b6b;"></div>
+                        <span>Russia & Allies</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #74b9ff;"></div>
+                        <span>EU & Allies</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #fd79a8;"></div>
+                        <span>Conflict Zones</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #fdcb6e;"></div>
+                        <span>Strategic Interests</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Relationship Strength Analysis</h3>
+                <div id="relationshipChart" class="chart-container"></div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid-4">
+            <div class="metric-card">
+                <div class="metric-value">805</div>
+                <div class="metric-label">Total Entities</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">96</div>
+                <div class="metric-label">Relationships</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">0.95</div>
+                <div class="metric-label">Russia Centrality</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">0.88</div>
+                <div class="metric-label">EU Centrality</div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <h3>Cooperation vs Competition Analysis</h3>
+                <div id="cooperationChart" class="chart-container"></div>
+            </div>
+
+            <div class="card">
+                <h3>Vulnerability Assessment</h3>
+                <div id="vulnerabilityChart" class="chart-container"></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Timeline of Key Events</h3>
+            <div id="timelineContainer" class="timeline-container"></div>
+        </div>
+
+        <div class="dashboard-grid-3">
+            <div class="card">
+                <h3>Top Cooperation Areas</h3>
+                <div id="cooperationAreas"></div>
+            </div>
+            <div class="card">
+                <h3>Top Competition Areas</h3>
+                <div id="competitionAreas"></div>
+            </div>
+            <div class="card">
+                <h3>Strategic Recommendations</h3>
+                <div id="recommendations"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tooltip" class="tooltip" style="display: none;"></div>
+
+    <script>
+        // Data for the dashboard
+        const dashboardData = {
+            entities: {
+                primary_actors: {
+                    'Russia': {type: 'strategic_power', capabilities: ['military', 'energy'], centrality: 0.95},
+                    'European_Union': {type: 'diplomatic_power', capabilities: ['economic', 'normative'], centrality: 0.88},
+                    'Libya': {type: 'conflict_zone', status: 'civil_war', centrality: 0.82},
+                    'Syria': {type: 'conflict_zone', status: 'regime_conflict', centrality: 0.78}
+                },
+                secondary_actors: {
+                    'United_States': {type: 'global_power', role: 'NATO_alliance', centrality: 0.65},
+                    'China': {type: 'rising_power', role: 'economic_interests', centrality: 0.58},
+                    'Wagner_Group': {type: 'private_military', role: 'contractors', centrality: 0.72},
+                    'LNA': {type: 'military_force', role: 'Haftar_forces', centrality: 0.68},
+                    'GNA': {type: 'government', role: 'UN_recognized', centrality: 0.62},
+                    'Assad_Regime': {type: 'government', role: 'Syrian_government', centrality: 0.75},
+                    'Opposition_Groups': {type: 'political', role: 'Syrian_opposition', centrality: 0.55},
+                    'NATO': {type: 'alliance', role: 'military_alliance', centrality: 0.6}
+                }
+            },
+            relationships: {
+                strategic_support: {
+                    'Russia_to_LNA': {strength: 0.8, type: 'military_political_support'},
+                    'Russia_to_Assad': {strength: 0.9, type: 'direct_military_intervention'},
+                    'EU_to_GNA': {strength: 0.6, type: 'diplomatic_humanitarian_support'},
+                    'EU_to_Opposition': {strength: 0.5, type: 'political_humanitarian_support'}
+                },
+                economic_dependencies: {
+                    'EU_to_Russia': {strength: 0.7, type: 'energy_dependence'},
+                    'Russia_to_EU': {strength: 0.6, type: 'sanctions_vulnerability'},
+                    'China_to_Energy': {strength: 0.5, type: 'economic_interests'},
+                    'Russia_to_Arms': {strength: 0.6, type: 'economic_leverage'}
+                },
+                cooperation: {
+                    'Russia_EU_CounterTerrorism': {strength: 0.4, type: 'limited_cooperation'},
+                    'Russia_EU_HumanitarianAid': {strength: 0.3, type: 'coordination'},
+                    'Russia_EU_MigrationManagement': {strength: 0.3, type: 'joint_management'},
+                    'Russia_EU_EnergySecurity': {strength: 0.5, type: 'energy_trade'}
+                },
+                competition: {
+                    'Russia_EU_MilitaryInfluence': {strength: 0.8, type: 'military_competition'},
+                    'Russia_EU_PoliticalInfluence': {strength: 0.7, type: 'political_competition'},
+                    'Russia_EU_EconomicInterests': {strength: 0.6, type: 'economic_competition'},
+                    'Russia_EU_InformationOperations': {strength: 0.8, type: 'narrative_competition'}
+                }
+            },
+            metrics: {
+                cooperation_areas: {
+                    'Counter_terrorism': 0.4,
+                    'Humanitarian_Aid': 0.3,
+                    'Migration_Management': 0.3,
+                    'Arms_Control': 0.2,
+                    'Energy_Security': 0.5
+                },
+                competition_areas: {
+                    'Military_Influence': 0.8,
+                    'Political_Influence': 0.7,
+                    'Economic_Interests': 0.6,
+                    'Information_Operations': 0.8
+                },
+                vulnerabilities: {
+                    'Russia_Economic_Sanctions': 0.6,
+                    'Russia_International_Isolation': 0.7,
+                    'Russia_Energy_Dependence': 0.5,
+                    'EU_Energy_Dependence': 0.7,
+                    'EU_Internal_Divisions': 0.6,
+                    'EU_Military_Limitations': 0.8
+                }
+            },
+            timeline: {
+                '2011': {'NATO_Intervention_Libya': 'regime_change', 'Syrian_Civil_War': 'conflict_begins'},
+                '2014': {'Crimea_Annexation': 'Russia_EU_tensions', 'EU_Sanctions': 'economic_pressure'},
+                '2015': {'Russia_Syria_Intervention': 'military_involvement'},
+                '2017': {'Astana_Process': 'peace_talks'},
+                '2020': {'Berlin_Process': 'Libya_peace', 'Ceasefire_Agreements': 'limited_cooperation'},
+                '2023': {'Ongoing_Conflicts': 'limited_cooperation'}
+            }
+        };
+
+        // Initialize Network Visualization
+        function initializeNetwork() {
+            const container = document.getElementById('networkContainer');
+            
+            // Create nodes
+            const nodes = new vis.DataSet([
+                // Primary Actors
+                {id: 'Russia', label: 'Russia', group: 'russia', size: 25, title: 'Central Strategic Power'},
+                {id: 'EU', label: 'European Union', group: 'eu', size: 25, title: 'Diplomatic Power'},
+                {id: 'Libya', label: 'Libya', group: 'conflict', size: 20, title: 'Primary Conflict Zone'},
+                {id: 'Syria', label: 'Syria', group: 'conflict', size: 20, title: 'Secondary Conflict Zone'},
+                
+                // Secondary Actors
+                {id: 'US', label: 'United States', group: 'secondary', size: 18, title: 'Global Power'},
+                {id: 'China', label: 'China', group: 'secondary', size: 18, title: 'Rising Power'},
+                {id: 'Wagner', label: 'Wagner Group', group: 'russia', size: 15, title: 'Private Military'},
+                {id: 'LNA', label: 'LNA', group: 'russia', size: 15, title: 'Haftar Forces'},
+                {id: 'GNA', label: 'GNA', group: 'eu', size: 15, title: 'UN Government'},
+                {id: 'Assad', label: 'Assad Regime', group: 'russia', size: 15, title: 'Syrian Government'},
+                {id: 'Opposition', label: 'Opposition Groups', group: 'eu', size: 15, title: 'Syrian Opposition'},
+                {id: 'NATO', label: 'NATO', group: 'secondary', size: 15, title: 'Military Alliance'}
+            ]);
+
+            // Create edges
+            const edges = new vis.DataSet([
+                // Strategic Support
+                {from: 'Russia', to: 'LNA', value: 8, title: 'Military Support (0.8)', color: {color: '#ff6b6b'}},
+                {from: 'Russia', to: 'Assad', value: 9, title: 'Direct Intervention (0.9)', color: {color: '#ff6b6b'}},
+                {from: 'Russia', to: 'Wagner', value: 9, title: 'Private Contractors (0.9)', color: {color: '#ff6b6b'}},
+                {from: 'EU', to: 'GNA', value: 6, title: 'Diplomatic Support (0.6)', color: {color: '#74b9ff'}},
+                {from: 'EU', to: 'Opposition', value: 5, title: 'Political Support (0.5)', color: {color: '#74b9ff'}},
+                
+                // Economic Dependencies
+                {from: 'EU', to: 'Russia', value: 7, title: 'Energy Dependence (0.7)', color: {color: '#fdcb6e'}},
+                {from: 'China', to: 'Russia', value: 5, title: 'Economic Interests (0.5)', color: {color: '#fdcb6e'}},
+                
+                // Cooperation
+                {from: 'Russia', to: 'EU', value: 4, title: 'Counter-terrorism (0.4)', color: {color: '#00b894'}, dashes: true},
+                {from: 'Russia', to: 'EU', value: 3, title: 'Humanitarian Aid (0.3)', color: {color: '#00b894'}, dashes: true},
+                
+                // Competition
+                {from: 'Russia', to: 'EU', value: 8, title: 'Military Competition (0.8)', color: {color: '#e17055'}, width: 3},
+                {from: 'Russia', to: 'EU', value: 7, title: 'Political Competition (0.7)', color: {color: '#e17055'}, width: 3},
+                
+                // External Connections
+                {from: 'US', to: 'EU', value: 6, title: 'NATO Alliance', color: {color: '#a29bfe'}},
+                {from: 'US', to: 'Libya', value: 5, title: 'NATO Intervention', color: {color: '#a29bfe'}},
+                {from: 'NATO', to: 'EU', value: 6, title: 'Military Alliance', color: {color: '#a29bfe'}}
+            ]);
+
+            const data = {nodes, edges};
+            const options = {
+                nodes: {
+                    shape: 'dot',
+                    font: {
+                        size: 14,
+                        face: 'Arial'
+                    },
+                    borderWidth: 2,
+                    shadow: true
+                },
+                edges: {
+                    width: 2,
+                    shadow: true,
+                    smooth: {
+                        type: 'continuous'
+                    }
+                },
+                physics: {
+                    stabilization: false,
+                    barnesHut: {
+                        gravitationalConstant: -80000,
+                        springConstant: 0.001,
+                        springLength: 200
+                    }
+                },
+                interaction: {
+                    navigationButtons: true,
+                    keyboard: true,
+                    hover: true
+                }
+            };
+
+            const network = new vis.Network(container, data, options);
+            
+            // Add event listeners
+            network.on('hoverNode', function(params) {
+                const node = nodes.get(params.node);
+                showTooltip(node.title, params.event.center.x, params.event.center.y);
+            });
+            
+            network.on('blurNode', function(params) {
+                hideTooltip();
+            });
+        }
+
+        // Initialize Charts
+        function initializeCharts() {
+            // Relationship Strength Chart
+            const relationshipCtx = document.getElementById('relationshipChart').getContext('2d');
+            new Chart(relationshipCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Strategic Support', 'Economic Dependencies', 'Cooperation', 'Competition'],
+                    datasets: [{
+                        label: 'Average Strength',
+                        data: [0.7, 0.6, 0.375, 0.725],
+                        backgroundColor: ['#ff6b6b', '#fdcb6e', '#00b894', '#e17055'],
+                        borderColor: ['#d63031', '#e17055', '#00a085', '#d63031'],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 1
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // Cooperation vs Competition Chart
+            const cooperationCtx = document.getElementById('cooperationChart').getContext('2d');
+            new Chart(cooperationCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Cooperation', 'Competition', 'Neutral'],
+                    datasets: [{
+                        data: [30, 60, 10],
+                        backgroundColor: ['#00b894', '#e17055', '#74b9ff'],
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Vulnerability Chart
+            const vulnerabilityCtx = document.getElementById('vulnerabilityChart').getContext('2d');
+            new Chart(vulnerabilityCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Economic Sanctions', 'International Isolation', 'Energy Dependence', 'Internal Divisions', 'Military Limitations'],
+                    datasets: [{
+                        label: 'Russia',
+                        data: [0.6, 0.7, 0.5, 0.3, 0.2],
+                        borderColor: '#ff6b6b',
+                        backgroundColor: 'rgba(255, 107, 107, 0.2)',
+                        pointBackgroundColor: '#ff6b6b'
+                    }, {
+                        label: 'EU',
+                        data: [0.2, 0.1, 0.7, 0.6, 0.8],
+                        borderColor: '#74b9ff',
+                        backgroundColor: 'rgba(116, 185, 255, 0.2)',
+                        pointBackgroundColor: '#74b9ff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 1
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize Timeline
+        function initializeTimeline() {
+            const timelineContainer = document.getElementById('timelineContainer');
+            const timelineData = [];
+            
+            Object.entries(dashboardData.timeline).forEach(([year, events]) => {
+                Object.entries(events).forEach(([event, description]) => {
+                    timelineData.push({
+                        year: parseInt(year),
+                        event: event.replace(/_/g, ' '),
+                        description: description.replace(/_/g, ' ')
+                    });
+                });
+            });
+
+            const width = timelineContainer.clientWidth;
+            const height = 150;
+            const margin = {top: 20, right: 20, bottom: 30, left: 40};
+
+            const svg = d3.select(timelineContainer)
+                .append('svg')
+                .attr('width', width)
+                .attr('height', height);
+
+            const x = d3.scaleLinear()
+                .domain([2011, 2023])
+                .range([margin.left, width - margin.right]);
+
+            const y = d3.scaleLinear()
+                .domain([0, timelineData.length])
+                .range([height - margin.bottom, margin.top]);
+
+            // Add axis
+            svg.append('g')
+                .attr('transform', `translate(0,${height - margin.bottom})`)
+                .call(d3.axisBottom(x).tickFormat(d3.format('d')));
+
+            // Add timeline line
+            svg.append('line')
+                .attr('x1', margin.left)
+                .attr('x2', width - margin.right)
+                .attr('y1', height / 2)
+                .attr('y2', height / 2)
+                .attr('stroke', '#666')
+                .attr('stroke-width', 2);
+
+            // Add events
+            svg.selectAll('circle')
+                .data(timelineData)
+                .enter()
+                .append('circle')
+                .attr('cx', d => x(d.year))
+                .attr('cy', height / 2)
+                .attr('r', 6)
+                .attr('fill', '#2a5298')
+                .attr('stroke', '#fff')
+                .attr('stroke-width', 2)
+                .on('mouseover', function(event, d) {
+                    showTooltip(`${d.event}<br>${d.description}`, event.pageX, event.pageY);
+                })
+                .on('mouseout', hideTooltip);
+        }
+
+        // Initialize Relationship Areas
+        function initializeRelationshipAreas() {
+            // Cooperation Areas
+            const cooperationContainer = document.getElementById('cooperationAreas');
+            Object.entries(dashboardData.metrics.cooperation_areas).forEach(([area, strength]) => {
+                const div = document.createElement('div');
+                div.className = 'relationship-strength';
+                div.innerHTML = `
+                    <span>${area.replace(/_/g, ' ')}</span>
+                    <div class="strength-bar">
+                        <div class="strength-fill" style="width: ${strength * 100}%"></div>
+                    </div>
+                    <span class="strength-value">${strength}</span>
+                `;
+                cooperationContainer.appendChild(div);
+            });
+
+            // Competition Areas
+            const competitionContainer = document.getElementById('competitionAreas');
+            Object.entries(dashboardData.metrics.competition_areas).forEach(([area, strength]) => {
+                const div = document.createElement('div');
+                div.className = 'relationship-strength';
+                div.innerHTML = `
+                    <span>${area.replace(/_/g, ' ')}</span>
+                    <div class="strength-bar">
+                        <div class="strength-fill" style="width: ${strength * 100}%"></div>
+                    </div>
+                    <span class="strength-value">${strength}</span>
+                `;
+                competitionContainer.appendChild(div);
+            });
+
+            // Recommendations
+            const recommendationsContainer = document.getElementById('recommendations');
+            const recommendations = [
+                'Enhance counter-terrorism cooperation',
+                'Expand humanitarian aid coordination',
+                'Develop energy security frameworks',
+                'Establish conflict resolution mechanisms',
+                'Strengthen diplomatic engagement channels'
+            ];
+            
+            recommendations.forEach(rec => {
+                const div = document.createElement('div');
+                div.style.padding = '8px 0';
+                div.style.borderBottom = '1px solid #e0e0e0';
+                div.textContent = rec;
+                recommendationsContainer.appendChild(div);
+            });
+        }
+
+        // Tooltip functions
+        function showTooltip(content, x, y) {
+            const tooltip = document.getElementById('tooltip');
+            tooltip.innerHTML = content;
+            tooltip.style.left = x + 10 + 'px';
+            tooltip.style.top = y - 10 + 'px';
+            tooltip.style.display = 'block';
+        }
+
+        function hideTooltip() {
+            document.getElementById('tooltip').style.display = 'none';
+        }
+
+        // Control event listeners
+        document.getElementById('viewMode').addEventListener('change', function() {
+            // Implement view mode switching
+            console.log('View mode changed to:', this.value);
+        });
+
+        document.getElementById('relationshipType').addEventListener('change', function() {
+            // Implement relationship filtering
+            console.log('Relationship type changed to:', this.value);
+        });
+
+        document.getElementById('strengthThreshold').addEventListener('input', function() {
+            document.getElementById('thresholdValue').textContent = this.value;
+            // Implement strength filtering
+            console.log('Strength threshold changed to:', this.value);
+        });
+
+        // Initialize all components
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeNetwork();
+            initializeCharts();
+            initializeTimeline();
+            initializeRelationshipAreas();
+        });
+    </script>
+</body>
+</html>

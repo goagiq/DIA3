@@ -1,0 +1,141 @@
+graph TB
+    %% Simplified High-Level DIA3 Architecture
+    subgraph "User Interface"
+        UI[Web UI<br/>Streamlit]
+        API[API Gateway<br/>FastAPI]
+        MCP[MCP Server<br/>Model Context Protocol]
+    end
+    
+    subgraph "Core Intelligence"
+        Orchestrator[Orchestrator<br/>Central Coordinator]
+        StrategicEngine[Strategic Analysis<br/>Multi-Domain Engine]
+        AnalyticsEngine[Advanced Analytics<br/>Predictive & Pattern Recognition]
+    end
+    
+    subgraph "Agent Swarm"
+        TextAgent[Text Agent<br/>NLP & Analysis]
+        VisionAgent[Vision Agent<br/>Image & Video]
+        AudioAgent[Audio Agent<br/>Speech & Audio]
+        WebAgent[Web Agent<br/>Web Intelligence]
+        StrategicAgent[Strategic Agent<br/>Military & Business]
+        KnowledgeGraph[Knowledge Graph Agent<br/>Entity & Relationship]
+    end
+    
+    subgraph "Data Processing"
+        MultiModal[Multi-Modal<br/>Integration Engine]
+        DataIngestion[Data Ingestion<br/>& Processing]
+        VideoProcessor[Video Processing<br/>Analysis & Extraction]
+        AudioProcessor[Audio Processing<br/>Transcription & Analysis]
+        PDFProcessor[PDF Processing<br/>Text & Image Extraction]
+    end
+    
+    subgraph "Analytics"
+        PredictiveAnalytics[Predictive Analytics<br/>Time Series & Forecasting]
+        PatternRecognition[Pattern Recognition<br/>Advanced Detection]
+        SemanticSearch[Semantic Search<br/>Vector-Based Search]
+        AnomalyDetection[Anomaly Detection<br/>Statistical & ML]
+    end
+    
+    subgraph "Data Storage"
+        ChromaDB[(ChromaDB<br/>Vector Database)]
+        Redis[(Redis Cache<br/>In-Memory Storage)]
+        FileStorage[(File Storage<br/>Document & Media)]
+        Results[(Results Database<br/>Analysis Outputs)]
+    end
+    
+    subgraph "External Services"
+        Ollama[Ollama LLM<br/>Local AI Models]
+        OpenAI[OpenAI API<br/>Cloud AI Services]
+        YouTube[YouTube API<br/>Video Intelligence]
+        WebAPIs[Web APIs<br/>External Data Sources]
+    end
+    
+    subgraph "Monitoring & Visualization"
+        PerformanceMonitor[Performance Monitor<br/>System Metrics]
+        InteractiveCharts[Interactive Charts<br/>Forecasting & Analytics]
+        Dashboard[Dashboard System<br/>Real-Time Visualization]
+        Grafana[Grafana<br/>Monitoring Dashboards]
+    end
+    
+    %% Main Data Flow Connections
+    UI --> API
+    MCP --> API
+    API --> Orchestrator
+    
+    %% Core Intelligence Connections
+    Orchestrator --> StrategicEngine
+    Orchestrator --> AnalyticsEngine
+    
+    %% Agent Swarm Connections
+    Orchestrator --> TextAgent
+    Orchestrator --> VisionAgent
+    Orchestrator --> AudioAgent
+    Orchestrator --> WebAgent
+    Orchestrator --> StrategicAgent
+    Orchestrator --> KnowledgeGraph
+    
+    %% Data Processing Connections
+    Orchestrator --> MultiModal
+    Orchestrator --> DataIngestion
+    Orchestrator --> VideoProcessor
+    Orchestrator --> AudioProcessor
+    Orchestrator --> PDFProcessor
+    
+    %% Analytics Connections
+    Orchestrator --> PredictiveAnalytics
+    Orchestrator --> PatternRecognition
+    Orchestrator --> SemanticSearch
+    Orchestrator --> AnomalyDetection
+    
+    %% Data Storage Connections
+    ChromaDB --> SemanticSearch
+    ChromaDB --> KnowledgeGraph
+    Redis --> Orchestrator
+    FileStorage --> DataIngestion
+    Results --> Orchestrator
+    
+    %% External Services Connections
+    TextAgent --> Ollama
+    VisionAgent --> OpenAI
+    AudioAgent --> OpenAI
+    WebAgent --> YouTube
+    WebAgent --> WebAPIs
+    
+    %% Monitoring Connections
+    PerformanceMonitor --> Grafana
+    InteractiveCharts --> Dashboard
+    Results --> Dashboard
+    
+    %% Data Flow Connections
+    MultiModal --> ChromaDB
+    DataIngestion --> FileStorage
+    VideoProcessor --> ChromaDB
+    AudioProcessor --> ChromaDB
+    PDFProcessor --> ChromaDB
+    
+    %% Results Flow
+    StrategicEngine --> Results
+    AnalyticsEngine --> Results
+    
+    %% Cross-Layer Intelligence Connections
+    StrategicEngine --> KnowledgeGraph
+    KnowledgeGraph --> StrategicAgent
+    
+    %% Styling
+    classDef userLayer fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef coreLayer fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+    classDef agentLayer fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef dataLayer fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef analyticsLayer fill:#e0f2f1,stroke:#00695c,stroke-width:2px
+    classDef storageLayer fill:#f1f8e9,stroke:#689f38,stroke-width:2px
+    classDef externalLayer fill:#e8eaf6,stroke:#3f51b5,stroke-width:2px
+    classDef monitoringLayer fill:#fafafa,stroke:#424242,stroke-width:2px
+    
+    class UI,API,MCP userLayer
+    class Orchestrator,StrategicEngine,AnalyticsEngine coreLayer
+    class TextAgent,VisionAgent,AudioAgent,WebAgent,StrategicAgent,KnowledgeGraph agentLayer
+    class MultiModal,DataIngestion,VideoProcessor,AudioProcessor,PDFProcessor dataLayer
+    class PredictiveAnalytics,PatternRecognition,SemanticSearch,AnomalyDetection analyticsLayer
+    class ChromaDB,Redis,FileStorage,Results storageLayer
+    class Ollama,OpenAI,YouTube,WebAPIs externalLayer
+    class PerformanceMonitor,InteractiveCharts,Dashboard,Grafana monitoringLayer

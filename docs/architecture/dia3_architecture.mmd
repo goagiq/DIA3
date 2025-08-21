@@ -1,0 +1,196 @@
+graph TB
+    %% High-Level DIA3 Architecture
+    subgraph "Client Layer"
+        UI[Web UI<br/>Streamlit]russia_eu_strategic_positioning_interactive
+        API[API Clients<br/>REST/WebSocket]
+        MCP[MCP Clirussia_eu_strategic_positioning_interactiverussia_eu_strategic_positioning_interactiverussia_eu_strategic_positioning_interactiveents<br/>Model Context Protocol]
+        CLI[CLI Interface<br/>Command Line]
+    enddocs\architecture\dia3_architecture.mmddocs\architecture\dia3_architecture.mmddocs\architecture\dia3_architecture.mmddocs\architecture\dia3_architecture.mmddocs\architecture\dia3_architecture.mmddocs\architecture\dia3_architecture.mmd
+    russia_eu_strategic_positioning_interactive
+    subgraph "Gateway Layer"
+        FastAPI[FastAPI Gateway<br/>Request Routing & Auth]
+        MCP_Server[Unified MCP Server<br/>Tool Integration]
+        Standalone_MCP[Standalone MCP<br/>External Integration]
+    end
+    
+    subgraph "Core Intelligence Layer"
+        Orchestrator[Orchestrator<br/>Central Coordinator]
+        StrategicEngine[Strategic Analysis Engine<br/>Multi-Domain & Art of War]
+        AnalyticsEngine[Advanced Analytics Engine<br/>Predictive & Pattern Recognition]
+        MonteCarlo[Monte Carlo Engine<br/>Probabilistic Modeling]
+        ForceProrussia_eu_strategic_positioning_interactiverussia_eu_strategic_positioning_interactiverussia_eu_strategic_positioning_interactiverussia_eu_strategic_positioning_interactiverussia_eu_strategic_positioning_interactiverussia_eu_strategic_positioning_interactivejection[Force Projection Engine<br/>Military & Strategic Analysis]
+    end
+    
+    subgraph "Agent Swarm Layer"
+        TextAgent[Text Agent<br/>NLP & Analysis]
+        VisionAgent[Vision Agent<br/>Image & Video]
+        AudioAgent[Audio Agent<br/>Speech & Audio]
+        WebAgent[Web Agent<br/>Web Intelligence]
+        FileAgent[File Agent<br/>Document Processing]
+        StrategicAgent[Strategic Agent<br/>Military & Business]
+        KnowledgeGraph[Knowledge Graph Agent<br/>Entity & Relationship]
+        DeceptionAgent[Deception Agent<br/>Art of War Analysis]
+        BusinessAgent[Business Intelligence Agent<br/>Market & Economic]
+        ForecastingAgent[Forecasting Agent<br/>Predictive Analytics]
+        MLAgent[Advanced ML Agent<br/>Machine Learning]
+    end
+    
+    subgraph "Data Processing Layer"
+        MultiModal[Multi-Modal<br/>Integration Engine]
+        DataIngestion[Data Ingestion<br/>& Processing]
+        VideoProcessor[Video Processing<br/>Analysis & Extraction]
+        AudioProcessor[Audio Processing<br/>Transcription & Analysis]
+        PDFProcessor[PDF Processing<br/>Text & Image Extraction]
+        ImageProcessor[Image Processing<br/>Computer Vision]
+        TranslationService[Translation Service<br/>Multi-Language]
+    end
+    
+    subgraph "Analytics Layer"
+        PredictiveAnalytics[Predictive Analytics<br/>Time Series & Forecasting]
+        PatternRecognition[Pattern Recognition<br/>Advanced Detection]
+        SemanticSearch[Semantic Search<br/>Vector-Based Search]
+        AnomalyDetection[Anomaly Detection<br/>Statistical & ML]
+        CausalAnalysis[Causal Analysis<br/>Cause-Effect Modeling]
+        RiskAssessment[Risk Assessment<br/>Threat & Opportunity]
+        RealTimeMonitoring[Real-Time Monitoring<br/>Live Data Analysis]
+    end
+    
+    subgraph "Data Storage Layer"
+        ChromaDB[(ChromaDB<br/>Vector Database)]
+        Redis[(Redis Cache<br/>In-Memory Storage)]
+        FileStorage[(File Storage<br/>Document & Media)]
+        Results[(Results Database<br/>Analysis Outputs)]
+        Logs[(Log Storage<br/>System Logs)]
+    end
+    
+    subgraph "External Intelligence"
+        Ollama[Ollama LLM<br/>Local AI Models]
+        OpenAI[OpenAI API<br/>Cloud AI Services]
+        YouTube[YouTube API<br/>Video Intelligence]
+        WebAPIs[Web APIs<br/>External Data Sources]
+        MCP_Tools[MCP Tools<br/>External Integrations]
+    end
+    
+    subgraph "Monitoring & Visualization"
+        PerformanceMonitor[Performance Monitor<br/>System Metrics]
+        InteractiveCharts[Interactive Charts<br/>Forecasting & Analytics]
+        Dashboard[Dashboard System<br/>Real-Time Visualization]
+        Grafana[Grafana<br/>Monitoring Dashboards]
+        Prometheus[Prometheus<br/>Metrics Collection]
+    end
+    
+    %% Client Layer Connections
+    UI --> FastAPI
+    API --> FastAPI
+    MCP --> MCP_Server
+    CLI --> FastAPI
+    
+    %% Gateway Layer Connections
+    FastAPI --> Orchestrator
+    MCP_Server --> Orchestrator
+    Standalone_MCP --> Orchestrator
+    
+    %% Core Intelligence Layer Connections
+    Orchestrator --> StrategicEngine
+    Orchestrator --> AnalyticsEngine
+    Orchestrator --> MonteCarlo
+    Orchestrator --> ForceProjection
+    
+    %% Agent Swarm Connections
+    Orchestrator --> TextAgent
+    Orchestrator --> VisionAgent
+    Orchestrator --> AudioAgent
+    Orchestrator --> WebAgent
+    Orchestrator --> FileAgent
+    Orchestrator --> StrategicAgent
+    Orchestrator --> KnowledgeGraph
+    Orchestrator --> DeceptionAgent
+    Orchestrator --> BusinessAgent
+    Orchestrator --> ForecastingAgent
+    Orchestrator --> MLAgent
+    
+    %% Data Processing Connections
+    Orchestrator --> MultiModal
+    Orchestrator --> DataIngestion
+    Orchestrator --> VideoProcessor
+    Orchestrator --> AudioProcessor
+    Orchestrator --> PDFProcessor
+    Orchestrator --> ImageProcessor
+    Orchestrator --> TranslationService
+    
+    %% Analytics Connections
+    Orchestrator --> PredictiveAnalytics
+    Orchestrator --> PatternRecognition
+    Orchestrator --> SemanticSearch
+    Orchestrator --> AnomalyDetection
+    Orchestrator --> CausalAnalysis
+    Orchestrator --> RiskAssessment
+    Orchestrator --> RealTimeMonitoring
+    
+    %% Data Storage Connections
+    ChromaDB --> SemanticSearch
+    ChromaDB --> KnowledgeGraph
+    Redis --> Orchestrator
+    FileStorage --> DataIngestion
+    Results --> Orchestrator
+    Logs --> PerformanceMonitor
+    
+    %% External Intelligence Connections
+    TextAgent --> Ollama
+    VisionAgent --> OpenAI
+    AudioAgent --> OpenAI
+    WebAgent --> YouTube
+    WebAgent --> WebAPIs
+    MCP_Server --> MCP_Tools
+    
+    %% Monitoring Connections
+    PerformanceMonitor --> Grafana
+    PerformanceMonitor --> Prometheus
+    InteractiveCharts --> Dashboard
+    RealTimeMonitoring --> Dashboard
+    
+    %% Cross-Layer Intelligence Connections
+    StrategicEngine --> MonteCarlo
+    AnalyticsEngine --> MonteCarlo
+    ForceProjection --> MonteCarlo
+    KnowledgeGraph --> StrategicAgent
+    DeceptionAgent --> StrategicEngine
+    BusinessAgent --> AnalyticsEngine
+    ForecastingAgent --> PredictiveAnalytics
+    MLAgent --> PatternRecognition
+    
+    %% Data Flow Connections
+    MultiModal --> ChromaDB
+    DataIngestion --> FileStorage
+    VideoProcessor --> ChromaDB
+    AudioProcessor --> ChromaDB
+    PDFProcessor --> ChromaDB
+    ImageProcessor --> ChromaDB
+    
+    %% Results Flow
+    StrategicEngine --> Results
+    AnalyticsEngine --> Results
+    MonteCarlo --> Results
+    ForceProjection --> Results
+    Results --> Dashboard
+    
+    %% Styling
+    classDef clientLayer fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef gatewayLayer fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef coreLayer fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+    classDef agentLayer fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef dataLayer fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef analyticsLayer fill:#e0f2f1,stroke:#00695c,stroke-width:2px
+    classDef storageLayer fill:#f1f8e9,stroke:#689f38,stroke-width:2px
+    classDef externalLayer fill:#e8eaf6,stroke:#3f51b5,stroke-width:2px
+    classDef monitoringLayer fill:#fafafa,stroke:#424242,stroke-width:2px
+    
+    class UI,API,MCP,CLI clientLayer
+    class FastAPI,MCP_Server,Standalone_MCP gatewayLayer
+    class Orchestrator,StrategicEngine,AnalyticsEngine,MonteCarlo,ForceProjection coreLayer
+    class TextAgent,VisionAgent,AudioAgent,WebAgent,FileAgent,StrategicAgent,KnowledgeGraph,DeceptionAgent,BusinessAgent,ForecastingAgent,MLAgent agentLayer
+    class MultiModal,DataIngestion,VideoProcessor,AudioProcessor,PDFProcessor,ImageProcessor,TranslationService dataLayer
+    class PredictiveAnalytics,PatternRecognition,SemanticSearch,AnomalyDetection,CausalAnalysis,RiskAssessment,RealTimeMonitoring analyticsLayer
+    class ChromaDB,Redis,FileStorage,Results,Logs storageLayer
+    class Ollama,OpenAI,YouTube,WebAPIs,MCP_Tools externalLayer
+    class PerformanceMonitor,InteractiveCharts,Dashboard,Grafana,Prometheus monitoringLayer
