@@ -9,6 +9,7 @@ including:
 - Mermaid diagram conversion
 - Template management
 - Async processing with progress tracking
+- Enhanced report export with component selection
 """
 
 from .markdown_export_service import MarkdownExportService
@@ -18,6 +19,7 @@ from .markdown_parser import MarkdownParser
 from .mermaid_converter import MermaidConverter
 from .template_manager import TemplateManager
 from .progress_tracker import ProgressTracker
+from .report_exporter import EnhancedReportExporter, ExportComponent, ExportConfiguration
 
 __all__ = [
     'MarkdownExportService',
@@ -26,5 +28,8 @@ __all__ = [
     'MarkdownParser',
     'MermaidConverter',
     'TemplateManager',
-    'ProgressTracker'
+    'ProgressTracker',
+    'EnhancedReportExporter',
+    'ExportComponent',
+    'ExportConfiguration'
 ]

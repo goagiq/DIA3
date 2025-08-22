@@ -326,12 +326,15 @@ class DataIngestionService:
         try:
             logger.info(f"🌐 Fetching content from URL: {url}")
             
-            # Fetch content from URL
-            import requests
-            response = requests.get(url, timeout=30)
-            response.raise_for_status()
+            # Fetch content from URL using enhanced fetch service
+            from src.core.fetch_service import fetch_url_safe
             
-            content = response.text
+            result = await fetch_url_safe(url, method="GET")
+            
+            if not result.success:
+                raise Exception(f"Failed to fetch URL: {result.error_message}")
+            
+            content = result.content
             
             # Extract title from HTML if not provided
             if metadata is None:

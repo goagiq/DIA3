@@ -3,7 +3,7 @@ Model configuration with environment variable support.
 """
 
 from typing import Dict, Any, Optional
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from pydantic_settings import BaseSettings
 
 
@@ -78,10 +78,12 @@ class ModelSettings(BaseSettings):
         description="Maximum tool calls per request"
     )
     
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
-        case_sensitive = False
+    model_config = ConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=False,
+        extra="ignore"  # Allow extra fields to be ignored
+    )
 
 
 class ModelConfig:

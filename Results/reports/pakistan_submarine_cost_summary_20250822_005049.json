@@ -1,0 +1,40 @@
+{
+  "total_program_cost": 12350000000,
+  "total_10_year_cost": 16100000000,
+  "cost_distribution": {
+    "conventional_submarines": 28.74493927125506,
+    "nuclear_submarines": 56.68016194331984,
+    "infrastructure": 14.5748987854251
+  },
+  "annual_operational_cost": 375000000,
+  "cost_effectiveness_ratio": 1.214574898785425,
+  "regional_comparison": {
+    "pakistan": 12350000000,
+    "india": 12800000000,
+    "china": 36800000000
+  },
+  "risk_scenarios": {
+    "best_case": {
+      "cost_overrun": 0.0,
+      "total_cost": 12350000000,
+      "description": "On-budget delivery"
+    },
+    "realistic": {
+      "cost_overrun": 0.25,
+      "total_cost": 15437500000.0,
+      "description": "25% cost overrun (typical)"
+    },
+    "worst_case": {
+      "cost_overrun": 0.5,
+      "total_cost": 18525000000.0,
+      "description": "50% cost overrun (high risk)"
+    }
+  },
+  "deterrence_value": {
+    "strategic_deterrence": 8500000000,
+    "sea_lane_protection": 2000000000,
+    "economic_zone_security": 1500000000,
+    "regional_balance": 3000000000
+  },
+  "generated_timestamp": "2025-08-22T00:50:49.221669"
+}

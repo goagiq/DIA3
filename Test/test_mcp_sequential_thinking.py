@@ -87,20 +87,28 @@ def test_sequential_analysis():
     print("\n🧠 Testing Sequential Thinking Analysis...")
     
     try:
-        from core.multi_domain_monte_carlo_engine import MultiDomainMonteCarloEngine
+        from src.core.sequential_thinking_service import analyze_sequential_thinking_safe
         
-        # Initialize engine
-        engine = MultiDomainMonteCarloEngine()
-        print("✅ Multi-Domain Monte Carlo Engine initialized")
+        # Test sequential analysis with timeout handling
+        async def run_analysis():
+            return await analyze_sequential_thinking_safe(
+                scenario="test_scenario",
+                steps=3,
+                iterations=10
+            )
         
-        # Test sequential analysis
-        analysis_result = engine.analyze_sequential_thinking(
-            scenario="test_scenario",
-            steps=3,
-            iterations=10
-        )
+        # Run the async analysis
+        import asyncio
+        analysis_result = asyncio.run(run_analysis())
         
-        print(f"✅ Sequential analysis completed: {len(analysis_result)} steps")
+        if analysis_result.success:
+            print("✅ Sequential analysis completed successfully")
+            print(f"   Steps completed: {len(analysis_result.steps_completed)}")
+            print(f"   Duration: {analysis_result.total_duration:.2f}s")
+        else:
+            print(f"❌ Sequential analysis failed: {analysis_result.error_messages}")
+            return False
+        
         return True
         
     except Exception as e:

@@ -189,6 +189,25 @@ def initialize_enhanced_markdown_export_service():
         print(f"⚠️ Warning: Could not initialize enhanced markdown export service: {e}")
         return None
 
+def initialize_enhanced_report_system():
+    """Initialize the enhanced report generation system."""
+    try:
+        from src.core.export.enhanced_report_integration import enhanced_report_integration
+        from src.core.analysis.monte_carlo_simulator import MonteCarloSimulator
+        
+        # Test the enhanced report system
+        test_data = enhanced_report_integration.create_pakistan_submarine_analysis_data()
+        
+        print("✅ Enhanced report generation system initialized")
+        print(f"   - Monte Carlo simulator available: {MonteCarloSimulator is not None}")
+        print(f"   - Enhanced report integration available: {enhanced_report_integration is not None}")
+        print(f"   - Test data generated: {len(test_data)} components")
+        
+        return enhanced_report_integration
+    except Exception as e:
+        print(f"⚠️ Warning: Could not initialize enhanced report system: {e}")
+        return None
+
 def start_standalone_mcp_server(host: str = "localhost", port: int = 8000):
     """Start standalone MCP server for Strands integration."""
     try:
@@ -311,6 +330,9 @@ if __name__ == "__main__":
     
     # Initialize enhanced markdown export service
     enhanced_markdown_export_service = initialize_enhanced_markdown_export_service()
+    
+    # Initialize enhanced report system
+    enhanced_report_system = initialize_enhanced_report_system()
     
     # Initialize Phase 1 ML/DL/RL Forecasting Components
     print("Initializing Phase 1 ML/DL/RL Forecasting Components...")

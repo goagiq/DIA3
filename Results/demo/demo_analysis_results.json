@@ -1,0 +1,9 @@
+{
+  "analysis_type": "demo",
+  "timestamp": "2025-01-17T10:00:00",
+  "results": {
+    "accuracy": 0.95,
+    "precision": 0.92,
+    "recall": 0.88
+  }
+}

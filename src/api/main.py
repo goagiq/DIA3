@@ -435,6 +435,16 @@ if MULTI_DOMAIN_MONTE_CARLO_AVAILABLE:
 else:
     logger.warning("⚠️ Multi-Domain Monte Carlo routes not available")
 
+# Import and include Enhanced Report routes
+try:
+    from src.api.routes.enhanced_report_routes import router as enhanced_report_router
+    app.include_router(enhanced_report_router)
+    logger.info("✅ Enhanced Report routes included")
+    ENHANCED_REPORT_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"⚠️ Enhanced Report routes not available: {e}")
+    ENHANCED_REPORT_AVAILABLE = False
+
 # Include force projection routes if available
 if FORCE_PROJECTION_AVAILABLE:
     app.include_router(force_projection_router)

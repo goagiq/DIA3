@@ -97,6 +97,14 @@ except ImportError as e:
     logger.warning(f"Force projection MCP tools not available: {e}")
     FORCE_PROJECTION_MCP_AVAILABLE = False
 
+# Import enhanced report MCP tools
+try:
+    from src.mcp_servers.enhanced_report_mcp_tools import EnhancedReportMCPTools
+    ENHANCED_REPORT_MCP_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Enhanced report MCP tools not available: {e}")
+    ENHANCED_REPORT_MCP_AVAILABLE = False
+
 # Import markdown export MCP tools
 try:
     from src.mcp_servers.markdown_export_mcp_tools import MarkdownExportMCPTools
@@ -247,6 +255,17 @@ class UnifiedMCPServer:
                 self.force_projection_mcp_tools = None
         else:
             self.force_projection_mcp_tools = None
+        
+        # Initialize enhanced report MCP tools
+        if ENHANCED_REPORT_MCP_AVAILABLE:
+            try:
+                self.enhanced_report_mcp_tools = EnhancedReportMCPTools()
+                logger.info("✅ Enhanced Report MCP Tools initialized")
+            except Exception as e:
+                logger.warning(f"⚠️ Could not initialize Enhanced Report MCP Tools: {e}")
+                self.enhanced_report_mcp_tools = None
+        else:
+            self.enhanced_report_mcp_tools = None
         
         # Initialize markdown export MCP tools
         if MARKDOWN_EXPORT_MCP_AVAILABLE:
@@ -3964,6 +3983,39 @@ This report contains comprehensive analysis results including deception analysis
         except Exception as e:
             logger.error(f"Failed to register Simple Markdown Export tools: {e}")
             logger.warning("⚠️ Simple Markdown Export tools not available")
+        
+        # Register Enhanced Report tools if available
+        try:
+            if hasattr(self, 'enhanced_report_mcp_tools') and self.enhanced_report_mcp_tools:
+                enhanced_report_tools = self.enhanced_report_mcp_tools.get_tools()
+                
+                for tool in enhanced_report_tools:
+                    tool_name = tool["name"]
+                    tool_description = tool["description"]
+                    
+                    # Create dynamic tool registration
+                    def create_enhanced_report_tool(tool_name, tool_description):
+                        @self.mcp.tool(description=tool_description)
+                        async def enhanced_report_tool(**kwargs):
+                            """Dynamic enhanced report tool."""
+                            method_name = tool_name
+                            if hasattr(self.enhanced_report_mcp_tools, method_name):
+                                method = getattr(self.enhanced_report_mcp_tools, method_name)
+                                return await method(**kwargs)
+                            else:
+                                return {"success": False, "error": f"Method {method_name} not found"}
+                        
+                        return enhanced_report_tool
+                    
+                    # Register the tool
+                    create_enhanced_report_tool(tool_name, tool_description)
+                
+                logger.info("✅ Enhanced Report tools registered")
+            else:
+                logger.warning("⚠️ Enhanced Report tools not available")
+        except Exception as e:
+            logger.error(f"Failed to register Enhanced Report tools: {e}")
+            logger.warning("⚠️ Enhanced Report tools not available")
 
     async def ensure_tools_registered(self):
         """Ensure tools are registered (async)."""

@@ -1,0 +1,159 @@
+{
+  "parameters": {
+    "submarine_cost_per_unit": {
+      "distribution_type": "lognormal",
+      "parameters": {
+        "mean": 3.5,
+        "sigma": 0.3
+      },
+      "description": "Cost per submarine (billions USD)",
+      "unit": "billion USD"
+    },
+    "infrastructure_cost": {
+      "distribution_type": "triangular",
+      "parameters": {
+        "left": 4.0,
+        "mode": 6.0,
+        "right": 8.0
+      },
+      "description": "Infrastructure development cost",
+      "unit": "billion USD"
+    },
+    "training_cost": {
+      "distribution_type": "normal",
+      "parameters": {
+        "mean": 4.0,
+        "std": 0.8
+      },
+      "description": "Training and personnel cost",
+      "unit": "billion USD"
+    },
+    "weapons_cost": {
+      "distribution_type": "uniform",
+      "parameters": {
+        "low": 1.5,
+        "high": 3.0
+      },
+      "description": "Weapons systems cost",
+      "unit": "billion USD"
+    },
+    "annual_maintenance": {
+      "distribution_type": "gamma",
+      "parameters": {
+        "shape": 2.0,
+        "scale": 1.2
+      },
+      "description": "Annual maintenance cost",
+      "unit": "billion USD"
+    },
+    "implementation_timeline": {
+      "distribution_type": "triangular",
+      "parameters": {
+        "left": 12,
+        "mode": 18,
+        "right": 25
+      },
+      "description": "Implementation timeline",
+      "unit": "years"
+    },
+    "regional_response_probability": {
+      "distribution_type": "binomial",
+      "parameters": {
+        "n": 1,
+        "p": 0.85
+      },
+      "description": "Probability of regional response",
+      "unit": "probability"
+    },
+    "economic_impact_factor": {
+      "distribution_type": "normal",
+      "parameters": {
+        "mean": 1.0,
+        "std": 0.2
+      },
+      "description": "Economic impact multiplier",
+      "unit": "multiplier"
+    }
+  },
+  "results": {
+    "total_cost": {
+      "mean": 1783.7793578063458,
+      "std": 532.0231091951543,
+      "percentiles": {
+        "5%": 1061.2513319503728,
+        "25%": 1404.3039376851993,
+        "50%": 1709.6331003024416,
+        "75%": 2072.6228042078956,
+        "95%": 2738.32801421183
+      },
+      "confidence_intervals": {
+        "90%": [
+          1061.2513319503728,
+          2738.32801421183
+        ],
+        "95%": [
+          964.8639475746321,
+          3049.541355586417
+        ],
+        "99%": [
+          806.8546766827563,
+          3721.2900157764457
+        ]
+      }
+    },
+    "risk_score": {
+      "mean": 0.7109651210886818,
+      "std": 0.10976765269863899,
+      "percentiles": {
+        "5%": 0.4388477553149935,
+        "25%": 0.7211559712114144,
+        "50%": 0.7455874427476036,
+        "75%": 0.7685976081859512,
+        "95%": 0.8052861052577803
+      },
+      "confidence_intervals": {
+        "90%": [
+          0.4388477553149935,
+          0.8052861052577803
+        ],
+        "95%": [
+          0.4259019784761448,
+          0.816883810473385
+        ],
+        "99%": [
+          0.4049413042614585,
+          0.8391483527279194
+        ]
+      }
+    },
+    "strategic_impact": {
+      "mean": 4.334335537837417,
+      "std": 0.045921106782375966,
+      "percentiles": {
+        "5%": 4.267484053289368,
+        "25%": 4.2999453769066385,
+        "50%": 4.329726421017728,
+        "75%": 4.3633543306870575,
+        "95%": 4.418759307013444
+      },
+      "confidence_intervals": {
+        "90%": [
+          4.267484053289368,
+          4.418759307013444
+        ],
+        "95%": [
+          4.260624413449447,
+          4.436762927761403
+        ],
+        "99%": [
+          4.249449886466962,
+          4.463727844868656
+        ]
+      }
+    }
+  },
+  "simulation_metadata": {
+    "n_iterations": 10000,
+    "timestamp": "2025-08-22T00:29:14.070945"
+  }
+}

@@ -144,7 +144,45 @@
       "resource_check_interval": 10,
       "description": "Adversary force projection simulation using log-normal distribution"
     },
-
+    "enhanced_report_generation": {
+      "enabled": true,
+      "priority": 10,
+      "max_cpu_percent": 90.0,
+      "max_memory_mb": 8192.0,
+      "max_gpu_percent": 90.0,
+      "auto_scale": true,
+      "dependencies": ["monte_carlo", "deception_analysis", "business_intelligence"],
+      "startup_timeout": 45,
+      "health_check_interval": 60,
+      "resource_check_interval": 8,
+      "description": "Enhanced comprehensive report generation with 25+ analysis components"
+    },
+    "monte_carlo_simulation": {
+      "enabled": true,
+      "priority": 9,
+      "max_cpu_percent": 95.0,
+      "max_memory_mb": 4096.0,
+      "max_gpu_percent": 90.0,
+      "auto_scale": true,
+      "dependencies": [],
+      "startup_timeout": 30,
+      "health_check_interval": 60,
+      "resource_check_interval": 10,
+      "description": "Monte Carlo simulation engine for risk assessment and forecasting"
+    },
+    "strategic_analysis": {
+      "enabled": true,
+      "priority": 8,
+      "max_cpu_percent": 85.0,
+      "max_memory_mb": 4096.0,
+      "max_gpu_percent": 85.0,
+      "auto_scale": true,
+      "dependencies": ["deception_analysis"],
+      "startup_timeout": 35,
+      "health_check_interval": 60,
+      "resource_check_interval": 12,
+      "description": "Strategic intelligence analysis and geopolitical mapping"
+    }
   },
   "resource_thresholds": {
     "critical_cpu_percent": 90.0,

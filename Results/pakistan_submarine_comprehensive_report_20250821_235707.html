@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pakistan's 50-Submarine Acquisition: Comprehensive Strategic Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 50px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 3.5em;
+            font-weight: 300;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .header p {
+            margin: 15px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.3em;
+        }
+        .timestamp {
+            font-size: 1em;
+            opacity: 0.7;
+            margin-top: 15px;
+        }
+        .content {
+            padding: 40px;
+        }
+        .section {
+            margin-bottom: 50px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #1e3c72;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #1e3c72;
+            padding-bottom: 10px;
+        }
+        .section h3 {
+            color: #2a5298;
+            font-size: 1.6em;
+            margin: 25px 0 15px 0;
+        }
+        .section h4 {
+            color: #3a6bb8;
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+        }
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #1e3c72;
+            transition: transform 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        .stat-value {
+            font-size: 3em;
+            font-weight: bold;
+            color: #1e3c72;
+            margin: 15px 0;
+        }
+        .stat-label {
+            color: #6c757d;
+            font-size: 1em;
+            font-weight: 600;
+        }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        .chart-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .chart-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .chart-wrapper {
+            position: relative;
+            height: 350px;
+        }
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        .professional-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .professional-table th {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        .professional-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 1em;
+        }
+        .professional-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .professional-table tr:hover {
+            background: #e3f2fd;
+        }
+        .professional-table tr:last-child td {
+            border-bottom: none;
+        }
+        .risk-high { color: #dc3545; font-weight: bold; }
+        .risk-medium { color: #ffc107; font-weight: bold; }
+        .risk-low { color: #28a745; font-weight: bold; }
+        .risk-critical { color: #dc3545; font-weight: bold; background: #fff5f5; }
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        .key-findings {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 5px solid #2196f3;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .risk-assessment {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        .risk-title {
+            color: #856404;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .risk-item {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+        }
+        .recommendations {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border-left: 5px solid #4caf50;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .conclusion {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            border-left: 5px solid #9c27b0;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .metric-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .metric-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+        .metric-label {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Pakistan's 50-Submarine Acquisition</h1>
+            <p>Comprehensive Strategic Analysis for Conventional Deterrence</p>
+            <div class="timestamp">Generated: August 21, 2025 - 23:57:07 | Analysis Type: Comprehensive Strategic Assessment | Confidence Level: 85%</div>
+        </div>
+
+        <div class="content">
+            <!-- Executive Summary -->
+            <div class="section">
+                <h2>🎯 Executive Summary</h2>
+                <p>Pakistan's proposed acquisition of 50 submarines represents the most ambitious naval modernization program in South Asian history. This enhanced analysis examines the strategic implications through multiple analytical frameworks, incorporating economic feasibility, technological challenges, regional security dynamics, and conventional deterrence theory.</p>
+                
+                <div class="key-findings">
+                    <h3>Key Findings</h3>
+                    <ul>
+                        <li><strong>Strategic Impact:</strong> 1000% increase in submarine fleet would fundamentally alter regional naval balance</li>
+                        <li><strong>Economic Reality:</strong> $15-25 billion acquisition cost exceeds Pakistan's sustainable defense budget</li>
+                        <li><strong>Regional Escalation:</strong> High probability of Indian counter-response and regional arms race</li>
+                        <li><strong>Operational Viability:</strong> Significant challenges in personnel training and infrastructure development</li>
+                        <li><strong>Deterrence Enhancement:</strong> Would provide credible conventional deterrent but at high cost</li>
+                    </ul>
+                </div>
+
+                <div class="summary-stats">
+                    <div class="stat-card">
+                        <div class="stat-label">Fleet Increase</div>
+                        <div class="stat-value">1000%</div>
+                        <div class="stat-label">5 to 55 submarines</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Total Cost</div>
+                        <div class="stat-value">$25-42B</div>
+                        <div class="stat-label">Initial investment</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Annual Maintenance</div>
+                        <div class="stat-value">$2-3B</div>
+                        <div class="stat-label">Ongoing costs</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Personnel Required</div>
+                        <div class="stat-value">2,000-3,000</div>
+                        <div class="stat-label">Additional naval personnel</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Timeline</div>
+                        <div class="stat-value">15-20</div>
+                        <div class="stat-label">Years to completion</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Risk Level</div>
+                        <div class="stat-value risk-high">HIGH</div>
+                        <div class="stat-label">Economic & operational</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strategic Context -->
+            <div class="section">
+                <h2>📊 Strategic Context & Current Balance</h2>
+                
+                <h3>Current Naval Forces Comparison</h3>
+                <table class="professional-table">
+                    <thead>
+                        <tr>
+                            <th>Country</th>
+                            <th>Submarines</th>
+                            <th>Type Distribution</th>
+                            <th>Strategic Role</th>
+                            <th>Regional Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Pakistan</strong></td>
+                            <td>5</td>
+                            <td>3 Agosta 90B, 2 Agosta 70</td>
+                            <td>Defensive, Sea Denial</td>
+                            <td class="risk-low">Limited</td>
+                        </tr>
+                        <tr>
+                            <td><strong>India</strong></td>
+                            <td>16</td>
+                            <td>1 Nuclear, 15 Conventional</td>
+                            <td>Regional Power Projection</td>
+                            <td class="risk-medium">Significant</td>
+                        </tr>
+                        <tr>
+                            <td><strong>China</strong></td>
+                            <td>66</td>
+                            <td>12 Nuclear, 54 Conventional</td>
+                            <td>Global Power Projection</td>
+                            <td class="risk-high">Major</td>
+                        </tr>
+                        <tr>
+                            <td><strong>United States</strong></td>
+                            <td>68</td>
+                            <td>All Nuclear-Powered</td>
+                            <td>Global Dominance</td>
+                            <td class="risk-high">Dominant</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Russia</strong></td>
+                            <td>60</td>
+                            <td>11 Nuclear, 49 Conventional</td>
+                            <td>Strategic Deterrence</td>
+                            <td class="risk-medium">Significant</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Proposed Transformation</h3>
+                <div class="metric-grid">
+                    <div class="metric-item">
+                        <div class="metric-value">5</div>
+                        <div class="metric-label">Current Submarines</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-value">55</div>
+                        <div class="metric-label">Proposed Submarines</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-value">1000%</div>
+                        <div class="metric-label">Fleet Expansion</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-value">15-20</div>
+                        <div class="metric-label">Years Timeline</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Economic Analysis -->
+            <div class="section">
+                <h2>💰 Economic Analysis</h2>
+                
+                <h3>Cost Breakdown (USD Billions)</h3>
+                <table class="professional-table">
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Low Estimate</th>
+                            <th>High Estimate</th>
+                            <th>Risk Level</th>
+                            <th>Impact Assessment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Submarine Acquisition</strong></td>
+                            <td>$15.0B</td>
+                            <td>$25.0B</td>
+                            <td class="risk-high">HIGH</td>
+                            <td>Major budget strain</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Infrastructure Development</strong></td>
+                            <td>$5.0B</td>
+                            <td>$8.0B</td>
+                            <td class="risk-medium">MEDIUM</td>
+                            <td>Significant investment</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Training & Personnel</strong></td>
+                            <td>$3.0B</td>
+                            <td>$5.0B</td>
+                            <td class="risk-medium">MEDIUM</td>
+                            <td>Long-term commitment</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Weapons Systems</strong></td>
+                            <td>$2.0B</td>
+                            <td>$4.0B</td>
+                            <td class="risk-low">LOW</td>
+                            <td>Standard requirement</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Annual Maintenance</strong></td>
+                            <td>$2.0B</td>
+                            <td>$3.0B</td>
+                            <td class="risk-critical">CRITICAL</td>
+                            <td>Ongoing burden</td>
+                        </tr>
+                        <tr style="background: #e3f2fd; font-weight: bold;">
+                            <td><strong>TOTAL INITIAL INVESTMENT</strong></td>
+                            <td><strong>$25.0B</strong></td>
+                            <td><strong>$42.0B</strong></td>
+                            <td class="risk-critical">CRITICAL</td>
+                            <td>Beyond capacity</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Economic Feasibility Assessment</h3>
+                <div class="key-findings">
+                    <ul>
+                        <li><strong>Pakistan's Annual Defense Budget:</strong> ~$10 billion</li>
+                        <li><strong>Required Annual Investment:</strong> $2-3 billion (20-30% of defense budget)</li>
+                        <li><strong>Foreign Exchange Impact:</strong> Significant pressure on Pakistan's reserves</li>
+                        <li><strong>Sustainability Risk:</strong> HIGH - Likely beyond economic capacity</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Regional Security Implications -->
+            <div class="section">
+                <h2>🌍 Regional Security Implications</h2>
+                
+                <h3>Regional Response Analysis</h3>
+                <table class="professional-table">
+                    <thead>
+                        <tr>
+                            <th>Country</th>
+                            <th>Current Submarines</th>
+                            <th>Likely Response</th>
+                            <th>Probability</th>
+                            <th>Risk Level</th>
+                            <th>Strategic Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>India</strong></td>
+                            <td>16</td>
+                            <td>Massive ASW investment, nuclear submarine acceleration</td>
+                            <td>95%</td>
+                            <td class="risk-critical">CRITICAL</td>
+                            <td>Arms race escalation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>China</strong></td>
+                            <td>66</td>
+                            <td>Technology transfer, strategic partnership</td>
+                            <td>85%</td>
+                            <td class="risk-high">HIGH</td>
+                            <td>Regional power shift</td>
+                        </tr>
+                        <tr>
+                            <td><strong>United States</strong></td>
+                            <td>68</td>
+                            <td>Increased naval presence in Indian Ocean</td>
+                            <td>70%</td>
+                            <td class="risk-high">HIGH</td>
+                            <td>Great power competition</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Russia</strong></td>
+                            <td>60</td>
+                            <td>Potential technology transfer</td>
+                            <td>60%</td>
+                            <td class="risk-medium">MEDIUM</td>
+                            <td>Limited regional impact</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gulf States</strong></td>
+                            <td>15-20</td>
+                            <td>Enhanced maritime security concerns</td>
+                            <td>75%</td>
+                            <td class="risk-medium">MEDIUM</td>
+                            <td>Energy security impact</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Regional Arms Race Risk Assessment</h3>
+                <table class="professional-table">
+                    <thead>
+                        <tr>
+                            <th>Risk Factor</th>
+                            <th>Probability</th>
+                            <th>Impact</th>
+                            <th>Overall Risk</th>
+                            <th>Mitigation Strategy</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Indian Counter-Response</strong></td>
+                            <td>95%</td>
+                            <td class="risk-critical">HIGH</td>
+                            <td class="risk-critical">CRITICAL</td>
+                            <td>Transparency measures</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Regional Proliferation</strong></td>
+                            <td>80%</td>
+                            <td class="risk-medium">MEDIUM</td>
+                            <td class="risk-high">HIGH</td>
+                            <td>Arms control initiatives</td>
+                        </tr>
+                        <tr>
+                            <td><strong>US Naval Buildup</strong></td>
+                            <td>70%</td>
+                            <td class="risk-high">HIGH</td>
+                            <td class="risk-high">HIGH</td>
+                            <td>Diplomatic engagement</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Chinese Strategic Support</strong></td>
+                            <td>85%</td>
+                            <td class="risk-medium">MEDIUM</td>
+                            <td class="risk-high">HIGH</td>
+                            <td>Diversified partnerships</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="section">
+                <h2>📊 Strategic Visualizations</h2>
+                
+                <div class="charts-grid">
+                    <div class="chart-section">
+                        <div class="chart-title">Current vs Proposed Submarine Fleets</div>
+                        <div class="chart-wrapper">
+                            <canvas id="fleetComparison"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-section">
+                        <div class="chart-title">Cost Breakdown Analysis</div>
+                        <div class="chart-wrapper">
+                            <canvas id="costBreakdown"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-section">
+                        <div class="chart-title">Strategic Impact Assessment</div>
+                        <div class="chart-wrapper">
+                            <canvas id="strategicImpact"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-section">
+                        <div class="chart-title">Risk Assessment Matrix</div>
+                        <div class="chart-wrapper">
+                            <canvas id="riskMatrix"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Risk Assessment -->
+            <div class="section">
+                <h2>⚠️ Risk Assessment Matrix</h2>
+                
+                <table class="professional-table">
+                    <thead>
+                        <tr>
+                            <th>Risk Category</th>
+                            <th>Probability</th>
+                            <th>Impact</th>
+                            <th>Overall Risk</th>
+                            <th>Mitigation Strategy</th>
+                            <th>Timeline</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Economic Sustainability</strong></td>
+                            <td>90%</td>
+                            <td class="risk-critical">HIGH</td>
+                            <td class="risk-critical">CRITICAL</td>
+                            <td>Phased implementation</td>
+                            <td>Immediate</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Regional Arms Race</strong></td>
+                            <td>95%</td>
+                            <td class="risk-critical">HIGH</td>
+                            <td class="risk-critical">CRITICAL</td>
+                            <td>Transparency measures</td>
+                            <td>Short-term</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Operational Complexity</strong></td>
+                            <td>80%</td>
+                            <td class="risk-medium">MEDIUM</td>
+                            <td class="risk-high">HIGH</td>
+                            <td>International partnerships</td>
+                            <td>Medium-term</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Technology Dependence</strong></td>
+                            <td>85%</td>
+                            <td class="risk-medium">MEDIUM</td>
+                            <td class="risk-high">HIGH</td>
+                            <td>Diversified suppliers</td>
+                            <td>Long-term</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Personnel Shortages</strong></td>
+                            <td>75%</td>
+                            <td class="risk-high">HIGH</td>
+                            <td class="risk-high">HIGH</td>
+                            <td>Enhanced training programs</td>
+                            <td>Medium-term</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="risk-assessment">
+                    <div class="risk-title">⚠️ Critical Risk Factors</div>
+                    <div class="risk-item">
+                        <strong>Economic Sustainability (90% probability):</strong> $25-42 billion investment exceeds Pakistan's sustainable defense budget capacity
+                    </div>
+                    <div class="risk-item">
+                        <strong>Regional Arms Race (95% probability):</strong> High likelihood of triggering massive Indian counter-response and regional proliferation
+                    </div>
+                    <div class="risk-item">
+                        <strong>Operational Complexity (80% probability):</strong> Significant challenges in personnel training, infrastructure development, and technology integration
+                    </div>
+                    <div class="risk-item">
+                        <strong>Technology Dependence (85% probability):</strong> Heavy reliance on foreign suppliers, particularly China, creating strategic vulnerabilities
+                    </div>
+                </div>
+            </div>
+
+            <!-- Strategic Recommendations -->
+            <div class="section">
+                <h2>🎯 Strategic Recommendations</h2>
+                
+                <div class="recommendations">
+                    <h3>For Pakistan</h3>
+                    <ol>
+                        <li><strong>Phased Implementation:</strong> Consider 10-15 submarines over 15 years</li>
+                        <li><strong>Infrastructure Priority:</strong> Develop supporting infrastructure first</li>
+                        <li><strong>International Partnerships:</strong> Seek technology transfer and training</li>
+                        <li><strong>Economic Planning:</strong> Ensure sustainable funding mechanisms</li>
+                        <li><strong>Doctrine Development:</strong> Create comprehensive maritime strategy</li>
+                    </ol>
+                </div>
+
+                <div class="recommendations">
+                    <h3>For Regional Stability</h3>
+                    <ol>
+                        <li><strong>Transparency Measures:</strong> Confidence-building with India</li>
+                        <li><strong>Communication Channels:</strong> Establish naval hotlines</li>
+                        <li><strong>Arms Control:</strong> Consider regional submarine limitations</li>
+                        <li><strong>Crisis Management:</strong> Develop escalation prevention mechanisms</li>
+                    </ol>
+                </div>
+
+                <div class="recommendations">
+                    <h3>For International Community</h3>
+                    <ol>
+                        <li><strong>Monitoring:</strong> Enhanced surveillance of naval developments</li>
+                        <li><strong>Diplomatic Engagement:</strong> Encourage transparency and dialogue</li>
+                        <li><strong>Technology Controls:</strong> Monitor sensitive technology transfers</li>
+                        <li><strong>Conflict Prevention:</strong> Support regional stability initiatives</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Conclusion -->
+            <div class="section">
+                <h2>🎯 Conclusion</h2>
+                
+                <div class="conclusion">
+                    <p>Pakistan's proposed 50-submarine acquisition represents a strategic gamble with profound implications for regional security. While it would dramatically enhance Pakistan's naval capabilities and conventional deterrence, the economic, operational, and strategic risks are substantial.</p>
+                    
+                    <h3>Key Strategic Insights</h3>
+                    <ol>
+                        <li><strong>Deterrence Enhancement:</strong> Would provide credible conventional deterrent</li>
+                        <li><strong>Economic Reality:</strong> Likely beyond Pakistan's sustainable capacity</li>
+                        <li><strong>Regional Escalation:</strong> High probability of triggering arms race</li>
+                        <li><strong>Operational Challenges:</strong> Significant technical and personnel requirements</li>
+                        <li><strong>Strategic Uncertainty:</strong> Creates new dynamics in regional security</li>
+                    </ol>
+                    
+                    <h3>Final Recommendation</h3>
+                    <p>A more realistic phased approach focusing on quality over quantity would likely achieve better strategic outcomes while maintaining credibility and avoiding regional instability. The focus should be on developing a smaller but more capable force that can be sustained economically and operationally over the long term.</p>
+                    
+                    <div style="text-align: center; margin-top: 20px; padding: 15px; background: #1e3c72; color: white; border-radius: 8px;">
+                        <strong>Strategic Assessment: HIGH IMPACT, MEDIUM FEASIBILITY, HIGH RISK</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fleet Comparison Chart
+        const fleetCtx = document.getElementById('fleetComparison').getContext('2d');
+        new Chart(fleetCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Pakistan Current', 'Pakistan Proposed', 'India', 'China', 'US', 'Russia'],
+                datasets: [{
+                    label: 'Submarines',
+                    data: [5, 55, 16, 66, 68, 60],
+                    backgroundColor: [
+                        '#dc3545',
+                        '#dc3545',
+                        '#ffc107',
+                        '#28a745',
+                        '#007bff',
+                        '#6f42c1'
+                    ],
+                    borderColor: '#1e3c72',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Submarines'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Cost Breakdown Chart
+        const costCtx = document.getElementById('costBreakdown').getContext('2d');
+        new Chart(costCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Submarine Acquisition', 'Infrastructure', 'Training & Personnel', 'Weapons Systems', 'Annual Maintenance'],
+                datasets: [{
+                    data: [25, 8, 5, 4, 3],
+                    backgroundColor: [
+                        '#1e3c72',
+                        '#2a5298',
+                        '#3a6bb8',
+                        '#4a85d8',
+                        '#5a9ff8'
+                    ],
+                    borderWidth: 3,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // Strategic Impact Radar Chart
+        const strategicCtx = document.getElementById('strategicImpact').getContext('2d');
+        new Chart(strategicCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Conventional Deterrence', 'Economic Feasibility', 'Operational Viability', 'Regional Stability', 'Technology Transfer', 'Personnel Development'],
+                datasets: [{
+                    label: 'Assessment Score',
+                    data: [85, 25, 60, 30, 70, 55],
+                    backgroundColor: 'rgba(30, 60, 114, 0.2)',
+                    borderColor: '#1e3c72',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#1e3c72',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#1e3c72'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    }
+                }
+            }
+        });
+
+        // Risk Matrix Chart
+        const riskCtx = document.getElementById('riskMatrix').getContext('2d');
+        new Chart(riskCtx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'Economic Sustainability',
+                    data: [{x: 90, y: 9}],
+                    backgroundColor: '#dc3545',
+                    pointRadius: 12
+                }, {
+                    label: 'Regional Arms Race',
+                    data: [{x: 95, y: 9}],
+                    backgroundColor: '#dc3545',
+                    pointRadius: 12
+                }, {
+                    label: 'Operational Complexity',
+                    data: [{x: 80, y: 6}],
+                    backgroundColor: '#ffc107',
+                    pointRadius: 10
+                }, {
+                    label: 'Technology Dependence',
+                    data: [{x: 85, y: 6}],
+                    backgroundColor: '#ffc107',
+                    pointRadius: 10
+                }, {
+                    label: 'Personnel Shortages',
+                    data: [{x: 75, y: 8}],
+                    backgroundColor: '#dc3545',
+                    pointRadius: 11
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Probability (%)'
+                        },
+                        min: 0,
+                        max: 100
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Impact Level (1-10)'
+                        },
+                        min: 0,
+                        max: 10
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

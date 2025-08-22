@@ -18,7 +18,7 @@ from src.agents.knowledge_graph_agent import KnowledgeGraphAgent
 from src.agents.enhanced_file_extraction_agent import EnhancedFileExtractionAgent
 from src.core.models import (
     AnalysisRequest, AnalysisResult, DataType,
-    ModelConfig
+    ModelConfig, EnhancedReportRequest, EnhancedReportResult
 )
 from src.core.model_manager import ModelManager
 from src.core.duplicate_detection_service import DuplicateDetectionService
@@ -37,6 +37,15 @@ class SentimentOrchestrator:
         
         # Initialize duplicate detection service
         self.duplicate_detection = DuplicateDetectionService()
+
+        # Initialize enhanced report orchestrator
+        try:
+            from src.core.enhanced_report_orchestrator import EnhancedReportOrchestrator
+            self.enhanced_report_orchestrator = EnhancedReportOrchestrator()
+            logger.info("✅ Enhanced Report Orchestrator initialized")
+        except ImportError as e:
+            logger.warning(f"⚠️ Enhanced Report Orchestrator not available: {e}")
+            self.enhanced_report_orchestrator = None
 
         # Initialize agents
         self._register_agents()
@@ -876,7 +885,32 @@ class SentimentOrchestrator:
             "status": "active"
         }
         
+        # Add enhanced report orchestrator if available
+        if self.enhanced_report_orchestrator:
+            services["enhanced_report_orchestrator"] = {
+                "type": "service",
+                "capabilities": [
+                    "executive_summary", "comparative_analysis", "impact_analysis",
+                    "operational_changes", "predictive_analysis", "monte_carlo_simulation",
+                    "stress_testing", "risk_assessment", "knowledge_graph_analysis",
+                    "interactive_visualizations", "anomaly_detection", "pattern_analysis",
+                    "geopolitical_mapping", "strategic_analysis"
+                ],
+                "status": "active"
+            }
+        
         return services
+
+    async def generate_enhanced_report(
+        self, 
+        request: EnhancedReportRequest
+    ) -> EnhancedReportResult:
+        """Generate comprehensive report with all analysis components."""
+        if not self.enhanced_report_orchestrator:
+            raise ValueError("Enhanced Report Orchestrator not available")
+        
+        logger.info(f"Generating enhanced report for request {request.id}")
+        return await self.enhanced_report_orchestrator.generate_report(request)
 
 
 # Global orchestrator instance
