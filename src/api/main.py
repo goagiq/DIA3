@@ -116,6 +116,14 @@ except ImportError as e:
     logger.warning(f"Simple markdown export routes not available: {e}")
     SIMPLE_MARKDOWN_EXPORT_AVAILABLE = False
 
+# Import enhanced report routes
+try:
+    from src.api.enhanced_report_routes import router as enhanced_report_router
+    ENHANCED_REPORT_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Enhanced report routes not available: {e}")
+    ENHANCED_REPORT_AVAILABLE = False
+
 # Import Phase 5 interpretability routes
 try:
     from src.api.routes.phase5_interpretability_routes import router as phase5_interpretability_router
@@ -384,6 +392,13 @@ if SIMPLE_MARKDOWN_EXPORT_AVAILABLE:
     logger.info("✅ Simple markdown export routes included")
 else:
     logger.warning("⚠️ Simple markdown export routes not available")
+
+# Include enhanced report routes if available
+if ENHANCED_REPORT_AVAILABLE:
+    app.include_router(enhanced_report_router)
+    logger.info("✅ Enhanced report routes included")
+else:
+    logger.warning("⚠️ Enhanced report routes not available")
 
 # Include Phase 5 interpretability routes if available
 if PHASE5_INTERPRETABILITY_AVAILABLE:

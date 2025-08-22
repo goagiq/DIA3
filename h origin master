@@ -1,5 +1,0 @@
-[33m20aa907[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m Add comprehensive Data.gov API integration plan and architecture documentation
-[33m5aa722d[m Add comprehensive Data.gov API integration plan for DIA3
-[33mbec4913[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Update dynamic tool manager and chroma database cache
-[33m9f6ea41[m Integrate EnhancedMarkdownExportService across API and MCP; fix MCP HTTP app mount; add enhanced routes and MCP tools; add integration tests and orchestration; remove old conversion scripts; formatting/table fixes and figure numbering; MCP health endpoint passing
-[33m3263953[m Update DIA3 whitepaper with enhanced markdown export functionality and new test scripts

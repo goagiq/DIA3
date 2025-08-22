@@ -1,5 +1,0 @@
-[33m05ac83b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Update README.md with markdown export functionality documentation
-[33mf058b56[m Add markdown export functionality with PDF and Word support
-[33md69fc6a[m Add interactive forecasting visualization features and comprehensive whitepaper generation system
-[33mcbc1271[m feat: Add Word document generation with mermaid diagram support
-[33mf3b925b[m feat: Integrate enhanced PDF generation with mermaid diagram support

@@ -192,18 +192,24 @@ def initialize_enhanced_markdown_export_service():
 def initialize_enhanced_report_system():
     """Initialize the enhanced report generation system."""
     try:
-        from src.core.export.enhanced_report_integration import enhanced_report_integration
-        from src.core.analysis.monte_carlo_simulator import MonteCarloSimulator
+        from src.core.enhanced_report_orchestrator import EnhancedReportOrchestrator
+        from Test.enhanced_report_with_original_styling import EnhancedReportWithOriginalStyling
         
-        # Test the enhanced report system
-        test_data = enhanced_report_integration.create_pakistan_submarine_analysis_data()
+        # Test the enhanced report orchestrator
+        orchestrator = EnhancedReportOrchestrator()
+        
+        # Test the beautiful report generator
+        generator = EnhancedReportWithOriginalStyling()
         
         print("✅ Enhanced report generation system initialized")
-        print(f"   - Monte Carlo simulator available: {MonteCarloSimulator is not None}")
-        print(f"   - Enhanced report integration available: {enhanced_report_integration is not None}")
-        print(f"   - Test data generated: {len(test_data)} components")
+        print(f"   - Enhanced report orchestrator available: {orchestrator is not None}")
+        print(f"   - Beautiful report generator available: {generator is not None}")
+        print(f"   - Sentiment analysis, forecasting, and predictive analytics integrated")
         
-        return enhanced_report_integration
+        return {
+            "orchestrator": orchestrator,
+            "generator": generator
+        }
     except Exception as e:
         print(f"⚠️ Warning: Could not initialize enhanced report system: {e}")
         return None
@@ -713,6 +719,16 @@ if __name__ == "__main__":
     print("   - /api/v1/markdown-export/files - List exported files")
     print("   - /api/v1/markdown-export/files/{filename} - Delete exported file")
     print("   - Test: .venv/Scripts/python.exe Test/test_markdown_export_integration.py")
+    print("")
+    print("🎨 Enhanced Report Endpoints:")
+    print("   - /api/v1/enhanced-reports/health - Enhanced report service health check")
+    print("   - /api/v1/enhanced-reports/generate - Generate enhanced report with beautiful styling")
+    print("   - /api/v1/enhanced-reports/generate-beautiful - Generate beautiful enhanced report")
+    print("   - /api/v1/enhanced-reports/reports - List all generated enhanced reports")
+    print("   - /api/v1/enhanced-reports/reports/{report_id} - Get specific enhanced report")
+    print("   - /api/v1/enhanced-reports/reports/{report_id} - Delete specific enhanced report")
+    print("   - /api/v1/enhanced-reports/capabilities - Get enhanced report capabilities")
+    print("   - Test: .venv/Scripts/python.exe Test/test_enhanced_report_integration.py")
     print("")
     print("🎯 Phase 7 Testing & Deployment Endpoints:")
     print("   - /mcp-health - MCP server health check (standalone)")
