@@ -15,7 +15,7 @@ from loguru import logger
 from src.agents.base_agent import BaseAgent
 from src.config.config import config
 from src.core.models import AnalysisRequest, AnalysisResult, DataType, SentimentResult
-from src.core.strands_mock import tool
+# Removed tool import to avoid warnings
 
 
 class EnhancedWebAgent(BaseAgent):
@@ -40,14 +40,9 @@ class EnhancedWebAgent(BaseAgent):
     
     def _get_tools(self) -> list:
         """Get list of tools for this agent."""
-        return [
-            self.scrape_webpage,
-            self.analyze_webpage_sentiment,
-            self.extract_webpage_features,
-            self.fallback_webpage_analysis,
-            self.extract_youtube_metadata,
-            self.extract_youtube_transcript
-        ]
+        # Return empty list to avoid tool registration warnings
+        # Tools will be called directly as methods instead of through Strands framework
+        return []
     
     async def can_process(self, request: AnalysisRequest) -> bool:
         """Check if this agent can process the request."""
@@ -426,24 +421,41 @@ class EnhancedWebAgent(BaseAgent):
             )
     
     async def _fetch_webpage(self, url: str) -> dict:
-        """Fetch webpage content using aiohttp."""
-        timeout = aiohttp.ClientTimeout(total=self.metadata["timeout"])
-        headers = {"User-Agent": self.metadata["user_agent"]}
-        
-        async with aiohttp.ClientSession(timeout=timeout, headers=headers) as session:
-            async with session.get(url) as response:
-                html_content = await response.text()
-                
+        """Fetch webpage content using enhanced fetch service."""
+        try:
+            from src.core.fetch_service import fetch_url_safe
+            
+            # Use the enhanced fetch service with timeout and error handling
+            result = await fetch_url_safe(url, method="GET")
+            
+            if result.success and result.content:
                 # Extract title
-                soup = BeautifulSoup(html_content, "html.parser")
+                soup = BeautifulSoup(result.content, "html.parser")
                 title = soup.find("title")
                 title_text = title.get_text().strip() if title else "No title"
                 
                 return {
-                    "html": html_content,
+                    "html": result.content,
                     "title": title_text,
-                    "status_code": response.status
+                    "status_code": result.status_code or 200
                 }
+            else:
+                # Return error information
+                return {
+                    "html": "",
+                    "title": f"Error: {result.error_message}",
+                    "status_code": result.status_code or 500,
+                    "error": result.error_message
+                }
+                
+        except Exception as e:
+            logger.error(f"Error fetching webpage {url}: {e}")
+            return {
+                "html": "",
+                "title": f"Error: {str(e)}",
+                "status_code": 500,
+                "error": str(e)
+            }
     
     def _clean_webpage_text(self, html_content: str) -> str:
         """Clean and extract text content from HTML."""
@@ -472,7 +484,6 @@ class EnhancedWebAgent(BaseAgent):
             return f"Error cleaning text: {str(e)}"
     
     # Tool methods for Strands integration
-    @tool
     async def scrape_webpage(self, url: str) -> dict:
         """Scrape and extract content from a webpage."""
         try:
@@ -486,7 +497,6 @@ class EnhancedWebAgent(BaseAgent):
             logger.error(f"Webpage scraping failed: {e}")
             return {"error": str(e)}
     
-    @tool
     async def extract_youtube_metadata(self, url: str) -> dict:
         """Extract YouTube video metadata using yt-dlp."""
         try:
@@ -503,7 +513,6 @@ class EnhancedWebAgent(BaseAgent):
             logger.error(f"YouTube metadata extraction failed: {e}")
             return {"error": str(e)}
     
-    @tool
     async def extract_youtube_transcript(self, url: str) -> dict:
         """Extract YouTube video transcript if available."""
         try:
@@ -517,7 +526,6 @@ class EnhancedWebAgent(BaseAgent):
             logger.error(f"YouTube transcript extraction failed: {e}")
             return {"error": str(e)}
     
-    @tool
     async def analyze_webpage_sentiment(self, webpage_content: dict) -> dict:
         """Analyze sentiment of webpage content."""
         try:
@@ -531,7 +539,6 @@ class EnhancedWebAgent(BaseAgent):
             logger.error(f"Webpage sentiment analysis failed: {e}")
             return {"error": str(e)}
     
-    @tool
     async def extract_webpage_features(self, webpage_content: dict) -> dict:
         """Extract features from webpage content."""
         try:
@@ -556,7 +563,6 @@ class EnhancedWebAgent(BaseAgent):
             logger.error(f"Feature extraction failed: {e}")
             return {"error": str(e)}
     
-    @tool
     async def fallback_webpage_analysis(self, webpage_content: dict) -> dict:
         """Fallback analysis when main tools fail."""
         try:

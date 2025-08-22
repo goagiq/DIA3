@@ -13,7 +13,7 @@ from pathlib import Path
 from PIL import Image
 from transformers import pipeline
 from loguru import logger
-from src.core.strands_mock import tool
+# Removed tool import to avoid warnings
 
 from src.agents.base_agent import BaseAgent
 from src.agents.web_agent_enhanced import EnhancedWebAgent
@@ -123,38 +123,10 @@ class UnifiedVisionAgent(BaseAgent):
         return capabilities
     
     def _get_tools(self) -> list:
-        """Get list of tools for this agent based on configuration."""
-        base_tools = [
-            self.analyze_image_sentiment,
-            self.process_video_frame,
-            self.extract_vision_features,
-            self.fallback_vision_analysis,
-            self.download_video_frames,
-            self.analyze_video_sentiment,
-            self.get_video_metadata
-        ]
-        
-        if self.enable_youtube_integration:
-            base_tools.extend([
-                self.analyze_youtube_comprehensive,
-                self.extract_youtube_metadata,
-                self.analyze_youtube_thumbnail
-            ])
-        
-        if self.enable_summarization:
-            base_tools.extend([
-                self.generate_video_summary,
-                self.extract_key_scenes,
-                self.identify_key_moments,
-                self.analyze_visual_content,
-                self.create_scene_timeline,
-                self.extract_video_metadata,
-                self.generate_executive_summary,
-                self.create_video_transcript,
-                self.analyze_video_topics
-            ])
-        
-        return base_tools
+        """Get list of tools for this agent."""
+        # Return empty list to avoid tool registration warnings
+        # Tools will be called directly as methods instead of through Strands framework
+        return []
     
     async def can_process(self, request: AnalysisRequest) -> bool:
         """Check if this agent can process the request."""
@@ -677,7 +649,6 @@ class UnifiedVisionAgent(BaseAgent):
             )
     
     # Basic vision tools
-    @tool
     async def analyze_image_sentiment(self, image_path: str) -> dict:
         """Analyze image sentiment."""
         return {
@@ -691,7 +662,6 @@ class UnifiedVisionAgent(BaseAgent):
             }]
         }
     
-    @tool
     async def process_video_frame(self, video_path: str) -> dict:
         """Process video frame."""
         return {
@@ -704,7 +674,6 @@ class UnifiedVisionAgent(BaseAgent):
             }]
         }
     
-    @tool
     async def extract_vision_features(self, image_path: str) -> dict:
         """Extract vision features."""
         return {
@@ -717,7 +686,6 @@ class UnifiedVisionAgent(BaseAgent):
             }]
         }
     
-    @tool
     async def fallback_vision_analysis(self, image_path: str) -> dict:
         """Fallback vision analysis."""
         return {
@@ -730,7 +698,6 @@ class UnifiedVisionAgent(BaseAgent):
             }]
         }
     
-    @tool
     async def download_video_frames(self, video_url: str, num_frames: int = 10) -> dict:
         """Download video frames."""
         return {
@@ -743,7 +710,6 @@ class UnifiedVisionAgent(BaseAgent):
             }]
         }
     
-    @tool
     async def analyze_video_sentiment(self, video_url: str) -> dict:
         """Analyze video sentiment."""
         return {
@@ -757,7 +723,6 @@ class UnifiedVisionAgent(BaseAgent):
             }]
         }
     
-    @tool
     async def get_video_metadata(self, video_url: str) -> dict:
         """Get video metadata."""
         return {
@@ -773,7 +738,6 @@ class UnifiedVisionAgent(BaseAgent):
         }
     
     # YouTube integration tools (only available when enable_youtube_integration=True)
-    @tool
     async def analyze_youtube_comprehensive(self, url: str) -> dict:
         """Analyze YouTube video comprehensively."""
         return {
@@ -786,7 +750,6 @@ class UnifiedVisionAgent(BaseAgent):
             }]
         }
     
-    @tool
     async def extract_youtube_metadata(self, url: str) -> dict:
         """Extract YouTube metadata."""
         return {
@@ -801,7 +764,6 @@ class UnifiedVisionAgent(BaseAgent):
             }]
         }
     
-    @tool
     async def analyze_youtube_thumbnail(self, url: str) -> dict:
         """Analyze YouTube thumbnail."""
         return {
@@ -815,7 +777,6 @@ class UnifiedVisionAgent(BaseAgent):
         }
     
     # Summarization tools (only available when enable_summarization=True)
-    @tool
     async def generate_video_summary(self, video_path: str) -> dict:
         """Generate video summary."""
         return {
@@ -829,7 +790,6 @@ class UnifiedVisionAgent(BaseAgent):
             }]
         }
     
-    @tool
     async def extract_key_scenes(self, video_path: str) -> dict:
         """Extract key scenes."""
         return {
@@ -842,7 +802,6 @@ class UnifiedVisionAgent(BaseAgent):
             }]
         }
     
-    @tool
     async def identify_key_moments(self, video_path: str) -> dict:
         """Identify key moments."""
         return {
@@ -855,7 +814,6 @@ class UnifiedVisionAgent(BaseAgent):
             }]
         }
     
-    @tool
     async def analyze_visual_content(self, video_path: str) -> dict:
         """Analyze visual content."""
         return {
@@ -868,7 +826,6 @@ class UnifiedVisionAgent(BaseAgent):
             }]
         }
     
-    @tool
     async def create_scene_timeline(self, video_path: str) -> dict:
         """Create scene timeline."""
         return {
@@ -881,7 +838,6 @@ class UnifiedVisionAgent(BaseAgent):
             }]
         }
     
-    @tool
     async def extract_video_metadata(self, video_path: str) -> dict:
         """Extract video metadata."""
         return {
@@ -894,7 +850,6 @@ class UnifiedVisionAgent(BaseAgent):
             }]
         }
     
-    @tool
     async def generate_executive_summary(self, video_path: str) -> dict:
         """Generate executive summary."""
         return {
@@ -907,7 +862,6 @@ class UnifiedVisionAgent(BaseAgent):
             }]
         }
     
-    @tool
     async def create_video_transcript(self, video_path: str) -> dict:
         """Create video transcript."""
         return {
@@ -920,7 +874,6 @@ class UnifiedVisionAgent(BaseAgent):
             }]
         }
     
-    @tool
     async def analyze_video_topics(self, video_path: str) -> dict:
         """Analyze video topics."""
         return {

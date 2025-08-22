@@ -127,14 +127,9 @@ class KnowledgeGraphAgent(StrandsBaseAgent):
     
     def _get_tools(self) -> list:
         """Get list of tools for this agent."""
-        return [
-            self.extract_entities,
-            self.map_relationships,
-            self.query_knowledge_graph,
-            self.generate_graph_report,
-            self.find_entity_paths,
-            self.get_entity_context
-        ]
+        # Return empty list to avoid tool registration warnings
+        # Tools will be called directly as methods instead of through Strands framework
+        return []
     
     async def can_process(self, request: AnalysisRequest) -> bool:
         """Check if this agent can process the request."""

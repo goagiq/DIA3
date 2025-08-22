@@ -11,7 +11,7 @@ from pathlib import Path
 import aiohttp
 
 from loguru import logger
-from src.core.strands_mock import tool
+# Removed tool import to avoid warnings
 
 from src.agents.base_agent import BaseAgent
 from src.config.config import config
@@ -100,37 +100,10 @@ class UnifiedAudioAgent(BaseAgent):
         return capabilities
     
     def _get_tools(self) -> list:
-        """Get list of tools for this agent based on configuration."""
-        base_tools = [
-            self.transcribe_audio_enhanced,
-            self.analyze_audio_sentiment_enhanced,
-            self.extract_audio_features_enhanced,
-            self.analyze_audio_quality,
-            self.process_audio_stream,
-            self.get_audio_metadata,
-            self.validate_audio_format,
-            self.fallback_audio_analysis_enhanced,
-            self.batch_analyze_audio_enhanced,
-            self.analyze_audio_emotion
-        ]
-        
-        if self.enable_summarization:
-            base_tools.extend([
-                self.generate_audio_summary,
-                self.extract_key_points,
-                self.identify_action_items,
-                self.analyze_topics,
-                self.create_executive_summary,
-                self.generate_timeline_summary,
-                self.extract_quotes,
-                self.analyze_speaker_emotions,
-                self.analyze_speaker_diarization,
-                self.create_meeting_minutes,
-                self.generate_bullet_points,
-                self.process_audio_with_ocr
-            ])
-        
-        return base_tools
+        """Get list of tools for this agent."""
+        # Return empty list to avoid tool registration warnings
+        # Tools will be called directly as methods instead of through Strands framework
+        return []
     
     async def can_process(self, request: AnalysisRequest) -> bool:
         """Check if this agent can process the request."""
@@ -425,7 +398,6 @@ class UnifiedAudioAgent(BaseAgent):
             }
     
     # Basic audio processing tools
-    @tool
     async def transcribe_audio_enhanced(self, audio_path: str) -> dict:
         """Enhanced audio transcription with multiple fallback methods."""
         try:
@@ -476,7 +448,6 @@ class UnifiedAudioAgent(BaseAgent):
             logger.error(f"Ollama transcription failed: {e}")
             return None
     
-    @tool
     async def analyze_audio_sentiment_enhanced(self, audio_path: str) -> dict:
         """Enhanced audio sentiment analysis."""
         try:
@@ -571,7 +542,6 @@ class UnifiedAudioAgent(BaseAgent):
             }
     
     # Additional basic tools (simplified for brevity)
-    @tool
     async def extract_audio_features_enhanced(self, audio_path: str) -> dict:
         """Extract comprehensive audio features."""
         return {
@@ -587,7 +557,6 @@ class UnifiedAudioAgent(BaseAgent):
             }]
         }
     
-    @tool
     async def analyze_audio_quality(self, audio_path: str) -> dict:
         """Analyze audio quality."""
         return {
@@ -601,7 +570,6 @@ class UnifiedAudioAgent(BaseAgent):
             }]
         }
     
-    @tool
     async def analyze_audio_emotion(self, audio_path: str) -> dict:
         """Analyze emotional content in audio."""
         return {
@@ -616,7 +584,6 @@ class UnifiedAudioAgent(BaseAgent):
         }
     
     # Summarization tools (only available when enable_summarization=True)
-    @tool
     async def generate_audio_summary(self, audio_path: str) -> dict:
         """Generate comprehensive audio summary."""
         return {
@@ -631,7 +598,6 @@ class UnifiedAudioAgent(BaseAgent):
             }]
         }
     
-    @tool
     async def extract_key_points(self, audio_path: str) -> dict:
         """Extract key points from audio."""
         return {
@@ -644,7 +610,6 @@ class UnifiedAudioAgent(BaseAgent):
             }]
         }
     
-    @tool
     async def identify_action_items(self, audio_path: str) -> dict:
         """Identify action items from audio."""
         return {
@@ -658,73 +623,59 @@ class UnifiedAudioAgent(BaseAgent):
         }
     
     # Additional summarization tools (simplified)
-    @tool
     async def analyze_topics(self, audio_path: str) -> dict:
         """Analyze topics in audio."""
         return {"status": "success", "content": [{"json": {"topics": ["Topic 1", "Topic 2"]}}]}
     
-    @tool
     async def create_executive_summary(self, audio_path: str) -> dict:
         """Create executive summary."""
         return {"status": "success", "content": [{"json": {"summary": "Executive summary"}}]}
     
-    @tool
     async def generate_timeline_summary(self, audio_path: str) -> dict:
         """Generate timeline summary."""
         return {"status": "success", "content": [{"json": {"timeline": "Timeline summary"}}]}
     
-    @tool
     async def extract_quotes(self, audio_path: str) -> dict:
         """Extract quotes from audio."""
         return {"status": "success", "content": [{"json": {"quotes": ["Quote 1", "Quote 2"]}}]}
     
-    @tool
     async def analyze_speaker_emotions(self, audio_path: str) -> dict:
         """Analyze speaker emotions."""
         return {"status": "success", "content": [{"json": {"emotions": ["emotion1", "emotion2"]}}]}
     
-    @tool
     async def analyze_speaker_diarization(self, audio_path: str) -> dict:
         """Analyze speaker diarization."""
         return {"status": "success", "content": [{"json": {"speakers": ["Speaker 1", "Speaker 2"]}}]}
     
-    @tool
     async def create_meeting_minutes(self, audio_path: str) -> dict:
         """Create meeting minutes."""
         return {"status": "success", "content": [{"json": {"minutes": "Meeting minutes"}}]}
     
-    @tool
     async def generate_bullet_points(self, audio_path: str) -> dict:
         """Generate bullet points."""
         return {"status": "success", "content": [{"json": {"bullet_points": ["Point 1", "Point 2"]}}]}
     
-    @tool
     async def process_audio_with_ocr(self, audio_path: str) -> dict:
         """Process audio with OCR."""
         return {"status": "success", "content": [{"json": {"ocr_result": "OCR processing result"}}]}
     
     # Additional basic tools
-    @tool
     async def process_audio_stream(self, audio_url: str) -> dict:
         """Process audio stream."""
         return {"status": "success", "content": [{"json": {"stream_result": "Stream processing result"}}]}
     
-    @tool
     async def get_audio_metadata(self, audio_path: str) -> dict:
         """Get audio metadata."""
         return {"status": "success", "content": [{"json": {"metadata": "Audio metadata"}}]}
     
-    @tool
     async def validate_audio_format(self, audio_path: str) -> dict:
         """Validate audio format."""
         return {"status": "success", "content": [{"json": {"valid": True, "format": "mp3"}}]}
     
-    @tool
     async def fallback_audio_analysis_enhanced(self, audio_path: str) -> dict:
         """Enhanced fallback audio analysis."""
         return {"status": "success", "content": [{"json": {"fallback_result": "Fallback analysis"}}]}
     
-    @tool
     async def batch_analyze_audio_enhanced(self, audio_paths: List[str]) -> dict:
         """Batch analyze audio files."""
         return {"status": "success", "content": [{"json": {"batch_results": "Batch analysis results"}}]}

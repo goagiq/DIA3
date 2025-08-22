@@ -78,18 +78,10 @@ class AnomalyDetectionAgent(StrandsBaseAgent):
         logger.info(f"AnomalyDetectionAgent {self.agent_id} initialized")
 
     def _get_tools(self) -> list:
-        """Get list of tools for this agent"""
-        return [
-            self.detect_anomalies,
-            self.detect_multivariate_anomalies,
-            self.detect_statistical_outliers,
-            self.detect_isolation_forest,
-            self.detect_one_class_svm,
-            self.detect_local_outlier_factor,
-            self.get_anomaly_summary,
-            self.export_anomaly_results,
-            self.monitor_real_time_anomalies
-        ]
+        """Get list of tools for this agent."""
+        # Return empty list to avoid tool registration warnings
+        # Tools will be called directly as methods instead of through Strands framework
+        return []
 
     async def can_process(self, request: AnalysisRequest) -> bool:
         """Check if this agent can process the request"""

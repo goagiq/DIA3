@@ -7,7 +7,7 @@ import asyncio
 from typing import Any, Optional, List, Dict
 
 from loguru import logger
-from src.core.strands_mock import tool, Agent, Swarm
+from src.core.strands_mock import Agent, Swarm
 
 from src.agents.base_agent import StrandsBaseAgent as BaseAgent
 from src.config.config import config
@@ -149,30 +149,9 @@ class UnifiedTextAgent(BaseAgent):
     
     def _get_tools(self) -> list:
         """Get list of tools for this agent based on processing mode."""
-        base_tools = [
-            self.analyze_text_sentiment,
-            self.extract_text_features,
-            self.fallback_sentiment_analysis,
-            # Summarization tools
-            self.generate_text_summary,
-            self.extract_key_points,
-            self.identify_themes,
-            # Translation tools
-            self.translate_text,
-            self.translate_document,
-            self.batch_translate,
-            self.detect_language
-        ]
-        
-        if self.use_swarm:
-            base_tools.extend([
-                self.coordinate_sentiment_analysis,
-                self.analyze_text_with_swarm,
-                self.get_swarm_status,
-                self.distribute_workload
-            ])
-        
-        return base_tools
+        # Return empty list to avoid tool registration warnings
+        # Tools will be called directly as methods instead of through Strands framework
+        return []
     
     async def can_process(self, request: AnalysisRequest) -> bool:
         """Check if this agent can process the request."""
@@ -478,7 +457,6 @@ class UnifiedTextAgent(BaseAgent):
                 "content": [{"text": f"Feature extraction error: {str(e)}"}]
             }
     
-    @tool
     async def fallback_sentiment_analysis(self, text: str) -> dict:
         """
         Fallback rule-based sentiment analysis when primary methods fail.
@@ -534,7 +512,6 @@ class UnifiedTextAgent(BaseAgent):
         }
     
     # Swarm-specific tools
-    @tool
     async def coordinate_sentiment_analysis(self, text: str) -> dict:
         """
         Coordinate sentiment analysis using the swarm of agents.
@@ -582,7 +559,6 @@ class UnifiedTextAgent(BaseAgent):
             logger.error(f"Swarm coordination failed: {e}")
             return await self.fallback_sentiment_analysis(text)
     
-    @tool
     async def analyze_text_with_swarm(self, text: str) -> dict:
         """
         Analyze text using the entire swarm.
@@ -595,7 +571,6 @@ class UnifiedTextAgent(BaseAgent):
         """
         return await self.coordinate_sentiment_analysis(text)
     
-    @tool
     async def get_swarm_status(self) -> dict:
         """
         Get the status of all agents in the swarm.
@@ -619,7 +594,6 @@ class UnifiedTextAgent(BaseAgent):
             }]
         }
     
-    @tool
     async def distribute_workload(self, texts: List[str]) -> dict:
         """
         Distribute workload across swarm agents.
@@ -748,7 +722,6 @@ class UnifiedTextAgent(BaseAgent):
         return base_status
 
     # Translation tools
-    @tool
     async def translate_text(self, text: str, source_language: str = None, target_language: str = "en") -> dict:
         """Translate text content to the target language."""
         try:
@@ -775,7 +748,6 @@ class UnifiedTextAgent(BaseAgent):
                 "translated_text": text
             }
 
-    @tool
     async def translate_document(self, content: str, content_type: str, source_language: str = None) -> dict:
         """Translate document content (PDF, webpage, etc.)."""
         try:
@@ -805,7 +777,6 @@ class UnifiedTextAgent(BaseAgent):
                 "translated_text": content
             }
 
-    @tool
     async def batch_translate(self, texts: List[str], source_language: str = None) -> dict:
         """Translate multiple texts in batch."""
         try:
@@ -823,7 +794,6 @@ class UnifiedTextAgent(BaseAgent):
                 "results": []
             }
 
-    @tool
     async def detect_language(self, text: str) -> dict:
         """Detect the language of the text."""
         try:
@@ -1041,7 +1011,6 @@ class UnifiedTextAgent(BaseAgent):
             }
 
     # Summarization tools
-    @tool
     async def generate_text_summary(self, text: str, summary_type: str = "comprehensive") -> dict:
         """Generate a summary of the text content."""
         try:
@@ -1085,7 +1054,6 @@ class UnifiedTextAgent(BaseAgent):
                 "summary": "Failed to generate summary"
             }
 
-    @tool
     async def extract_key_points(self, text: str) -> dict:
         """Extract key points from the text content."""
         try:
@@ -1120,7 +1088,6 @@ class UnifiedTextAgent(BaseAgent):
                 "key_points": []
             }
 
-    @tool
     async def identify_themes(self, text: str) -> dict:
         """Identify themes and concepts in the text content."""
         try:

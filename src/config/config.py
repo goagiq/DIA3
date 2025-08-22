@@ -2,11 +2,16 @@
 Configuration management for the sentiment analysis system.
 """
 
+import warnings
 from pathlib import Path
 from typing import Dict, Any, List
 
 from pydantic_settings import BaseSettings
 from pydantic import Field, ConfigDict
+
+# Suppress deprecation warnings for scientific packages
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='scipy')
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='statsmodels')
 
 
 class ModelConfig(BaseSettings):
@@ -250,7 +255,8 @@ class SentimentConfig(BaseSettings):
     
     model_config = ConfigDict(
         env_file=".env",
-        env_file_encoding="utf-8"
+        env_file_encoding="utf-8",
+        extra="ignore"  # Allow extra fields to be ignored
     )
     
     # Environment
