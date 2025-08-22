@@ -38,13 +38,13 @@ class SentimentOrchestrator:
         # Initialize duplicate detection service
         self.duplicate_detection = DuplicateDetectionService()
 
-        # Initialize enhanced report orchestrator
+        # Initialize enhanced report orchestrator with source tracking
         try:
-            from src.core.enhanced_report_orchestrator import EnhancedReportOrchestrator
-            self.enhanced_report_orchestrator = EnhancedReportOrchestrator()
-            logger.info("✅ Enhanced Report Orchestrator initialized")
+            from src.core.enhanced_report_orchestrator import get_enhanced_report_orchestrator
+            self.enhanced_report_orchestrator = get_enhanced_report_orchestrator()
+            logger.info("✅ Enhanced Report Orchestrator with Source Tracking initialized")
         except ImportError as e:
-            logger.warning(f"⚠️ Enhanced Report Orchestrator not available: {e}")
+            logger.warning(f"⚠️ Enhanced Report Orchestrator with Source Tracking not available: {e}")
             self.enhanced_report_orchestrator = None
 
         # Initialize agents

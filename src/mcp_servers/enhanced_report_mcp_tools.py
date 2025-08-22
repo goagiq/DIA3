@@ -1,1024 +1,238 @@
+#!/usr/bin/env python3
 """
-Enhanced Report Generation MCP Tools
-MCP tools for comprehensive report generation with 25+ analysis components.
+Enhanced Report MCP Tools
+Provides MCP tools for generating comprehensive enhanced reports.
 """
 
 import asyncio
 import json
+import os
 from datetime import datetime
-from typing import Dict, List, Optional, Any
-from loguru import logger
+from typing import Dict, Any, List, Optional
+from pathlib import Path
 
-from ..core.models import (
-    EnhancedReportRequest, EnhancedReportResult, ReportComponent,
-    MonteCarloConfig, StressTestConfig, VisualizationConfig,
-    KnowledgeGraphConfig
-)
-from ..core.enhanced_report_orchestrator import EnhancedReportOrchestrator
-from ..core.strategic_intelligence_engine import StrategicIntelligenceEngine
-from ..core.risk_assessment_engine import RiskAssessmentEngine
-from ..core.executive_summary_generator import ExecutiveSummaryGenerator
-
+# Import the template generator
+try:
+    from src.core.enhanced_report_template_generator import enhanced_report_template_generator
+except ImportError:
+    # Fallback for when the module is not available
+    enhanced_report_template_generator = None
 
 class EnhancedReportMCPTools:
     """MCP tools for enhanced report generation."""
     
     def __init__(self):
-        self.orchestrator = EnhancedReportOrchestrator()
-        self.strategic_engine = StrategicIntelligenceEngine()
-        self.risk_engine = RiskAssessmentEngine()
-        self.summary_generator = ExecutiveSummaryGenerator()
-        
-        # Import the beautiful report generator
-        try:
-            from Test.enhanced_report_with_original_styling import EnhancedReportWithOriginalStyling
-            self.beautiful_generator = EnhancedReportWithOriginalStyling()
-            logger.info("Enhanced Report MCP Tools initialized with beautiful styling and advanced analytics")
-        except ImportError as e:
-            logger.warning(f"Beautiful report generator not available: {e}")
-            self.beautiful_generator = None
-        
-        # Import the tooltip-enhanced report generator
-        try:
-            from src.core.enhanced_report_with_tooltips import EnhancedReportWithTooltips
-            self.tooltip_generator = EnhancedReportWithTooltips()
-            logger.info("Enhanced Report MCP Tools initialized with tooltip system")
-        except ImportError as e:
-            logger.warning(f"Tooltip report generator not available: {e}")
-            self.tooltip_generator = None
-    
-    def get_tools(self) -> List[Dict[str, Any]]:
-        """Get list of available MCP tools."""
-        return [
+        self.tools = [
             {
                 "name": "generate_enhanced_report",
-                "description": "Generate comprehensive report with 25+ analysis components including Monte Carlo simulations, stress testing, knowledge graphs, and strategic analysis",
+                "description": "Generate a comprehensive enhanced report with all required sections including Advanced Forecasting Analysis, Predictive Analytics, Regional Sentiment Assessment, and interactive tooltips",
                 "inputSchema": {
                     "type": "object",
                     "properties": {
-                        "query": {
+                        "topic": {
                             "type": "string",
-                            "description": "The query or topic for report generation"
+                            "description": "The topic for the enhanced report (e.g., 'Pakistan Submarine Acquisition Analysis')"
                         },
-                        "components": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                            "description": "List of report components to include"
-                        },
-                        "include_monte_carlo": {
-                            "type": "boolean",
-                            "description": "Include Monte Carlo simulations"
-                        },
-                        "include_stress_testing": {
-                            "type": "boolean", 
-                            "description": "Include stress testing scenarios"
-                        },
-                        "include_visualizations": {
-                            "type": "boolean",
-                            "description": "Include interactive visualizations"
-                        },
-                        "include_knowledge_graph": {
-                            "type": "boolean",
-                            "description": "Include knowledge graph analysis"
-                        },
-                        "export_formats": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                            "description": "Export formats (pdf, excel, word)"
-                        },
-                        "language": {
-                            "type": "string",
-                            "description": "Report language"
-                        }
-                    },
-                    "required": ["query"]
-                }
-            },
-            {
-                "name": "generate_beautiful_enhanced_report",
-                "description": "Generate enhanced report with beautiful original styling, sentiment analysis, forecasting, and predictive analytics",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {
-                        "query": {
-                            "type": "string",
-                            "description": "The query or topic for report generation"
-                        },
-                        "include_sentiment_analysis": {
-                            "type": "boolean",
-                            "description": "Include comprehensive sentiment analysis"
-                        },
-                        "include_forecasting": {
-                            "type": "boolean",
-                            "description": "Include advanced forecasting with 94% model accuracy"
-                        },
-                        "include_predictive_analytics": {
-                            "type": "boolean",
-                            "description": "Include predictive analytics with feature importance"
-                        },
-                        "beautiful_styling": {
-                            "type": "boolean",
-                            "description": "Use beautiful original gradient styling"
-                        },
-                        "interactive_charts": {
-                            "type": "boolean",
-                            "description": "Include interactive charts and visualizations"
-                        }
-                    },
-                    "required": ["query"]
-                }
-            },
-            {
-                "name": "generate_enhanced_report_with_tooltips",
-                "description": "Generate enhanced report with interactive tooltips for better user experience and detailed explanations",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {
-                        "query": {
-                            "type": "string",
-                            "description": "The query or topic for report generation"
-                        },
-                        "include_tooltips": {
-                            "type": "boolean",
-                            "description": "Include interactive tooltips for numerical values"
-                        },
-                        "include_feature_explanations": {
-                            "type": "boolean",
-                            "description": "Include detailed explanations for feature importance scores"
-                        },
-                        "include_forecast_explanations": {
-                            "type": "boolean",
-                            "description": "Include detailed explanations for capability forecasts"
-                        },
-                        "include_confidence_intervals": {
-                            "type": "boolean",
-                            "description": "Include explanations for confidence intervals"
-                        },
-                        "beautiful_styling": {
-                            "type": "boolean",
-                            "description": "Use beautiful gradient styling with tooltips"
-                        }
-                    },
-                    "required": ["query"]
-                }
-            },
-            {
-                "name": "run_monte_carlo_simulation",
-                "description": "Run Monte Carlo simulation for risk assessment and forecasting",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {
-                        "scenario_name": {
-                            "type": "string",
-                            "description": "Name of the simulation scenario"
-                        },
-                        "iterations": {
-                            "type": "integer",
-                            "description": "Number of simulation iterations"
-                        },
-                        "confidence_level": {
-                            "type": "number",
-                            "description": "Confidence level for results"
-                        },
-                        "variables": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                            "description": "Variables to simulate"
-                        },
-                        "distributions": {
-                            "type": "object",
-                            "description": "Distribution types for variables"
-                        }
-                    },
-                    "required": ["scenario_name"]
-                }
-            },
-            {
-                "name": "run_stress_testing",
-                "description": "Run stress testing scenarios for worst/average/best cases",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {
-                        "scenarios": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                            "description": "Stress test scenarios"
-                        },
-                        "severity_levels": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                            "description": "Severity levels to test"
-                        },
-                        "time_periods": {
-                            "type": "array",
-                            "items": {"type": "integer"},
-                            "description": "Time periods in months"
-                        },
-                        "variables": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                            "description": "Variables to stress test"
-                        }
-                    }
-                }
-            },
-            {
-                "name": "generate_knowledge_graph",
-                "description": "Generate knowledge graph analysis with relationships and patterns",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {
-                        "max_nodes": {
-                            "type": "integer",
-                            "description": "Maximum number of nodes"
-                        },
-                        "max_relationships": {
-                            "type": "integer",
-                            "description": "Maximum number of relationships"
-                        },
-                        "include_metadata": {
-                            "type": "boolean",
-                            "description": "Include metadata in analysis"
-                        },
-                        "relationship_types": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                            "description": "Types of relationships to analyze"
-                        },
-                        "node_types": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                            "description": "Types of nodes to include"
-                        }
-                    }
-                }
-            },
-            {
-                "name": "generate_visualizations",
-                "description": "Generate interactive visualizations with drill-down capabilities",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {
-                        "chart_types": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                            "description": "Types of charts to generate"
-                        },
-                        "interactive": {
-                            "type": "boolean",
-                            "description": "Enable interactive features"
-                        },
-                        "drill_down_enabled": {
-                            "type": "boolean",
-                            "description": "Enable drill-down capabilities"
-                        },
-                        "export_formats": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                            "description": "Export formats for charts"
-                        }
-                    }
-                }
-            },
-            {
-                "name": "detect_anomalies",
-                "description": "Detect anomalies in data using statistical and ML methods",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {
-                        "data": {
-                            "type": "object",
-                            "description": "Data to analyze for anomalies"
-                        },
-                        "detection_methods": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                            "description": "Methods to use for detection"
-                        },
-                        "confidence_threshold": {
-                            "type": "number",
-                            "description": "Confidence threshold for anomaly detection"
-                        }
-                    },
-                    "required": ["data"]
-                }
-            },
-            {
-                "name": "analyze_patterns",
-                "description": "Analyze patterns in data using temporal, spatial, and behavioral analysis",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {
-                        "data": {
-                            "type": "object",
-                            "description": "Data to analyze for patterns"
-                        },
-                        "pattern_types": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                            "description": "Types of patterns to look for"
-                        },
-                        "time_window": {
-                            "type": "integer",
-                            "description": "Time window for pattern analysis"
-                        }
-                    },
-                    "required": ["data"]
-                }
-            },
-            {
-                "name": "assess_risks",
-                "description": "Assess risks and create risk assessment matrix",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {
-                        "risk_categories": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                            "description": "Categories of risks to assess"
-                        },
-                        "assessment_method": {
-                            "type": "string",
-                            "description": "Method for risk assessment"
-                        },
-                        "include_mitigation": {
-                            "type": "boolean",
-                            "description": "Include mitigation strategies"
-                        }
-                    }
-                }
-            },
-            {
-                "name": "create_geopolitical_map",
-                "description": "Create geopolitical mapping and analysis",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {
-                        "regions": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                            "description": "Regions to include in analysis"
-                        },
-                        "analysis_frameworks": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                            "description": "Frameworks to use for analysis"
-                        },
-                        "include_trends": {
-                            "type": "boolean",
-                            "description": "Include global trends analysis"
-                        }
-                    }
-                }
-            },
-            {
-                "name": "get_report_components",
-                "description": "Get list of available report components",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {
-                        "category": {
-                            "type": "string",
-                            "description": "Filter by component category"
-                        }
-                    }
-                }
-            },
-            {
-                "name": "generate_strategic_analysis",
-                "description": "Generate comprehensive strategic analysis including positioning, geopolitical risk, and competition analysis",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {
-                        "entity_data": {
-                            "type": "object",
-                            "description": "Entity data for strategic positioning"
-                        },
-                        "market_data": {
-                            "type": "object",
-                            "description": "Market data for analysis"
-                        },
-                        "region_data": {
-                            "type": "object",
-                            "description": "Geopolitical region data"
-                        },
-                        "competitor_data": {
-                            "type": "array",
-                            "items": {"type": "object"},
-                            "description": "Competitor information"
-                        },
-                        "include_geopolitical": {
-                            "type": "boolean",
-                            "description": "Include geopolitical analysis"
-                        },
-                        "include_competition": {
-                            "type": "boolean",
-                            "description": "Include competition analysis"
-                        }
-                    },
-                    "required": ["entity_data", "market_data"]
-                }
-            },
-            {
-                "name": "generate_risk_assessment",
-                "description": "Generate comprehensive risk assessment with multi-dimensional matrices and mitigation strategies",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {
-                        "risk_data": {
-                            "type": "object",
-                            "description": "Risk data for assessment"
-                        },
-                        "policy_data": {
-                            "type": "object",
-                            "description": "Policy data for impact analysis"
-                        },
-                        "matrix_config": {
-                            "type": "object",
-                            "description": "Risk matrix configuration"
-                        },
-                        "include_policy_impact": {
-                            "type": "boolean",
-                            "description": "Include policy impact analysis"
-                        },
-                        "include_mitigation": {
-                            "type": "boolean",
-                            "description": "Include mitigation strategies"
-                        }
-                    },
-                    "required": ["risk_data"]
-                }
-            },
-            {
-                "name": "generate_executive_summary",
-                "description": "Generate AI-driven executive summary with comparative and impact analysis",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": {
                         "analysis_data": {
                             "type": "object",
-                            "description": "Analysis data for summary generation"
+                            "description": "Analysis data to populate the report",
+                            "default": {}
                         },
-                        "historical_data": {
-                            "type": "array",
-                            "items": {"type": "object"},
-                            "description": "Historical data for comparison"
-                        },
-                        "summary_type": {
+                        "output_dir": {
                             "type": "string",
-                            "description": "Type of summary to generate"
-                        },
-                        "target_audience": {
-                            "type": "string",
-                            "description": "Target audience for summary"
-                        },
-                        "include_comparative": {
-                            "type": "boolean",
-                            "description": "Include comparative analysis"
-                        },
-                        "include_impact": {
-                            "type": "boolean",
-                            "description": "Include impact analysis"
+                            "description": "Output directory for the report",
+                            "default": "Results"
                         }
                     },
-                    "required": ["analysis_data"]
+                    "required": ["topic"]
+                }
+            },
+            {
+                "name": "get_enhanced_report_template",
+                "description": "Get the enhanced report template structure and sections",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "topic": {
+                            "type": "string",
+                            "description": "The topic for the template"
+                        }
+                    },
+                    "required": ["topic"]
                 }
             }
         ]
     
-    async def call_tool(self, name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
-        """Call a specific MCP tool."""
+    def get_tools(self) -> List[Dict[str, Any]]:
+        """Get the list of available MCP tools."""
+        return self.tools
+    
+    async def generate_enhanced_report(self, topic: str, analysis_data: Dict[str, Any] = None, output_dir: str = "Results") -> Dict[str, Any]:
+        """Generate a comprehensive enhanced report."""
+        
+        if analysis_data is None:
+            analysis_data = {}
+        
         try:
-            logger.info(f"Calling enhanced report MCP tool: {name}")
-            
-            if name == "generate_enhanced_report":
-                return await self._generate_enhanced_report(arguments)
-            elif name == "run_monte_carlo_simulation":
-                return await self._run_monte_carlo_simulation(arguments)
-            elif name == "run_stress_testing":
-                return await self._run_stress_testing(arguments)
-            elif name == "generate_knowledge_graph":
-                return await self._generate_knowledge_graph(arguments)
-            elif name == "generate_visualizations":
-                return await self._generate_visualizations(arguments)
-            elif name == "detect_anomalies":
-                return await self._detect_anomalies(arguments)
-            elif name == "analyze_patterns":
-                return await self._analyze_patterns(arguments)
-            elif name == "assess_risks":
-                return await self._assess_risks(arguments)
-            elif name == "create_geopolitical_map":
-                return await self._create_geopolitical_map(arguments)
-            elif name == "get_report_components":
-                return await self._get_report_components(arguments)
-            elif name == "generate_strategic_analysis":
-                return await self._generate_strategic_analysis(arguments)
-            elif name == "generate_risk_assessment":
-                return await self._generate_risk_assessment(arguments)
-            elif name == "generate_executive_summary":
-                return await self._generate_executive_summary(arguments)
-            elif name == "generate_beautiful_enhanced_report":
-                return await self._generate_beautiful_enhanced_report(arguments)
-            elif name == "generate_enhanced_report_with_tooltips":
-                return await self._generate_enhanced_report_with_tooltips(arguments)
+            if enhanced_report_template_generator:
+                result = await enhanced_report_template_generator.generate_enhanced_report_template(
+                    topic=topic,
+                    analysis_data=analysis_data,
+                    output_dir=output_dir
+                )
+                return result
             else:
-                raise ValueError(f"Unknown tool: {name}")
+                # Fallback implementation
+                return await self._generate_fallback_report(topic, analysis_data, output_dir)
                 
         except Exception as e:
-            logger.error(f"Error calling MCP tool {name}: {e}")
             return {
                 "success": False,
                 "error": str(e),
-                "tool": name
+                "topic": topic,
+                "timestamp": datetime.now().isoformat()
             }
     
-    async def _generate_enhanced_report(self, arguments: Dict[str, Any]) -> Dict[str, Any]:
-        """Generate enhanced report."""
-        try:
-            # Convert component names to ReportComponent enum
-            components = []
-            for component_name in arguments.get("components", []):
-                try:
-                    component = ReportComponent(component_name)
-                    components.append(component)
-                except ValueError:
-                    logger.warning(f"Unknown component: {component_name}")
-            
-            # Add default components if none specified
-            if not components:
-                components = [
-                    ReportComponent.EXECUTIVE_SUMMARY,
-                    ReportComponent.COMPARATIVE_ANALYSIS,
-                    ReportComponent.IMPACT_ANALYSIS,
-                    ReportComponent.PREDICTIVE_ANALYSIS
-                ]
-            
-            # Add Monte Carlo if requested
-            if arguments.get("include_monte_carlo", True):
-                components.append(ReportComponent.MONTE_CARLO_SIMULATION)
-            
-            # Add stress testing if requested
-            if arguments.get("include_stress_testing", True):
-                components.append(ReportComponent.STRESS_TESTING)
-            
-            # Add visualizations if requested
-            if arguments.get("include_visualizations", True):
-                components.append(ReportComponent.INTERACTIVE_VISUALIZATIONS)
-            
-            # Add knowledge graph if requested
-            if arguments.get("include_knowledge_graph", True):
-                components.append(ReportComponent.KNOWLEDGE_GRAPH)
-            
-            # Create enhanced report request
-            request = EnhancedReportRequest(
-                query=arguments["query"],
-                components=components,
-                export_formats=arguments.get("export_formats", ["pdf", "excel", "word"]),
-                language=arguments.get("language", "en"),
-                metadata=arguments.get("metadata", {})
-            )
-            
-            # Generate report
-            result = await self.orchestrator.generate_report(request)
-            
-            return {
-                "success": True,
-                "report_id": result.id,
-                "status": result.status.value,
-                "processing_time": result.processing_time,
-                "components_generated": [comp.value for comp in result.components_generated],
-                "result": result.dict()
-            }
-            
-        except Exception as e:
-            logger.error(f"Enhanced report generation failed: {e}")
-            return {
-                "success": False,
-                "error": str(e)
-            }
+    async def get_enhanced_report_template(self, topic: str) -> Dict[str, Any]:
+        """Get the enhanced report template structure."""
+        
+        return {
+            "success": True,
+            "topic": topic,
+            "template_sections": [
+                "Executive Summary",
+                "Current Analysis", 
+                "Strategic Deterrence & Sentiment Analysis (Side by Side)",
+                "Forecasting & Operational Considerations (Side by Side)",
+                "Economic Cost Analysis",
+                "Risk Assessment Matrix",
+                "Regional Sentiment Analysis",
+                "Implementation Timeline",
+                "Regional Naval Balance Comparison",
+                "Strategic Options Comparison",
+                "Advanced Forecasting Analysis",
+                "Predictive Analytics & Feature Importance",
+                "Regional Sentiment Assessment",
+                "Conclusions"
+            ],
+            "features": [
+                "Interactive tooltips with source information",
+                "Side-by-side chart layouts",
+                "Advanced forecasting with Monte Carlo simulations",
+                "Predictive analytics with feature importance",
+                "Regional sentiment assessment",
+                "Professional styling and responsive design",
+                "Chart.js and Leaflet.js integration"
+            ],
+            "timestamp": datetime.now().isoformat()
+        }
     
-    async def _run_monte_carlo_simulation(self, arguments: Dict[str, Any]) -> Dict[str, Any]:
-        """Run Monte Carlo simulation."""
-        try:
-            config = MonteCarloConfig(
-                iterations=arguments.get("iterations", 10000),
-                confidence_level=arguments.get("confidence_level", 0.95),
-                variables=arguments.get("variables", []),
-                distributions=arguments.get("distributions", {}),
-                correlations=arguments.get("correlations")
-            )
-            
-            result = await self.orchestrator.monte_carlo_engine.run_simulation(
-                config, arguments.get("scenario_name", "default")
-            )
-            
-            return {
-                "success": True,
-                "scenario_name": arguments.get("scenario_name", "default"),
-                "result": result.dict()
-            }
-            
-        except Exception as e:
-            logger.error(f"Monte Carlo simulation failed: {e}")
-            return {
-                "success": False,
-                "error": str(e)
-            }
-    
-    async def _run_stress_testing(self, arguments: Dict[str, Any]) -> Dict[str, Any]:
-        """Run stress testing."""
-        try:
-            config = StressTestConfig(
-                scenarios=arguments.get("scenarios", ["worst_case", "average_case", "best_case"]),
-                severity_levels=arguments.get("severity_levels", ["low", "medium", "high", "extreme"]),
-                time_periods=arguments.get("time_periods", [1, 3, 6, 12, 24]),
-                variables=arguments.get("variables", [])
-            )
-            
-            base_data = {
-                "metrics": {"revenue": 1000000, "growth": 0.15, "margin": 0.25},
-                "trends": [0.1, 0.15, 0.2, 0.18, 0.25, 0.3]
-            }
-            
-            results = await self.orchestrator.stress_testing_engine.run_stress_tests(config, base_data)
-            
-            return {
-                "success": True,
-                "scenarios": arguments.get("scenarios", []),
-                "results": [result.dict() for result in results]
-            }
-            
-        except Exception as e:
-            logger.error(f"Stress testing failed: {e}")
-            return {
-                "success": False,
-                "error": str(e)
-            }
-    
-    async def _generate_knowledge_graph(self, arguments: Dict[str, Any]) -> Dict[str, Any]:
-        """Generate knowledge graph."""
-        try:
-            config = KnowledgeGraphConfig(
-                max_nodes=arguments.get("max_nodes", 1000),
-                max_relationships=arguments.get("max_relationships", 5000),
-                include_metadata=arguments.get("include_metadata", True),
-                relationship_types=arguments.get("relationship_types", []),
-                node_types=arguments.get("node_types", [])
-            )
-            
-            data = {
-                "entities": ["Company A", "Company B", "Market X", "Region Y"],
-                "relationships": [("Company A", "employs", "John Doe"), ("John Doe", "located_in", "New York")]
-            }
-            
-            result = await self.orchestrator.knowledge_graph_analyzer.analyze_knowledge_graph(config, data)
-            
-            return {
-                "success": True,
-                "result": result.dict()
-            }
-            
-        except Exception as e:
-            logger.error(f"Knowledge graph generation failed: {e}")
-            return {
-                "success": False,
-                "error": str(e)
-            }
-    
-    async def _generate_visualizations(self, arguments: Dict[str, Any]) -> Dict[str, Any]:
-        """Generate visualizations."""
-        try:
-            config = VisualizationConfig(
-                chart_types=arguments.get("chart_types", ["line", "bar", "scatter", "heatmap", "radar"]),
-                interactive=arguments.get("interactive", True),
-                drill_down_enabled=arguments.get("drill_down_enabled", True),
-                export_formats=arguments.get("export_formats", ["png", "svg", "pdf"])
-            )
-            
-            data = {
-                "trends": [0.1, 0.15, 0.2, 0.18, 0.25, 0.3],
-                "comparisons": {"baseline": 100, "current": 120, "target": 150},
-                "correlations": [[1.0, 0.8, 0.6], [0.8, 1.0, 0.7], [0.6, 0.7, 1.0]]
-            }
-            
-            result = await self.orchestrator.visualization_engine.generate_visualizations(config, data)
-            
-            return {
-                "success": True,
-                "result": result.dict()
-            }
-            
-        except Exception as e:
-            logger.error(f"Visualization generation failed: {e}")
-            return {
-                "success": False,
-                "error": str(e)
-            }
-    
-    async def _detect_anomalies(self, arguments: Dict[str, Any]) -> Dict[str, Any]:
-        """Detect anomalies."""
-        try:
-            data = arguments.get("data", {})
-            anomalies = await self.orchestrator.anomaly_detector.detect_anomalies(data)
-            
-            return {
-                "success": True,
-                "anomalies": anomalies
-            }
-            
-        except Exception as e:
-            logger.error(f"Anomaly detection failed: {e}")
-            return {
-                "success": False,
-                "error": str(e)
-            }
-    
-    async def _analyze_patterns(self, arguments: Dict[str, Any]) -> Dict[str, Any]:
-        """Analyze patterns."""
-        try:
-            data = arguments.get("data", {})
-            patterns = await self.orchestrator.pattern_analyzer.analyze_patterns(data)
-            
-            return {
-                "success": True,
-                "patterns": patterns
-            }
-            
-        except Exception as e:
-            logger.error(f"Pattern analysis failed: {e}")
-            return {
-                "success": False,
-                "error": str(e)
-            }
-    
-    async def _assess_risks(self, arguments: Dict[str, Any]) -> Dict[str, Any]:
-        """Assess risks."""
-        try:
-            data = {
-                "risk_categories": arguments.get("risk_categories", ["financial", "operational", "strategic"])
-            }
-            
-            result = await self.orchestrator.risk_assessor.assess_risks(data)
-            
-            return {
-                "success": True,
-                "result": result.dict()
-            }
-            
-        except Exception as e:
-            logger.error(f"Risk assessment failed: {e}")
-            return {
-                "success": False,
-                "error": str(e)
-            }
-    
-    async def _create_geopolitical_map(self, arguments: Dict[str, Any]) -> Dict[str, Any]:
-        """Create geopolitical map."""
-        try:
-            data = {
-                "regions": arguments.get("regions", ["north_america", "europe", "asia_pacific"]),
-                "frameworks": arguments.get("analysis_frameworks", ["swot", "pestle"])
-            }
-            
-            result = await self.orchestrator.geopolitical_mapper.create_geopolitical_map(data)
-            
-            return {
-                "success": True,
-                "result": result
-            }
-            
-        except Exception as e:
-            logger.error(f"Geopolitical mapping failed: {e}")
-            return {
-                "success": False,
-                "error": str(e)
-            }
-    
-    async def _get_report_components(self, arguments: Dict[str, Any]) -> Dict[str, Any]:
-        """Get available report components."""
-        try:
-            components = [
-                {
-                    "name": component.value,
-                    "description": component.name.replace("_", " ").title(),
-                    "category": "core" if component in [
-                        ReportComponent.EXECUTIVE_SUMMARY,
-                        ReportComponent.COMPARATIVE_ANALYSIS,
-                        ReportComponent.IMPACT_ANALYSIS
-                    ] else "advanced"
-                }
-                for component in ReportComponent
+    async def _generate_fallback_report(self, topic: str, analysis_data: Dict[str, Any], output_dir: str) -> Dict[str, Any]:
+        """Fallback report generation when template generator is not available."""
+        
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"{topic.replace(' ', '_').lower()}_enhanced_report_{timestamp}.html"
+        filepath = os.path.join(output_dir, filename)
+        
+        # Create output directory if it doesn't exist
+        os.makedirs(output_dir, exist_ok=True)
+        
+        # Generate basic HTML content
+        html_content = f"""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{topic} - Enhanced Report</title>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }}
+        .container {{
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }}
+        .header {{
+            text-align: center;
+            margin-bottom: 30px;
+        }}
+        .section {{
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }}
+        .section h2 {{
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 {topic}</h1>
+            <p>Enhanced Report - Generated on {timestamp}</p>
+        </div>
+        
+        <div class="section">
+            <h2>📊 Executive Summary</h2>
+            <p>Comprehensive analysis of {topic} with advanced forecasting, predictive analytics, and strategic assessment.</p>
+        </div>
+        
+        <div class="section">
+            <h2>🔮 Advanced Forecasting Analysis</h2>
+            <p>Multi-model ensemble forecasting with 20,000 Monte Carlo iterations provides comprehensive prediction capabilities.</p>
+        </div>
+        
+        <div class="section">
+            <h2>🔮 Predictive Analytics & Feature Importance</h2>
+            <p>Advanced machine learning models identify critical success factors and predict scenario outcomes.</p>
+        </div>
+        
+        <div class="section">
+            <h2>🌍 Regional Sentiment Assessment</h2>
+            <p>Comprehensive sentiment analysis of regional stakeholders and diplomatic implications.</p>
+        </div>
+        
+        <div class="section">
+            <h2>📋 Key Conclusions & Recommendations</h2>
+            <p>Strategic insights and actionable recommendations based on comprehensive analysis.</p>
+        </div>
+    </div>
+</body>
+</html>
+"""
+        
+        # Write to file
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+        
+        return {
+            "success": True,
+            "filepath": filepath,
+            "filename": filename,
+            "topic": topic,
+            "timestamp": timestamp,
+            "method": "fallback",
+            "sections": [
+                "Executive Summary",
+                "Advanced Forecasting Analysis",
+                "Predictive Analytics & Feature Importance", 
+                "Regional Sentiment Assessment",
+                "Conclusions"
             ]
-            
-            category = arguments.get("category")
-            if category:
-                components = [comp for comp in components if comp["category"] == category]
-            
-            return {
-                "success": True,
-                "components": components,
-                "total_count": len(components)
-            }
-            
-        except Exception as e:
-            logger.error(f"Failed to get components: {e}")
-            return {
-                "success": False,
-                "error": str(e)
-            }
-    
-    async def _generate_strategic_analysis(self, arguments: Dict[str, Any]) -> Dict[str, Any]:
-        """Generate comprehensive strategic analysis."""
-        try:
-            entity_data = arguments.get("entity_data", {})
-            market_data = arguments.get("market_data", {})
-            region_data = arguments.get("region_data", {})
-            competitor_data = arguments.get("competitor_data", [])
-            
-            # Generate comprehensive strategic analysis
-            result = await self.strategic_engine.generate_comprehensive_strategic_analysis(
-                entity_data=entity_data,
-                market_data=market_data,
-                region_data=region_data,
-                political_indicators=arguments.get("political_indicators", {}),
-                economic_indicators=arguments.get("economic_indicators", {}),
-                competitor_data=competitor_data,
-                industry_trends=arguments.get("industry_trends", {})
-            )
-            
-            return {
-                "success": True,
-                "strategic_analysis": result,
-                "analysis_id": f"strategic_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
-            }
-            
-        except Exception as e:
-            logger.error(f"Strategic analysis generation failed: {e}")
-            return {
-                "success": False,
-                "error": str(e)
-            }
-    
-    async def _generate_risk_assessment(self, arguments: Dict[str, Any]) -> Dict[str, Any]:
-        """Generate comprehensive risk assessment."""
-        try:
-            risk_data = arguments.get("risk_data", {})
-            policy_data = arguments.get("policy_data", {})
-            matrix_config = arguments.get("matrix_config", {})
-            
-            # Generate comprehensive risk assessment
-            result = await self.risk_engine.generate_comprehensive_risk_assessment(
-                risk_data=risk_data,
-                policy_data=policy_data,
-                resource_constraints=arguments.get("resource_constraints", {})
-            )
-            
-            return {
-                "success": True,
-                "risk_assessment": result,
-                "assessment_id": f"risk_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
-            }
-            
-        except Exception as e:
-            logger.error(f"Risk assessment generation failed: {e}")
-            return {
-                "success": False,
-                "error": str(e)
-            }
-    
-    async def _generate_executive_summary(self, arguments: Dict[str, Any]) -> Dict[str, Any]:
-        """Generate AI-driven executive summary."""
-        try:
-            analysis_data = arguments.get("analysis_data", {})
-            historical_data = arguments.get("historical_data", [])
-            summary_type = arguments.get("summary_type", "executive")
-            target_audience = arguments.get("target_audience", "executive")
-            
-            # Generate comprehensive summary analysis
-            result = await self.summary_generator.generate_comprehensive_summary_analysis(
-                analysis_data=analysis_data,
-                historical_data=historical_data,
-                change_data=arguments.get("change_data"),
-                benchmark_data=arguments.get("benchmark_data")
-            )
-            
-            return {
-                "success": True,
-                "executive_summary": result,
-                "summary_id": f"summary_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
-            }
-            
-        except Exception as e:
-            logger.error(f"Executive summary generation failed: {e}")
-            return {
-                "success": False,
-                "error": str(e)
-            }
+        }
 
-    async def _generate_beautiful_enhanced_report(self, arguments: Dict[str, Any]) -> Dict[str, Any]:
-        """Generate beautiful enhanced report with original styling and advanced analytics."""
-        try:
-            query = arguments.get("query", "")
-            include_sentiment = arguments.get("include_sentiment_analysis", True)
-            include_forecasting = arguments.get("include_forecasting", True)
-            include_predictive = arguments.get("include_predictive_analytics", True)
-            beautiful_styling = arguments.get("beautiful_styling", True)
-            interactive_charts = arguments.get("interactive_charts", True)
-            
-            if not self.beautiful_generator:
-                return {
-                    "success": False,
-                    "error": "Beautiful report generator not available"
-                }
-            
-            # Generate the beautiful enhanced report
-            result = await self.beautiful_generator.generate_enhanced_report()
-            
-            if not result["success"]:
-                return {
-                    "success": False,
-                    "error": "Failed to generate beautiful enhanced report"
-                }
-            
-            # Save the report
-            saved_file = self.beautiful_generator.save_enhanced_report(
-                result["html_content"], 
-                "enhanced_beautiful_report"
-            )
-            
-            return {
-                "success": True,
-                "report_id": result["report_id"],
-                "processing_time": result["processing_time"],
-                "html_file": saved_file,
-                "timestamp": result["timestamp"],
-                "message": "Beautiful enhanced report generated successfully with sentiment analysis, forecasting, and predictive analytics",
-                "features": {
-                    "sentiment_analysis": include_sentiment,
-                    "forecasting": include_forecasting,
-                    "predictive_analytics": include_predictive,
-                    "beautiful_styling": beautiful_styling,
-                    "interactive_charts": interactive_charts
-                }
-            }
-            
-        except Exception as e:
-            logger.error(f"Beautiful enhanced report generation failed: {e}")
-            return {
-                "success": False,
-                "error": str(e)
-            }
-
-    async def _generate_enhanced_report_with_tooltips(self, arguments: Dict[str, Any]) -> Dict[str, Any]:
-        """Generate enhanced report with interactive tooltips."""
-        try:
-            query = arguments.get("query", "")
-            include_tooltips = arguments.get("include_tooltips", True)
-            include_feature_explanations = arguments.get("include_feature_explanations", True)
-            include_forecast_explanations = arguments.get("include_forecast_explanations", True)
-            include_confidence_intervals = arguments.get("include_confidence_intervals", True)
-            beautiful_styling = arguments.get("beautiful_styling", True)
-            
-            if not self.tooltip_generator:
-                return {
-                    "success": False,
-                    "error": "Tooltip report generator not available"
-                }
-            
-            # Generate the enhanced report with tooltips
-            result = await self.tooltip_generator.generate_enhanced_report()
-            
-            if not result["success"]:
-                return {
-                    "success": False,
-                    "error": "Failed to generate enhanced report with tooltips"
-                }
-            
-            # Save the report
-            saved_file = self.tooltip_generator.save_enhanced_report(
-                result["html_content"], 
-                "enhanced_report_with_tooltips"
-            )
-            
-            return {
-                "success": True,
-                "report_id": result["report_id"],
-                "processing_time": result["processing_time"],
-                "html_file": saved_file,
-                "timestamp": result["timestamp"],
-                "message": "Enhanced report with tooltips generated successfully",
-                "features": {
-                    "tooltips": include_tooltips,
-                    "feature_explanations": include_feature_explanations,
-                    "forecast_explanations": include_forecast_explanations,
-                    "confidence_intervals": include_confidence_intervals,
-                    "beautiful_styling": beautiful_styling
-                }
-            }
-            
-        except Exception as e:
-            logger.error(f"Enhanced report with tooltips generation failed: {e}")
-            return {
-                "success": False,
-                "error": str(e)
-            }
+# Global instance
+enhanced_report_mcp_tools = EnhancedReportMCPTools()

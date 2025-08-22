@@ -6,10 +6,12 @@ using Streamable HTTP transport for direct integration with Strands.
 """
 
 import sys
+import os
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 import threading
 import time
+from datetime import datetime
 
 # Add src to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -953,7 +955,7 @@ class StandaloneMCPServer:
                 # Generate knowledge graph
                 result = await self.kg_agent.generate_knowledge_graph(
                     processing_result.get("result", {}).get("content", ""),
-                    language=language
+                    "text"
                 )
             elif analysis_type == "entities":
                 # Extract entities
@@ -981,7 +983,7 @@ class StandaloneMCPServer:
                 # Knowledge graph
                 kg_result = await self.kg_agent.generate_knowledge_graph(
                     processing_result.get("result", {}).get("content", ""),
-                    language=language
+                    "text"
                 )
                 results["knowledge_graph"] = kg_result
                 

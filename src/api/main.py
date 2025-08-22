@@ -116,12 +116,13 @@ except ImportError as e:
     logger.warning(f"Simple markdown export routes not available: {e}")
     SIMPLE_MARKDOWN_EXPORT_AVAILABLE = False
 
-# Import enhanced report routes
+# Import enhanced report routes with tooltips
 try:
     from src.api.enhanced_report_routes import router as enhanced_report_router
     ENHANCED_REPORT_AVAILABLE = True
+    logger.info("✅ Enhanced report routes with source tracking and tooltips loaded")
 except ImportError as e:
-    logger.warning(f"Enhanced report routes not available: {e}")
+    logger.warning(f"Enhanced report routes with source tracking and tooltips not available: {e}")
     ENHANCED_REPORT_AVAILABLE = False
 
 # Import Phase 5 interpretability routes

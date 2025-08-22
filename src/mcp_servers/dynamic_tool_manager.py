@@ -729,7 +729,7 @@ def register_all_mcp_tools():
     tool_mappings = {
         # Monte Carlo and Simulation Tools
         "monte_carlo": ("src.mcp_servers.monte_carlo_mcp_tools", "MonteCarloMCPTools", "Monte Carlo simulation engine for risk assessment and scenario analysis"),
-        "monte_carlo_visualization": ("src.mcp_servers.monte_carlo_visualization_mcp_tools", "MonteCarloVisualizationMCPTools", "Monte Carlo visualization and charting tools"),
+        "monte_carlo_visualization": ("src.mcp_servers.monte_carlo_visualization_mcp_tools", "get_monte_carlo_visualization_mcp_tools", "Monte Carlo visualization and charting tools"),
         "multi_domain_monte_carlo": ("src.mcp_servers.multi_domain_monte_carlo_mcp_tools", "MultiDomainMonteCarloMCPTools", "Multi-domain Monte Carlo simulation tools"),
         
         # Markdown Export Tools

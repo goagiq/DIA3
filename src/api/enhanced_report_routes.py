@@ -1,377 +1,325 @@
 """
-Enhanced Report API Routes
-Provides endpoints for generating enhanced reports with beautiful styling and advanced analytics.
+Enhanced Report API Routes with Source Tracking
+
+This module provides API endpoints for generating enhanced reports with comprehensive
+source tracking, tooltips, and detailed references for all data points.
 """
 
-from fastapi import APIRouter, HTTPException, BackgroundTasks
-from pydantic import BaseModel, Field
-from typing import Dict, Any, Optional, List
-import asyncio
-import json
+from typing import Dict, List, Any, Optional
 from datetime import datetime
-from pathlib import Path
-import sys
-import os
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel, Field
+from loguru import logger
 
-# Add src to path for imports
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
-from src.core.models import (
-    EnhancedReportRequest, ReportComponent, MonteCarloConfig,
-    StressTestConfig, VisualizationConfig, KnowledgeGraphConfig
+from src.core.enhanced_report_orchestrator import (
+    get_enhanced_report_orchestrator,
+    generate_enhanced_report_with_tracking,
+    generate_visualization_with_enhanced_tooltips
 )
-from src.core.enhanced_report_orchestrator import EnhancedReportOrchestrator
 
-router = APIRouter(prefix="/api/v1/enhanced-reports", tags=["Enhanced Reports"])
+# Create router
+router = APIRouter(prefix="/enhanced-report", tags=["Enhanced Report with Source Tracking"])
 
-# Global orchestrator instance
-enhanced_report_orchestrator = None
-
-def get_enhanced_report_orchestrator():
-    """Get or create the enhanced report orchestrator."""
-    global enhanced_report_orchestrator
-    if enhanced_report_orchestrator is None:
-        enhanced_report_orchestrator = EnhancedReportOrchestrator()
-    return enhanced_report_orchestrator
-
-class EnhancedReportRequestModel(BaseModel):
+# Pydantic models
+class EnhancedReportRequest(BaseModel):
     """Request model for enhanced report generation."""
-    query: str = Field(..., description="Analysis query or topic")
-    components: Optional[List[str]] = Field(
-        default=[
-            "executive_summary", "comparative_analysis", "impact_analysis",
-            "predictive_analysis", "monte_carlo_simulation", "stress_testing",
-            "risk_assessment", "knowledge_graph", "interactive_visualizations"
-        ],
-        description="Report components to include"
-    )
-    monte_carlo_config: Optional[Dict[str, Any]] = Field(
-        default={
-            "iterations": 20000,
-            "scenarios": ["baseline", "optimistic", "pessimistic"],
-            "confidence_level": 0.95
-        },
-        description="Monte Carlo simulation configuration"
-    )
-    stress_test_config: Optional[Dict[str, Any]] = Field(
-        default={
-            "scenarios": ["worst_case", "average_case", "best_case"],
-            "severity_levels": ["low", "medium", "high"],
-            "time_periods": [1, 3, 6, 12]
-        },
-        description="Stress testing configuration"
-    )
-    visualization_config: Optional[Dict[str, Any]] = Field(
-        default={
-            "chart_types": ["line", "bar", "scatter", "heatmap"],
-            "interactive": True,
-            "export_formats": ["png", "svg", "html"]
-        },
-        description="Visualization configuration"
-    )
-    knowledge_graph_config: Optional[Dict[str, Any]] = Field(
-        default={
-            "entity_types": ["military", "strategic", "economic"],
-            "relationship_types": ["alliance", "competition", "dependency"],
-            "centrality_metrics": ["degree", "betweenness", "closeness"]
-        },
-        description="Knowledge graph configuration"
-    )
+    content: str = Field(..., description="Content to analyze and generate report for")
+    report_type: str = Field(default="comprehensive", description="Type of report to generate")
+    include_tooltips: bool = Field(default=True, description="Include interactive tooltips")
+    include_source_references: bool = Field(default=True, description="Include source references")
+    include_calculations: bool = Field(default=True, description="Include calculation details")
+    language: str = Field(default="en", description="Report language")
+    format: str = Field(default="markdown", description="Output format")
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata")
+
 
 class EnhancedReportResponse(BaseModel):
     """Response model for enhanced report generation."""
     success: bool
-    report_id: str
-    processing_time: float
-    html_file: Optional[str] = None
-    markdown_file: Optional[str] = None
-    json_file: Optional[str] = None
-    timestamp: str
-    message: str
+    enhanced_report: Optional[Dict[str, Any]] = None
+    source_tracking: Optional[Dict[str, Any]] = None
+    tooltip_data: Optional[Dict[str, Any]] = None
+    error: Optional[str] = None
+    metadata: Optional[Dict[str, Any]] = None
+
+
+class VisualizationRequest(BaseModel):
+    """Request model for visualization with tooltips."""
+    data: Dict[str, Any] = Field(..., description="Data to visualize")
+    visualization_type: str = Field(default="interactive", description="Type of visualization")
+    include_tooltips: bool = Field(default=True, description="Include tooltips")
+    chart_type: Optional[str] = Field(default=None, description="Specific chart type")
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata")
+
+
+class VisualizationResponse(BaseModel):
+    """Response model for visualization generation."""
+    success: bool
+    visualization: Optional[Dict[str, Any]] = None
+    tooltip_data: Optional[Dict[str, Any]] = None
+    source_tracking: Optional[Dict[str, Any]] = None
+    error: Optional[str] = None
+    metadata: Optional[Dict[str, Any]] = None
+
+
+class SourceTrackingRequest(BaseModel):
+    """Request model for source tracking operations."""
+    operation: str = Field(..., description="Operation to perform")
+    data_points: Optional[List[str]] = Field(default=None, description="Data point IDs")
+    session_id: Optional[str] = Field(default=None, description="Session ID")
+    metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata")
+
+
+class SourceTrackingResponse(BaseModel):
+    """Response model for source tracking operations."""
+    success: bool
+    result: Optional[Dict[str, Any]] = None
+    error: Optional[str] = None
+    metadata: Optional[Dict[str, Any]] = None
+
+
+# API Endpoints
+@router.post("/generate", response_model=EnhancedReportResponse)
+async def generate_enhanced_report(request: EnhancedReportRequest):
+    """Generate an enhanced report with comprehensive source tracking."""
+    try:
+        logger.info(f"Generating enhanced report: {request.report_type}")
+        
+        result = await generate_enhanced_report_with_tracking(
+            content=request.content,
+            report_type=request.report_type,
+            include_tooltips=request.include_tooltips,
+            include_source_references=request.include_source_references,
+            include_calculations=request.include_calculations,
+            language=request.language,
+            format=request.format,
+            **(request.metadata or {})
+        )
+        
+        if not result.get("success", False):
+            raise HTTPException(
+                status_code=500,
+                detail=result.get("error", "Enhanced report generation failed")
+        )
+        
+        return EnhancedReportResponse(
+            success=True,
+            enhanced_report=result.get("enhanced_report"),
+            source_tracking=result.get("source_tracking"),
+            tooltip_data=result.get("source_tracking", {}).get("tooltip_data"),
+            metadata={
+                "report_type": request.report_type,
+                "generated_at": datetime.now().isoformat(),
+                "enhancement_features": result.get("enhancement_features")
+            }
+        )
+        
+    except Exception as e:
+        logger.error(f"Error generating enhanced report: {e}")
+        raise HTTPException(status_code=500, detail=f"Enhanced report generation failed: {str(e)}")
+
+
+@router.post("/visualization", response_model=VisualizationResponse)
+async def generate_visualization_with_tooltips(request: VisualizationRequest):
+    """Generate visualization with enhanced tooltips."""
+    try:
+        logger.info(f"Generating visualization: {request.visualization_type}")
+        
+        result = await generate_visualization_with_enhanced_tooltips(
+            data=request.data,
+            visualization_type=request.visualization_type,
+            include_tooltips=request.include_tooltips,
+            chart_type=request.chart_type,
+            **(request.metadata or {})
+        )
+        
+        if not result.get("success", False):
+            raise HTTPException(
+                status_code=500,
+                detail=result.get("error", "Visualization generation failed")
+            )
+        
+        return VisualizationResponse(
+            success=True,
+            visualization=result.get("visualization"),
+            tooltip_data=result.get("tooltip_data"),
+            source_tracking=result.get("source_tracking"),
+            metadata={
+                "visualization_type": request.visualization_type,
+                "generated_at": datetime.now().isoformat()
+            }
+        )
+        
+    except Exception as e:
+        logger.error(f"Error generating visualization: {e}")
+        raise HTTPException(status_code=500, detail=f"Visualization generation failed: {str(e)}")
+
+
+@router.post("/source-tracking", response_model=SourceTrackingResponse)
+async def manage_source_tracking(request: SourceTrackingRequest):
+    """Manage source tracking operations."""
+    try:
+        logger.info(f"Source tracking operation: {request.operation}")
+        
+        orchestrator = get_enhanced_report_orchestrator()
+        
+        if request.operation == "get_tooltip_data":
+            result = orchestrator.get_tooltip_data()
+        elif request.operation == "save_session":
+            filename = f"source_tracking_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            result = {"filepath": orchestrator.save_tracking_session(filename)}
+        elif request.operation == "generate_report":
+            result = orchestrator.generate_source_report()
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Unsupported operation: {request.operation}"
+            )
+        
+        return SourceTrackingResponse(
+            success=True,
+            result=result,
+            metadata={
+                "operation": request.operation,
+                "timestamp": datetime.now().isoformat()
+            }
+        )
+        
+    except Exception as e:
+        logger.error(f"Error in source tracking operation: {e}")
+        raise HTTPException(status_code=500, detail=f"Source tracking operation failed: {str(e)}")
+
 
 @router.get("/health")
-async def health_check():
+async def enhanced_report_health():
     """Health check for enhanced report service."""
     try:
         orchestrator = get_enhanced_report_orchestrator()
+        
         return {
+            "service": "enhanced_report",
             "status": "healthy",
-            "service": "enhanced_report_service",
-            "timestamp": datetime.now().isoformat(),
-            "orchestrator_available": orchestrator is not None
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Health check failed: {str(e)}")
-
-@router.post("/generate", response_model=EnhancedReportResponse)
-async def generate_enhanced_report(request: EnhancedReportRequestModel):
-    """Generate an enhanced report with beautiful styling and advanced analytics."""
-    try:
-        print(f"🚀 Generating Enhanced Report: {request.query}")
-        
-        # Get orchestrator
-        orchestrator = get_enhanced_report_orchestrator()
-        if not orchestrator:
-            raise HTTPException(status_code=500, detail="Enhanced report orchestrator not available")
-        
-        # Convert components to ReportComponent enum
-        components = []
-        for comp in request.components:
-            try:
-                components.append(ReportComponent(comp))
-            except ValueError:
-                print(f"Warning: Unknown component {comp}, skipping")
-        
-        # Create enhanced report request
-        enhanced_request = EnhancedReportRequest(
-            query=request.query,
-            components=components,
-            monte_carlo_config=MonteCarloConfig(**request.monte_carlo_config) if request.monte_carlo_config else None,
-            stress_test_config=StressTestConfig(**request.stress_test_config) if request.stress_test_config else None,
-            visualization_config=VisualizationConfig(**request.visualization_config) if request.visualization_config else None,
-            knowledge_graph_config=KnowledgeGraphConfig(**request.knowledge_graph_config) if request.knowledge_graph_config else None
-        )
-        
-        # Generate enhanced report
-        start_time = datetime.now()
-        result = await orchestrator.generate_report(enhanced_request)
-        processing_time = (datetime.now() - start_time).total_seconds()
-        
-        # Generate beautiful HTML report
-        from Test.enhanced_report_with_original_styling import EnhancedReportWithOriginalStyling
-        
-        generator = EnhancedReportWithOriginalStyling()
-        html_content = generator._generate_beautiful_html_report(result, processing_time)
-        
-        # Save report files
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        results_dir = Path("Results")
-        results_dir.mkdir(exist_ok=True)
-        
-        # Save HTML file
-        html_filename = f"enhanced_report_{timestamp}.html"
-        html_path = results_dir / html_filename
-        with open(html_path, 'w', encoding='utf-8') as f:
-            f.write(html_content)
-        
-        # Save JSON metadata
-        json_filename = f"enhanced_report_{timestamp}.json"
-        json_path = results_dir / json_filename
-        metadata = {
-            "report_id": result.request_id,
-            "query": request.query,
-            "processing_time": processing_time,
-            "timestamp": timestamp,
-            "components_generated": result.components_generated,
-            "status": result.status
-        }
-        with open(json_path, 'w', encoding='utf-8') as f:
-            json.dump(metadata, f, indent=2)
-        
-        return EnhancedReportResponse(
-            success=True,
-            report_id=result.request_id,
-            processing_time=processing_time,
-            html_file=str(html_path),
-            json_file=str(json_path),
-            timestamp=datetime.now().isoformat(),
-            message=f"Enhanced report generated successfully in {processing_time:.2f} seconds"
-        )
-        
-    except Exception as e:
-        print(f"❌ Error generating enhanced report: {e}")
-        raise HTTPException(status_code=500, detail=f"Failed to generate enhanced report: {str(e)}")
-
-@router.post("/generate-beautiful", response_model=EnhancedReportResponse)
-async def generate_beautiful_enhanced_report(request: EnhancedReportRequestModel):
-    """Generate an enhanced report with the beautiful original styling."""
-    try:
-        print(f"🎨 Generating Beautiful Enhanced Report: {request.query}")
-        
-        # Import the beautiful report generator
-        from Test.enhanced_report_with_original_styling import EnhancedReportWithOriginalStyling
-        
-        # Create generator and generate report
-        generator = EnhancedReportWithOriginalStyling()
-        result = await generator.generate_enhanced_report()
-        
-        if not result["success"]:
-            raise HTTPException(status_code=500, detail="Failed to generate beautiful enhanced report")
-        
-        # Save the report
-        saved_file = generator.save_enhanced_report(
-            result["html_content"], 
-            "enhanced_beautiful_report"
-        )
-        
-        return EnhancedReportResponse(
-            success=True,
-            report_id=result["report_id"],
-            processing_time=result["processing_time"],
-            html_file=saved_file,
-            timestamp=result["timestamp"],
-            message="Beautiful enhanced report generated successfully"
-        )
-        
-    except Exception as e:
-        print(f"❌ Error generating beautiful enhanced report: {e}")
-        raise HTTPException(status_code=500, detail=f"Failed to generate beautiful enhanced report: {str(e)}")
-
-@router.post("/generate-with-tooltips", response_model=EnhancedReportResponse)
-async def generate_enhanced_report_with_tooltips(request: EnhancedReportRequestModel):
-    """Generate an enhanced report with interactive tooltips."""
-    try:
-        print(f"🔍 Generating Enhanced Report with Tooltips: {request.query}")
-        
-        # Import the tooltip-enhanced report generator
-        from src.core.enhanced_report_with_tooltips import EnhancedReportWithTooltips
-        
-        # Create generator and generate report
-        generator = EnhancedReportWithTooltips()
-        result = await generator.generate_enhanced_report()
-        
-        if not result["success"]:
-            raise HTTPException(status_code=500, detail="Failed to generate enhanced report with tooltips")
-        
-        # Save the report
-        saved_file = generator.save_enhanced_report(
-            result["html_content"], 
-            "enhanced_report_with_tooltips"
-        )
-        
-        return EnhancedReportResponse(
-            success=True,
-            report_id=result["report_id"],
-            processing_time=result["processing_time"],
-            html_file=saved_file,
-            timestamp=result["timestamp"],
-            message="Enhanced report with tooltips generated successfully"
-        )
-        
-    except Exception as e:
-        print(f"❌ Error generating enhanced report with tooltips: {e}")
-        raise HTTPException(status_code=500, detail=f"Failed to generate enhanced report with tooltips: {str(e)}")
-
-@router.get("/reports")
-async def list_enhanced_reports():
-    """List all generated enhanced reports."""
-    try:
-        results_dir = Path("Results")
-        if not results_dir.exists():
-            return {"reports": []}
-        
-        reports = []
-        for file_path in results_dir.glob("enhanced_*_*.html"):
-            # Extract timestamp from filename
-            filename = file_path.name
-            if "_" in filename:
-                parts = filename.split("_")
-                if len(parts) >= 3:
-                    timestamp = f"{parts[-2]}_{parts[-1].replace('.html', '')}"
-                    reports.append({
-                        "filename": filename,
-                        "timestamp": timestamp,
-                        "path": str(file_path),
-                        "size": file_path.stat().st_size if file_path.exists() else 0
-                    })
-        
-        return {"reports": sorted(reports, key=lambda x: x["timestamp"], reverse=True)}
-        
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to list reports: {str(e)}")
-
-@router.get("/reports/{report_id}")
-async def get_enhanced_report(report_id: str):
-    """Get a specific enhanced report by ID."""
-    try:
-        results_dir = Path("Results")
-        
-        # Look for HTML file with the report ID
-        html_files = list(results_dir.glob(f"*{report_id}*.html"))
-        if not html_files:
-            raise HTTPException(status_code=404, detail="Report not found")
-        
-        html_file = html_files[0]
-        
-        # Read the HTML content
-        with open(html_file, 'r', encoding='utf-8') as f:
-            html_content = f.read()
-        
-        return {
-            "report_id": report_id,
-            "html_content": html_content,
-            "filename": html_file.name,
-            "path": str(html_file)
+            "features": [
+                "comprehensive_source_tracking",
+                "interactive_tooltips",
+                "detailed_calculations",
+                "source_references",
+                "visualization_tooltips",
+                "session_management"
+            ],
+            "capabilities": {
+                "report_types": ["comprehensive", "sentiment", "business", "technical"],
+                "visualization_types": ["interactive", "static", "dashboard"],
+                "output_formats": ["markdown", "html", "json"],
+                "tooltip_features": ["source_references", "calculations", "confidence_scores"]
+            },
+            "timestamp": datetime.now().isoformat()
         }
         
-    except HTTPException:
-        raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get report: {str(e)}")
+        logger.error(f"Health check failed: {e}")
+        raise HTTPException(status_code=503, detail=f"Service unhealthy: {str(e)}")
 
-@router.delete("/reports/{report_id}")
-async def delete_enhanced_report(report_id: str):
-    """Delete a specific enhanced report by ID."""
-    try:
-        results_dir = Path("Results")
-        
-        # Find all files with the report ID
-        files_to_delete = []
-        for pattern in [f"*{report_id}*.html", f"*{report_id}*.json", f"*{report_id}*.md"]:
-            files_to_delete.extend(results_dir.glob(pattern))
-        
-        if not files_to_delete:
-            raise HTTPException(status_code=404, detail="Report not found")
-        
-        # Delete the files
-        deleted_files = []
-        for file_path in files_to_delete:
-            try:
-                file_path.unlink()
-                deleted_files.append(file_path.name)
-            except Exception as e:
-                print(f"Warning: Could not delete {file_path}: {e}")
-        
-        return {
-            "success": True,
-            "report_id": report_id,
-            "deleted_files": deleted_files,
-            "message": f"Deleted {len(deleted_files)} files"
-        }
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to delete report: {str(e)}")
 
 @router.get("/capabilities")
 async def get_enhanced_report_capabilities():
-    """Get enhanced report generation capabilities."""
+    """Get enhanced report capabilities and features."""
     try:
         return {
-            "capabilities": {
-                "sentiment_analysis": True,
-                "forecasting": True,
-                "predictive_analytics": True,
-                "monte_carlo_simulation": True,
-                "stress_testing": True,
-                "knowledge_graph": True,
-                "interactive_visualizations": True,
-                "beautiful_styling": True
+            "service": "enhanced_report",
+            "version": "2.0.0",
+            "features": {
+                "source_tracking": {
+                    "description": "Comprehensive tracking of all data sources and calculations",
+                    "capabilities": [
+                        "Automatic source reference tracking",
+                        "Calculation step tracking",
+                        "Confidence score tracking",
+                        "Execution time tracking",
+                        "Metadata tracking"
+                    ]
+                },
+                "tooltips": {
+                    "description": "Interactive tooltips with detailed information",
+                    "capabilities": [
+                        "Source reference display",
+                        "Calculation formula display",
+                        "Confidence score display",
+                        "Timestamp information",
+                        "Metadata display"
+                    ]
+                },
+                "reports": {
+                    "description": "Enhanced reports with source tracking",
+                    "capabilities": [
+                        "Comprehensive source references",
+                        "Calculation details",
+                        "Interactive tooltips",
+                        "Multiple output formats",
+                        "Session management"
+                    ]
+                },
+                "visualizations": {
+                    "description": "Visualizations with tooltip integration",
+                    "capabilities": [
+                        "Interactive charts",
+                        "Tooltip integration",
+                        "Source tracking",
+                        "Multiple chart types",
+                        "Export capabilities"
+                    ]
+                }
             },
-            "components": [
-                "executive_summary",
-                "comparative_analysis", 
-                "impact_analysis",
-                "predictive_analysis",
-                "monte_carlo_simulation",
-                "stress_testing",
-                "risk_assessment",
-                "knowledge_graph",
-                "interactive_visualizations"
+            "api_endpoints": [
+                "POST /enhanced-report/generate - Generate enhanced report",
+                "POST /enhanced-report/visualization - Generate visualization with tooltips",
+                "POST /enhanced-report/source-tracking - Manage source tracking",
+                "GET /enhanced-report/health - Health check",
+                "GET /enhanced-report/capabilities - Get capabilities"
             ],
-            "supported_formats": ["html", "json"],
-            "styling_options": ["original_beautiful", "professional", "minimal"]
+            "timestamp": datetime.now().isoformat()
         }
+        
     except Exception as e:
+        logger.error(f"Error getting capabilities: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to get capabilities: {str(e)}")
+
+
+@router.get("/examples")
+async def get_enhanced_report_examples():
+    """Get examples of enhanced report usage."""
+    try:
+        return {
+            "service": "enhanced_report",
+            "examples": {
+                "basic_report": {
+                    "description": "Generate a basic enhanced report",
+                    "request": {
+                        "content": "Sample content for analysis",
+                        "report_type": "comprehensive",
+                        "include_tooltips": True,
+                        "include_source_references": True,
+                        "include_calculations": True
+                    }
+                },
+                "visualization": {
+                    "description": "Generate visualization with tooltips",
+                    "request": {
+                        "data": {"x": [1, 2, 3], "y": [4, 5, 6]},
+                        "visualization_type": "interactive",
+                        "include_tooltips": True
+                    }
+                },
+                "source_tracking": {
+                    "description": "Manage source tracking session",
+                    "request": {
+                        "operation": "save_session"
+                    }
+                }
+            },
+            "timestamp": datetime.now().isoformat()
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting examples: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to get examples: {str(e)}")

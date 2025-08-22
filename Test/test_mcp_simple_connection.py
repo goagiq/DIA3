@@ -22,8 +22,8 @@ def test_mcp_endpoint_connection():
     try:
         logger.info("🔧 Testing MCP Endpoint Connection...")
         
-        # Test the working MCP endpoint on port 8003
-        mcp_url = "http://localhost:8003/mcp"
+        # Test the working MCP endpoint on port 8000
+        mcp_url = "http://localhost:8000/mcp"
         
         logger.info(f"🔗 Connecting to MCP endpoint: {mcp_url}")
         
@@ -118,7 +118,7 @@ def test_enhanced_markdown_export_tools():
     try:
         logger.info("🎯 Testing Enhanced Markdown Export Tools via MCP...")
         
-        mcp_url = "http://localhost:8003/mcp"
+        mcp_url = "http://localhost:8000/mcp"
         
         # First initialize the MCP connection
         initialize_payload = {

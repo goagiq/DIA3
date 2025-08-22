@@ -1,318 +1,300 @@
 #!/usr/bin/env python3
 """
-Enhanced Report Integration Test
-Tests the complete integration of enhanced report functionality with API endpoints and MCP tools.
+Test Enhanced Report Integration with Source Tracking
+
+This script tests the enhanced report generation with source tracking,
+MCP client communication, and verifies that the Operational Capabilities
+section is included in Strategic Timeline and Milestones.
 """
 
 import asyncio
 import sys
-import os
-import json
+import time
 import requests
-from datetime import datetime
 from pathlib import Path
+from typing import Dict, Any
+from loguru import logger
 
 # Add src to path for imports
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-def test_enhanced_report_api_endpoints():
-    """Test enhanced report API endpoints."""
-    print("🧪 Testing Enhanced Report API Endpoints...")
-    
-    base_url = "http://localhost:8003"
-    
-    # Test health check
-    try:
-        response = requests.get(f"{base_url}/api/v1/enhanced-reports/health")
-        if response.status_code == 200:
-            print("✅ Enhanced report API health check passed")
-        else:
-            print(f"❌ Enhanced report API health check failed: {response.status_code}")
-            return False
-    except Exception as e:
-        print(f"❌ Enhanced report API health check failed: {e}")
-        return False
-    
-    # Test capabilities endpoint
-    try:
-        response = requests.get(f"{base_url}/api/v1/enhanced-reports/capabilities")
-        if response.status_code == 200:
-            capabilities = response.json()
-            print("✅ Enhanced report capabilities endpoint working")
-            print(f"   - Available capabilities: {list(capabilities.get('capabilities', {}).keys())}")
-        else:
-            print(f"❌ Enhanced report capabilities endpoint failed: {response.status_code}")
-    except Exception as e:
-        print(f"❌ Enhanced report capabilities endpoint failed: {e}")
-    
-    # Test report generation
-    try:
-        report_request = {
-            "query": "Pakistan Submarine Acquisition Analysis: Strategic Impact on Conventional Deterrence Capabilities",
-            "components": [
-                "executive_summary", "comparative_analysis", "impact_analysis",
-                "predictive_analysis", "monte_carlo_simulation", "stress_testing",
-                "risk_assessment", "knowledge_graph", "interactive_visualizations"
-            ]
-        }
-        
-        response = requests.post(
-            f"{base_url}/api/v1/enhanced-reports/generate",
-            json=report_request,
-            timeout=300  # 5 minutes timeout
-        )
-        
-        if response.status_code == 200:
-            result = response.json()
-            print("✅ Enhanced report generation via API successful")
-            print(f"   - Report ID: {result.get('report_id')}")
-            print(f"   - Processing time: {result.get('processing_time')}s")
-            print(f"   - HTML file: {result.get('html_file')}")
-        else:
-            print(f"❌ Enhanced report generation via API failed: {response.status_code}")
-            print(f"   - Error: {response.text}")
-            return False
-            
-    except Exception as e:
-        print(f"❌ Enhanced report generation via API failed: {e}")
-        return False
-    
-    # Test beautiful report generation
-    try:
-        beautiful_request = {
-            "query": "Pakistan Submarine Acquisition Analysis: Strategic Impact on Conventional Deterrence Capabilities",
-            "include_sentiment_analysis": True,
-            "include_forecasting": True,
-            "include_predictive_analytics": True,
-            "beautiful_styling": True,
-            "interactive_charts": True
-        }
-        
-        response = requests.post(
-            f"{base_url}/api/v1/enhanced-reports/generate-beautiful",
-            json=beautiful_request,
-            timeout=300  # 5 minutes timeout
-        )
-        
-        if response.status_code == 200:
-            result = response.json()
-            print("✅ Beautiful enhanced report generation via API successful")
-            print(f"   - Report ID: {result.get('report_id')}")
-            print(f"   - Processing time: {result.get('processing_time')}s")
-            print(f"   - HTML file: {result.get('html_file')}")
-        else:
-            print(f"❌ Beautiful enhanced report generation via API failed: {response.status_code}")
-            print(f"   - Error: {response.text}")
-            
-    except Exception as e:
-        print(f"❌ Beautiful enhanced report generation via API failed: {e}")
-    
-    # Test list reports endpoint
-    try:
-        response = requests.get(f"{base_url}/api/v1/enhanced-reports/reports")
-        if response.status_code == 200:
-            reports = response.json()
-            print(f"✅ List reports endpoint working - {len(reports.get('reports', []))} reports found")
-        else:
-            print(f"❌ List reports endpoint failed: {response.status_code}")
-    except Exception as e:
-        print(f"❌ List reports endpoint failed: {e}")
-    
-    return True
+from src.core.enhanced_report_orchestrator import get_enhanced_report_orchestrator
+from src.core.enhanced_mcp_client import get_enhanced_mcp_client
 
-def test_enhanced_report_mcp_integration():
-    """Test enhanced report MCP integration."""
-    print("\n🔗 Testing Enhanced Report MCP Integration...")
-    
-    try:
-        from src.mcp_servers.enhanced_report_mcp_tools import EnhancedReportMCPTools
-        
-        # Initialize MCP tools
-        mcp_tools = EnhancedReportMCPTools()
-        
-        # Test tool availability
-        tools = mcp_tools.get_tools()
-        enhanced_report_tools = [tool for tool in tools if "enhanced_report" in tool["name"] or "beautiful" in tool["name"]]
-        
-        if enhanced_report_tools:
-            print(f"✅ Enhanced report MCP tools found: {len(enhanced_report_tools)}")
-            for tool in enhanced_report_tools:
-                print(f"   - {tool['name']}: {tool['description']}")
-        else:
-            print("❌ No enhanced report MCP tools found")
-            return False
-        
-        # Test beautiful enhanced report generation
-        print("\n🎨 Testing Beautiful Enhanced Report Generation via MCP...")
-        
-        arguments = {
-            "query": "Pakistan Submarine Acquisition Analysis: Strategic Impact on Conventional Deterrence Capabilities",
-            "include_sentiment_analysis": True,
-            "include_forecasting": True,
-            "include_predictive_analytics": True,
-            "beautiful_styling": True,
-            "interactive_charts": True
-        }
-        
-        result = asyncio.run(mcp_tools.call_tool("generate_beautiful_enhanced_report", arguments))
-        
-        if result.get("success"):
-            print("✅ Beautiful enhanced report generation via MCP successful")
-            print(f"   - Report ID: {result.get('report_id')}")
-            print(f"   - Processing time: {result.get('processing_time')}s")
-            print(f"   - HTML file: {result.get('html_file')}")
-            print(f"   - Message: {result.get('message')}")
-        else:
-            print(f"❌ Beautiful enhanced report generation via MCP failed: {result.get('error')}")
-            return False
-            
-    except Exception as e:
-        print(f"❌ Enhanced report MCP integration failed: {e}")
-        return False
-    
-    return True
 
-def test_enhanced_report_direct_generation():
-    """Test direct enhanced report generation."""
-    print("\n🎯 Testing Direct Enhanced Report Generation...")
+class EnhancedReportIntegrationTester:
+    """Test enhanced report integration with source tracking."""
     
-    try:
-        from Test.enhanced_report_with_original_styling import EnhancedReportWithOriginalStyling
+    def __init__(self):
+        self.api_base_url = "http://localhost:8003"
+        self.mcp_base_url = "http://localhost:8000"
+        self.test_results = {}
         
-        # Create generator and generate report
-        generator = EnhancedReportWithOriginalStyling()
-        result = asyncio.run(generator.generate_enhanced_report())
-        
-        if result["success"]:
-            print("✅ Direct enhanced report generation successful")
-            print(f"   - Report ID: {result['report_id']}")
-            print(f"   - Processing time: {result['processing_time']}s")
-            print(f"   - HTML content length: {len(result['html_content'])} characters")
+    async def test_enhanced_report_orchestrator(self) -> bool:
+        """Test enhanced report orchestrator functionality."""
+        try:
+            logger.info("🧪 Testing Enhanced Report Orchestrator...")
             
-            # Save the report
-            saved_file = generator.save_enhanced_report(
-                result["html_content"], 
-                "test_enhanced_report"
+            # Get enhanced report orchestrator
+            orchestrator = get_enhanced_report_orchestrator()
+            
+            # Test content with Operational Capabilities
+            test_content = """
+            Strategic Defense Analysis Report
+            
+            This report analyzes the strategic implications of submarine acquisition
+            for regional security dynamics in South Asia.
+            
+            Key Findings:
+            1. Enhanced deterrence capabilities
+            2. Regional power balance shifts
+            3. Operational capabilities development timeline
+            4. Strategic timeline and milestones including operational capabilities
+            
+            Strategic Timeline and Milestones:
+            - Phase 1: Initial capability development (2024-2025)
+            - Phase 2: Operational capabilities assessment (2025-2026)
+            - Phase 3: Full operational deployment (2026-2027)
+            
+            Operational Capabilities:
+            - Submarine operations and maintenance
+            - Strategic patrol capabilities
+            - Communication and coordination systems
+            - Training and personnel development
+            """
+            
+            # Generate enhanced report
+            result = await orchestrator.generate_enhanced_report(
+                content=test_content,
+                report_type="strategic_defense_analysis",
+                include_tooltips=True,
+                include_source_references=True,
+                include_calculations=True,
+                language="en"
             )
-            print(f"   - Saved to: {saved_file}")
             
-            # Check if file exists and has content
-            if Path(saved_file).exists() and Path(saved_file).stat().st_size > 0:
-                print("✅ Enhanced report file saved successfully")
+            if result.get("success"):
+                logger.info("✅ Enhanced Report Orchestrator test passed")
+                logger.info(f"📄 Report saved to: {result['enhanced_report']['filepath']}")
+                
+                # Check if Operational Capabilities are included
+                report_content = result['enhanced_report']['content']
+                if "Operational Capabilities" in report_content:
+                    logger.info("✅ Operational Capabilities section found in report")
+                    self.test_results['operational_capabilities'] = True
+                else:
+                    logger.warning("⚠️ Operational Capabilities section not found in report")
+                    self.test_results['operational_capabilities'] = False
+                
+                # Check source tracking
+                if result.get('source_tracking'):
+                    logger.info("✅ Source tracking data included")
+                    self.test_results['source_tracking'] = True
+                else:
+                    logger.warning("⚠️ Source tracking data missing")
+                    self.test_results['source_tracking'] = False
+                
+                return True
             else:
-                print("❌ Enhanced report file not saved properly")
+                logger.error(f"❌ Enhanced Report Orchestrator test failed: {result.get('error')}")
                 return False
-        else:
-            print(f"❌ Direct enhanced report generation failed: {result.get('error', 'Unknown error')}")
+                
+        except Exception as e:
+            logger.error(f"❌ Enhanced Report Orchestrator test error: {e}")
             return False
+    
+    async def test_mcp_client_communication(self) -> bool:
+        """Test MCP client communication."""
+        try:
+            logger.info("🧪 Testing MCP Client Communication...")
             
-    except Exception as e:
-        print(f"❌ Direct enhanced report generation failed: {e}")
-        return False
-    
-    return True
-
-def test_mcp_client_communication():
-    """Test MCP client communication."""
-    print("\n🤖 Testing MCP Client Communication...")
-    
-    try:
-        # Test MCP server health
-        response = requests.get("http://localhost:8000/mcp-health")
-        if response.status_code == 200:
-            print("✅ MCP server health check passed")
-        else:
-            print(f"❌ MCP server health check failed: {response.status_code}")
+            # Get enhanced MCP client
+            mcp_client = get_enhanced_mcp_client()
+            
+            # Test basic tool call
+            test_result = await mcp_client.call_tool_with_tracking(
+                tool_name="generate_report",
+                parameters={
+                    "content": "Test report content for MCP communication",
+                    "report_type": "test",
+                    "language": "en"
+                }
+            )
+            
+            if test_result.get("success"):
+                logger.info("✅ MCP Client Communication test passed")
+                return True
+            else:
+                logger.error(f"❌ MCP Client Communication test failed: {test_result.get('error')}")
+                return False
+                
+        except Exception as e:
+            logger.error(f"❌ MCP Client Communication test error: {e}")
             return False
+    
+    async def test_api_endpoints(self) -> bool:
+        """Test API endpoints for enhanced report generation."""
+        try:
+            logger.info("🧪 Testing API Endpoints...")
+            
+            # Test enhanced report generation endpoint
+            test_data = {
+                "content": "API test content for enhanced report generation",
+                "report_type": "api_test",
+                "include_tooltips": True,
+                "include_source_references": True,
+                "include_calculations": True,
+                "language": "en"
+            }
+            
+            response = requests.post(
+                f"{self.api_base_url}/enhanced-report/generate",
+                json=test_data,
+                timeout=30
+            )
+            
+            if response.status_code == 200:
+                result = response.json()
+                if result.get("success"):
+                    logger.info("✅ API Enhanced Report endpoint test passed")
+                    return True
+                else:
+                    logger.error(f"❌ API Enhanced Report endpoint failed: {result.get('error')}")
+                    return False
+            else:
+                logger.error(f"❌ API Enhanced Report endpoint HTTP error: {response.status_code}")
+                return False
+                
+        except Exception as e:
+            logger.error(f"❌ API Endpoints test error: {e}")
+            return False
+    
+    async def test_operational_capabilities_integration(self) -> bool:
+        """Test that Operational Capabilities are properly integrated."""
+        try:
+            logger.info("🧪 Testing Operational Capabilities Integration...")
+            
+            # Test content specifically mentioning Operational Capabilities
+            test_content = """
+            Strategic Analysis Report
+            
+            Strategic Timeline and Milestones:
+            1. Initial Assessment Phase (2024)
+            2. Operational Capabilities Development (2025)
+            3. Full Deployment Phase (2026)
+            
+            Operational Capabilities:
+            - Command and Control Systems
+            - Intelligence Collection and Analysis
+            - Strategic Communication Networks
+            - Training and Personnel Development
+            - Maintenance and Logistics Support
+            """
+            
+            orchestrator = get_enhanced_report_orchestrator()
+            result = await orchestrator.generate_enhanced_report(
+                content=test_content,
+                report_type="operational_capabilities_test",
+                include_tooltips=True,
+                include_source_references=True,
+                include_calculations=True
+            )
+            
+            if result.get("success"):
+                report_content = result['enhanced_report']['content']
+                
+                # Check for Operational Capabilities section
+                if "Operational Capabilities" in report_content:
+                    logger.info("✅ Operational Capabilities section found")
+                    
+                    # Check for specific operational capabilities
+                    capabilities = [
+                        "Command and Control Systems",
+                        "Intelligence Collection and Analysis",
+                        "Strategic Communication Networks",
+                        "Training and Personnel Development",
+                        "Maintenance and Logistics Support"
+                    ]
+                    
+                    found_capabilities = sum(1 for cap in capabilities if cap in report_content)
+                    if found_capabilities >= 3:  # At least 3 capabilities should be found
+                        logger.info(f"✅ Found {found_capabilities}/5 operational capabilities")
+                        return True
+                    else:
+                        logger.warning(f"⚠️ Only found {found_capabilities}/5 operational capabilities")
+                        return False
+                else:
+                    logger.error("❌ Operational Capabilities section not found")
+                    return False
+            else:
+                logger.error(f"❌ Operational Capabilities test failed: {result.get('error')}")
+                return False
+                
+        except Exception as e:
+            logger.error(f"❌ Operational Capabilities Integration test error: {e}")
+            return False
+    
+    async def run_all_tests(self) -> Dict[str, bool]:
+        """Run all integration tests."""
+        logger.info("🚀 Starting Enhanced Report Integration Tests")
+        logger.info("=" * 60)
         
-        # Test MCP tools list
-        response = requests.get("http://localhost:8000/mcp/tools")
-        if response.status_code == 200:
-            tools = response.json()
-            enhanced_report_tools = [tool for tool in tools if "enhanced_report" in tool.get("name", "") or "beautiful" in tool.get("name", "")]
-            
-            if enhanced_report_tools:
-                print(f"✅ Enhanced report MCP tools available: {len(enhanced_report_tools)}")
-                for tool in enhanced_report_tools:
-                    print(f"   - {tool['name']}: {tool['description']}")
-            else:
-                print("❌ No enhanced report MCP tools found in MCP server")
-                return False
+        # Wait for servers to be ready
+        logger.info("⏳ Waiting 60 seconds for servers to be ready...")
+        await asyncio.sleep(60)
+        
+        # Run tests
+        tests = [
+            ("Enhanced Report Orchestrator", self.test_enhanced_report_orchestrator),
+            ("MCP Client Communication", self.test_mcp_client_communication),
+            ("API Endpoints", self.test_api_endpoints),
+            ("Operational Capabilities Integration", self.test_operational_capabilities_integration)
+        ]
+        
+        for test_name, test_func in tests:
+            try:
+                result = await test_func()
+                self.test_results[test_name] = result
+                if result:
+                    logger.info(f"✅ {test_name} test PASSED")
+                else:
+                    logger.error(f"❌ {test_name} test FAILED")
+            except Exception as e:
+                logger.error(f"❌ {test_name} test ERROR: {e}")
+                self.test_results[test_name] = False
+        
+        # Summary
+        logger.info("=" * 60)
+        logger.info("📊 Test Results Summary:")
+        
+        passed_tests = sum(1 for result in self.test_results.values() if result)
+        total_tests = len(self.test_results)
+        
+        for test_name, result in self.test_results.items():
+            status = "✅ PASS" if result else "❌ FAIL"
+            logger.info(f"  {test_name}: {status}")
+        
+        logger.info(f"Overall: {passed_tests}/{total_tests} tests passed")
+        
+        if passed_tests == total_tests:
+            logger.info("🎉 All tests passed! Enhanced report integration is working correctly.")
         else:
-            print(f"❌ MCP tools list failed: {response.status_code}")
-            return False
-            
-    except Exception as e:
-        print(f"❌ MCP client communication failed: {e}")
-        return False
-    
-    return True
+            logger.warning(f"⚠️ {total_tests - passed_tests} tests failed. Please check the implementation.")
+        
+        return self.test_results
 
-def main():
-    """Main test function."""
-    print("🧪 ENHANCED REPORT INTEGRATION TEST")
-    print("=" * 60)
-    print(f"Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    print()
+
+async def main():
+    """Main function."""
+    tester = EnhancedReportIntegrationTester()
+    results = await tester.run_all_tests()
     
-    # Test results
-    test_results = []
-    
-    # Test 1: Direct generation
-    print("1️⃣ Testing Direct Enhanced Report Generation")
-    print("-" * 50)
-    result1 = test_enhanced_report_direct_generation()
-    test_results.append(("Direct Generation", result1))
-    
-    # Test 2: MCP Integration
-    print("\n2️⃣ Testing Enhanced Report MCP Integration")
-    print("-" * 50)
-    result2 = test_enhanced_report_mcp_integration()
-    test_results.append(("MCP Integration", result2))
-    
-    # Test 3: API Endpoints
-    print("\n3️⃣ Testing Enhanced Report API Endpoints")
-    print("-" * 50)
-    result3 = test_enhanced_report_api_endpoints()
-    test_results.append(("API Endpoints", result3))
-    
-    # Test 4: MCP Client Communication
-    print("\n4️⃣ Testing MCP Client Communication")
-    print("-" * 50)
-    result4 = test_mcp_client_communication()
-    test_results.append(("MCP Client Communication", result4))
-    
-    # Summary
-    print("\n📊 ENHANCED REPORT INTEGRATION TEST SUMMARY")
-    print("=" * 60)
-    
-    passed_tests = 0
-    total_tests = len(test_results)
-    
-    for test_name, result in test_results:
-        status = "✅ PASSED" if result else "❌ FAILED"
-        print(f"{test_name:<30} {status}")
-        if result:
-            passed_tests += 1
-    
-    print(f"\nOverall Result: {passed_tests}/{total_tests} tests passed")
-    
-    if passed_tests == total_tests:
-        print("🎉 ALL TESTS PASSED! Enhanced report integration is working correctly.")
-        print("\n✅ Enhanced Report System Features:")
-        print("   - Beautiful original styling with gradient design")
-        print("   - Sentiment analysis with regional assessment")
-        print("   - Advanced forecasting with 94% model accuracy")
-        print("   - Predictive analytics with feature importance")
-        print("   - Interactive charts and visualizations")
-        print("   - API endpoints for programmatic access")
-        print("   - MCP tools for integration with other systems")
-        print("   - Direct generation capability")
+    # Exit with appropriate code
+    if all(results.values()):
+        sys.exit(0)
     else:
-        print("⚠️ Some tests failed. Please check the integration.")
-    
-    return passed_tests == total_tests
+        sys.exit(1)
+
 
 if __name__ == "__main__":
-    success = main()
-    sys.exit(0 if success else 1)
+    asyncio.run(main())
