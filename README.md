@@ -2,9 +2,9 @@
 
 A comprehensive, multi-modal intelligence analysis platform that combines advanced AI agents, Monte Carlo simulations, strategic assessment capabilities, and **enhanced report generation** for defense, intelligence, and business applications.
 
-## 🎨 **NEW: Enhanced Report System**
+## 🎨 **NEW: Enhanced Report System with Interactive Tooltips**
 
-DIA3 now includes a **comprehensive enhanced report generation system** with beautiful original styling, advanced analytics, and multiple integration options:
+DIA3 now includes a **comprehensive enhanced report generation system** with beautiful original styling, advanced analytics, interactive tooltips, and multiple integration options:
 
 ### ✨ Enhanced Report Features
 
@@ -16,12 +16,14 @@ DIA3 now includes a **comprehensive enhanced report generation system** with bea
 - **⚡ Stress Testing**: Worst/average/best case scenario analysis
 - **🔗 Knowledge Graphs**: Entity relationship mapping and analysis
 - **📱 Interactive Visualizations**: Chart.js with drill-down capabilities
+- **💡 Interactive Tooltips**: Click-to-explain functionality for complex metrics and values
 
 ### 🚀 Integration Options
 
 1. **API Endpoints** (`/api/v1/enhanced-reports/`)
    - `POST /generate` - Standard enhanced report
    - `POST /generate-beautiful` - Beautiful styling with advanced analytics
+   - `POST /generate-with-tooltips` - Enhanced report with interactive tooltips
    - `GET /health` - Service health check
    - `GET /capabilities` - Available features
    - `GET /reports` - List generated reports
@@ -29,10 +31,12 @@ DIA3 now includes a **comprehensive enhanced report generation system** with bea
 2. **MCP Tools** (Multi-Component Protocol)
    - `generate_enhanced_report` - Comprehensive report generation
    - `generate_beautiful_enhanced_report` - Beautiful styling with analytics
+   - `generate_enhanced_report_with_tooltips` - Enhanced report with interactive tooltips
 
 3. **Direct Generation**
    - Python API for standalone use
    - Customizable components and styling
+   - Interactive tooltip system integration
 
 ### 📊 Performance Metrics
 
@@ -58,6 +62,17 @@ curl -X POST "http://localhost:8003/api/v1/enhanced-reports/generate-beautiful" 
   }'
 ```
 
+```bash
+# Generate enhanced report with interactive tooltips via API
+curl -X POST "http://localhost:8003/api/v1/enhanced-reports/generate-with-tooltips" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "Pakistan Submarine Acquisition Analysis: Strategic Impact on Conventional Deterrence Capabilities",
+    "include_tooltips": true,
+    "beautiful_styling": true
+  }'
+```
+
 ```python
 # Generate via MCP tools
 result = await mcp_client.call_tool("generate_beautiful_enhanced_report", {
@@ -69,12 +84,193 @@ result = await mcp_client.call_tool("generate_beautiful_enhanced_report", {
 ```
 
 ```python
-# Direct generation
-from Test.enhanced_report_with_original_styling import EnhancedReportWithOriginalStyling
+# Generate with tooltips via MCP tools
+result = await mcp_client.call_tool("generate_enhanced_report_with_tooltips", {
+    "query": "Strategic Analysis Query",
+    "include_tooltips": True,
+    "beautiful_styling": True
+})
+```
 
-generator = EnhancedReportWithOriginalStyling()
-result = await generator.generate_enhanced_report()
-saved_file = generator.save_enhanced_report(result["html_content"], "my_report")
+```python
+# Direct generation with tooltips
+from src.core.enhanced_report_with_tooltips import EnhancedReportWithTooltips
+
+generator = EnhancedReportWithTooltips()
+result = generator.generate_enhanced_report(
+    query="Strategic Analysis Query",
+    include_tooltips=True,
+    beautiful_styling=True
+)
+print(f"Report saved to: {result['file_path']}")
+```
+
+---
+
+## 💡 Interactive Tooltip System
+
+The DIA3 enhanced report system includes an **interactive tooltip system** that provides detailed explanations for complex metrics and numerical values through click-triggered modal popups.
+
+### 🎯 Tooltip Features
+
+- **Click-to-Explain**: Click on any numerical value or header to get detailed explanations
+- **Modal Popups**: Professional modal dialogs with comprehensive information
+- **Multiple Categories**: Support for Feature Importance, Capability Forecasts, Confidence Intervals, and Monte Carlo values
+- **Responsive Design**: Works on desktop and mobile devices
+- **Accessibility**: Keyboard navigation and screen reader support
+
+### 🔧 Tooltip Categories
+
+```mermaid
+graph TB
+    subgraph "Tooltip Categories"
+        FeatureImportance[Feature Importance Analysis]
+        CapabilityForecast[Strategic Capability Forecasts]
+        ConfidenceInterval[Confidence Intervals]
+        MonteCarlo[Monte Carlo Simulation Results]
+    end
+    
+    subgraph "Interactive Elements"
+        FeatureScores[Feature Scores<br/>0.95, 0.88, etc.]
+        TableValues[Table Values<br/>0.40, 0.55, 0.75, 0.90]
+        ConfidenceValues[Confidence Values<br/>±0.08, ±0.06, etc.]
+        MetricValues[Metric Values<br/>20,000 iterations, etc.]
+    end
+    
+    subgraph "Modal Content"
+        DetailedExplanation[Detailed Explanations]
+        ScaleInterpretation[Scale Interpretation]
+        CalculationMethod[Calculation Methods]
+        PracticalSignificance[Practical Significance]
+    end
+    
+    FeatureScores --> FeatureImportance
+    TableValues --> CapabilityForecast
+    ConfidenceValues --> ConfidenceInterval
+    MetricValues --> MonteCarlo
+    
+    FeatureImportance --> DetailedExplanation
+    CapabilityForecast --> ScaleInterpretation
+    ConfidenceInterval --> CalculationMethod
+    MonteCarlo --> PracticalSignificance
+```
+
+### 🎨 Tooltip Implementation
+
+```mermaid
+graph LR
+    subgraph "HTML Generation"
+        BaseReport[Base Report Generation]
+        TooltipCSS[Tooltip CSS Injection]
+        TooltipJS[Tooltip JavaScript Injection]
+        ModalHTML[Modal HTML Structure]
+    end
+    
+    subgraph "Interactive Elements"
+        ClickableClasses[Clickable Classes]
+        EventHandlers[Event Handlers]
+        DOMContentLoaded[DOM Content Loaded]
+    end
+    
+    subgraph "Modal System"
+        ShowTooltip[Show Tooltip Function]
+        CloseTooltip[Close Tooltip Function]
+        TooltipData[Tooltip Data Object]
+        ModalDisplay[Modal Display Logic]
+    end
+    
+    subgraph "User Experience"
+        ClickElement[User Clicks Element]
+        ModalAppears[Modal Appears]
+        ReadContent[User Reads Content]
+        CloseModal[User Closes Modal]
+    end
+    
+    BaseReport --> TooltipCSS
+    BaseReport --> TooltipJS
+    BaseReport --> ModalHTML
+    
+    TooltipCSS --> ClickableClasses
+    TooltipJS --> EventHandlers
+    ModalHTML --> ModalDisplay
+    
+    ClickableClasses --> DOMContentLoaded
+    EventHandlers --> DOMContentLoaded
+    
+    DOMContentLoaded --> ShowTooltip
+    ShowTooltip --> TooltipData
+    TooltipData --> ModalDisplay
+    
+    ClickElement --> ShowTooltip
+    ShowTooltip --> ModalAppears
+    ModalAppears --> ReadContent
+    ReadContent --> CloseModal
+    CloseModal --> CloseTooltip
+```
+
+### 📊 Tooltip Data Structure
+
+```mermaid
+graph TD
+    subgraph "Tooltip Data Object"
+        TooltipData[Tooltip Data]
+        
+        subgraph "Feature Importance"
+            FIScale[Scale: 0.0-1.0]
+            FIInterpretation[Interpretation Levels]
+            FICalculation[Calculation Method]
+        end
+        
+        subgraph "Capability Forecast"
+            CFScale[Scale: 0.0-1.0]
+            CFTimeHorizon[Time Horizon]
+            CFProgression[Progression Analysis]
+        end
+        
+        subgraph "Confidence Intervals"
+            CIScale[±Values]
+            CIConfidence[Confidence Levels]
+            CIRange[Range Interpretation]
+        end
+        
+        subgraph "Monte Carlo"
+            MCIterations[Iterations]
+            MCProbability[Probability Values]
+            MCProcess[Simulation Process]
+        end
+    end
+    
+    TooltipData --> FIScale
+    TooltipData --> CFScale
+    TooltipData --> CIScale
+    TooltipData --> MCIterations
+    
+    FIScale --> FIInterpretation
+    FIInterpretation --> FICalculation
+    
+    CFScale --> CFTimeHorizon
+    CFTimeHorizon --> CFProgression
+    
+    CIScale --> CIConfidence
+    CIConfidence --> CIRange
+    
+    MCIterations --> MCProbability
+    MCProbability --> MCProcess
+```
+
+### 🧪 Testing and Integration
+
+The tooltip system includes comprehensive testing:
+
+- **Unit Tests**: Individual component testing
+- **Integration Tests**: MCP tool and API integration testing
+- **HTML Validation**: Tooltip element presence and functionality
+- **User Experience Tests**: Click behavior and modal display
+
+```bash
+# Run tooltip integration tests
+python Test/test_enhanced_report_tooltip_integration.py
+python Test/test_mcp_tooltip_integration.py
 ```
 
 ---
@@ -985,10 +1181,11 @@ Advanced knowledge graph search and analysis endpoints:
 
 #### Enhanced Report API
 
-Comprehensive enhanced report generation with beautiful styling and advanced analytics:
+Comprehensive enhanced report generation with beautiful styling, advanced analytics, and interactive tooltips:
 
 - `POST /api/v1/enhanced-reports/generate` - Generate standard enhanced report
 - `POST /api/v1/enhanced-reports/generate-beautiful` - Generate beautiful enhanced report with styling
+- `POST /api/v1/enhanced-reports/generate-with-tooltips` - Generate enhanced report with interactive tooltips
 - `GET /api/v1/enhanced-reports/health` - Enhanced report service health check
 - `GET /api/v1/enhanced-reports/capabilities` - Get available capabilities and features
 - `GET /api/v1/enhanced-reports/reports` - List all generated reports
@@ -1018,10 +1215,11 @@ Available MCP tools for external integration:
 
 #### Enhanced Report MCP Tools
 
-Comprehensive enhanced report generation with beautiful styling and advanced analytics:
+Comprehensive enhanced report generation with beautiful styling, advanced analytics, and interactive tooltips:
 
 - `generate_enhanced_report` - Generate comprehensive report with 25+ analysis components
 - `generate_beautiful_enhanced_report` - Generate beautiful enhanced report with original styling
+- `generate_enhanced_report_with_tooltips` - Generate enhanced report with interactive tooltips
 - `run_monte_carlo_simulation` - Run Monte Carlo simulation for risk assessment
 - `run_stress_testing` - Run stress testing scenarios for worst/average/best cases
 - `generate_knowledge_graph` - Generate knowledge graph analysis with relationships
@@ -1086,7 +1284,7 @@ Export markdown content to various formats:
 - **Data.gov Integration**: Comprehensive economic, trade, and environmental data analysis
 - **Knowledge Graph Analysis**: GraphRAG-inspired entity extraction, relationship mapping, and graph analysis
 - **Markdown Export**: Convert markdown content to PDF and Word documents with embedded images, tables, and Mermaid diagrams
-- **Enhanced Report Generation**: Beautiful styling with sentiment analysis, forecasting, predictive analytics, and interactive visualizations
+- **Enhanced Report Generation**: Beautiful styling with sentiment analysis, forecasting, predictive analytics, interactive visualizations, and interactive tooltips
 
 ### Data.gov Integration Capabilities
 - **Trade Analysis**: Multi-country trade flow analysis with forecasting

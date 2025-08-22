@@ -37,6 +37,15 @@ class EnhancedReportMCPTools:
         except ImportError as e:
             logger.warning(f"Beautiful report generator not available: {e}")
             self.beautiful_generator = None
+        
+        # Import the tooltip-enhanced report generator
+        try:
+            from src.core.enhanced_report_with_tooltips import EnhancedReportWithTooltips
+            self.tooltip_generator = EnhancedReportWithTooltips()
+            logger.info("Enhanced Report MCP Tools initialized with tooltip system")
+        except ImportError as e:
+            logger.warning(f"Tooltip report generator not available: {e}")
+            self.tooltip_generator = None
     
     def get_tools(self) -> List[Dict[str, Any]]:
         """Get list of available MCP tools."""
@@ -114,6 +123,40 @@ class EnhancedReportMCPTools:
                         "interactive_charts": {
                             "type": "boolean",
                             "description": "Include interactive charts and visualizations"
+                        }
+                    },
+                    "required": ["query"]
+                }
+            },
+            {
+                "name": "generate_enhanced_report_with_tooltips",
+                "description": "Generate enhanced report with interactive tooltips for better user experience and detailed explanations",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {
+                        "query": {
+                            "type": "string",
+                            "description": "The query or topic for report generation"
+                        },
+                        "include_tooltips": {
+                            "type": "boolean",
+                            "description": "Include interactive tooltips for numerical values"
+                        },
+                        "include_feature_explanations": {
+                            "type": "boolean",
+                            "description": "Include detailed explanations for feature importance scores"
+                        },
+                        "include_forecast_explanations": {
+                            "type": "boolean",
+                            "description": "Include detailed explanations for capability forecasts"
+                        },
+                        "include_confidence_intervals": {
+                            "type": "boolean",
+                            "description": "Include explanations for confidence intervals"
+                        },
+                        "beautiful_styling": {
+                            "type": "boolean",
+                            "description": "Use beautiful gradient styling with tooltips"
                         }
                     },
                     "required": ["query"]
@@ -476,6 +519,8 @@ class EnhancedReportMCPTools:
                 return await self._generate_executive_summary(arguments)
             elif name == "generate_beautiful_enhanced_report":
                 return await self._generate_beautiful_enhanced_report(arguments)
+            elif name == "generate_enhanced_report_with_tooltips":
+                return await self._generate_enhanced_report_with_tooltips(arguments)
             else:
                 raise ValueError(f"Unknown tool: {name}")
                 
@@ -919,6 +964,60 @@ class EnhancedReportMCPTools:
             
         except Exception as e:
             logger.error(f"Beautiful enhanced report generation failed: {e}")
+            return {
+                "success": False,
+                "error": str(e)
+            }
+
+    async def _generate_enhanced_report_with_tooltips(self, arguments: Dict[str, Any]) -> Dict[str, Any]:
+        """Generate enhanced report with interactive tooltips."""
+        try:
+            query = arguments.get("query", "")
+            include_tooltips = arguments.get("include_tooltips", True)
+            include_feature_explanations = arguments.get("include_feature_explanations", True)
+            include_forecast_explanations = arguments.get("include_forecast_explanations", True)
+            include_confidence_intervals = arguments.get("include_confidence_intervals", True)
+            beautiful_styling = arguments.get("beautiful_styling", True)
+            
+            if not self.tooltip_generator:
+                return {
+                    "success": False,
+                    "error": "Tooltip report generator not available"
+                }
+            
+            # Generate the enhanced report with tooltips
+            result = await self.tooltip_generator.generate_enhanced_report()
+            
+            if not result["success"]:
+                return {
+                    "success": False,
+                    "error": "Failed to generate enhanced report with tooltips"
+                }
+            
+            # Save the report
+            saved_file = self.tooltip_generator.save_enhanced_report(
+                result["html_content"], 
+                "enhanced_report_with_tooltips"
+            )
+            
+            return {
+                "success": True,
+                "report_id": result["report_id"],
+                "processing_time": result["processing_time"],
+                "html_file": saved_file,
+                "timestamp": result["timestamp"],
+                "message": "Enhanced report with tooltips generated successfully",
+                "features": {
+                    "tooltips": include_tooltips,
+                    "feature_explanations": include_feature_explanations,
+                    "forecast_explanations": include_forecast_explanations,
+                    "confidence_intervals": include_confidence_intervals,
+                    "beautiful_styling": beautiful_styling
+                }
+            }
+            
+        except Exception as e:
+            logger.error(f"Enhanced report with tooltips generation failed: {e}")
             return {
                 "success": False,
                 "error": str(e)

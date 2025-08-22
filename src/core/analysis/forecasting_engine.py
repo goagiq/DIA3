@@ -367,3 +367,4 @@ class ForecastingEngine:
 # Create global instance
 forecasting_engine = ForecastingEngine()
 
+

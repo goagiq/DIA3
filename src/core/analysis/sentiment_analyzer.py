@@ -289,3 +289,4 @@ class SentimentAnalyzer:
 # Create global instance
 sentiment_analyzer = SentimentAnalyzer()
 
+

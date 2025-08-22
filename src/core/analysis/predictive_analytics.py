@@ -426,3 +426,4 @@ class PredictiveAnalytics:
 # Create global instance
 predictive_analytics = PredictiveAnalytics()
 
+

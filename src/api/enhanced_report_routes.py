@@ -217,6 +217,41 @@ async def generate_beautiful_enhanced_report(request: EnhancedReportRequestModel
         print(f"❌ Error generating beautiful enhanced report: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to generate beautiful enhanced report: {str(e)}")
 
+@router.post("/generate-with-tooltips", response_model=EnhancedReportResponse)
+async def generate_enhanced_report_with_tooltips(request: EnhancedReportRequestModel):
+    """Generate an enhanced report with interactive tooltips."""
+    try:
+        print(f"🔍 Generating Enhanced Report with Tooltips: {request.query}")
+        
+        # Import the tooltip-enhanced report generator
+        from src.core.enhanced_report_with_tooltips import EnhancedReportWithTooltips
+        
+        # Create generator and generate report
+        generator = EnhancedReportWithTooltips()
+        result = await generator.generate_enhanced_report()
+        
+        if not result["success"]:
+            raise HTTPException(status_code=500, detail="Failed to generate enhanced report with tooltips")
+        
+        # Save the report
+        saved_file = generator.save_enhanced_report(
+            result["html_content"], 
+            "enhanced_report_with_tooltips"
+        )
+        
+        return EnhancedReportResponse(
+            success=True,
+            report_id=result["report_id"],
+            processing_time=result["processing_time"],
+            html_file=saved_file,
+            timestamp=result["timestamp"],
+            message="Enhanced report with tooltips generated successfully"
+        )
+        
+    except Exception as e:
+        print(f"❌ Error generating enhanced report with tooltips: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate enhanced report with tooltips: {str(e)}")
+
 @router.get("/reports")
 async def list_enhanced_reports():
     """List all generated enhanced reports."""
