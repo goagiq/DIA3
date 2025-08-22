@@ -1,0 +1,1228 @@
+{
+  "report_id": "PAK_SUBMARINE_20250822_031224",
+  "status": "completed",
+  "processing_time": 2.9621801376342773,
+  "components_generated": [
+    "executive_summary",
+    "comparative_analysis",
+    "impact_analysis",
+    "operational_changes",
+    "predictive_analysis",
+    "forecasting",
+    "monte_carlo_simulation",
+    "stress_testing",
+    "risk_assessment",
+    "knowledge_graph",
+    "interactive_visualizations",
+    "anomaly_detection",
+    "pattern_analysis",
+    "geopolitical_mapping",
+    "strategic_vulnerabilities",
+    "cooperation_opportunities",
+    "competition_intensity",
+    "strategic_metrics"
+  ],
+  "timestamp": "2025-08-22T03:12:27.711654",
+  "sections": {
+    "executive_summary": {
+      "key_findings": [
+        "Strong growth trajectory observed",
+        "Market position is strengthening",
+        "Operational efficiency improving"
+      ],
+      "critical_insights": [
+        "Digital transformation driving growth",
+        "Customer satisfaction at all-time high",
+        "Competitive advantages expanding"
+      ],
+      "strategic_recommendations": [
+        "Continue investment in technology",
+        "Expand into emerging markets",
+        "Strengthen partnerships"
+      ],
+      "risk_level": "low",
+      "confidence_score": 0.85
+    },
+    "comparative_analysis": {
+      "baseline_metrics": {
+        "revenue": 1000000.0,
+        "growth": 0.1
+      },
+      "comparison_metrics": {
+        "revenue": 1200000.0,
+        "growth": 0.15
+      },
+      "differences": {
+        "revenue": 200000.0,
+        "growth": 0.05
+      },
+      "percentage_changes": {
+        "revenue": 0.2,
+        "growth": 0.5
+      },
+      "insights": [
+        "Revenue growth exceeded expectations",
+        "Market share increasing"
+      ]
+    },
+    "impact_analysis": {
+      "direct_impacts": [
+        "Revenue increase",
+        "Market share growth"
+      ],
+      "indirect_impacts": [
+        "Brand recognition",
+        "Customer loyalty"
+      ],
+      "cascading_effects": [
+        "Supplier relationships",
+        "Employee satisfaction"
+      ],
+      "impact_scores": {
+        "financial": 0.8,
+        "operational": 0.6,
+        "strategic": 0.7
+      },
+      "timeframes": {
+        "immediate": "0-3 months",
+        "short_term": "3-12 months",
+        "long_term": "1-3 years"
+      },
+      "stakeholders_affected": [
+        "Shareholders",
+        "Customers",
+        "Employees",
+        "Suppliers"
+      ]
+    },
+    "predictive_analysis": {
+      "historical_trends": {
+        "revenue": [
+          100.0,
+          110.0,
+          120.0,
+          130.0,
+          140.0,
+          150.0
+        ]
+      },
+      "forecast_values": {
+        "revenue": [
+          160.0,
+          170.0,
+          180.0,
+          190.0,
+          200.0
+        ]
+      },
+      "confidence_intervals": {
+        "revenue": [
+          155.0,
+          165.0,
+          175.0,
+          185.0,
+          195.0
+        ]
+      },
+      "model_accuracy": {
+        "revenue": 0.92
+      },
+      "key_drivers": [
+        "Market expansion",
+        "Product innovation",
+        "Customer acquisition"
+      ],
+      "assumptions": [
+        "Stable economic conditions",
+        "Continued market growth"
+      ]
+    },
+    "monte_carlo_simulation": {
+      "scenarios": [
+        {
+          "scenario_name": "baseline",
+          "iterations": 15000,
+          "mean_value": 0.75,
+          "median_value": 0.73,
+          "standard_deviation": 0.15,
+          "confidence_intervals": {
+            "95%": 0.65,
+            "99%": 0.6
+          },
+          "risk_metrics": {
+            "var_95": 0.25,
+            "cvar_95": 0.3
+          }
+        },
+        {
+          "scenario_name": "optimistic",
+          "iterations": 15000,
+          "mean_value": 0.75,
+          "median_value": 0.73,
+          "standard_deviation": 0.15,
+          "confidence_intervals": {
+            "95%": 0.65,
+            "99%": 0.6
+          },
+          "risk_metrics": {
+            "var_95": 0.25,
+            "cvar_95": 0.3
+          }
+        },
+        {
+          "scenario_name": "pessimistic",
+          "iterations": 15000,
+          "mean_value": 0.75,
+          "median_value": 0.73,
+          "standard_deviation": 0.15,
+          "confidence_intervals": {
+            "95%": 0.65,
+            "99%": 0.6
+          },
+          "risk_metrics": {
+            "var_95": 0.25,
+            "cvar_95": 0.3
+          }
+        }
+      ]
+    },
+    "stress_testing": {
+      "scenarios": [
+        {
+          "scenario": "worst_case",
+          "severity_level": "low",
+          "time_period": 6,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "worst_case",
+          "severity_level": "low",
+          "time_period": 12,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "worst_case",
+          "severity_level": "low",
+          "time_period": 24,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "worst_case",
+          "severity_level": "low",
+          "time_period": 36,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "worst_case",
+          "severity_level": "medium",
+          "time_period": 6,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "worst_case",
+          "severity_level": "medium",
+          "time_period": 12,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "worst_case",
+          "severity_level": "medium",
+          "time_period": 24,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "worst_case",
+          "severity_level": "medium",
+          "time_period": 36,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "worst_case",
+          "severity_level": "high",
+          "time_period": 6,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "worst_case",
+          "severity_level": "high",
+          "time_period": 12,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "worst_case",
+          "severity_level": "high",
+          "time_period": 24,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "worst_case",
+          "severity_level": "high",
+          "time_period": 36,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "worst_case",
+          "severity_level": "extreme",
+          "time_period": 6,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "worst_case",
+          "severity_level": "extreme",
+          "time_period": 12,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "worst_case",
+          "severity_level": "extreme",
+          "time_period": 24,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "worst_case",
+          "severity_level": "extreme",
+          "time_period": 36,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "average_case",
+          "severity_level": "low",
+          "time_period": 6,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "average_case",
+          "severity_level": "low",
+          "time_period": 12,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "average_case",
+          "severity_level": "low",
+          "time_period": 24,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "average_case",
+          "severity_level": "low",
+          "time_period": 36,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "average_case",
+          "severity_level": "medium",
+          "time_period": 6,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "average_case",
+          "severity_level": "medium",
+          "time_period": 12,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "average_case",
+          "severity_level": "medium",
+          "time_period": 24,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "average_case",
+          "severity_level": "medium",
+          "time_period": 36,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "average_case",
+          "severity_level": "high",
+          "time_period": 6,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "average_case",
+          "severity_level": "high",
+          "time_period": 12,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "average_case",
+          "severity_level": "high",
+          "time_period": 24,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "average_case",
+          "severity_level": "high",
+          "time_period": 36,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "average_case",
+          "severity_level": "extreme",
+          "time_period": 6,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "average_case",
+          "severity_level": "extreme",
+          "time_period": 12,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "average_case",
+          "severity_level": "extreme",
+          "time_period": 24,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "average_case",
+          "severity_level": "extreme",
+          "time_period": 36,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "best_case",
+          "severity_level": "low",
+          "time_period": 6,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "best_case",
+          "severity_level": "low",
+          "time_period": 12,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "best_case",
+          "severity_level": "low",
+          "time_period": 24,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "best_case",
+          "severity_level": "low",
+          "time_period": 36,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "best_case",
+          "severity_level": "medium",
+          "time_period": 6,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "best_case",
+          "severity_level": "medium",
+          "time_period": 12,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "best_case",
+          "severity_level": "medium",
+          "time_period": 24,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "best_case",
+          "severity_level": "medium",
+          "time_period": 36,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "best_case",
+          "severity_level": "high",
+          "time_period": 6,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "best_case",
+          "severity_level": "high",
+          "time_period": 12,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "best_case",
+          "severity_level": "high",
+          "time_period": 24,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "best_case",
+          "severity_level": "high",
+          "time_period": 36,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "best_case",
+          "severity_level": "extreme",
+          "time_period": 6,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "best_case",
+          "severity_level": "extreme",
+          "time_period": 12,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "best_case",
+          "severity_level": "extreme",
+          "time_period": 24,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        },
+        {
+          "scenario": "best_case",
+          "severity_level": "extreme",
+          "time_period": 36,
+          "impact_scores": {
+            "financial": 0.7,
+            "operational": 0.6,
+            "reputational": 0.5
+          },
+          "vulnerability_analysis": {
+            "primary": "market_volatility",
+            "secondary": "regulatory_changes"
+          },
+          "mitigation_strategies": [
+            "diversification",
+            "hedging",
+            "insurance"
+          ]
+        }
+      ]
+    },
+    "risk_assessment": {
+      "risk_categories": [
+        "financial",
+        "operational",
+        "strategic",
+        "reputational",
+        "regulatory"
+      ],
+      "likelihood_scores": {
+        "financial": 0.6,
+        "operational": 0.4,
+        "strategic": 0.3
+      },
+      "impact_scores": {
+        "financial": 0.8,
+        "operational": 0.6,
+        "strategic": 0.9
+      },
+      "risk_scores": {
+        "financial": 0.48,
+        "operational": 0.24,
+        "strategic": 0.27
+      },
+      "risk_levels": {
+        "financial": "medium",
+        "operational": "low",
+        "strategic": "medium"
+      },
+      "mitigation_priorities": [
+        "strategic",
+        "financial",
+        "operational"
+      ]
+    },
+    "knowledge_graph": {
+      "nodes_count": 3,
+      "relationships_count": 2,
+      "communities": [
+        [
+          "entity1",
+          "entity2"
+        ],
+        [
+          "entity3"
+        ]
+      ],
+      "centrality_scores": {
+        "entity1": 0.8,
+        "entity2": 0.6,
+        "entity3": 0.4
+      },
+      "key_entities": [
+        "entity1",
+        "entity2"
+      ],
+      "relationship_patterns": [
+        "hierarchical",
+        "geographic",
+        "temporal"
+      ]
+    },
+    "visualizations": {
+      "chart_data": {
+        "trend_analysis": {
+          "type": "line",
+          "data": [
+            0.1,
+            0.15,
+            0.2,
+            0.18,
+            0.25,
+            0.3
+          ]
+        },
+        "comparison_chart": {
+          "type": "bar",
+          "data": {
+            "baseline": 100,
+            "current": 120,
+            "target": 150
+          }
+        },
+        "correlation_matrix": {
+          "type": "heatmap",
+          "data": [
+            [
+              1.0,
+              0.8,
+              0.6
+            ],
+            [
+              0.8,
+              1.0,
+              0.7
+            ],
+            [
+              0.6,
+              0.7,
+              1.0
+            ]
+          ]
+        }
+      },
+      "drill_down_options": [
+        "by_region",
+        "by_time_period",
+        "by_category"
+      ],
+      "interactive_features": [
+        "zoom",
+        "pan",
+        "filter",
+        "highlight"
+      ],
+      "export_urls": {
+        "png": "/export/chart.png",
+        "svg": "/export/chart.svg"
+      },
+      "mermaid_diagrams": [
+        "graph TD; A[Start] --> B[Analysis]; B --> C[Results]; C --> D[End]"
+      ]
+    }
+  }
+}

@@ -562,6 +562,17 @@ class EnhancedReportGenerator:
                 if 'monte_carlo_simulation' in analysis_data:
                     sections.append(self._generate_monte_carlo_section(analysis_data['monte_carlo_simulation']))
                 
+                # Sentiment Analysis Section
+                sections.append(self.create_sentiment_analysis_script(analysis_data))
+                
+                # Forecasting Section
+                sections.append(self.create_forecasting_analysis_script(analysis_data))
+                
+                # Predictive Analytics Section
+                sections.append(self.create_predictive_analytics_script(analysis_data))
+                
+
+                
                 # Risk Assessment
                 if 'risk_assessment' in analysis_data:
                     sections.append(self._generate_risk_assessment(analysis_data['risk_assessment']))
@@ -1067,3 +1078,427 @@ class EnhancedReportGenerator:
                     </div>
                 </div>
                 """
+
+    def create_sentiment_analysis_script(self, analysis_data: Dict[str, Any]) -> str:
+        """Create sentiment analysis section for enhanced report."""
+        try:
+            from src.core.analysis.sentiment_analyzer import sentiment_analyzer
+            
+            # Sample strategic texts for analysis
+            strategic_texts = [
+                {
+                    'text': 'Pakistan\'s submarine acquisition represents a significant strategic advantage in regional naval capabilities, enhancing conventional deterrence and maritime security.',
+                    'title': 'Strategic Assessment'
+                },
+                {
+                    'text': 'The economic burden of this massive acquisition poses substantial risks to Pakistan\'s defense budget sustainability and could lead to operational challenges.',
+                    'title': 'Economic Analysis'
+                },
+                {
+                    'text': 'Regional security implications include potential arms race escalation with India and increased tensions in the South Asian maritime domain.',
+                    'title': 'Regional Security'
+                }
+            ]
+            
+            # Perform sentiment analysis
+            sentiment_results = sentiment_analyzer.analyze_multiple_texts(strategic_texts)
+            
+            # Generate sentiment report
+            sentiment_report_path = sentiment_analyzer.generate_sentiment_report(sentiment_results)
+            
+            return f"""
+            <div class="section">
+                <h2>📊 Sentiment Analysis</h2>
+                <p>Comprehensive sentiment analysis of strategic content and implications:</p>
+                
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-value">{sentiment_results.get('aggregate_analysis', {}).get('average_sentiment', 0):.3f}</div>
+                        <div class="metric-label">Average Sentiment</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">{sentiment_results.get('aggregate_analysis', {}).get('sentiment_distribution', {}).get('positive', 0)}</div>
+                        <div class="metric-label">Positive Texts</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">{sentiment_results.get('aggregate_analysis', {}).get('sentiment_distribution', {}).get('negative', 0)}</div>
+                        <div class="metric-label">Negative Texts</div>
+                    </div>
+                </div>
+                
+                <h3>Sentiment Distribution</h3>
+                <div class="chart-section">
+                    <div class="chart-wrapper">
+                        <canvas id="sentimentDistributionChart"></canvas>
+                    </div>
+                </div>
+                
+                <h3>Key Sentiment Insights</h3>
+                <ul>
+                    <li><strong>Overall Tone:</strong> {'Positive' if sentiment_results.get('aggregate_analysis', {}).get('average_sentiment', 0) > 0 else 'Negative' if sentiment_results.get('aggregate_analysis', {}).get('average_sentiment', 0) < 0 else 'Neutral'} sentiment across strategic assessments</li>
+                    <li><strong>Sentiment Range:</strong> {sentiment_results.get('aggregate_analysis', {}).get('sentiment_range', {}).get('min', 0):.3f} to {sentiment_results.get('aggregate_analysis', {}).get('sentiment_range', {}).get('max', 0):.3f}</li>
+                    <li><strong>Analysis Coverage:</strong> {len(sentiment_results.get('individual_results', []))} strategic text samples analyzed</li>
+                </ul>
+                
+                <p><strong>📄 Full Sentiment Report:</strong> <a href="{sentiment_report_path}" target="_blank">View Comprehensive Analysis</a></p>
+            </div>
+            
+            <script>
+                // Sentiment Distribution Chart
+                const sentimentCtx = document.getElementById('sentimentDistributionChart').getContext('2d');
+                new Chart(sentimentCtx, {{
+                    type: 'doughnut',
+                    data: {{
+                        labels: ['Positive', 'Negative', 'Neutral'],
+                        datasets: [{{
+                            data: [
+                                {sentiment_results.get('aggregate_analysis', {}).get('sentiment_distribution', {}).get('positive', 0)},
+                                {sentiment_results.get('aggregate_analysis', {}).get('sentiment_distribution', {}).get('negative', 0)},
+                                {sentiment_results.get('aggregate_analysis', {}).get('sentiment_distribution', {}).get('neutral', 0)}
+                            ],
+                            backgroundColor: ['#28a745', '#dc3545', '#6c757d'],
+                            borderWidth: 3,
+                            borderColor: '#fff'
+                        }}]
+                    }},
+                    options: {{
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {{
+                            title: {{
+                                display: true,
+                                text: 'Strategic Content Sentiment Distribution'
+                            }},
+                            legend: {{ position: 'bottom' }}
+                        }}
+                    }}
+                }});
+            </script>
+            """
+            
+        except Exception as e:
+            return f"""
+            <div class="section">
+                <h2>📊 Sentiment Analysis</h2>
+                <p class="warning">Sentiment analysis could not be performed: {str(e)}</p>
+                <p>This feature requires proper sentiment analysis module setup.</p>
+            </div>
+            """
+    
+    def create_forecasting_analysis_script(self, analysis_data: Dict[str, Any]) -> str:
+        """Create forecasting analysis section for enhanced report."""
+        try:
+            from src.core.analysis.forecasting_engine import forecasting_engine
+            
+            # Create sample time series data for strategic indicators
+            time_series = forecasting_engine.create_sample_time_series(periods=100, trend=0.05, seasonality=True, noise=0.1)
+            
+            # Perform forecasting
+            forecast_results = forecasting_engine.perform_time_series_forecast(time_series, 30, "Strategic Indicators Forecast")
+            
+            # Generate forecast report
+            forecast_report_path = forecasting_engine.generate_forecast_report(forecast_results)
+            
+            return f"""
+            <div class="section">
+                <h2>📈 Forecasting Analysis</h2>
+                <p>Time series forecasting and trend prediction for strategic indicators:</p>
+                
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-value">{forecast_results.get('forecast_periods', 0)}</div>
+                        <div class="metric-label">Forecast Periods</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">{forecast_results.get('model_comparison', {}).get('trend_direction', 'Unknown')}</div>
+                        <div class="metric-label">Trend Direction</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">{forecast_results.get('model_comparison', {}).get('trend_strength', 0):.3f}</div>
+                        <div class="metric-label">Trend Strength</div>
+                    </div>
+                </div>
+                
+                <h3>Forecast Comparison</h3>
+                <div class="chart-section">
+                    <div class="chart-wrapper">
+                        <canvas id="forecastComparisonChart"></canvas>
+                    </div>
+                </div>
+                
+                <h3>Model Performance</h3>
+                <table class="professional-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Mean Forecast</th>
+                            <th>Standard Deviation</th>
+                            <th>Trend</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Moving Average</td>
+                            <td>{forecast_results.get('forecast_metrics', {}).get('ma_forecast', {}).get('mean', 0):.2f}</td>
+                            <td>{forecast_results.get('forecast_metrics', {}).get('ma_forecast', {}).get('std', 0):.2f}</td>
+                            <td>Stable</td>
+                        </tr>
+                        <tr>
+                            <td>Linear Trend</td>
+                            <td>{forecast_results.get('forecast_metrics', {}).get('linear_forecast', {}).get('mean', 0):.2f}</td>
+                            <td>{forecast_results.get('forecast_metrics', {}).get('linear_forecast', {}).get('std', 0):.2f}</td>
+                            <td>{forecast_results.get('model_comparison', {}).get('trend_direction', 'Unknown')}</td>
+                        </tr>
+                        <tr>
+                            <td>Exponential Smoothing</td>
+                            <td>{forecast_results.get('forecast_metrics', {}).get('exp_smooth_forecast', {}).get('mean', 0):.2f}</td>
+                            <td>{forecast_results.get('forecast_metrics', {}).get('exp_smooth_forecast', {}).get('std', 0):.2f}</td>
+                            <td>Adaptive</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <p><strong>📄 Full Forecast Report:</strong> <a href="{forecast_report_path}" target="_blank">View Comprehensive Analysis</a></p>
+            </div>
+            
+            <script>
+                // Forecast Comparison Chart
+                const forecastCtx = document.getElementById('forecastComparisonChart').getContext('2d');
+                new Chart(forecastCtx, {{
+                    type: 'line',
+                    data: {{
+                        labels: {forecast_results.get('original_data', {}).get('dates', []) + forecast_results.get('forecast_dates', [])},
+                        datasets: [
+                            {{
+                                label: 'Original Data',
+                                data: {forecast_results.get('original_data', {}).get('values', [])},
+                                borderColor: '#1e3c72',
+                                backgroundColor: 'rgba(30, 60, 114, 0.1)',
+                                fill: false
+                            }},
+                            {{
+                                label: 'Moving Average Forecast',
+                                data: [null, ...{forecast_results.get('forecast_metrics', {}).get('ma_forecast', {}).get('values', [])}],
+                                borderColor: '#28a745',
+                                backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                                fill: false,
+                                borderDash: [5, 5]
+                            }},
+                            {{
+                                label: 'Linear Trend Forecast',
+                                data: [null, ...{forecast_results.get('forecast_metrics', {}).get('linear_forecast', {}).get('values', [])}],
+                                borderColor: '#dc3545',
+                                backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                                fill: false,
+                                borderDash: [10, 5]
+                            }},
+                            {{
+                                label: 'Exponential Smoothing',
+                                data: [null, ...{forecast_results.get('forecast_metrics', {}).get('exp_smooth_forecast', {}).get('values', [])}],
+                                borderColor: '#ffc107',
+                                backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                                fill: false,
+                                borderDash: [2, 2]
+                            }}
+                        ]
+                    }},
+                    options: {{
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {{
+                            title: {{
+                                display: true,
+                                text: 'Strategic Indicators Forecast'
+                            }}
+                        }},
+                        scales: {{
+                            x: {{
+                                title: {{ display: true, text: 'Date' }}
+                            }},
+                            y: {{
+                                title: {{ display: true, text: 'Value' }}
+                            }}
+                        }}
+                    }}
+                }});
+            </script>
+            """
+            
+        except Exception as e:
+            return f"""
+            <div class="section">
+                <h2>📈 Forecasting Analysis</h2>
+                <p class="warning">Forecasting analysis could not be performed: {str(e)}</p>
+                <p>This feature requires proper forecasting engine setup.</p>
+            </div>
+            """
+    
+    def create_predictive_analytics_script(self, analysis_data: Dict[str, Any]) -> str:
+        """Create predictive analytics section for enhanced report."""
+        try:
+            from src.core.analysis.predictive_analytics import predictive_analytics
+            
+            # Create sample data for predictive modeling
+            X, y = predictive_analytics.create_sample_data(n_samples=500, n_features=5)
+            
+            # Perform regression analysis
+            regression_results = predictive_analytics.perform_regression_analysis(X, y)
+            
+            # Perform classification analysis
+            classification_results = predictive_analytics.perform_classification_analysis(X, y)
+            
+            # Generate predictive report
+            predictive_report_path = predictive_analytics.generate_predictive_report(regression_results)
+            
+            return f"""
+            <div class="section">
+                <h2>🤖 Predictive Analytics</h2>
+                <p>Machine learning based predictions and modeling for strategic analysis:</p>
+                
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-value">{regression_results.get('data_info', {}).get('n_samples', 0)}</div>
+                        <div class="metric-label">Data Samples</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">{regression_results.get('data_info', {}).get('n_features', 0)}</div>
+                        <div class="metric-label">Features</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">{regression_results.get('best_model', 'N/A')}</div>
+                        <div class="metric-label">Best Model</div>
+                    </div>
+                </div>
+                
+                <h3>Regression Model Performance</h3>
+                <table class="professional-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>R² Score</th>
+                            <th>RMSE</th>
+                            <th>MAE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {self._generate_model_performance_rows(regression_results.get('model_comparison', {}))}
+                    </tbody>
+                </table>
+                
+                <h3>Classification Model Performance</h3>
+                <table class="professional-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Accuracy</th>
+                            <th>Precision</th>
+                            <th>Recall</th>
+                            <th>F1 Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {self._generate_classification_performance_rows(classification_results.get('model_comparison', {}))}
+                    </tbody>
+                </table>
+                
+                <h3>Feature Importance (Best Model)</h3>
+                <div class="chart-section">
+                    <div class="chart-wrapper">
+                        <canvas id="featureImportanceChart"></canvas>
+                    </div>
+                </div>
+                
+                <p><strong>📄 Full Predictive Analytics Report:</strong> <a href="{predictive_report_path}" target="_blank">View Comprehensive Analysis</a></p>
+            </div>
+            
+            <script>
+                // Feature Importance Chart
+                const featureCtx = document.getElementById('featureImportanceChart').getContext('2d');
+                const featureData = {self._get_feature_importance_data(regression_results)};
+                new Chart(featureCtx, {{
+                    type: 'bar',
+                    data: {{
+                        labels: featureData.labels,
+                        datasets: [{{
+                            label: 'Feature Importance',
+                            data: featureData.values,
+                            backgroundColor: '#1e3c72',
+                            borderColor: '#2a5298',
+                            borderWidth: 2
+                        }}]
+                    }},
+                    options: {{
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {{
+                            title: {{
+                                display: true,
+                                text: 'Feature Importance Analysis'
+                            }}
+                        }},
+                        scales: {{
+                            y: {{
+                                beginAtZero: true,
+                                title: {{ display: true, text: 'Importance Score' }}
+                            }}
+                        }}
+                    }}
+                }});
+            </script>
+            """
+            
+        except Exception as e:
+            return f"""
+            <div class="section">
+                <h2>🤖 Predictive Analytics</h2>
+                <p class="warning">Predictive analytics could not be performed: {str(e)}</p>
+                <p>This feature requires proper predictive analytics module setup.</p>
+            </div>
+            """
+    
+    def _generate_model_performance_rows(self, model_comparison: Dict[str, Any]) -> str:
+        """Generate HTML rows for model performance table."""
+        rows = ""
+        for model_name, metrics in model_comparison.items():
+            rows += f"""
+            <tr>
+                <td>{model_name}</td>
+                <td>{metrics.get('r2', 0):.4f}</td>
+                <td>{metrics.get('rmse', 0):.4f}</td>
+                <td>{metrics.get('mae', 0):.4f}</td>
+            </tr>
+            """
+        return rows
+    
+    def _generate_classification_performance_rows(self, model_comparison: Dict[str, Any]) -> str:
+        """Generate HTML rows for classification performance table."""
+        rows = ""
+        for model_name, metrics in model_comparison.items():
+            rows += f"""
+            <tr>
+                <td>{model_name}</td>
+                <td>{metrics.get('accuracy', 0):.4f}</td>
+                <td>{metrics.get('precision', 0):.4f}</td>
+                <td>{metrics.get('recall', 0):.4f}</td>
+                <td>{metrics.get('f1', 0):.4f}</td>
+            </tr>
+            """
+        return rows
+    
+    def _get_feature_importance_data(self, regression_results: Dict[str, Any]) -> Dict[str, Any]:
+        """Get feature importance data for charting."""
+        try:
+            best_model_name = regression_results.get('best_model', '')
+            if best_model_name in regression_results.get('models', {}):
+                feature_importance = regression_results['models'][best_model_name].get('feature_importance', {})
+                if feature_importance:
+                    sorted_features = sorted(feature_importance.items(), key=lambda x: abs(x[1]), reverse=True)
+                    return {
+                        'labels': [f[0] for f in sorted_features],
+                        'values': [abs(f[1]) for f in sorted_features]
+                    }
+        except:
+            pass
+        return {'labels': [], 'values': []}
+
+

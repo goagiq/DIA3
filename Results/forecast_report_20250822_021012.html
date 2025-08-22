@@ -1,0 +1,158 @@
+
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Forecasting Report</title>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <style>
+                    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; }
+                    .header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 20px; border-radius: 10px; }
+                    .section { margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 10px; }
+                    .metric { display: inline-block; margin: 10px; padding: 15px; background: white; border-radius: 8px; text-align: center; }
+                    .metric-value { font-size: 2em; font-weight: bold; }
+                    .chart-container { width: 100%; max-width: 800px; margin: 20px auto; }
+                    .forecast-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+                    .forecast-table th, .forecast-table td { padding: 10px; border: 1px solid #ddd; text-align: center; }
+                    .forecast-table th { background: #1e3c72; color: white; }
+                </style>
+            </head>
+            <body>
+                <div class="header">
+                    <h1>Forecasting Report</h1>
+                    <p>Generated: 2025-08-22 02:10:12</p>
+                </div>
+                
+                <div class="section">
+                    <h2>Forecast Summary</h2>
+                    <div class="metric">
+                        <div class="metric-value">
+                            20
+                        </div>
+                        <div>Forecast Periods</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">
+                            increasing
+                        </div>
+                        <div>Trend Direction</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">
+                            0.092
+                        </div>
+                        <div>Trend Strength</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>Forecast Comparison</h2>
+                    <div class="chart-container">
+                        <canvas id="forecastChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>Model Performance Comparison</h2>
+                    <table class="forecast-table">
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th>Mean Forecast</th>
+                                <th>Standard Deviation</th>
+                                <th>Trend</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Moving Average</td>
+                                <td>4.67</td>
+                                <td>0.00</td>
+                                <td>Stable</td>
+                            </tr>
+                            <tr>
+                                <td>Linear Trend</td>
+                                <td>5.72</td>
+                                <td>0.53</td>
+                                <td>increasing</td>
+                            </tr>
+                            <tr>
+                                <td>Exponential Smoothing</td>
+                                <td>4.97</td>
+                                <td>0.00</td>
+                                <td>Adaptive</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <script>
+                    // Forecast Chart
+                    const ctx = document.getElementById('forecastChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['2020-01-01', '2020-01-02', '2020-01-03', '2020-01-04', '2020-01-05', '2020-01-06', '2020-01-07', '2020-01-08', '2020-01-09', '2020-01-10', '2020-01-11', '2020-01-12', '2020-01-13', '2020-01-14', '2020-01-15', '2020-01-16', '2020-01-17', '2020-01-18', '2020-01-19', '2020-01-20', '2020-01-21', '2020-01-22', '2020-01-23', '2020-01-24', '2020-01-25', '2020-01-26', '2020-01-27', '2020-01-28', '2020-01-29', '2020-01-30', '2020-01-31', '2020-02-01', '2020-02-02', '2020-02-03', '2020-02-04', '2020-02-05', '2020-02-06', '2020-02-07', '2020-02-08', '2020-02-09', '2020-02-10', '2020-02-11', '2020-02-12', '2020-02-13', '2020-02-14', '2020-02-15', '2020-02-16', '2020-02-17', '2020-02-18', '2020-02-19', '2020-02-20', '2020-02-21', '2020-02-22', '2020-02-23', '2020-02-24', '2020-02-25', '2020-02-26', '2020-02-27', '2020-02-28', '2020-02-29', '2020-03-01', '2020-03-02', '2020-03-03', '2020-03-04', '2020-03-05', '2020-03-06', '2020-03-07', '2020-03-08', '2020-03-09', '2020-03-10'],
+                            datasets: [
+                                {
+                                    label: 'Original Data',
+                                    data: [-0.016774550557215457, 1.6405909570544515, 2.135612210594717, 1.1969966565846677, -0.37448365735852446, -1.4485070162679574, -0.9245693191079061, 0.6823873235132563, 2.3776726834608355, 2.769430278292941, 1.9237488708187969, 0.1856929438638416, -0.7480200535876799, -0.1917453449554885, 1.4083256519873373, 3.0410767188738625, 3.5269192750335803, 2.5985397597992304, 0.976827763774382, 0.027350121878780553, 0.46973145053889387, 2.1583067740109656, 3.743168720817608, 4.332674536017359, 3.216685005187634, 1.7490766386221275, 0.6558741326626751, 1.2396345202642027, 2.9152982631214224, 4.479877510338437, 4.981328000346727, 4.084209656068835, 2.3654191684446975, 1.3715114004095412, 1.8689969237864528, 3.5230678350015725, 5.2645923884206125, 5.857944717286483, 4.815939325373211, 3.0699031783901503, 2.0335485399763598, 2.607868731536946, 4.2832571999211, 5.815850308575606, 6.428895318999773, 5.558445727035062, 3.7508006612733933, 2.822009801159858, 3.349329458905333, 4.969560170871255],
+                                    borderColor: '#1e3c72',
+                                    backgroundColor: 'rgba(30, 60, 114, 0.1)',
+                                    fill: false
+                                },
+                                {
+                                    label: 'Moving Average Forecast',
+                                    data: [null, ...[np.float64(4.670698778117183), np.float64(4.670698778117183), np.float64(4.670698778117183), np.float64(4.670698778117183), np.float64(4.670698778117183), np.float64(4.670698778117183), np.float64(4.670698778117183), np.float64(4.670698778117183), np.float64(4.670698778117183), np.float64(4.670698778117183), np.float64(4.670698778117183), np.float64(4.670698778117183), np.float64(4.670698778117183), np.float64(4.670698778117183), np.float64(4.670698778117183), np.float64(4.670698778117183), np.float64(4.670698778117183), np.float64(4.670698778117183), np.float64(4.670698778117183), np.float64(4.670698778117183)]],
+                                    borderColor: '#28a745',
+                                    backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                                    fill: false,
+                                    borderDash: [5, 5]
+                                },
+                                {
+                                    label: 'Linear Trend Forecast',
+                                    data: [null, ...[4.840198095904418, 4.932307921361799, 5.0244177468191795, 5.116527572276561, 5.208637397733942, 5.300747223191323, 5.392857048648704, 5.484966874106085, 5.577076699563466, 5.669186525020847, 5.761296350478228, 5.853406175935609, 5.94551600139299, 6.037625826850371, 6.129735652307752, 6.221845477765133, 6.313955303222514, 6.406065128679895, 6.4981749541372755, 6.590284779594657]],
+                                    borderColor: '#dc3545',
+                                    backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                                    fill: false,
+                                    borderDash: [10, 5]
+                                },
+                                {
+                                    label: 'Exponential Smoothing',
+                                    data: [null, ...[np.float64(4.969560170871255), np.float64(4.969560170871255), np.float64(4.969560170871255), np.float64(4.969560170871255), np.float64(4.969560170871255), np.float64(4.969560170871255), np.float64(4.969560170871255), np.float64(4.969560170871255), np.float64(4.969560170871255), np.float64(4.969560170871255), np.float64(4.969560170871255), np.float64(4.969560170871255), np.float64(4.969560170871255), np.float64(4.969560170871255), np.float64(4.969560170871255), np.float64(4.969560170871255), np.float64(4.969560170871255), np.float64(4.969560170871255), np.float64(4.969560170871255), np.float64(4.969560170871255)]],
+                                    borderColor: '#ffc107',
+                                    backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                                    fill: false,
+                                    borderDash: [2, 2]
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Time Series Forecast Comparison'
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Date'
+                                    }
+                                },
+                                y: {
+                                    title: {
+                                        display: true,
+                                        text: 'Value'
+                                    }
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </body>
+            </html>
+            

@@ -98,8 +98,8 @@ def test_api_endpoints():
     print("🌐 Testing API Endpoints...")
     
     try:
-        # Test main API server first
-        response = requests.get("http://localhost:8001/health", timeout=10)
+        # Test main API server first - API server runs on port 8003
+        response = requests.get("http://localhost:8003/health", timeout=10)
         
         if response.status_code == 200:
             print("✅ Main API server health check passed")
@@ -107,7 +107,7 @@ def test_api_endpoints():
             print(f"⚠️ Main API server health check: {response.status_code}")
         
         # Test enhanced report API endpoint
-        response = requests.get("http://localhost:8001/api/v1/reports/health", timeout=10)
+        response = requests.get("http://localhost:8003/api/v1/reports/health", timeout=10)
         
         if response.status_code == 200:
             data = response.json()
@@ -118,7 +118,7 @@ def test_api_endpoints():
             # Try alternative endpoints
             for endpoint in ["/docs", "/openapi.json", "/"]:
                 try:
-                    response = requests.get(f"http://localhost:8001{endpoint}", timeout=5)
+                    response = requests.get(f"http://localhost:8003{endpoint}", timeout=5)
                     if response.status_code == 200:
                         print(f"✅ API server is running (found {endpoint})")
                         return True
@@ -181,10 +181,10 @@ def start_servers():
     """Start the required servers."""
     print("🚀 Starting Servers...")
     
-    # Start MCP server on port 8000
+    # Start MCP server on port 8000 using the standalone MCP server script
     print("   Starting MCP server on port 8000...")
     mcp_process = subprocess.Popen([
-        ".venv/Scripts/python.exe", "main.py"
+        ".venv/Scripts/python.exe", "scripts/start_mcp_server.py"
     ], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     
     # Wait for servers to start
