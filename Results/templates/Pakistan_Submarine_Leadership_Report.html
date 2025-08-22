@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pakistan Submarine Acquisition - Executive Leadership Briefing</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.4;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            scroll-behavior: auto;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header .subtitle {
+            font-size: 1rem;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+        
+        .header .timestamp {
+            font-size: 0.8rem;
+            color: #95a5a6;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: visible;
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+        
+        .section h3 {
+            color: #34495e;
+            font-size: 1.2rem;
+            margin: 20px 0 10px 0;
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .charts-grid-4 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .chart-section {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            height: 320px;
+            position: relative;
+            overflow: visible;
+        }
+        
+        .chart-section-4 {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            height: 270px;
+            position: relative;
+            overflow: visible;
+        }
+        
+        .chart-section canvas,
+        .chart-section-4 canvas {
+            max-height: 100% !important;
+            width: 100% !important;
+        }
+        
+        /* Prevent scrolling issues in Strategic Assessment */
+        .strategic-assessment-section {
+            overflow: visible !important;
+            transform: none !important;
+            position: relative !important;
+        }
+        
+        /* Ensure stable chart rendering */
+        canvas {
+            display: block !important;
+            max-width: 100% !important;
+        }
+        
+        /* Interactive tooltip styles */
+        .enhanced-tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 1000;
+            max-width: 200px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .interactive-element {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .interactive-element:hover .enhanced-tooltip {
+            opacity: 1;
+        }
+        
+        .chart-title {
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 0.9rem;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .metric-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .metric-card .value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #3498db;
+            margin: 8px 0;
+        }
+        
+        .metric-card .label {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+        }
+        
+        .key-insights {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #3498db;
+        }
+        
+        .key-insights h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        
+        .key-insights ul {
+            margin-left: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .key-insights li {
+            margin-bottom: 5px;
+        }
+        
+        .map-container {
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .executive-summary {
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .executive-summary h2 {
+            color: white;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .risk-indicator {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin: 2px;
+        }
+        
+        .risk-low { background: #27ae60; color: white; }
+        .risk-medium { background: #f39c12; color: white; }
+        .risk-high { background: #e74c3c; color: white; }
+        
+        .sentiment-positive { color: #27ae60; font-weight: bold; }
+        .sentiment-negative { color: #e74c3c; font-weight: bold; }
+        .sentiment-neutral { color: #f39c12; font-weight: bold; }
+        
+        .art-of-war-insight {
+            background: linear-gradient(135deg, #8e44ad, #9b59b6);
+            color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .art-of-war-insight h4 {
+            color: white;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>🇵🇰 Pakistan Submarine Acquisition</h1>
+            <div class="subtitle">Executive Leadership Briefing - Strategic Analysis Report</div>
+            <div class="timestamp">Generated: <span id="timestamp"></span></div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="executive-summary">
+            <h2>🎯 Executive Summary</h2>
+            <p><strong>Key Finding:</strong> Pakistan's submarine program represents a critical strategic development with significant implications for regional security dynamics and nuclear deterrence posture.</p>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h4>Current Fleet</h4>
+                    <div class="value">5</div>
+                    <div class="label">Active Submarines</div>
+                </div>
+                <div class="metric-card">
+                    <h4>Planned Acquisition</h4>
+                    <div class="value">8</div>
+                    <div class="label">Hangor-class</div>
+                </div>
+                <div class="metric-card">
+                    <h4>Strategic Impact</h4>
+                    <div class="value">High</div>
+                    <div class="label">Regional Deterrence</div>
+                </div>
+                <div class="metric-card">
+                    <h4>Risk Level</h4>
+                    <div class="value risk-indicator risk-medium">Medium</div>
+                    <div class="label">Escalation Risk</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Art of War Strategic Analysis -->
+        <div class="art-of-war-insight">
+            <h4>🎭 Art of War Strategic Analysis</h4>
+            <p><strong>Core Principle:</strong> "War is the way of deception" - Pakistan's submarine program demonstrates strategic ambiguity and information asymmetry tactics.</p>
+            <ul>
+                <li><strong>Strategic Ambiguity:</strong> Maintaining uncertainty about capabilities and intentions</li>
+                <li><strong>Information Asymmetry:</strong> Creating knowledge gaps that favor Pakistan's position</li>
+                <li><strong>Psychological Warfare:</strong> Manipulating regional perceptions and morale</li>
+            </ul>
+        </div>
+
+        <!-- Strategic Assessment -->
+        <div class="section strategic-assessment-section">
+            <h2>⚔️ Strategic Assessment</h2>
+            <div class="charts-grid">
+                <div class="chart-section interactive-element">
+                    <div class="chart-title">Nuclear Deterrence Capability</div>
+                    <canvas id="nuclearChart" width="250" height="250"></canvas>
+                    <div class="enhanced-tooltip">Source: DIA3 Analysis | Confidence: 85% | Date: 2025-08-22</div>
+                </div>
+                <div class="chart-section interactive-element">
+                    <div class="chart-title">Regional Sentiment Analysis</div>
+                    <canvas id="sentimentChart" width="250" height="250"></canvas>
+                    <div class="enhanced-tooltip">Source: DIA3 Analysis | Confidence: 82% | Date: 2025-08-22</div>
+                </div>
+            </div>
+            <div class="key-insights">
+                <h4>Strategic Implications:</h4>
+                <ul>
+                    <li><strong>Enhanced Deterrence:</strong> Strengthens Pakistan's nuclear triad with sea-based capabilities</li>
+                    <li><strong>Regional Balance:</strong> Contributes to strategic stability through credible second-strike options</li>
+                    <li><strong>Technology Transfer:</strong> Successful collaboration with China demonstrates effective partnerships</li>
+                    <li><strong>Operational Security:</strong> Submarine operations provide enhanced survivability and stealth</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Forecasting & Analytics -->
+        <div class="section">
+            <h2>🔮 Forecasting & Analytics</h2>
+            <div class="charts-grid-4">
+                <div class="chart-section-4 interactive-element">
+                    <div class="chart-title">Fleet Growth Projection</div>
+                    <canvas id="forecastChart" width="200" height="200"></canvas>
+                    <div class="enhanced-tooltip">Source: DIA3 Forecasting | Confidence: 78% | Date: 2025-08-22</div>
+                </div>
+                <div class="chart-section-4 interactive-element">
+                    <div class="chart-title">Feature Importance</div>
+                    <canvas id="featureImportanceChart" width="200" height="200"></canvas>
+                    <div class="enhanced-tooltip">Source: DIA3 Analytics | Confidence: 88% | Date: 2025-08-22</div>
+                </div>
+                <div class="chart-section-4 interactive-element">
+                    <div class="chart-title">Risk Assessment</div>
+                    <canvas id="riskMatrixChart" width="200" height="200"></canvas>
+                    <div class="enhanced-tooltip">Source: DIA3 Risk Analysis | Confidence: 85% | Date: 2025-08-22</div>
+                </div>
+                <div class="chart-section-4 interactive-element">
+                    <div class="chart-title">Economic Impact</div>
+                    <canvas id="economicImpactChart" width="200" height="200"></canvas>
+                    <div class="enhanced-tooltip">Source: DIA3 Economic Analysis | Confidence: 80% | Date: 2025-08-22</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Regional Analysis -->
+        <div class="section">
+            <h2>🌍 Regional Analysis</h2>
+            <div class="charts-grid">
+                <div class="chart-section interactive-element">
+                    <div class="chart-title">Submarine Fleet Comparison</div>
+                    <canvas id="submarineComparisonChart" width="250" height="250"></canvas>
+                    <div class="enhanced-tooltip">Source: DIA3 Fleet Analysis | Confidence: 90% | Date: 2025-08-22</div>
+                </div>
+                <div class="chart-section interactive-element">
+                    <div class="chart-title">Regional Power Balance</div>
+                    <canvas id="regionalPowerChart" width="250" height="250"></canvas>
+                    <div class="enhanced-tooltip">Source: DIA3 Regional Analysis | Confidence: 87% | Date: 2025-08-22</div>
+                </div>
+            </div>
+            <div class="key-insights">
+                <h4>Regional Stakeholder Sentiment:</h4>
+                <ul>
+                    <li><span class="sentiment-negative">India:</span> Negative (-0.75) - Strategic concern and potential escalation</li>
+                    <li><span class="sentiment-positive">China:</span> Positive (+0.85) - Strategic partner and technology provider</li>
+                    <li><span class="sentiment-neutral">United States:</span> Neutral (-0.15) - Monitoring with cautious engagement</li>
+                    <li><span class="sentiment-positive">Russia:</span> Positive (+0.45) - Supportive of multipolar balance</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Implementation & Timeline -->
+        <div class="section">
+            <h2>📅 Implementation & Timeline</h2>
+            <div class="charts-grid">
+                <div class="chart-section interactive-element">
+                    <div class="chart-title">Program Milestones</div>
+                    <canvas id="programMilestonesChart" width="250" height="250"></canvas>
+                    <div class="enhanced-tooltip">Source: DIA3 Timeline Analysis | Confidence: 83% | Date: 2025-08-22</div>
+                </div>
+                <div class="chart-section interactive-element">
+                    <div class="chart-title">Resource Allocation</div>
+                    <canvas id="resourceAllocationChart" width="250" height="250"></canvas>
+                    <div class="enhanced-tooltip">Source: DIA3 Resource Analysis | Confidence: 85% | Date: 2025-08-22</div>
+                </div>
+            </div>
+            <div class="key-insights">
+                <h4>Critical Path Analysis:</h4>
+                <ul>
+                    <li><strong>Design Phase:</strong> 12 months (Critical) - Technology transfer and design finalization</li>
+                    <li><strong>Construction:</strong> 24 months (Critical) - Submarine assembly and integration</li>
+                    <li><strong>Testing:</strong> 6 months - Sea trials and weapons integration</li>
+                    <li><strong>Training:</strong> 8 months - Crew training and operational readiness</li>
+                    <li><strong>Deployment:</strong> 4 months - Operational deployment and strategic positioning</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Strategic Options -->
+        <div class="section">
+            <h2>🎯 Strategic Options</h2>
+            <div class="charts-grid">
+                <div class="chart-section interactive-element">
+                    <div class="chart-title">Strategic Option Analysis</div>
+                    <canvas id="strategicOptionsChart" width="250" height="250"></canvas>
+                    <div class="enhanced-tooltip">Source: DIA3 Strategic Analysis | Confidence: 86% | Date: 2025-08-22</div>
+                </div>
+                <div class="chart-section interactive-element">
+                    <div class="chart-title">Risk-Reward Assessment</div>
+                    <canvas id="riskRewardChart" width="250" height="250"></canvas>
+                    <div class="enhanced-tooltip">Source: DIA3 Risk-Reward Analysis | Confidence: 84% | Date: 2025-08-22</div>
+                </div>
+            </div>
+            <div class="key-insights">
+                <h4>Recommended Strategic Approach:</h4>
+                <ul>
+                    <li><strong>Option A:</strong> Proceed with current acquisition plan (45% recommendation) - Balanced approach</li>
+                    <li><strong>Option B:</strong> Accelerated timeline with enhanced technology transfer (25% recommendation) - High risk, high reward</li>
+                    <li><strong>Option C:</strong> Phased approach with regional consultation (20% recommendation) - Diplomatic engagement</li>
+                    <li><strong>Option D:</strong> Reconsider and reassess all options (10% recommendation) - Conservative approach</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Regional Security Map -->
+        <div class="section">
+            <h2>🗺️ Regional Security Dynamics</h2>
+            <div class="map-container interactive-element" id="securityMap">
+                <div class="enhanced-tooltip">Source: DIA3 Geospatial Analysis | Confidence: 92% | Date: 2025-08-22</div>
+            </div>
+        </div>
+
+        <!-- Key Recommendations -->
+        <div class="section">
+            <h2>📋 Key Recommendations</h2>
+            <div class="key-insights">
+                <h4>Strategic Recommendations:</h4>
+                <ul>
+                    <li><strong>Enhanced Monitoring:</strong> Maintain close surveillance of program development and regional reactions</li>
+                    <li><strong>Diplomatic Engagement:</strong> Strengthen bilateral relations with key stakeholders</li>
+                    <li><strong>Risk Mitigation:</strong> Develop contingency plans for potential escalation scenarios</li>
+                    <li><strong>Technology Cooperation:</strong> Explore opportunities for technology sharing and cooperation</li>
+                    <li><strong>Intelligence Collection:</strong> Enhance intelligence gathering on program progress and capabilities</li>
+                </ul>
+            </div>
+            <div class="key-insights">
+                <h4>Next Steps:</h4>
+                <ul>
+                    <li>Conduct quarterly strategic assessments of program progress</li>
+                    <li>Maintain intelligence collection on submarine capabilities and deployment</li>
+                    <li>Engage in diplomatic dialogue with regional partners</li>
+                    <li>Prepare response strategies for various escalation scenarios</li>
+                    <li>Monitor technology transfer and indigenous capability development</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Art of War Counter-Strategies -->
+        <div class="section">
+            <h2>🛡️ Counter-Strategy Recommendations</h2>
+            <div class="key-insights">
+                <h4>Intelligence and Verification:</h4>
+                <ul>
+                    <li>Multiple source verification and cross-checking of program information</li>
+                    <li>Pattern recognition in deceptive behavior and strategic communications</li>
+                    <li>Technical analysis and digital forensics of technology transfer</li>
+                    <li>Human intelligence networks and informants in key areas</li>
+                </ul>
+            </div>
+            <div class="key-insights">
+                <h4>Organizational Resilience:</h4>
+                <ul>
+                    <li>Comprehensive training programs for deception detection</li>
+                    <li>Standard operating procedures for information verification</li>
+                    <li>Information sharing with allies and partners</li>
+                    <li>Red team exercises and scenario planning</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set timestamp
+        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        
+        // Initialize all charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Prevent layout shifts during chart initialization
+            const chartContainers = document.querySelectorAll('.chart-section, .chart-section-4');
+            chartContainers.forEach(container => {
+                container.style.minHeight = container.offsetHeight + 'px';
+            });
+            
+            // Small delay to ensure stable layout
+            setTimeout(() => {
+                // Nuclear Deterrence Chart
+                const nuclearCtx = document.getElementById('nuclearChart').getContext('2d');
+                new Chart(nuclearCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Nuclear', 'Survivability', 'Range', 'Accuracy', 'Readiness'],
+                    datasets: [{
+                        label: 'Capability',
+                        data: [85, 90, 75, 80, 70],
+                        borderColor: '#3498db',
+                        backgroundColor: 'rgba(52, 152, 219, 0.2)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: { 
+                            beginAtZero: true, 
+                            max: 100,
+                            ticks: {
+                                font: { size: 11 }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleFont: { size: 12 },
+                            bodyFont: { size: 11 }
+                        }
+                    }
+                }
+            });
+
+            // Sentiment Chart
+            const sentimentCtx = document.getElementById('sentimentChart').getContext('2d');
+            new Chart(sentimentCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Positive', 'Neutral', 'Negative'],
+                    datasets: [{
+                        data: [30, 50, 20],
+                        backgroundColor: ['#27ae60', '#f39c12', '#e74c3c']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { 
+                            position: 'bottom', 
+                            labels: { 
+                                font: { size: 11 },
+                                padding: 15
+                            } 
+                        },
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleFont: { size: 12 },
+                            bodyFont: { size: 11 }
+                        }
+                    }
+                }
+            });
+
+            // Forecast Chart
+            const forecastCtx = document.getElementById('forecastChart').getContext('2d');
+            new Chart(forecastCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2023', '2024', '2025', '2026', '2027', '2028'],
+                    datasets: [{
+                        label: 'Fleet Size',
+                        data: [5, 6, 7, 9, 11, 13],
+                        borderColor: '#2ecc71',
+                        backgroundColor: 'rgba(46, 204, 113, 0.1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { 
+                            beginAtZero: true,
+                            ticks: {
+                                font: { size: 11 }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                font: { size: 11 }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleFont: { size: 12 },
+                            bodyFont: { size: 11 }
+                        }
+                    }
+                }
+            });
+
+            // Feature Importance Chart
+            const featureImportanceCtx = document.getElementById('featureImportanceChart').getContext('2d');
+            new Chart(featureImportanceCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Timeline', 'Technology', 'Regional', 'Operational', 'Economic'],
+                    datasets: [{
+                        label: 'Importance',
+                        data: [0.95, 0.88, 0.92, 0.85, 0.78],
+                        backgroundColor: ['#3498db', '#2ecc71', '#f39c12', '#e67e22', '#9b59b6']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: { 
+                            beginAtZero: true, 
+                            max: 1,
+                            ticks: {
+                                font: { size: 11 }
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                font: { size: 11 }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleFont: { size: 12 },
+                            bodyFont: { size: 11 }
+                        }
+                    }
+                }
+            });
+
+            // Risk Matrix Chart
+            const riskMatrixCtx = document.getElementById('riskMatrixChart').getContext('2d');
+            new Chart(riskMatrixCtx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'High Impact, High Probability',
+                        data: [{x: 0.8, y: 0.9}],
+                        backgroundColor: '#e74c3c'
+                    }, {
+                        label: 'High Impact, Low Probability',
+                        data: [{x: 0.2, y: 0.9}],
+                        backgroundColor: '#f39c12'
+                    }, {
+                        label: 'Low Impact, High Probability',
+                        data: [{x: 0.8, y: 0.2}],
+                        backgroundColor: '#3498db'
+                    }, {
+                        label: 'Low Impact, Low Probability',
+                        data: [{x: 0.2, y: 0.2}],
+                        backgroundColor: '#27ae60'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { 
+                            beginAtZero: true, 
+                            max: 1, 
+                            title: { 
+                                display: true, 
+                                text: 'Probability',
+                                font: { size: 11 }
+                            },
+                            ticks: {
+                                font: { size: 10 }
+                            }
+                        },
+                        y: { 
+                            beginAtZero: true, 
+                            max: 1, 
+                            title: { 
+                                display: true, 
+                                text: 'Impact',
+                                font: { size: 11 }
+                            },
+                            ticks: {
+                                font: { size: 10 }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleFont: { size: 12 },
+                            bodyFont: { size: 11 }
+                        }
+                    }
+                }
+            });
+
+            // Economic Impact Chart
+            const economicImpactCtx = document.getElementById('economicImpactChart').getContext('2d');
+            new Chart(economicImpactCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['GDP', 'Employment', 'Technology', 'Trade', 'Investment'],
+                    datasets: [{
+                        label: 'Impact',
+                        data: [0.8, 0.7, 0.9, 0.6, 0.5],
+                        borderColor: '#f39c12',
+                        backgroundColor: 'rgba(243, 156, 18, 0.2)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: { 
+                            beginAtZero: true, 
+                            max: 1,
+                            ticks: {
+                                font: { size: 10 }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleFont: { size: 12 },
+                            bodyFont: { size: 11 }
+                        }
+                    }
+                }
+            });
+
+            // Submarine Comparison Chart
+            const submarineComparisonCtx = document.getElementById('submarineComparisonChart').getContext('2d');
+            new Chart(submarineComparisonCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Pakistan', 'India', 'China', 'Iran'],
+                    datasets: [{
+                        label: 'Fleet Size',
+                        data: [5, 16, 66, 3],
+                        backgroundColor: ['#3498db', '#2ecc71', '#e74c3c', '#f39c12']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { 
+                            beginAtZero: true,
+                            ticks: {
+                                font: { size: 11 }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                font: { size: 11 }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleFont: { size: 12 },
+                            bodyFont: { size: 11 }
+                        }
+                    }
+                }
+            });
+
+            // Regional Power Chart
+            const regionalPowerCtx = document.getElementById('regionalPowerChart').getContext('2d');
+            new Chart(regionalPowerCtx, {
+                type: 'bubble',
+                data: {
+                    datasets: [{
+                        label: 'Regional Powers',
+                        data: [
+                            {x: 0.9, y: 0.8, r: 20}, // China
+                            {x: 0.7, y: 0.6, r: 15}, // India
+                            {x: 0.4, y: 0.5, r: 12}, // Pakistan
+                            {x: 0.3, y: 0.3, r: 8}  // Iran
+                        ],
+                        backgroundColor: ['#e74c3c', '#2ecc71', '#3498db', '#f39c12']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { 
+                            beginAtZero: true, 
+                            max: 1, 
+                            title: { 
+                                display: true, 
+                                text: 'Economic Power',
+                                font: { size: 11 }
+                            },
+                            ticks: {
+                                font: { size: 10 }
+                            }
+                        },
+                        y: { 
+                            beginAtZero: true, 
+                            max: 1, 
+                            title: { 
+                                display: true, 
+                                text: 'Military Power',
+                                font: { size: 11 }
+                            },
+                            ticks: {
+                                font: { size: 10 }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleFont: { size: 12 },
+                            bodyFont: { size: 11 }
+                        }
+                    }
+                }
+            });
+
+            // Program Milestones Chart
+            const programMilestonesCtx = document.getElementById('programMilestonesChart').getContext('2d');
+            new Chart(programMilestonesCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Q1', 'Q2', 'Q3', 'Q4', 'Q1', 'Q2'],
+                    datasets: [{
+                        label: 'Milestones',
+                        data: [2, 4, 6, 8, 10, 12],
+                        backgroundColor: '#3498db'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { 
+                            beginAtZero: true,
+                            ticks: {
+                                font: { size: 11 }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                font: { size: 11 }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleFont: { size: 12 },
+                            bodyFont: { size: 11 }
+                        }
+                    }
+                }
+            });
+
+            // Resource Allocation Chart
+            const resourceAllocationCtx = document.getElementById('resourceAllocationChart').getContext('2d');
+            new Chart(resourceAllocationCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Human', 'Financial', 'Technical', 'Infrastructure'],
+                    datasets: [{
+                        data: [35, 40, 15, 10],
+                        backgroundColor: ['#3498db', '#2ecc71', '#f39c12', '#e67e22']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { 
+                            position: 'bottom', 
+                            labels: { 
+                                font: { size: 11 },
+                                padding: 15
+                            } 
+                        },
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleFont: { size: 12 },
+                            bodyFont: { size: 11 }
+                        }
+                    }
+                }
+            });
+
+            // Strategic Options Chart
+            const strategicOptionsCtx = document.getElementById('strategicOptionsChart').getContext('2d');
+            new Chart(strategicOptionsCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Option A', 'Option B', 'Option C', 'Option D'],
+                    datasets: [{
+                        label: 'Effectiveness',
+                        data: [85, 72, 68, 91],
+                        backgroundColor: ['#3498db', '#2ecc71', '#f39c12', '#e67e22']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { 
+                            beginAtZero: true, 
+                            max: 100,
+                            ticks: {
+                                font: { size: 11 }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                font: { size: 11 }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleFont: { size: 12 },
+                            bodyFont: { size: 11 }
+                        }
+                    }
+                }
+            });
+
+            // Risk-Reward Chart
+            const riskRewardCtx = document.getElementById('riskRewardChart').getContext('2d');
+            new Chart(riskRewardCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Option A', 'Option B', 'Option C', 'Option D'],
+                    datasets: [{
+                        label: 'Risk',
+                        data: [0.3, 0.5, 0.7, 0.2],
+                        borderColor: '#e74c3c',
+                        backgroundColor: 'rgba(231, 76, 60, 0.1)'
+                    }, {
+                        label: 'Reward',
+                        data: [0.6, 0.8, 0.9, 0.7],
+                        borderColor: '#27ae60',
+                        backgroundColor: 'rgba(39, 174, 96, 0.1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { 
+                            beginAtZero: true, 
+                            max: 1,
+                            ticks: {
+                                font: { size: 11 }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                font: { size: 11 }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { 
+                            position: 'bottom', 
+                            labels: { 
+                                font: { size: 11 },
+                                padding: 15
+                            } 
+                        },
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleFont: { size: 12 },
+                            bodyFont: { size: 11 }
+                        }
+                    }
+                }
+            });
+
+            // Initialize map
+            const map = L.map('securityMap').setView([25, 70], 4);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+            
+            // Add Pakistan marker
+            L.marker([30.3753, 69.3451]).addTo(map).bindPopup('Pakistan - Submarine Program');
+            
+            // Add operational areas
+            const operationalArea = L.polygon([
+                [20, 60],
+                [30, 60],
+                [30, 80],
+                [20, 80]
+            ], {
+                color: '#3498db',
+                fillColor: '#3498db',
+                fillOpacity: 0.1,
+                weight: 2
+            }).addTo(map).bindPopup('Primary Operational Area');
+            
+            // Add regional markers
+            L.marker([20.5937, 78.9629]).addTo(map).bindPopup('India');
+            L.marker([35.8617, 104.1954]).addTo(map).bindPopup('China');
+            L.marker([32.4279, 53.6880]).addTo(map).bindPopup('Iran');
+            }, 100); // End of setTimeout
+        });
+    </script>
+</body>
+</html>

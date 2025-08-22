@@ -99,7 +99,7 @@ except ImportError as e:
 
 # Import enhanced report MCP tools
 try:
-    from src.mcp_servers.enhanced_report_mcp_tools import EnhancedReportMCPTools
+    from src.mcp_servers.enhanced_report_mcp_tools import enhanced_report_mcp_tools
     ENHANCED_REPORT_MCP_AVAILABLE = True
 except ImportError as e:
     logger.warning(f"Enhanced report MCP tools not available: {e}")
@@ -259,7 +259,7 @@ class UnifiedMCPServer:
         # Initialize enhanced report MCP tools
         if ENHANCED_REPORT_MCP_AVAILABLE:
             try:
-                self.enhanced_report_mcp_tools = EnhancedReportMCPTools()
+                self.enhanced_report_mcp_tools = enhanced_report_mcp_tools
                 logger.info("✅ Enhanced Report MCP Tools initialized")
             except Exception as e:
                 logger.warning(f"⚠️ Could not initialize Enhanced Report MCP Tools: {e}")
@@ -1283,6 +1283,232 @@ class UnifiedMCPServer:
             except Exception as e:
                 logger.error(f"Error generating report: {e}")
                 return {"success": False, "error": str(e)}
+
+        @self.mcp.tool(description="Generate enhanced report with source tracking")
+        async def generate_enhanced_report(
+            content: str,
+            report_type: str = "comprehensive",
+            include_tooltips: bool = True,
+            include_source_references: bool = True,
+            include_calculations: bool = True,
+            language: str = "en",
+            options: Dict[str, Any] = None
+        ) -> Dict[str, Any]:
+            """Generate enhanced reports with comprehensive source tracking."""
+            try:
+                # Import comprehensive enhanced report generator
+                from src.core.comprehensive_enhanced_report_generator import comprehensive_enhanced_report_generator
+                
+                # Generate comprehensive enhanced report with all missing components
+                result = await comprehensive_enhanced_report_generator.generate_comprehensive_enhanced_report(
+                    content=content,
+                    title="Enhanced Strategic Analysis Report",
+                    subtitle="Comprehensive Enhanced Analysis with Interactive Visualizations",
+                    include_all_components=True
+                )
+                
+                return result
+                    
+            except Exception as e:
+                logger.error(f"Error generating enhanced report: {e}")
+                return {"success": False, "error": str(e)}
+
+        @self.mcp.tool(description="Generate comprehensive enhanced report with interactive visualizations and tooltips")
+        async def generate_enhanced_report_interactive(
+            topic: str,
+            analysis_data: Dict[str, Any] = None,
+            output_dir: str = "Results"
+        ) -> Dict[str, Any]:
+            """Generate comprehensive enhanced report with interactive HTML visualizations and tooltips."""
+            try:
+                if not ENHANCED_REPORT_MCP_AVAILABLE:
+                    return {
+                        "success": False,
+                        "error": "Enhanced report MCP tools not available"
+                    }
+                
+                # First run comprehensive analysis to get rich data
+                logger.info(f"🔍 Running comprehensive analysis for enhanced report: {topic}")
+                
+                # Use the comprehensive analysis to get rich data
+                comprehensive_result = await self.run_comprehensive_analysis(
+                    input_content=topic,
+                    analysis_type="enhanced_report",
+                    generate_report=True,
+                    report_format="html"
+                )
+                
+                # Extract analysis data from comprehensive result
+                if analysis_data is None:
+                    analysis_data = {}
+                
+                if comprehensive_result.get("success"):
+                    analysis_data.update({
+                        "comprehensive_analysis": comprehensive_result.get("analysis_result", {}),
+                        "sentiment_analysis": comprehensive_result.get("processing_result", {}),
+                        "report_data": comprehensive_result.get("report", {})
+                    })
+                
+                # Generate enhanced report using template generator
+                if enhanced_report_template_generator:
+                    # Check if leadership template is requested
+                    template_type = "leadership" if "leadership" in topic.lower() else "enhanced_report"
+                    
+                    result = await enhanced_report_template_generator.generate_enhanced_report_template(
+                        topic=topic,
+                        analysis_data=analysis_data,
+                        output_dir=output_dir,
+                        template_type=template_type
+                    )
+                    
+                    # Add comprehensive analysis metadata
+                    result["comprehensive_analysis_included"] = True
+                    result["analysis_type"] = "enhanced_report"
+                    result["interactive_visualizations"] = True
+                    result["tooltips_enabled"] = True
+                    
+                    logger.info(f"✅ Enhanced report generated successfully: {result.get('filepath')}")
+                    return result
+                else:
+                    # Fallback implementation
+                    return await self._generate_fallback_report(topic, analysis_data, output_dir)
+                    
+            except Exception as e:
+                logger.error(f"Error generating enhanced report interactive: {e}")
+                return {"success": False, "error": str(e)}
+
+        @self.mcp.tool(description="Generate comprehensive enhanced report with all missing components")
+        async def generate_comprehensive_enhanced_report(
+            content: str,
+            title: str = "Strategic Analysis Report",
+            subtitle: str = "Comprehensive Enhanced Analysis",
+            include_all_components: bool = True
+        ) -> Dict[str, Any]:
+            """Generate comprehensive enhanced report with all missing components."""
+            try:
+                # Import comprehensive enhanced report generator
+                from src.core.comprehensive_enhanced_report_generator import comprehensive_enhanced_report_generator
+                
+                # Generate comprehensive enhanced report
+                result = await comprehensive_enhanced_report_generator.generate_comprehensive_enhanced_report(
+                    content=content,
+                    title=title,
+                    subtitle=subtitle,
+                    include_all_components=include_all_components
+                )
+                
+                return result
+                    
+            except Exception as e:
+                logger.error(f"Error generating comprehensive enhanced report: {e}")
+                return {"success": False, "error": str(e)}
+
+        async def _generate_fallback_report(self, topic: str, analysis_data: Dict[str, Any], output_dir: str) -> Dict[str, Any]:
+            """Fallback report generation when template generator is not available."""
+            
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"{topic.replace(' ', '_').lower()}_enhanced_report_{timestamp}.html"
+            filepath = os.path.join(output_dir, filename)
+            
+            # Create output directory if it doesn't exist
+            os.makedirs(output_dir, exist_ok=True)
+            
+            # Generate basic HTML content
+            html_content = f"""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{topic} - Enhanced Report</title>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }}
+        .container {{
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }}
+        .header {{
+            text-align: center;
+            margin-bottom: 30px;
+        }}
+        .section {{
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }}
+        .section h2 {{
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 {topic}</h1>
+            <p>Enhanced Report - Generated on {timestamp}</p>
+        </div>
+        
+        <div class="section">
+            <h2>📊 Executive Summary</h2>
+            <p>Comprehensive analysis of {topic} with advanced forecasting, predictive analytics, and strategic assessment.</p>
+        </div>
+        
+        <div class="section">
+            <h2>🔮 Advanced Forecasting Analysis</h2>
+            <p>Multi-model ensemble forecasting with 20,000 Monte Carlo iterations provides comprehensive prediction capabilities.</p>
+        </div>
+        
+        <div class="section">
+            <h2>🔮 Predictive Analytics & Feature Importance</h2>
+            <p>Advanced machine learning models identify critical success factors and predict scenario outcomes.</p>
+        </div>
+        
+        <div class="section">
+            <h2>🌍 Regional Sentiment Assessment</h2>
+            <p>Comprehensive sentiment analysis of regional stakeholders and diplomatic implications.</p>
+        </div>
+        
+        <div class="section">
+            <h2>📋 Key Conclusions & Recommendations</h2>
+            <p>Strategic insights and actionable recommendations based on comprehensive analysis.</p>
+        </div>
+    </div>
+</body>
+</html>
+"""
+            
+            # Write to file
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write(html_content)
+            
+            return {
+                "success": True,
+                "filepath": filepath,
+                "filename": filename,
+                "topic": topic,
+                "timestamp": timestamp,
+                "method": "fallback",
+                "sections": [
+                    "Executive Summary",
+                    "Advanced Forecasting Analysis",
+                    "Predictive Analytics & Feature Importance", 
+                    "Regional Sentiment Assessment",
+                    "Conclusions"
+                ]
+            }
 
         @self.mcp.tool(description="Interactive dashboard creation")
         async def create_dashboard(

@@ -46,7 +46,7 @@ def get_safe_port(host: str, default_port: int, reserved_ports: List[int] = None
     import socket
     
     if reserved_ports is None:
-        reserved_ports = [8000]  # Reserve port 8000 for standalone MCP server
+        reserved_ports = []  # No reserved ports - use port 8000 for combined server
     
     def is_port_available(port):
         if port in reserved_ports:
@@ -192,23 +192,28 @@ def initialize_enhanced_markdown_export_service():
 def initialize_enhanced_report_system():
     """Initialize the enhanced report generation system."""
     try:
-        from src.core.enhanced_report_orchestrator import EnhancedReportOrchestrator
-        from Test.enhanced_report_with_original_styling import EnhancedReportWithOriginalStyling
-        
-        # Test the enhanced report orchestrator
-        orchestrator = EnhancedReportOrchestrator()
-        
-        # Test the beautiful report generator
-        generator = EnhancedReportWithOriginalStyling()
+        # Import the new enhanced report template generator
+        from src.core.enhanced_report_template_generator import enhanced_report_template_generator
+        from src.mcp_servers.enhanced_report_mcp_tools import enhanced_report_mcp_tools
         
         print("✅ Enhanced report generation system initialized")
-        print(f"   - Enhanced report orchestrator available: {orchestrator is not None}")
-        print(f"   - Beautiful report generator available: {generator is not None}")
-        print(f"   - Sentiment analysis, forecasting, and predictive analytics integrated")
+        print(f"   - Enhanced report template generator available: {enhanced_report_template_generator is not None}")
+        print(f"   - Enhanced report MCP tools available: {enhanced_report_mcp_tools is not None}")
+        
+        # Test the template generator
+        if enhanced_report_template_generator:
+            print("   - Template generator ready for enhanced reports")
+        
+        # Test the MCP tools
+        if enhanced_report_mcp_tools:
+            tools = enhanced_report_mcp_tools.get_tools()
+            print(f"   - Available MCP tools: {len(tools)}")
+            for tool in tools:
+                print(f"     - {tool['name']}: {tool['description'][:50]}...")
         
         return {
-            "orchestrator": orchestrator,
-            "generator": generator
+            "template_generator": enhanced_report_template_generator,
+            "mcp_tools": enhanced_report_mcp_tools
         }
     except Exception as e:
         print(f"⚠️ Warning: Could not initialize enhanced report system: {e}")
@@ -445,7 +450,10 @@ if __name__ == "__main__":
     
     # Get API configuration and ensure port is available
     api_host = config.api.host
-    api_port = get_safe_port(api_host, config.api.port, reserved_ports=[8000])
+    api_port = get_safe_port(api_host, config.api.port, reserved_ports=[])
+    
+    # Update the combined server to use the correct port
+    print(f"🔧 Using port {api_port} for combined server (MCP + API)")
     
     print("\nStarting FastAPI server with Comprehensive Strategic Assessment & MCP integration...")
     
@@ -732,11 +740,13 @@ if __name__ == "__main__":
     print("   - Test: .venv/Scripts/python.exe Test/test_enhanced_report_integration.py")
     print("   - Tooltip Test: .venv/Scripts/python.exe Test/test_enhanced_report_tooltip_integration.py")
     print("")
-    print("🎯 Phase 7 Testing & Deployment Endpoints:")
-    print("   - /mcp-health - MCP server health check (standalone)")
-    print("   - /mcp - MCP server integration (integrated)")
+    print("🎯 Combined Server Endpoints (Port 8000):")
+    print("   - /health - Combined server health check")
+    print("   - /mcp - MCP server integration")
     print("   - /mcp/stream - MCP streamable HTTP protocol endpoint")
-    print("   - Standalone MCP Server: http://localhost:8000")
+    print("   - /api/v1/* - All API endpoints")
+    print("   - /analyze/* - Analysis endpoints")
+    print("   - Combined Server: http://localhost:8000")
     print("   - MCP Endpoint: http://localhost:8000/mcp")
     print("   - MCP Stream Endpoint: http://localhost:8000/mcp/stream")
     print("   - Headers: Accept: application/json, text/event-stream")
@@ -745,12 +755,12 @@ if __name__ == "__main__":
     print("   - Demo: .venv/Scripts/python.exe examples/phase7_mcp_client_demo.py")
     print("=" * 80)
     
-    # Import and start the FastAPI server
+    # Import and start the Combined FastAPI server with MCP integration
     try:
         import uvicorn
-        from src.api.main import app
+        from src.api.minimal_mcp_server import app
         
-        # Strategic analysis endpoints are already added in src/api/main.py
+        # Minimal MCP server with proper protocol support
         
         uvicorn.run(
             app,
