@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{TITLE}} - Executive Leadership Briefing</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.4;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            scroll-behavior: auto;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header .subtitle {
+            font-size: 1rem;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+        
+        .header .timestamp {
+            font-size: 0.8rem;
+            color: #95a5a6;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: visible;
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .charts-grid-4 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .chart-section {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            height: 320px;
+            position: relative;
+            overflow: visible;
+        }
+        
+        .chart-section-4 {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            height: 270px;
+            position: relative;
+            overflow: visible;
+        }
+        
+        .chart-section canvas,
+        .chart-section-4 canvas {
+            max-height: 100% !important;
+            width: 100% !important;
+        }
+        
+        .enhanced-tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 1000;
+            max-width: 200px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .interactive-element {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .interactive-element:hover .enhanced-tooltip {
+            opacity: 1;
+        }
+        
+        .chart-title {
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 0.9rem;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .metric-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .metric-card .value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #3498db;
+            margin: 8px 0;
+        }
+        
+        .metric-card .label {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+        }
+        
+        .key-insights {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #3498db;
+        }
+        
+        .key-insights h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        
+        .key-insights ul {
+            margin-left: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .key-insights li {
+            margin-bottom: 5px;
+        }
+        
+        .map-container {
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .executive-summary {
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .executive-summary h2 {
+            color: white;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .risk-indicator {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin: 2px;
+        }
+        
+        .risk-low { background: #27ae60; color: white; }
+        .risk-medium { background: #f39c12; color: white; }
+        .risk-high { background: #e74c3c; color: white; }
+        
+        .sentiment-positive { color: #27ae60; font-weight: bold; }
+        .sentiment-negative { color: #e74c3c; font-weight: bold; }
+        .sentiment-neutral { color: #f39c12; font-weight: bold; }
+        
+        .strategic-insight {
+            background: linear-gradient(135deg, #8e44ad, #9b59b6);
+            color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .strategic-insight h4 {
+            color: white;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>{{TOPIC_ICON}} {{TITLE}}</h1>
+            <div class="subtitle">{{SUBTITLE}}</div>
+            <div class="timestamp">Generated: <span id="timestamp"></span></div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="executive-summary">
+            <h2>🎯 Executive Summary</h2>
+            <p><strong>Key Finding:</strong> {{KEY_FINDING}}</p>
+            <div class="metrics-grid">
+                {{METRICS_HTML}}
+            </div>
+        </div>
+
+        <!-- Strategic Analysis -->
+        <div class="strategic-insight">
+            <h4>🎭 Strategic Analysis</h4>
+            <p><strong>Core Principle:</strong> {{STRATEGIC_PRINCIPLE}}</p>
+            <ul>
+                {{STRATEGIC_POINTS}}
+            </ul>
+        </div>
+
+        <!-- Strategic Assessment -->
+        <div class="section strategic-assessment-section">
+            <h2>⚔️ Strategic Assessment</h2>
+            <div class="charts-grid">
+                {{STRATEGIC_CHARTS}}
+            </div>
+            <div class="key-insights">
+                <h4>Strategic Implications:</h4>
+                <ul>
+                    {{STRATEGIC_IMPLICATIONS}}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Forecasting & Analytics -->
+        <div class="section">
+            <h2>🔮 Forecasting & Analytics</h2>
+            <div class="charts-grid-4">
+                {{FORECASTING_CHARTS}}
+            </div>
+        </div>
+
+        <!-- Global Impact Analysis -->
+        <div class="section">
+            <h2>🌍 Global Impact Analysis</h2>
+            <div class="charts-grid">
+                {{GLOBAL_IMPACT_CHARTS}}
+            </div>
+            <div class="key-insights">
+                <h4>Global Stakeholder Impact:</h4>
+                <ul>
+                    {{STAKEHOLDER_IMPACT}}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Recovery Timeline & Implementation -->
+        <div class="section">
+            <h2>📅 Recovery Timeline & Implementation</h2>
+            <div class="charts-grid">
+                {{TIMELINE_CHARTS}}
+            </div>
+            <div class="key-insights">
+                <h4>Critical Recovery Path:</h4>
+                <ul>
+                    {{RECOVERY_TIMELINE}}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Strategic Recovery Options -->
+        <div class="section">
+            <h2>🎯 Strategic Recovery Options</h2>
+            <div class="charts-grid">
+                {{STRATEGIC_OPTIONS_CHARTS}}
+            </div>
+            <div class="key-insights">
+                <h4>Recommended Recovery Strategy:</h4>
+                <ul>
+                    {{STRATEGIC_OPTIONS}}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Global Impact Map -->
+        <div class="section">
+            <h2>🗺️ Global Impact Map</h2>
+            <div class="map-container interactive-element" id="impactMap">
+                <div class="enhanced-tooltip">Source: DIA3 - Geospatial Analysis | Confidence: 92% | Date: {{GENERATION_DATE}}</div>
+            </div>
+        </div>
+
+        <!-- Key Recommendations -->
+        <div class="section">
+            <h2>📋 Key Recommendations</h2>
+            <div class="key-insights">
+                <h4>Strategic Recovery Recommendations:</h4>
+                <ul>
+                    {{STRATEGIC_RECOMMENDATIONS}}
+                </ul>
+            </div>
+            <div class="key-insights">
+                <h4>Immediate Actions:</h4>
+                <ul>
+                    {{IMMEDIATE_ACTIONS}}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Crisis Management & Recovery Strategies -->
+        <div class="section">
+            <h2>🛡️ Crisis Management & Recovery Strategies</h2>
+            <div class="key-insights">
+                <h4>Safety & Compliance Verification:</h4>
+                <ul>
+                    {{SAFETY_COMPLIANCE}}
+                </ul>
+            </div>
+            <div class="key-insights">
+                <h4>Organizational Transformation:</h4>
+                <ul>
+                    {{ORGANIZATIONAL_TRANSFORMATION}}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set timestamp
+        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        
+        // Initialize all charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Prevent layout shifts during chart initialization
+            const chartContainers = document.querySelectorAll('.chart-section, .chart-section-4');
+            chartContainers.forEach(container => {
+                container.style.minHeight = container.offsetHeight + 'px';
+            });
+            
+            // Small delay to ensure stable layout
+            setTimeout(() => {
+                {{CHARTS_JAVASCRIPT}}
+            }, 100);
+            
+            // Enhanced Tooltip Functionality for data-tooltip attributes
+            const tooltip = document.createElement('div');
+            tooltip.className = 'enhanced-tooltip';
+            tooltip.style.display = 'none';
+            tooltip.style.position = 'absolute';
+            tooltip.style.zIndex = '1000';
+            tooltip.style.backgroundColor = 'rgba(30, 60, 114, 0.95)';
+            tooltip.style.color = 'white';
+            tooltip.style.padding = '15px';
+            tooltip.style.borderRadius = '8px';
+            tooltip.style.fontSize = '14px';
+            tooltip.style.maxWidth = '400px';
+            tooltip.style.boxShadow = '0 10px 25px rgba(0,0,0,0.3)';
+            tooltip.style.backdropFilter = 'blur(10px)';
+            tooltip.style.border = '2px solid rgba(255,255,255,0.2)';
+            document.body.appendChild(tooltip);
+            
+            // Add event listeners to all interactive elements with data-tooltip
+            document.addEventListener('DOMContentLoaded', function() {
+                const interactiveElements = document.querySelectorAll('.interactive-element[data-tooltip]');
+                
+                interactiveElements.forEach(element => {
+                    element.addEventListener('mouseenter', function(e) {
+                        const tooltipData = this.getAttribute('data-tooltip');
+                        if (tooltipData) {
+                            tooltip.innerHTML = tooltipData;
+                            tooltip.style.display = 'block';
+                            tooltip.style.left = e.pageX + 10 + 'px';
+                            tooltip.style.top = e.pageY - 10 + 'px';
+                        }
+                    });
+                    
+                    element.addEventListener('mouseleave', function() {
+                        tooltip.style.display = 'none';
+                    });
+                    
+                    element.addEventListener('mousemove', function(e) {
+                        if (tooltip.style.display === 'block') {
+                            tooltip.style.left = e.pageX + 10 + 'px';
+                            tooltip.style.top = e.pageY - 10 + 'px';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

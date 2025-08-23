@@ -31,6 +31,8 @@ from src.core.reinforcement_learning.rl_engine import ReinforcementLearningEngin
 from src.core.scenario_analysis.enhanced_scenario_predictor import EnhancedScenarioPredictor
 from src.core.streaming.intelligence_data_adapter import IntelligenceDataAdapter
 from src.core.interpretability.model_interpretability_engine import ModelInterpretabilityEngine
+from src.core.template_generators.generic_leadership_template_generator import get_generic_leadership_template_generator, TopicData
+from src.core.template_generators.generic_enhanced_report_template_generator import get_generic_enhanced_report_template_generator, EnhancedReportData
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -371,6 +373,145 @@ class EnhancedMCPTools:
             logger.error(f"Error generating forecast explanation: {e}")
             return {"error": f"Explanation generation failed: {str(e)}"}
 
+    @staticmethod
+    async def generate_enhanced_leadership_report(
+        topic: str,
+        topic_data: Dict[str, Any],
+        output_dir: str = "Results",
+        include_source_tracking: bool = True
+    ) -> Dict[str, Any]:
+        """
+        Generate an enhanced leadership report for any topic using the generic template system.
+        
+        Args:
+            topic: The topic for the report (e.g., "Boeing 737 Accidents", "Cybersecurity Threats")
+            topic_data: Dictionary containing topic-specific data
+            output_dir: Directory to save the generated report
+            include_source_tracking: Whether to include source tracking functionality
+            
+        Returns:
+            Dictionary with report generation results
+        """
+        try:
+            # Get the generic template generator
+            template_generator = get_generic_leadership_template_generator()
+            
+            # Convert topic_data to TopicData structure
+            topic_data_obj = TopicData(
+                title=topic_data.get("title", topic),
+                subtitle=topic_data.get("subtitle", f"{topic} - Executive Leadership Briefing"),
+                topic_icon=topic_data.get("topic_icon", "📊"),
+                key_finding=topic_data.get("key_finding", f"Analysis of {topic} reveals critical insights and strategic implications."),
+                metrics=topic_data.get("metrics", []),
+                strategic_analysis=topic_data.get("strategic_analysis", {}),
+                charts_data=topic_data.get("charts_data", {}),
+                stakeholder_impact=topic_data.get("stakeholder_impact", []),
+                recovery_timeline=topic_data.get("recovery_timeline", []),
+                strategic_options=topic_data.get("strategic_options", []),
+                recommendations=topic_data.get("recommendations", []),
+                source_tracking=topic_data.get("source_tracking") if include_source_tracking else None
+            )
+            
+            # Generate the leadership report
+            result = template_generator.generate_leadership_report(topic_data_obj, output_dir)
+            
+            if result["success"]:
+                logger.info(f"Enhanced leadership report generated for topic: {topic}")
+                return {
+                    "success": True,
+                    "report_file": result["filepath"],
+                    "filename": result["filename"],
+                    "topic": topic,
+                    "generated_at": result["generated_at"],
+                    "message": f"Enhanced leadership report generated successfully for {topic}",
+                    "template_used": "generic_leadership",
+                    "source_tracking_enabled": include_source_tracking
+                }
+            else:
+                return {
+                    "success": False,
+                    "error": result.get("error", "Unknown error"),
+                    "message": f"Failed to generate leadership report for {topic}"
+                }
+                
+        except Exception as e:
+            logger.error(f"Error generating enhanced leadership report for {topic}: {e}")
+            return {
+                "success": False,
+                "error": str(e),
+                "message": f"Failed to generate enhanced leadership report for {topic}"
+            }
+
+    @staticmethod
+    async def generate_enhanced_report(
+        topic: str,
+        report_data: Dict[str, Any],
+        output_dir: str = "Results",
+        include_source_tracking: bool = True
+    ) -> Dict[str, Any]:
+        """
+        Generate an enhanced report for any topic using the generic enhanced report template system.
+        
+        Args:
+            topic: The topic for the report (e.g., "Boeing 737 Accidents", "Cybersecurity Threats")
+            report_data: Dictionary containing topic-specific data
+            output_dir: Directory to save the generated report
+            include_source_tracking: Whether to include source tracking functionality
+            
+        Returns:
+            Dictionary with report generation results
+        """
+        try:
+            # Get the generic enhanced report template generator
+            template_generator = get_generic_enhanced_report_template_generator()
+            
+            # Convert report_data to EnhancedReportData structure
+            enhanced_report_data = EnhancedReportData(
+                title=report_data.get("title", topic),
+                subtitle=report_data.get("subtitle", f"{topic} - Comprehensive Enhanced Analysis"),
+                topic_icon=report_data.get("topic_icon", "📈"),
+                executive_summary=report_data.get("executive_summary", {}),
+                current_analysis=report_data.get("current_analysis", {}),
+                strategic_analysis=report_data.get("strategic_analysis", {}),
+                forecasting=report_data.get("forecasting", {}),
+                economic_analysis=report_data.get("economic_analysis", {}),
+                risk_assessment=report_data.get("risk_assessment", {}),
+                regional_analysis=report_data.get("regional_analysis", {}),
+                implementation=report_data.get("implementation", {}),
+                charts_data=report_data.get("charts_data", {}),
+                source_tracking=report_data.get("source_tracking") if include_source_tracking else None
+            )
+            
+            # Generate the enhanced report
+            result = template_generator.generate_enhanced_report(enhanced_report_data, output_dir)
+            
+            if result["success"]:
+                logger.info(f"Enhanced report generated for topic: {topic}")
+                return {
+                    "success": True,
+                    "report_file": result["filepath"],
+                    "filename": result["filename"],
+                    "topic": topic,
+                    "generated_at": result["generated_at"],
+                    "message": f"Enhanced report generated successfully for {topic}",
+                    "template_used": "generic_enhanced_report",
+                    "source_tracking_enabled": include_source_tracking
+                }
+            else:
+                return {
+                    "success": False,
+                    "error": result.get("error", "Unknown error"),
+                    "message": f"Failed to generate enhanced report for {topic}"
+                }
+                
+        except Exception as e:
+            logger.error(f"Error generating enhanced report for {topic}: {e}")
+            return {
+                "success": False,
+                "error": str(e),
+                "message": f"Failed to generate enhanced report for {topic}"
+            }
+
 # MCP Server Implementation
 async def create_enhanced_mcp_server() -> Server:
     """Create enhanced MCP server with Phase 6 tools"""
@@ -497,6 +638,34 @@ async def create_enhanced_mcp_server() -> Server:
                         },
                         "required": ["forecast_result", "historical_data"]
                     }
+                ),
+                Tool(
+                    name="generate_enhanced_leadership_report",
+                    description="Generate an enhanced leadership report for any topic using the generic template system",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "topic": {"type": "string", "description": "The topic for the report (e.g., 'Boeing 737 Accidents', 'Cybersecurity Threats')"},
+                            "topic_data": {"type": "object", "description": "Dictionary containing topic-specific data including title, subtitle, metrics, charts_data, etc."},
+                            "output_dir": {"type": "string", "default": "Results", "description": "Directory to save the generated report"},
+                            "include_source_tracking": {"type": "boolean", "default": True, "description": "Whether to include source tracking functionality"}
+                        },
+                        "required": ["topic", "topic_data"]
+                    }
+                ),
+                Tool(
+                    name="generate_enhanced_report",
+                    description="Generate an enhanced report for any topic using the generic enhanced report template system",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "topic": {"type": "string", "description": "The topic for the report (e.g., 'Boeing 737 Accidents', 'Cybersecurity Threats')"},
+                            "report_data": {"type": "object", "description": "Dictionary containing topic-specific data including executive_summary, current_analysis, strategic_analysis, etc."},
+                            "output_dir": {"type": "string", "default": "Results", "description": "Directory to save the generated report"},
+                            "include_source_tracking": {"type": "boolean", "default": True, "description": "Whether to include source tracking functionality"}
+                        },
+                        "required": ["topic", "report_data"]
+                    }
                 )
             ]
         )
@@ -521,6 +690,10 @@ async def create_enhanced_mcp_server() -> Server:
                 result = await tools.get_real_time_insights(**arguments)
             elif name == "generate_forecast_explanation":
                 result = await tools.generate_forecast_explanation(**arguments)
+            elif name == "generate_enhanced_leadership_report":
+                result = await tools.generate_enhanced_leadership_report(**arguments)
+            elif name == "generate_enhanced_report":
+                result = await tools.generate_enhanced_report(**arguments)
             else:
                 return CallToolResult(
                     content=[TextContent(type="text", text=f"Unknown tool: {name}")]

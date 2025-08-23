@@ -127,6 +127,86 @@ result = await generator.generate_enhanced_report_template(
 print(f"Leadership report generated: {result['success']}")
 ```
 
+### 🎨 **NEW: Generic Template System with MCP Integration**
+
+DIA3 now includes a **generic template system** that allows you to generate enhanced reports for any topic using both leadership and enhanced report templates through MCP tools:
+
+#### ✅ **Generic Template Features**
+
+- **🎯 Topic Agnostic**: Works with any topic (Boeing 737, Cybersecurity, Business Analysis, etc.)
+- **📋 Two Template Types**: Leadership template for executive briefings, Enhanced template for detailed analysis
+- **🔧 MCP Integration**: Fully integrated with MCP tools for seamless workflow
+- **📊 Interactive Visualizations**: Chart.js charts with tooltips and source tracking
+- **🎨 Professional Styling**: Beautiful, responsive design with modern UI
+- **📈 Source Tracking**: Interactive tooltips showing "DIA3 - [functionality]" attribution
+
+#### 🚀 **Generic Template Usage**
+
+```python
+# Generate enhanced report for any topic via MCP
+result = await mcp_client.call_tool("generate_enhanced_report", {
+    "topic": "Cybersecurity Threats Analysis",
+    "report_data": {
+        "title": "Cybersecurity Threats Analysis",
+        "subtitle": "Comprehensive Security Assessment",
+        "topic_icon": "🔒",
+        "executive_summary": {
+            "key_findings": "Critical vulnerabilities identified",
+            "recommendations": ["Implement zero-trust", "Update security protocols"],
+            "risk_assessment": "High risk level"
+        },
+        "current_analysis": {
+            "situation_overview": "Current threat landscape analysis",
+            "stakeholder_impact": "Impact on various stakeholders",
+            "market_conditions": "Current security market conditions"
+        },
+        # ... other sections
+    }
+})
+```
+
+```python
+# Generate leadership report for any topic via MCP
+result = await mcp_client.call_tool("generate_enhanced_leadership_report", {
+    "topic": "Boeing 737 Safety Analysis",
+    "topic_data": {
+        "title": "Boeing 737 Safety Analysis",
+        "subtitle": "Executive Leadership Briefing",
+        "topic_icon": "✈️",
+        "key_finding": "Safety improvements needed",
+        "metrics": ["Safety Score: 85%", "Risk Level: Medium"],
+        "strategic_analysis": {
+            "deterrence_factors": ["Regulatory compliance", "Safety protocols"],
+            "sentiment_analysis": "Positive stakeholder sentiment",
+            "regional_implications": "Global aviation impact"
+        },
+        # ... other sections
+    }
+})
+```
+
+#### 🧪 **Testing the Generic Templates**
+
+```bash
+# Test enhanced report template integration
+.venv/Scripts/python.exe Test/test_enhanced_report_mcp_integration.py
+
+# Test leadership template integration
+.venv/Scripts/python.exe Test/test_mcp_client_communication_final.py
+```
+
+#### 📊 **Template Comparison**
+
+| Feature | Enhanced Report Template | Leadership Template |
+|---------|-------------------------|-------------------|
+| **Template Type** | Generic (Any Topic) | Generic (Any Topic) |
+| **Chart Types** | Line charts, Bar charts | Radar, Line, Bar, Doughnut, Scatter |
+| **Sections** | 8 comprehensive sections | 8 leadership-focused sections |
+| **MCP Integration** | ✅ Fully integrated | ✅ Fully integrated |
+| **Interactive Features** | ✅ Comprehensive | ✅ Comprehensive |
+| **Source Tracking** | ✅ DIA3 attribution | ✅ DIA3 attribution |
+| **Use Case** | Detailed analysis | Executive briefings |
+
 ---
 
 ## 👔 Leadership Template System
@@ -1313,9 +1393,24 @@ cp .env.example .env
 
 ### Running the System
 
-**Quick Start:**
+**🚀 Recommended Quick Start (Simplified Server):**
 ```bash
-# Start the complete system
+# Start the simplified combined server with essential MCP tools (13 tools only)
+python scripts/start_combined_server.py
+```
+
+This starts a **minimal MCP server** on port 8000 with only the essential tools:
+- Enhanced report generation with interactive tooltips
+- Content processing and analysis
+- Sentiment analysis and entity extraction
+- Knowledge graph and business intelligence
+- Data visualization and semantic search
+- Advanced forecasting and recommendations
+- Agent swarm management
+
+**Full System (All Features):**
+```bash
+# Start the complete system with all MCP tools
 python main.py
 ```
 
@@ -1330,6 +1425,25 @@ python -m src.mcp_servers.unified_mcp_server
 # Start strategic intelligence system
 python start_strategic_intelligence_system.py
 ```
+
+### 🚀 **Server Access Points**
+
+#### **Simplified Server (Recommended)**
+When using `python scripts/start_combined_server.py`:
+
+- **🌐 Combined Server**: http://localhost:8000
+- **🔧 MCP Endpoint**: http://localhost:8000/mcp
+- **📡 MCP Stream Endpoint**: http://localhost:8000/mcp/stream
+- **❤️ Health Check**: http://localhost:8000/health
+- **📊 Enhanced Reports**: http://localhost:8000/api/v1/enhanced-reports/generate
+
+#### **Full System**
+When using `python main.py`:
+
+- **🌐 Combined Server**: http://localhost:8000
+- **🔧 MCP Endpoint**: http://localhost:8000/mcp
+- **📡 MCP Stream Endpoint**: http://localhost:8000/mcp/stream
+- **❤️ Health Check**: http://localhost:8000/health
 
 ### API Endpoints
 
@@ -1392,17 +1506,31 @@ Export markdown content to PDF and Word documents:
 
 Available MCP tools for external integration:
 
-- `monte_carlo_simulation` - Run Monte Carlo simulations
-- `force_projection_analysis` - Analyze military capabilities
-- `strategic_intelligence_forecast` - Strategic forecasting
-- `multi_domain_analysis` - Multi-domain Monte Carlo analysis
-- `visualization_generator` - Generate analysis visualizations
+#### 🚀 **Simplified Server MCP Tools (13 Essential Tools)**
+
+When using `python scripts/start_combined_server.py`, the following essential MCP tools are available:
+
+- `generate_enhanced_report` - **NEW**: Generate enhanced reports for any topic with interactive visualizations
+- `generate_enhanced_leadership_report` - **NEW**: Generate leadership reports for any topic with executive format
+- `process_content` - Enhanced unified content processing with bulk import and Open Library support
+- `sentiment_analysis` - Sentiment analysis with multilingual support
+- `entity_extraction` - Entity extraction and relationship mapping
+- `knowledge_graph` - Knowledge graph creation and management
+- `business_intelligence` - Business intelligence analysis
+- `data_visualization` - Data visualization generation
+- `semantic_search` - Semantic search across all content
+- `advanced_forecasting` - Advanced multivariate forecasting
+- `generate_recommendations` - Generate AI-powered recommendations
+- `get_agent_status` - Get status of all agents
+- `start_agent_swarm` - Start agent swarm
+- `stop_agent_swarm` - Stop agent swarm
 
 #### Enhanced Report MCP Tools
 
 Comprehensive enhanced report generation with beautiful styling, advanced analytics, interactive tooltips, and leadership templates:
 
-- `generate_enhanced_report` - Generate comprehensive report with 25+ analysis components
+- `generate_enhanced_report` - **NEW**: Generate enhanced reports for any topic with interactive visualizations and source tracking
+- `generate_enhanced_leadership_report` - **NEW**: Generate leadership reports for any topic with executive format
 - `generate_beautiful_enhanced_report` - Generate beautiful enhanced report with original styling
 - `generate_enhanced_report_with_tooltips` - Generate enhanced report with interactive tooltips
 - `generate_enhanced_report_template` - Generate template-based reports (enhanced/leadership)
@@ -1548,6 +1676,43 @@ uv run pytest
 uv run pytest tests/performance/
 uv run pytest tests/integration/
 uv run pytest tests/mcp/
+```
+
+### 🧪 **Testing New Features**
+
+#### **Enhanced Report Template Integration**
+```bash
+# Test enhanced report MCP integration
+.venv/Scripts/python.exe Test/test_enhanced_report_mcp_integration.py
+
+# Test leadership template MCP integration
+.venv/Scripts/python.exe Test/test_mcp_client_communication_final.py
+
+# Test enhanced report API integration
+.venv/Scripts/python.exe Test/test_enhanced_report_integration.py
+
+# Test enhanced report tooltip integration
+.venv/Scripts/python.exe Test/test_enhanced_report_tooltip_integration.py
+```
+
+#### **Generic Template System**
+```bash
+# Test generic enhanced report template
+.venv/Scripts/python.exe Test/test_enhanced_report_mcp_integration.py
+
+# Test generic leadership template
+.venv/Scripts/python.exe Test/test_mcp_client_communication_final.py
+```
+
+#### **Server Health Checks**
+```bash
+# Test simplified server health
+curl http://localhost:8000/health
+
+# Test MCP endpoint
+curl -X POST http://localhost:8000/mcp \
+  -H "Content-Type: application/json" \
+  -d '{"method": "tools/list", "id": 1, "params": {}}'
 ```
 
 ### Code Quality
