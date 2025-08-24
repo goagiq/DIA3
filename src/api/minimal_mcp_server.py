@@ -254,48 +254,23 @@ async def mcp_endpoint(request: dict):
                     if tool_name in tool_names:
                         logger.info(f"Delegating tool call '{tool_name}' to unified MCP server")
                         try:
-                            # Call the actual tool method on the unified MCP server
-                            if hasattr(unified_mcp_server, tool_name):
-                                tool_method = getattr(unified_mcp_server, tool_name)
-                                if asyncio.iscoroutinefunction(tool_method):
-                                    result = await tool_method(**arguments)
-                                else:
-                                    result = tool_method(**arguments)
-                                
-                                # Convert result to MCP format
-                                if isinstance(result, dict):
-                                    return {
-                                        "jsonrpc": "2.0",
-                                        "id": request_id,
-                                        "result": {
-                                            "content": [
-                                                {
-                                                    "type": "text",
-                                                    "text": f"Tool '{tool_name}' executed successfully: {json.dumps(result, indent=2)}"
-                                                }
-                                            ]
-                                        }
-                                    }
-                                else:
-                                    return {
-                                        "jsonrpc": "2.0",
-                                        "id": request_id,
-                                        "result": {
-                                            "content": [
-                                                {
-                                                    "type": "text",
-                                                    "text": f"Tool '{tool_name}' executed successfully: {str(result)}"
-                                                }
-                                            ]
-                                        }
-                                    }
-                            else:
-                                # Tool method not found, return error
-                                return {
-                                    "jsonrpc": "2.0",
-                                    "id": request_id,
-                                    "error": {"code": -32601, "message": f"Tool method '{tool_name}' not found in unified MCP server"}
+                            # Create a proper MCP tools/call request to the unified MCP server
+                            mcp_request = {
+                                "jsonrpc": "2.0",
+                                "id": request_id,
+                                "method": "tools/call",
+                                "params": {
+                                    "name": tool_name,
+                                    "arguments": arguments
                                 }
+                            }
+                            
+                            # Process the request through the unified MCP server
+                            result = await unified_mcp_server.process_request(mcp_request)
+                            
+                            # Return the result directly
+                            return result
+                            
                         except Exception as e:
                             logger.error(f"Error executing tool '{tool_name}': {e}")
                             return {
