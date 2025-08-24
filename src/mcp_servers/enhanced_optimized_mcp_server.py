@@ -480,34 +480,7 @@ System performance and resource utilization metrics included in the analysis.
             except Exception as e:
                 return {"success": False, "error": str(e)}
         
-        # 8. Enhanced Data Export Tool
-        @self.mcp.tool(description="Enhanced data export with real markdown and document export capabilities")
-        async def export_data(
-            data: Dict[str, Any],
-            format: str = "markdown",
-            filename: str = "export"
-        ) -> Dict[str, Any]:
-            """Enhanced data export."""
-            try:
-                if REAL_SERVICES_AVAILABLE and hasattr(self, 'markdown_exporter'):
-                    # Use real markdown exporter
-                    if format == "markdown":
-                        result = await self.markdown_exporter.export_to_markdown(
-                            data=data,
-                            filename=filename
-                        )
-                        return result
-                    else:
-                        return {"success": False, "error": f"Format {format} not supported"}
-                else:
-                    # Fallback to basic export
-                    return {
-                        "success": True,
-                        "result": f"Exported data in {format} format",
-                        "filename": filename
-                    }
-            except Exception as e:
-                return {"success": False, "error": str(e)}
+
         
         # 9. Enhanced Knowledge Graph Operations Tool
         @self.mcp.tool(description="Enhanced knowledge graph operations with real graph capabilities")
@@ -578,7 +551,7 @@ System performance and resource utilization metrics included in the analysis.
         if not self.mcp:
             return []
         
-        # Return the 10 enhanced tools we registered
+        # Return the 9 enhanced tools we registered (export_data removed)
         tools_info = [
             {"name": "process_content", "description": "Enhanced unified content processing with real analysis capabilities"},
             {"name": "analyze_content", "description": "Enhanced content analysis with real sentiment, entity, and pattern detection"},
@@ -587,7 +560,6 @@ System performance and resource utilization metrics included in the analysis.
             {"name": "run_simulation", "description": "Enhanced simulation with real Monte Carlo and forecasting capabilities"},
             {"name": "analyze_strategic", "description": "Enhanced strategic analysis with real Art of War and deception detection"},
             {"name": "manage_system", "description": "Enhanced system management with real performance monitoring"},
-            {"name": "export_data", "description": "Enhanced data export with real markdown and document export capabilities"},
             {"name": "knowledge_graph_operations", "description": "Enhanced knowledge graph operations with real graph capabilities"},
             {"name": "manage_agents", "description": "Enhanced agent management with basic functionality"}
         ]

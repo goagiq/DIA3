@@ -1234,38 +1234,7 @@ class UnifiedMCPServer:
                 logger.error(f"Error in combined search: {e}")
                 return {"success": False, "error": str(e)}
 
-        @self.mcp.tool(description="Basic data export in various formats")
-        async def export_data(
-            data: Dict[str, Any],
-            format: str = "json",
-            options: Dict[str, Any] = None
-        ) -> Dict[str, Any]:
-            """Basic data export in various formats.
-            
-            Note: Enhanced report generation functionality has been moved to the generate_report tool.
-            Use generate_report with include_dia3_enhanced=True for comprehensive analysis capabilities.
-            """
-            try:
-                logger.info(f"Starting basic data export with format: {format}")
-                
-                # Initialize options if not provided
-                if options is None:
-                    options = {}
-                
-                # Basic data export functionality
-                result = {
-                    "exported_data": data,
-                    "format": format,
-                    "export_timestamp": datetime.now().isoformat(),
-                    "note": "Enhanced report generation moved to generate_report tool"
-                }
-                
-                logger.info(f"✅ Basic data export completed successfully")
-                return {"success": True, "result": result}
-                
-            except Exception as e:
-                logger.error(f"Error in basic data export: {e}")
-                return {"success": False, "error": str(e)}
+
 
         @self.mcp.tool(description="External data source management")
         async def manage_data_sources(

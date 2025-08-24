@@ -82,15 +82,10 @@ def test_mcp_connectivity():
                 # Look for specific tools we need
                 tool_names = [tool.get('name', '') for tool in tools]
                 
-                if 'export_data' in tool_names:
-                    print(f"\n🎯 Found 'export_data' tool!")
-                else:
-                    print(f"\n❌ 'export_data' tool not found")
-                
                 if 'generate_report' in tool_names:
-                    print(f"🎯 Found 'generate_report' tool!")
+                    print(f"\n🎯 Found 'generate_report' tool!")
                 else:
-                    print(f"❌ 'generate_report' tool not found")
+                    print(f"\n❌ 'generate_report' tool not found")
                 
                 # Look for DIA3 tools
                 dia3_tools = [name for name in tool_names if 'dia3' in name.lower()]
@@ -115,8 +110,8 @@ def test_mcp_connectivity():
         return False
 
 
-def test_export_data_tool():
-    """Test the export_data tool specifically."""
+def test_generate_report_tool():
+    """Test the generate_report tool specifically."""
     
     url = "http://localhost:8000/mcp"
     headers = {
@@ -124,31 +119,20 @@ def test_export_data_tool():
         "Content-Type": "application/json"
     }
     
-    # Test data for Thailand-Cambodia invasion analysis
-    test_data = {
-        "topic": "Thailand-Cambodia Invasion Impact Analysis",
-        "analysis_type": "comprehensive",
-        "content": "Comprehensive analysis of the impacts and consequences of Thailand invading Cambodia, including humanitarian, economic, geopolitical, and strategic implications.",
-        "key_findings": [
-            "Extreme humanitarian crisis affecting 2-3 million people",
-            "Economic devastation with $50-100 billion in damages",
-            "Regional destabilization and international isolation",
-            "Strategic failure with high casualty rates"
-        ]
-    }
+    # Test content for Thailand-Cambodia invasion analysis
+    test_content = "Comprehensive analysis of the impacts and consequences of Thailand invading Cambodia, including humanitarian, economic, geopolitical, and strategic implications. Key findings include extreme humanitarian crisis affecting 2-3 million people, economic devastation with $50-100 billion in damages, regional destabilization and international isolation, and strategic failure with high casualty rates."
     
-    # Call export_data tool
-    export_payload = {
+    # Call generate_report tool
+    report_payload = {
         "jsonrpc": "2.0",
         "id": 3,
         "method": "tools/call",
         "params": {
-            "name": "export_data",
+            "name": "generate_report",
             "arguments": {
-                "data": test_data,
-                "format": "html",
+                "content": test_content,
+                "report_type": "comprehensive",
                 "include_dia3_enhanced": True,
-                "analysis_type": "comprehensive",
                 "include_sentiment": True,
                 "include_forecasting": True,
                 "include_strategic_analysis": True,
@@ -161,13 +145,13 @@ def test_export_data_tool():
     }
     
     try:
-        print(f"\n🚀 Testing export_data tool...")
-        response = requests.post(url, json=export_payload, headers=headers, timeout=60)
+        print(f"\n🚀 Testing generate_report tool...")
+        response = requests.post(url, json=report_payload, headers=headers, timeout=60)
         
         if response.status_code == 200:
             result = response.json()
             if "result" in result:
-                print(f"✅ export_data tool call successful!")
+                print(f"✅ generate_report tool call successful!")
                 print(f"📄 Result: {result['result']}")
                 return True
             elif "error" in result:
@@ -196,11 +180,11 @@ if __name__ == "__main__":
     if test_mcp_connectivity():
         print(f"\n✅ MCP client connectivity test PASSED")
         
-        # Test export_data tool
-        if test_export_data_tool():
-            print(f"\n✅ export_data tool test PASSED")
+        # Test generate_report tool
+        if test_generate_report_tool():
+            print(f"\n✅ generate_report tool test PASSED")
             print(f"\n🎉 All tests passed! MCP tools are working correctly.")
         else:
-            print(f"\n❌ export_data tool test FAILED")
+            print(f"\n❌ generate_report tool test FAILED")
     else:
         print(f"\n❌ MCP client connectivity test FAILED")
