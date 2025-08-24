@@ -1234,165 +1234,37 @@ class UnifiedMCPServer:
                 logger.error(f"Error in combined search: {e}")
                 return {"success": False, "error": str(e)}
 
-        @self.mcp.tool(description="Enhanced data export with DIA3 comprehensive analysis, sentiment analysis, forecasting, strategic analysis, Monte Carlo simulations, knowledge graphs, and interactive visualizations")
+        @self.mcp.tool(description="Basic data export in various formats")
         async def export_data(
             data: Dict[str, Any],
             format: str = "json",
-            options: Dict[str, Any] = None,
-            include_dia3_enhanced: bool = False,
-            analysis_type: str = "comprehensive",
-            include_sentiment: bool = True,
-            include_forecasting: bool = True,
-            include_strategic_analysis: bool = True,
-            include_monte_carlo: bool = True,
-            include_knowledge_graph: bool = True,
-            include_interactive_visualizations: bool = True,
-            output_dir: str = "Results"
+            options: Dict[str, Any] = None
         ) -> Dict[str, Any]:
-            """Enhanced data export with DIA3 comprehensive analysis capabilities.
+            """Basic data export in various formats.
             
-            This tool provides comprehensive DIA3 enhanced functionality including:
-            - Sentiment analysis and entity extraction
-            - Forecasting and predictive analytics with Monte Carlo simulations
-            - Strategic analysis using Art of War principles
-            - Knowledge graph generation and analysis
-            - Interactive HTML visualizations with tooltips
-            - Performance monitoring and system management
-            - Multi-format export capabilities
+            Note: Enhanced report generation functionality has been moved to the generate_report tool.
+            Use generate_report with include_dia3_enhanced=True for comprehensive analysis capabilities.
             """
             try:
-                logger.info(f"Starting enhanced DIA3 export with format: {format}")
+                logger.info(f"Starting basic data export with format: {format}")
                 
                 # Initialize options if not provided
                 if options is None:
                     options = {}
                 
-                # Extract content from data for analysis
-                content = data.get("content", "") or data.get("text", "") or str(data)
-                
-                # Run DIA3 enhanced analysis if requested
-                dia3_results = {}
-                if include_dia3_enhanced:
-                    logger.info("🔍 Running DIA3 enhanced analysis pipeline")
-                    
-                    # 1. Sentiment Analysis
-                    if include_sentiment:
-                        try:
-                            from src.core.orchestrator import SentimentOrchestrator
-                            sentiment_orchestrator = SentimentOrchestrator()
-                            sentiment_result = await sentiment_orchestrator.analyze_sentiment(content)
-                            dia3_results["sentiment_analysis"] = sentiment_result
-                            logger.info("✅ Sentiment analysis completed")
-                        except Exception as e:
-                            logger.warning(f"Sentiment analysis failed: {e}")
-                            dia3_results["sentiment_analysis"] = {"error": str(e)}
-                    
-                    # 2. Forecasting and Predictive Analytics
-                    if include_forecasting:
-                        try:
-                            from src.agents.advanced_forecasting_agent import AdvancedForecastingAgent
-                            forecasting_agent = AdvancedForecastingAgent()
-                            forecast_result = await forecasting_agent.analyze_forecasting(content)
-                            dia3_results["forecasting_analysis"] = forecast_result
-                            logger.info("✅ Forecasting analysis completed")
-                        except Exception as e:
-                            logger.warning(f"Forecasting analysis failed: {e}")
-                            dia3_results["forecasting_analysis"] = {"error": str(e)}
-                    
-                    # 3. Strategic Analysis with Art of War Principles
-                    if include_strategic_analysis:
-                        try:
-                            from src.agents.art_of_war_deception_agent import ArtOfWarDeceptionAgent
-                            strategic_agent = ArtOfWarDeceptionAgent()
-                            strategic_result = await strategic_agent.analyze_deception(content)
-                            dia3_results["strategic_analysis"] = strategic_result
-                            logger.info("✅ Strategic analysis completed")
-                        except Exception as e:
-                            logger.warning(f"Strategic analysis failed: {e}")
-                            dia3_results["strategic_analysis"] = {"error": str(e)}
-                    
-                    # 4. Monte Carlo Simulations
-                    if include_monte_carlo:
-                        try:
-                            from src.core.monte_carlo_engine import MonteCarloEngine
-                            mc_engine = MonteCarloEngine()
-                            mc_result = await mc_engine.run_scenario_analysis(content)
-                            dia3_results["monte_carlo_simulation"] = mc_result
-                            logger.info("✅ Monte Carlo simulation completed")
-                        except Exception as e:
-                            logger.warning(f"Monte Carlo simulation failed: {e}")
-                            dia3_results["monte_carlo_simulation"] = {"error": str(e)}
-                    
-                    # 5. Knowledge Graph Generation
-                    if include_knowledge_graph:
-                        try:
-                            from src.agents.enhanced_knowledge_graph_agent import EnhancedKnowledgeGraphAgent
-                            kg_agent = EnhancedKnowledgeGraphAgent()
-                            kg_result = await kg_agent.generate_knowledge_graph(content)
-                            dia3_results["knowledge_graph"] = kg_result
-                            logger.info("✅ Knowledge graph generation completed")
-                        except Exception as e:
-                            logger.warning(f"Knowledge graph generation failed: {e}")
-                            dia3_results["knowledge_graph"] = {"error": str(e)}
-                    
-                    # 6. Performance Monitoring
-                    try:
-                        performance_data = await self.performance_monitor.get_performance_metrics()
-                        dia3_results["performance_metrics"] = performance_data
-                        logger.info("✅ Performance monitoring completed")
-                    except Exception as e:
-                        logger.warning(f"Performance monitoring failed: {e}")
-                        dia3_results["performance_metrics"] = {"error": str(e)}
-                
-                # Generate interactive HTML report if requested
-                if include_interactive_visualizations and include_dia3_enhanced:
-                    try:
-                        # Create comprehensive HTML report with all DIA3 components
-                        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                        html_filename = f"DIA3_Enhanced_Report_{timestamp}.html"
-                        html_filepath = os.path.join(output_dir, html_filename)
-                        
-                        # Generate interactive HTML report
-                        html_content = await self._generate_dia3_interactive_report(
-                            content, dia3_results, format, options
-                        )
-                        
-                        # Save HTML report
-                        os.makedirs(output_dir, exist_ok=True)
-                        with open(html_filepath, 'w', encoding='utf-8') as f:
-                            f.write(html_content)
-                        
-                        dia3_results["interactive_report"] = {
-                            "filepath": html_filepath,
-                            "filename": html_filename,
-                            "type": "interactive_html"
-                        }
-                        logger.info(f"✅ Interactive HTML report generated: {html_filepath}")
-                    except Exception as e:
-                        logger.warning(f"Interactive report generation failed: {e}")
-                        dia3_results["interactive_report"] = {"error": str(e)}
-                
-                # Prepare final result
+                # Basic data export functionality
                 result = {
                     "exported_data": data,
                     "format": format,
-                    "dia3_enhanced": include_dia3_enhanced,
-                    "dia3_results": dia3_results if include_dia3_enhanced else None,
-                    "analysis_components": {
-                        "sentiment_analysis": include_sentiment,
-                        "forecasting": include_forecasting,
-                        "strategic_analysis": include_strategic_analysis,
-                        "monte_carlo_simulation": include_monte_carlo,
-                        "knowledge_graph": include_knowledge_graph,
-                        "interactive_visualizations": include_interactive_visualizations
-                    }
+                    "export_timestamp": datetime.now().isoformat(),
+                    "note": "Enhanced report generation moved to generate_report tool"
                 }
                 
-                logger.info(f"✅ Enhanced DIA3 export completed successfully")
+                logger.info(f"✅ Basic data export completed successfully")
                 return {"success": True, "result": result}
                 
             except Exception as e:
-                logger.error(f"Error in enhanced DIA3 export: {e}")
+                logger.error(f"Error in basic data export: {e}")
                 return {"success": False, "error": str(e)}
 
         @self.mcp.tool(description="External data source management")
@@ -1415,47 +1287,194 @@ class UnifiedMCPServer:
                 return {"success": False, "error": str(e)}
 
         # Reporting & Export Tools (4)
-        @self.mcp.tool(description="Comprehensive report generation")
+        @self.mcp.tool(description="Enhanced comprehensive report generation with DIA3 analysis capabilities")
         async def generate_report(
             content: str,
             report_type: str = "comprehensive",
             language: str = "en",
-            options: Dict[str, Any] = None
+            options: Dict[str, Any] = None,
+            include_dia3_enhanced: bool = False,
+            include_sentiment: bool = True,
+            include_forecasting: bool = True,
+            include_strategic_analysis: bool = True,
+            include_monte_carlo: bool = True,
+            include_knowledge_graph: bool = True,
+            include_interactive_visualizations: bool = True,
+            output_dir: str = "Results"
         ) -> Dict[str, Any]:
-            """Generate comprehensive reports with automatic saving."""
+            """Generate comprehensive reports with DIA3 enhanced analysis capabilities.
+            
+            This tool provides comprehensive DIA3 enhanced functionality including:
+            - Sentiment analysis and entity extraction
+            - Forecasting and predictive analytics with Monte Carlo simulations
+            - Strategic analysis using Art of War principles
+            - Knowledge graph generation and analysis
+            - Interactive HTML visualizations with tooltips
+            - Performance monitoring and system management
+            - Multi-format export capabilities
+            """
             try:
-                # Generate filename based on content and type
+                logger.info(f"Starting enhanced DIA3 report generation with type: {report_type}")
+                
+                # Initialize options if not provided
+                if options is None:
+                    options = {}
+                
+                # Extract content from data for analysis
+                analysis_content = content if isinstance(content, str) else str(content)
+                
+                # Run DIA3 enhanced analysis if requested
+                dia3_results = {}
+                if include_dia3_enhanced:
+                    logger.info("🔍 Running DIA3 enhanced analysis pipeline")
+                    
+                    # 1. Sentiment Analysis
+                    if include_sentiment:
+                        try:
+                            from src.core.orchestrator import SentimentOrchestrator
+                            sentiment_orchestrator = SentimentOrchestrator()
+                            sentiment_result = await sentiment_orchestrator.analyze_sentiment(analysis_content)
+                            dia3_results["sentiment_analysis"] = sentiment_result
+                            logger.info("✅ Sentiment analysis completed")
+                        except Exception as e:
+                            logger.warning(f"Sentiment analysis failed: {e}")
+                            dia3_results["sentiment_analysis"] = {"error": str(e)}
+                    
+                    # 2. Forecasting and Predictive Analytics
+                    if include_forecasting:
+                        try:
+                            from src.agents.advanced_forecasting_agent import AdvancedForecastingAgent
+                            forecasting_agent = AdvancedForecastingAgent()
+                            forecast_result = await forecasting_agent.analyze_forecasting(analysis_content)
+                            dia3_results["forecasting_analysis"] = forecast_result
+                            logger.info("✅ Forecasting analysis completed")
+                        except Exception as e:
+                            logger.warning(f"Forecasting analysis failed: {e}")
+                            dia3_results["forecasting_analysis"] = {"error": str(e)}
+                    
+                    # 3. Strategic Analysis with Art of War Principles
+                    if include_strategic_analysis:
+                        try:
+                            from src.agents.art_of_war_deception_agent import ArtOfWarDeceptionAgent
+                            strategic_agent = ArtOfWarDeceptionAgent()
+                            strategic_result = await strategic_agent.analyze_deception(analysis_content)
+                            dia3_results["strategic_analysis"] = strategic_result
+                            logger.info("✅ Strategic analysis completed")
+                        except Exception as e:
+                            logger.warning(f"Strategic analysis failed: {e}")
+                            dia3_results["strategic_analysis"] = {"error": str(e)}
+                    
+                    # 4. Monte Carlo Simulations
+                    if include_monte_carlo:
+                        try:
+                            from src.core.monte_carlo_engine import MonteCarloEngine
+                            mc_engine = MonteCarloEngine()
+                            mc_result = await mc_engine.run_scenario_analysis(analysis_content)
+                            dia3_results["monte_carlo_simulation"] = mc_result
+                            logger.info("✅ Monte Carlo simulation completed")
+                        except Exception as e:
+                            logger.warning(f"Monte Carlo simulation failed: {e}")
+                            dia3_results["monte_carlo_simulation"] = {"error": str(e)}
+                    
+                    # 5. Knowledge Graph Generation
+                    if include_knowledge_graph:
+                        try:
+                            from src.agents.enhanced_knowledge_graph_agent import EnhancedKnowledgeGraphAgent
+                            kg_agent = EnhancedKnowledgeGraphAgent()
+                            kg_result = await kg_agent.generate_knowledge_graph(analysis_content)
+                            dia3_results["knowledge_graph"] = kg_result
+                            logger.info("✅ Knowledge graph generation completed")
+                        except Exception as e:
+                            logger.warning(f"Knowledge graph generation failed: {e}")
+                            dia3_results["knowledge_graph"] = {"error": str(e)}
+                    
+                    # 6. Performance Monitoring
+                    try:
+                        performance_data = await self.performance_monitor.get_performance_metrics()
+                        dia3_results["performance_metrics"] = performance_data
+                        logger.info("✅ Performance monitoring completed")
+                    except Exception as e:
+                        logger.warning(f"Performance monitoring failed: {e}")
+                        dia3_results["performance_metrics"] = {"error": str(e)}
+                
+                # Generate interactive HTML report if requested
+                html_report_info = None
+                if include_interactive_visualizations and include_dia3_enhanced:
+                    try:
+                        # Create comprehensive HTML report with all DIA3 components
+                        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                        html_filename = f"DIA3_Enhanced_Report_{timestamp}.html"
+                        html_filepath = os.path.join(output_dir, html_filename)
+                        
+                        # Generate interactive HTML report
+                        html_content = await self._generate_dia3_interactive_report(
+                            analysis_content, dia3_results, "html", options
+                        )
+                        
+                        # Save HTML report
+                        os.makedirs(output_dir, exist_ok=True)
+                        with open(html_filepath, 'w', encoding='utf-8') as f:
+                            f.write(html_content)
+                        
+                        html_report_info = {
+                            "filepath": html_filepath,
+                            "filename": html_filename,
+                            "type": "interactive_html"
+                        }
+                        logger.info(f"✅ Interactive HTML report generated: {html_filepath}")
+                    except Exception as e:
+                        logger.warning(f"Interactive report generation failed: {e}")
+                        html_report_info = {"error": str(e)}
+                
+                # Generate standard report
                 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
                 filename = f"{report_type}_Report_{timestamp}.md"
                 
                 # Save report using report manager
                 save_result = report_manager.save_report(
-                    content=content,
+                    content=analysis_content,
                     filename=filename,
                     report_type=report_type,
                     metadata={
                         "language": language,
                         "options": options or {},
-                        "generated_by": "mcp_server"
+                        "generated_by": "mcp_server",
+                        "dia3_enhanced": include_dia3_enhanced,
+                        "dia3_results": dia3_results if include_dia3_enhanced else None,
+                        "html_report": html_report_info
                     }
                 )
                 
                 if save_result["success"]:
-                    return {
+                    result = {
                         "success": True,
                         "result": {
                             "report": "generated_report",
                             "type": report_type,
                             "saved_to": save_result["report_info"]["relative_path"],
-                            "filename": save_result["report_info"]["filename"]
+                            "filename": save_result["report_info"]["filename"],
+                            "dia3_enhanced": include_dia3_enhanced,
+                            "dia3_results": dia3_results if include_dia3_enhanced else None,
+                            "html_report": html_report_info,
+                            "analysis_components": {
+                                "sentiment_analysis": include_sentiment,
+                                "forecasting": include_forecasting,
+                                "strategic_analysis": include_strategic_analysis,
+                                "monte_carlo_simulation": include_monte_carlo,
+                                "knowledge_graph": include_knowledge_graph,
+                                "interactive_visualizations": include_interactive_visualizations
+                            }
                         },
                         "report_info": save_result["report_info"]
                     }
+                    
+                    logger.info(f"✅ Enhanced DIA3 report generation completed successfully")
+                    return result
                 else:
                     return {"success": False, "error": save_result["error"]}
                     
             except Exception as e:
-                logger.error(f"Error generating report: {e}")
+                logger.error(f"Error generating enhanced report: {e}")
                 return {"success": False, "error": str(e)}
 
         @self.mcp.tool(description="Generate enhanced report with source tracking")
