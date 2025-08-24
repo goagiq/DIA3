@@ -1,0 +1,616 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balance of Power Module Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .section { margin-bottom: 30px; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        .actor-card, .combatant-card, .submarine-card, .aircraft-card, .amphibious-card, .nuclear-card {
+            border: 1px solid #eee; padding: 15px; margin: 10px; border-radius: 5px;
+        }
+        .chart-container { margin: 20px 0; }
+        canvas { max-width: 100%; }
+    </style>
+</head>
+<body>
+    <h1>Balance of Power Module Test Results</h1>
+    
+        <div class="section" id="balance-of-power">
+            <h2>⚖️ Balance of Power Analysis</h2>
+            <p>Comprehensive analysis of military capabilities, strategic deterrence, and power balance</p>
+            
+            
+        <div class="balance-overview">
+            <div class="overview-header" data-tooltip-balanceofpowermodule="balance_overview">
+                <h3>⚖️ Balance Overview</h3>
+                <h4>Pakistan-India Naval Balance Analysis</h4>
+                <div class="balance-indicator">
+                    <span class="balance-label">Balance Assessment:</span>
+                    <span class="balance-value unbalanced">Unbalanced</span>
+                </div>
+                <div class="confidence-indicator">
+                    <span class="confidence-label">Confidence:</span>
+                    <span class="confidence-value">85.0%</span>
+                </div>
+            </div>
+            <div class="overview-content">
+                <p>Comprehensive analysis of the naval balance between Pakistan and India in the Indian Ocean region.</p>
+            </div>
+            
+            <div class="key-actors">
+                <h4>🎯 Key Power Actors</h4>
+                <div class="actors-grid">
+            
+                <div class="actor-card" data-tooltip-balanceofpowermodule="actor_0">
+                    <h5>Pakistan</h5>
+                    <p class="actor-role">Regional Naval Power</p>
+                    <p class="actor-power">Power Level: Medium</p>
+                </div>
+                
+                <div class="actor-card" data-tooltip-balanceofpowermodule="actor_1">
+                    <h5>India</h5>
+                    <p class="actor-role">Dominant Naval Power</p>
+                    <p class="actor-power">Power Level: High</p>
+                </div>
+                
+                </div>
+            </div>
+            
+        </div>
+        
+            
+        <div class="naval-capabilities-analysis">
+            <h3>🚢 Naval Capabilities Comparison</h3>
+            
+            <div class="surface-combatants">
+                <h4>🚢 Surface Combatants</h4>
+                <div class="combatants-container">
+            
+                <div class="combatant-card" data-tooltip-balanceofpowermodule="surface_combatant_0">
+                    <h5>Pakistan Navy Destroyers</h5>
+                    <div class="combatant-metrics">
+                        <div class="metric">
+                            <span class="label">Quantity:</span>
+                            <span class="value">4 vessels</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Quality:</span>
+                            <span class="value">Medium</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Readiness:</span>
+                            <span class="value">High</span>
+                        </div>
+                    </div>
+                    <p class="combatant-description">Modern destroyers with anti-ship and anti-air capabilities.</p>
+                </div>
+                
+                <div class="combatant-card" data-tooltip-balanceofpowermodule="surface_combatant_1">
+                    <h5>Indian Navy Destroyers</h5>
+                    <div class="combatant-metrics">
+                        <div class="metric">
+                            <span class="label">Quantity:</span>
+                            <span class="value">11 vessels</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Quality:</span>
+                            <span class="value">High</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Readiness:</span>
+                            <span class="value">High</span>
+                        </div>
+                    </div>
+                    <p class="combatant-description">Advanced destroyers with comprehensive capabilities.</p>
+                </div>
+                
+                </div>
+            </div>
+            
+            
+            <div class="submarines">
+                <h4>🛥️ Submarine Forces</h4>
+                <div class="submarines-container">
+            
+                <div class="submarine-card" data-tooltip-balanceofpowermodule="submarine_0">
+                    <h5>Pakistan Submarines</h5>
+                    <div class="submarine-metrics">
+                        <div class="metric">
+                            <span class="label">Quantity:</span>
+                            <span class="value">8 submarines</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Type:</span>
+                            <span class="value">Diesel-Electric</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Capability:</span>
+                            <span class="value">Medium</span>
+                        </div>
+                    </div>
+                    <p class="submarine-description">Mix of modern and legacy submarines.</p>
+                </div>
+                
+                <div class="submarine-card" data-tooltip-balanceofpowermodule="submarine_1">
+                    <h5>Indian Submarines</h5>
+                    <div class="submarine-metrics">
+                        <div class="metric">
+                            <span class="label">Quantity:</span>
+                            <span class="value">15 submarines</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Type:</span>
+                            <span class="value">Mixed Fleet</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Capability:</span>
+                            <span class="value">High</span>
+                        </div>
+                    </div>
+                    <p class="submarine-description">Advanced nuclear and conventional submarines.</p>
+                </div>
+                
+                </div>
+            </div>
+            
+            
+            <div class="naval-aviation">
+                <h4>✈️ Naval Aviation</h4>
+                <div class="aviation-container">
+            
+                <div class="aircraft-card" data-tooltip-balanceofpowermodule="naval_aircraft_0">
+                    <h5>Pakistan Naval Aviation</h5>
+                    <div class="aircraft-metrics">
+                        <div class="metric">
+                            <span class="label">Quantity:</span>
+                            <span class="value">25 aircraft</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Role:</span>
+                            <span class="value">Maritime Patrol</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Effectiveness:</span>
+                            <span class="value">Medium</span>
+                        </div>
+                    </div>
+                    <p class="aircraft-description">Limited naval aviation capabilities.</p>
+                </div>
+                
+                <div class="aircraft-card" data-tooltip-balanceofpowermodule="naval_aircraft_1">
+                    <h5>Indian Naval Aviation</h5>
+                    <div class="aircraft-metrics">
+                        <div class="metric">
+                            <span class="label">Quantity:</span>
+                            <span class="value">200+ aircraft</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Role:</span>
+                            <span class="value">Multi-Role</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Effectiveness:</span>
+                            <span class="value">High</span>
+                        </div>
+                    </div>
+                    <p class="aircraft-description">Comprehensive naval aviation with carrier-based aircraft.</p>
+                </div>
+                
+                </div>
+            </div>
+            
+            
+            <div class="amphibious-forces">
+                <h4>🛳️ Amphibious Forces</h4>
+                <div class="amphibious-container">
+            
+                <div class="amphibious-card" data-tooltip-balanceofpowermodule="amphibious_force_0">
+                    <h5>Pakistan Amphibious Forces</h5>
+                    <div class="amphibious-metrics">
+                        <div class="metric">
+                            <span class="label">Quantity:</span>
+                            <span class="value">Limited</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Capability:</span>
+                            <span class="value">Low</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Readiness:</span>
+                            <span class="value">Medium</span>
+                        </div>
+                    </div>
+                    <p class="amphibious-description">Limited amphibious warfare capabilities.</p>
+                </div>
+                
+                <div class="amphibious-card" data-tooltip-balanceofpowermodule="amphibious_force_1">
+                    <h5>Indian Amphibious Forces</h5>
+                    <div class="amphibious-metrics">
+                        <div class="metric">
+                            <span class="label">Quantity:</span>
+                            <span class="value">Significant</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Capability:</span>
+                            <span class="value">High</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Readiness:</span>
+                            <span class="value">High</span>
+                        </div>
+                    </div>
+                    <p class="amphibious-description">Well-developed amphibious warfare capabilities.</p>
+                </div>
+                
+                </div>
+            </div>
+            
+        </div>
+        
+            
+        <div class="strategic-deterrence-analysis">
+            <h3>🛡️ Strategic Deterrence Analysis</h3>
+            <div class="deterrence-index">
+                <h4>📊 Deterrence Index: 75.0</h4>
+            </div>
+            
+            <div class="nuclear-capabilities">
+                <h4>☢️ Nuclear Deterrence</h4>
+                <div class="nuclear-container">
+            
+                <div class="nuclear-card" data-tooltip-balanceofpowermodule="nuclear_capability_0">
+                    <h5>Pakistan Nuclear Arsenal</h5>
+                    <div class="nuclear-metrics">
+                        <div class="metric">
+                            <span class="label">Quantity:</span>
+                            <span class="value">150-160 warheads</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Reliability:</span>
+                            <span class="value">High</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Survivability:</span>
+                            <span class="value">Medium</span>
+                        </div>
+                    </div>
+                    <p class="nuclear-description">Land-based and sea-based nuclear capabilities.</p>
+                </div>
+                
+                <div class="nuclear-card" data-tooltip-balanceofpowermodule="nuclear_capability_1">
+                    <h5>India Nuclear Arsenal</h5>
+                    <div class="nuclear-metrics">
+                        <div class="metric">
+                            <span class="label">Quantity:</span>
+                            <span class="value">150-200 warheads</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Reliability:</span>
+                            <span class="value">High</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Survivability:</span>
+                            <span class="value">High</span>
+                        </div>
+                    </div>
+                    <p class="nuclear-description">Triad of nuclear delivery systems.</p>
+                </div>
+                
+                </div>
+            </div>
+            
+            
+            <div class="conventional-deterrence">
+                <h4>🛡️ Conventional Deterrence</h4>
+                <div class="conventional-metrics">
+            
+                <div class="conventional-factor">
+                    <h5>Military Balance</h5>
+                    <p class="factor-value">India has significant conventional advantage</p>
+                </div>
+                
+                <div class="conventional-factor">
+                    <h5>Geographic Position</h5>
+                    <p class="factor-value">India has geographic advantages</p>
+                </div>
+                
+                <div class="conventional-factor">
+                    <h5>Alliance Support</h5>
+                    <p class="factor-value">Both have limited external support</p>
+                </div>
+                
+                <div class="conventional-factor">
+                    <h5>Economic Capacity</h5>
+                    <p class="factor-value">India has greater economic capacity</p>
+                </div>
+                
+                </div>
+            </div>
+            
+        </div>
+        
+            
+        <div class="power-comparison-analysis">
+            <h3>📊 Power Comparison Analysis</h3>
+            
+            <div class="military-balance">
+                <h4>⚔️ Military Balance</h4>
+                <div class="balance-metrics">
+            
+                <div class="country-military">
+                    <h5>Pakistan</h5>
+                    <div class="military-metrics">
+            
+                        <div class="metric">
+                            <span class="label">Naval Strength:</span>
+                            <span class="value">Medium (65%)</span>
+                        </div>
+                    
+                        <div class="metric">
+                            <span class="label">Air Power:</span>
+                            <span class="value">Medium (60%)</span>
+                        </div>
+                    
+                        <div class="metric">
+                            <span class="label">Ground Forces:</span>
+                            <span class="value">Medium (70%)</span>
+                        </div>
+                    
+                        <div class="metric">
+                            <span class="label">Nuclear Capability:</span>
+                            <span class="value">High (85%)</span>
+                        </div>
+                    
+                    </div>
+                </div>
+                
+                <div class="country-military">
+                    <h5>India</h5>
+                    <div class="military-metrics">
+            
+                        <div class="metric">
+                            <span class="label">Naval Strength:</span>
+                            <span class="value">High (90%)</span>
+                        </div>
+                    
+                        <div class="metric">
+                            <span class="label">Air Power:</span>
+                            <span class="value">High (85%)</span>
+                        </div>
+                    
+                        <div class="metric">
+                            <span class="label">Ground Forces:</span>
+                            <span class="value">High (80%)</span>
+                        </div>
+                    
+                        <div class="metric">
+                            <span class="label">Nuclear Capability:</span>
+                            <span class="value">High (90%)</span>
+                        </div>
+                    
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+            
+            
+            <div class="economic-balance">
+                <h4>💰 Economic Balance</h4>
+                <div class="balance-metrics">
+            
+                <div class="country-economic">
+                    <h5>Pakistan</h5>
+                    <div class="economic-metrics">
+            
+                        <div class="metric">
+                            <span class="label">Gdp:</span>
+                            <span class="value">Low (25%)</span>
+                        </div>
+                    
+                        <div class="metric">
+                            <span class="label">Defense Budget:</span>
+                            <span class="value">Medium (40%)</span>
+                        </div>
+                    
+                        <div class="metric">
+                            <span class="label">Industrial Capacity:</span>
+                            <span class="value">Low (30%)</span>
+                        </div>
+                    
+                        <div class="metric">
+                            <span class="label">Technological Development:</span>
+                            <span class="value">Medium (50%)</span>
+                        </div>
+                    
+                    </div>
+                </div>
+                
+                <div class="country-economic">
+                    <h5>India</h5>
+                    <div class="economic-metrics">
+            
+                        <div class="metric">
+                            <span class="label">Gdp:</span>
+                            <span class="value">High (75%)</span>
+                        </div>
+                    
+                        <div class="metric">
+                            <span class="label">Defense Budget:</span>
+                            <span class="value">High (80%)</span>
+                        </div>
+                    
+                        <div class="metric">
+                            <span class="label">Industrial Capacity:</span>
+                            <span class="value">High (70%)</span>
+                        </div>
+                    
+                        <div class="metric">
+                            <span class="label">Technological Development:</span>
+                            <span class="value">High (75%)</span>
+                        </div>
+                    
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+            
+            
+            <div class="technological-balance">
+                <h4>🔬 Technological Balance</h4>
+                <div class="balance-metrics">
+            
+                <div class="country-technological">
+                    <h5>Pakistan</h5>
+                    <div class="technological-metrics">
+            
+                        <div class="metric">
+                            <span class="label">Military Technology:</span>
+                            <span class="value">Medium (55%)</span>
+                        </div>
+                    
+                        <div class="metric">
+                            <span class="label">Cyber Capabilities:</span>
+                            <span class="value">Medium (50%)</span>
+                        </div>
+                    
+                        <div class="metric">
+                            <span class="label">Space Capabilities:</span>
+                            <span class="value">Low (30%)</span>
+                        </div>
+                    
+                        <div class="metric">
+                            <span class="label">Research Development:</span>
+                            <span class="value">Medium (45%)</span>
+                        </div>
+                    
+                    </div>
+                </div>
+                
+                <div class="country-technological">
+                    <h5>India</h5>
+                    <div class="technological-metrics">
+            
+                        <div class="metric">
+                            <span class="label">Military Technology:</span>
+                            <span class="value">High (80%)</span>
+                        </div>
+                    
+                        <div class="metric">
+                            <span class="label">Cyber Capabilities:</span>
+                            <span class="value">High (75%)</span>
+                        </div>
+                    
+                        <div class="metric">
+                            <span class="label">Space Capabilities:</span>
+                            <span class="value">High (85%)</span>
+                        </div>
+                    
+                        <div class="metric">
+                            <span class="label">Research Development:</span>
+                            <span class="value">High (80%)</span>
+                        </div>
+                    
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+            
+            <div class="overall-assessment">
+                <h4>🎯 Overall Assessment</h4>
+                <p>India maintains a significant advantage in most areas of military, economic, and technological power, creating an unbalanced regional dynamic that influences strategic calculations and deterrence postures.</p>
+            </div>
+        </div>
+        
+            
+        <div class="balance-visualizations">
+            <h3>📈 Interactive Visualizations</h3>
+            
+        <div class="chart-container">
+            <h4>🚢 Naval Capabilities Radar Chart</h4>
+            <canvas id="naval_capabilities_balanceofpowermodule" width="400" height="400"></canvas>
+            <script>
+                const ctx_naval_capabilities_balanceofpowermodule = document.getElementById('naval_capabilities_balanceofpowermodule').getContext('2d');
+                new Chart(ctx_naval_capabilities_balanceofpowermodule, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Surface Combatants', 'Submarines', 'Naval Aviation', 'Amphibious Forces', 'Anti-Submarine Warfare'],
+                        datasets: [{'label': 'Surface Combatants', 'data': [70.0, 0, 0, 0, 0], 'backgroundColor': 'rgba(54, 162, 235, 0.2)', 'borderColor': 'rgba(54, 162, 235, 1)', 'borderWidth': 2}, {'label': 'Submarines', 'data': [0, 70.0, 0, 0, 0], 'backgroundColor': 'rgba(255, 99, 132, 0.2)', 'borderColor': 'rgba(255, 99, 132, 1)', 'borderWidth': 2}]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            r: {
+                                beginAtZero: true,
+                                max: 100
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Naval Capabilities Comparison'
+                            }
+                        }
+                    }
+                });
+            </script>
+        </div>
+        
+            
+        <div class="chart-container">
+            <h4>⚔️ Military Power Comparison</h4>
+            <canvas id="power_comparison_balanceofpowermodule" width="400" height="300"></canvas>
+            <script>
+                const ctx_power_comparison_balanceofpowermodule = document.getElementById('power_comparison_balanceofpowermodule').getContext('2d');
+                new Chart(ctx_power_comparison_balanceofpowermodule, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Pakistan', 'India'],
+                        datasets: [{
+                            label: 'Military Power Score',
+                            data: [70.0, 86.25],
+                            backgroundColor: 'rgba(75, 192, 192, 0.8)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Military Power Comparison'
+                            }
+                        }
+                    }
+                });
+            </script>
+        </div>
+        
+        </div>
+        
+        </div>
+        
+</body>
+</html>
+            

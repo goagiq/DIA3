@@ -129,6 +129,14 @@ except ImportError as e:
     logger.warning(f"Simple markdown export MCP tools not available: {e}")
     SIMPLE_MARKDOWN_EXPORT_MCP_AVAILABLE = False
 
+# Import enhanced report MCP tools
+try:
+    from src.mcp_servers.enhanced_report_mcp_tools import enhanced_report_mcp_tools
+    ENHANCED_REPORT_MCP_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Enhanced report MCP tools not available: {e}")
+    ENHANCED_REPORT_MCP_AVAILABLE = False
+
 
 
 # Import strategic intelligence forecast MCP tools
@@ -2131,6 +2139,78 @@ class UnifiedMCPServer:
                 return {"success": False, "error": str(e)}
 
         logger.info("✅ Registered 38 unified MCP tools (including pattern analysis tools)")
+
+        # Enhanced Report Generation Tools
+        if ENHANCED_REPORT_MCP_AVAILABLE:
+            @self.mcp.tool(description="Generate enhanced HTML report with advanced tooltips and strategic analysis")
+            async def generate_enhanced_html_report(
+                topic: str,
+                analysis_data: Dict[str, Any],
+                report_title: Optional[str] = None,
+                include_both_templates: bool = True
+            ) -> Dict[str, Any]:
+                """Generate enhanced HTML report with advanced tooltips and strategic analysis."""
+                try:
+                    return await enhanced_report_mcp_tools.generate_enhanced_html_report(
+                        topic=topic,
+                        analysis_data=analysis_data,
+                        report_title=report_title,
+                        include_both_templates=include_both_templates
+                    )
+                except Exception as e:
+                    logger.error(f"Error generating enhanced HTML report: {e}")
+                    return {"success": False, "error": str(e)}
+
+            @self.mcp.tool(description="Generate comprehensive enhanced report with detailed analysis")
+            async def generate_comprehensive_enhanced_report(
+                topic: str,
+                analysis_data: Dict[str, Any],
+                report_title: Optional[str] = None
+            ) -> Dict[str, Any]:
+                """Generate comprehensive enhanced report with detailed analysis."""
+                try:
+                    return await enhanced_report_mcp_tools.generate_comprehensive_enhanced_report(
+                        topic=topic,
+                        analysis_data=analysis_data,
+                        report_title=report_title
+                    )
+                except Exception as e:
+                    logger.error(f"Error generating comprehensive enhanced report: {e}")
+                    return {"success": False, "error": str(e)}
+
+            @self.mcp.tool(description="Generate strategic enhanced report with geopolitical focus")
+            async def generate_strategic_enhanced_report(
+                topic: str,
+                analysis_data: Dict[str, Any],
+                report_title: Optional[str] = None
+            ) -> Dict[str, Any]:
+                """Generate strategic enhanced report with geopolitical focus."""
+                try:
+                    return await enhanced_report_mcp_tools.generate_strategic_enhanced_report(
+                        topic=topic,
+                        analysis_data=analysis_data,
+                        report_title=report_title
+                    )
+                except Exception as e:
+                    logger.error(f"Error generating strategic enhanced report: {e}")
+                    return {"success": False, "error": str(e)}
+
+            @self.mcp.tool(description="Generate both comprehensive and strategic enhanced reports")
+            async def generate_enhanced_report_both_templates(
+                topic: str,
+                analysis_data: Dict[str, Any],
+                report_title: Optional[str] = None
+            ) -> Dict[str, Any]:
+                """Generate both comprehensive and strategic enhanced reports."""
+                try:
+                    return await enhanced_report_mcp_tools.generate_enhanced_report_both_templates(
+                        topic=topic,
+                        analysis_data=analysis_data,
+                        report_title=report_title
+                    )
+                except Exception as e:
+                    logger.error(f"Error generating enhanced report both templates: {e}")
+                    return {"success": False, "error": str(e)}
 
     def _detect_content_type(self, content: str) -> str:
         """Enhanced content type detection with bulk import and library URL support."""

@@ -1,0 +1,405 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geopolitical Impact Module Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .section { margin-bottom: 30px; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        .metric-card, .actor-card, .region-card, .partnership-card, .power-card, .conflict-card {
+            border: 1px solid #eee; padding: 15px; margin: 10px; border-radius: 5px;
+        }
+        .chart-container { margin: 20px 0; }
+        canvas { max-width: 100%; }
+    </style>
+</head>
+<body>
+    <h1>Geopolitical Impact Module Test Results</h1>
+    
+        <div class="section" id="geopolitical-impact">
+            <h2>🌍 Geopolitical Impact Analysis</h2>
+            <p>Comprehensive analysis of regional power dynamics and strategic partnerships</p>
+            
+            
+        <div class="geopolitical-overview">
+            <div class="overview-header" data-tooltip-geopoliticalimpactmodule="geopolitical_overview">
+                <h3>🌍 Geopolitical Overview</h3>
+                <h4>Pakistan Submarine Acquisition Impact</h4>
+                <div class="impact-indicator">
+                    <span class="impact-label">Impact Level:</span>
+                    <span class="impact-value high">High</span>
+                </div>
+                <div class="confidence-indicator">
+                    <span class="confidence-label">Confidence:</span>
+                    <span class="confidence-value">85.0%</span>
+                </div>
+            </div>
+            <div class="overview-content">
+                <p>Analysis of Pakistan's submarine acquisition and its geopolitical implications.</p>
+            </div>
+            
+            <div class="key-actors">
+                <h4>🎭 Key Geopolitical Actors</h4>
+                <div class="actors-grid">
+            
+                <div class="actor-card" data-tooltip-geopoliticalimpactmodule="actor_0">
+                    <h5>Pakistan</h5>
+                    <p class="actor-role">Primary Actor</p>
+                    <p class="actor-influence">Influence: High</p>
+                </div>
+                
+                <div class="actor-card" data-tooltip-geopoliticalimpactmodule="actor_1">
+                    <h5>China</h5>
+                    <p class="actor-role">Technology Provider</p>
+                    <p class="actor-influence">Influence: Very High</p>
+                </div>
+                
+                <div class="actor-card" data-tooltip-geopoliticalimpactmodule="actor_2">
+                    <h5>India</h5>
+                    <p class="actor-role">Regional Competitor</p>
+                    <p class="actor-influence">Influence: High</p>
+                </div>
+                
+                </div>
+            </div>
+            
+        </div>
+        
+            
+        <div class="regional-dynamics">
+            <h3>🗺️ Regional Dynamics Analysis</h3>
+            
+            <div class="regional-analysis">
+                <h4>🗺️ Regional Power Dynamics</h4>
+                <div class="regions-container">
+            
+                <div class="region-card" data-tooltip-geopoliticalimpactmodule="region_0">
+                    <h5>South Asia</h5>
+                    <div class="region-metrics">
+                        <div class="metric">
+                            <span class="label">Power Level:</span>
+                            <span class="value">High</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Stability:</span>
+                            <span class="value">Medium</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Strategic Value:</span>
+                            <span class="value">Very High</span>
+                        </div>
+                    </div>
+                    <p class="region-description">Key region for maritime security and trade routes.</p>
+                </div>
+                
+                <div class="region-card" data-tooltip-geopoliticalimpactmodule="region_1">
+                    <h5>Indian Ocean</h5>
+                    <div class="region-metrics">
+                        <div class="metric">
+                            <span class="label">Power Level:</span>
+                            <span class="value">Medium</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Stability:</span>
+                            <span class="value">High</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Strategic Value:</span>
+                            <span class="value">Very High</span>
+                        </div>
+                    </div>
+                    <p class="region-description">Critical maritime trade route and strategic waterway.</p>
+                </div>
+                
+                </div>
+            </div>
+            
+            
+            <div class="power-shifts">
+                <h4>⚖️ Power Shifts</h4>
+                <ul>
+            
+                <li data-tooltip-geopoliticalimpactmodule="shift_0">
+                    <strong>Pakistan</strong>: Enhanced naval capabilities through submarine acquisition
+                    <span class="shift-magnitude">(High)</span>
+                </li>
+                
+                <li data-tooltip-geopoliticalimpactmodule="shift_1">
+                    <strong>China</strong>: Increased influence in South Asian maritime security
+                    <span class="shift-magnitude">(Medium)</span>
+                </li>
+                
+                </ul>
+            </div>
+            
+            
+            <div class="conflict-areas">
+                <h4>⚠️ Conflict Areas</h4>
+                <div class="conflicts-grid">
+            
+                <div class="conflict-card" data-tooltip-geopoliticalimpactmodule="conflict_0">
+                    <h5>Kashmir Dispute</h5>
+                    <p class="conflict-intensity">Intensity: High</p>
+                    <p class="conflict-description">Ongoing territorial dispute between India and Pakistan.</p>
+                </div>
+                
+                </div>
+            </div>
+            
+        </div>
+        
+            
+        <div class="strategic-partnerships">
+            <h3>🤝 Strategic Partnerships</h3>
+        
+            <div class="partnerships-container">
+            
+            <div class="partnership-card" data-tooltip-geopoliticalimpactmodule="partnership_0">
+                <div class="partnership-header">
+                    <h4>Pakistan-China Naval Cooperation</h4>
+                    <span class="partnership-type">Military</span>
+                </div>
+                <div class="partnership-details">
+                    <div class="partners">
+                        <strong>Partners:</strong> Pakistan & China
+                    </div>
+                    <div class="strength-indicator">
+                        <span class="label">Strength:</span>
+                        <span class="strength-value high">High</span>
+                    </div>
+                    <div class="objectives">
+                        <strong>Objectives:</strong> Enhanced naval capabilities and regional security
+                    </div>
+                    <div class="impact">
+                        <strong>Geopolitical Impact:</strong> High
+                    </div>
+                </div>
+                <p class="partnership-description">Strategic partnership for naval technology transfer and joint operations.</p>
+            </div>
+            
+            <div class="partnership-card" data-tooltip-geopoliticalimpactmodule="partnership_1">
+                <div class="partnership-header">
+                    <h4>US-India Strategic Partnership</h4>
+                    <span class="partnership-type">Strategic</span>
+                </div>
+                <div class="partnership-details">
+                    <div class="partners">
+                        <strong>Partners:</strong> United States & India
+                    </div>
+                    <div class="strength-indicator">
+                        <span class="label">Strength:</span>
+                        <span class="strength-value very high">Very High</span>
+                    </div>
+                    <div class="objectives">
+                        <strong>Objectives:</strong> Counterbalance Chinese influence in the region
+                    </div>
+                    <div class="impact">
+                        <strong>Geopolitical Impact:</strong> Very High
+                    </div>
+                </div>
+                <p class="partnership-description">Comprehensive strategic partnership including defense cooperation.</p>
+            </div>
+            
+            </div>
+        </div>
+        
+            
+        <div class="power-balance">
+            <h3>⚖️ Power Balance Analysis</h3>
+            
+            <div class="major-powers">
+                <h4>🏛️ Major Powers Analysis</h4>
+                <div class="powers-grid">
+            
+                <div class="power-card" data-tooltip-geopoliticalimpactmodule="power_0">
+                    <h5>China</h5>
+                    <div class="power-metrics">
+                        <div class="metric">
+                            <span class="label">Military:</span>
+                            <span class="value">Very High</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Economic:</span>
+                            <span class="value">Very High</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Political:</span>
+                            <span class="value">High</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Strategic:</span>
+                            <span class="value">Very High</span>
+                        </div>
+                    </div>
+                    <p class="power-description">Rising global power with significant regional influence.</p>
+                </div>
+                
+                <div class="power-card" data-tooltip-geopoliticalimpactmodule="power_1">
+                    <h5>India</h5>
+                    <div class="power-metrics">
+                        <div class="metric">
+                            <span class="label">Military:</span>
+                            <span class="value">High</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Economic:</span>
+                            <span class="value">High</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Political:</span>
+                            <span class="value">Medium</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Strategic:</span>
+                            <span class="value">High</span>
+                        </div>
+                    </div>
+                    <p class="power-description">Regional power with growing global influence.</p>
+                </div>
+                
+                <div class="power-card" data-tooltip-geopoliticalimpactmodule="power_2">
+                    <h5>Pakistan</h5>
+                    <div class="power-metrics">
+                        <div class="metric">
+                            <span class="label">Military:</span>
+                            <span class="value">Medium</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Economic:</span>
+                            <span class="value">Low</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Political:</span>
+                            <span class="value">Medium</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Strategic:</span>
+                            <span class="value">Medium</span>
+                        </div>
+                    </div>
+                    <p class="power-description">Regional actor with strategic nuclear capabilities.</p>
+                </div>
+                
+                </div>
+            </div>
+            
+            
+            <div class="power-indicators">
+                <h4>📊 Power Balance Indicators</h4>
+                <div class="indicators-grid">
+            
+                <div class="indicator-card">
+                    <h5>Naval Capability Ratio</h5>
+                    <p class="indicator-value">1:2:3 (Pakistan:India:China)</p>
+                </div>
+                
+                <div class="indicator-card">
+                    <h5>Economic Influence</h5>
+                    <p class="indicator-value">High concentration in China</p>
+                </div>
+                
+                <div class="indicator-card">
+                    <h5>Strategic Alliances</h5>
+                    <p class="indicator-value">Multiple competing partnerships</p>
+                </div>
+                
+                <div class="indicator-card">
+                    <h5>Regional Stability</h5>
+                    <p class="indicator-value">Medium with high volatility</p>
+                </div>
+                
+                </div>
+            </div>
+            
+            <div class="balance-assessment">
+                <h4>📋 Balance Assessment</h4>
+                <p>The regional power balance is shifting with China's increasing influence, India's growing capabilities, and Pakistan's strategic partnerships creating a complex triangular dynamic.</p>
+            </div>
+        </div>
+        
+            
+        <div class="geopolitical-visualizations">
+            <h3>📈 Interactive Visualizations</h3>
+            
+        <div class="chart-container">
+            <h4>🎯 Power Comparison Radar Chart</h4>
+            <canvas id="power_radar_geopoliticalimpactmodule" width="400" height="400"></canvas>
+            <script>
+                const ctx_power_radar_geopoliticalimpactmodule = document.getElementById('power_radar_geopoliticalimpactmodule').getContext('2d');
+                new Chart(ctx_power_radar_geopoliticalimpactmodule, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Military', 'Economic', 'Political', 'Strategic', 'Technological'],
+                        datasets: [{'label': 'China', 'data': [100, 100, 80, 100, 60], 'borderColor': 'rgba(220, 53, 69, 1.0)', 'backgroundColor': 'rgba(220, 53, 69, 0.2)', 'pointBackgroundColor': 'rgba(220, 53, 69, 1.0)'}, {'label': 'India', 'data': [80, 80, 60, 80, 60], 'borderColor': 'rgba(255, 69, 0, 1.0)', 'backgroundColor': 'rgba(255, 69, 0, 0.2)', 'pointBackgroundColor': 'rgba(255, 69, 0, 1.0)'}, {'label': 'Pakistan', 'data': [60, 40, 60, 60, 60], 'borderColor': 'rgba(108, 117, 125, 1.0)', 'backgroundColor': 'rgba(108, 117, 125, 0.2)', 'pointBackgroundColor': 'rgba(108, 117, 125, 1.0)'}]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            r: {
+                                beginAtZero: true,
+                                max: 100,
+                                ticks: {
+                                    stepSize: 20
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Power Metrics Comparison'
+                            }
+                        }
+                    }
+                });
+            </script>
+        </div>
+        
+            
+        <div class="chart-container">
+            <h4>🕸️ Strategic Partnerships Network</h4>
+            <div id="partnership_network_geopoliticalimpactmodule" style="width: 100%; height: 400px;"></div>
+            <script>
+                const container_partnership_network_geopoliticalimpactmodule = document.getElementById('partnership_network_geopoliticalimpactmodule');
+                const data_partnership_network_geopoliticalimpactmodule = {
+                    nodes: new vis.DataSet([{'id': 0, 'label': 'Pakistan', 'group': 'Military'}, {'id': 1, 'label': 'China', 'group': 'Military'}, {'id': 2, 'label': 'United States', 'group': 'Strategic'}, {'id': 3, 'label': 'India', 'group': 'Strategic'}]),
+                    edges: new vis.DataSet([{'from': 0, 'to': 1, 'label': 'Pakistan-China Naval Cooperation', 'width': 4}, {'from': 2, 'to': 3, 'label': 'US-India Strategic Partnership', 'width': 5}])
+                };
+                const options_partnership_network_geopoliticalimpactmodule = {
+                    nodes: {
+                        shape: 'dot',
+                        size: 20,
+                        font: {
+                            size: 12
+                        }
+                    },
+                    edges: {
+                        font: {
+                            size: 10
+                        }
+                    },
+                    groups: {
+                        'Strategic': {color: {background: '#ff7675', border: '#d63031'}},
+                        'Economic': {color: {background: '#74b9ff', border: '#0984e3'}},
+                        'Military': {color: {background: '#55a3ff', border: '#2d3436'}},
+                        'Diplomatic': {color: {background: '#a29bfe', border: '#6c5ce7'}}
+                    }
+                };
+                new vis.Network(container_partnership_network_geopoliticalimpactmodule, data_partnership_network_geopoliticalimpactmodule, options_partnership_network_geopoliticalimpactmodule);
+            </script>
+        </div>
+        
+        </div>
+        
+        </div>
+        
+</body>
+</html>
+            

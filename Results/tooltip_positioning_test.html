@@ -1,0 +1,72 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+        .enhanced-tooltip {
+            position: absolute;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 0.95em;
+            z-index: 1000;
+            max-width: 400px;
+            display: none;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        </style>
+    </head>
+    <body>
+        <div class="enhanced-tooltip" id="enhancedTooltip">
+            <div class="tooltip-title" id="tooltipTitle"></div>
+            <div class="tooltip-content" id="tooltipContent"></div>
+            <div class="tooltip-source" id="tooltipSource"></div>
+            <div class="tooltip-strategic" id="tooltipStrategic"></div>
+            <div class="tooltip-recommendations" id="tooltipRecommendations"></div>
+            <div class="tooltip-use-cases" id="tooltipUseCases"></div>
+        </div>
+        
+        <script>
+        function showEnhancedTooltip(event, tooltipData) {
+            const tooltip = document.getElementById('enhancedTooltip');
+            const title = document.getElementById('tooltipTitle');
+            const content = document.getElementById('tooltipContent');
+            const source = document.getElementById('tooltipSource');
+            const strategic = document.getElementById('tooltipStrategic');
+            const recommendations = document.getElementById('tooltipRecommendations');
+            const useCases = document.getElementById('tooltipUseCases');
+            
+            title.textContent = tooltipData.title;
+            content.innerHTML = tooltipData.description;
+            source.innerHTML = tooltipData.source;
+            strategic.innerHTML = tooltipData.strategic_impact;
+            
+            if (tooltipData.recommendations) {
+                recommendations.innerHTML = '<strong>💡 Recommendations:</strong><br/>' + tooltipData.recommendations;
+                recommendations.style.display = 'block';
+            } else {
+                recommendations.style.display = 'none';
+            }
+            
+            if (tooltipData.use_cases) {
+                useCases.innerHTML = '<strong>🎯 Use Cases:</strong><br/>' + tooltipData.use_cases;
+                useCases.style.display = 'block';
+            } else {
+                useCases.style.display = 'none';
+            }
+            
+            tooltip.style.display = 'block';
+            tooltip.style.left = event.pageX + 10 + 'px';
+            tooltip.style.top = event.pageY - 10 + 'px';
+        }
+        
+        function hideEnhancedTooltip() {
+            document.getElementById('enhancedTooltip').style.display = 'none';
+        }
+        </script>
+    </body>
+    </html>
+    
