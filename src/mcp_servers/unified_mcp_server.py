@@ -4366,7 +4366,7 @@ This report contains comprehensive analysis results including deception analysis
                 async def generate_modular_enhanced_report(**kwargs):
                     """Generate modular enhanced report."""
                     result = await self.modular_report_mcp_tools.call_tool("generate_modular_enhanced_report", kwargs)
-                            return result.content[0].text if result.content else {"success": False, "error": "No content returned"}
+                    return result.content[0].text if result.content else {"success": False, "error": "No content returned"}
                         
                 @self.mcp.tool(description="Get list of available modules and their configurations")
                 async def get_modular_report_modules(**kwargs):
