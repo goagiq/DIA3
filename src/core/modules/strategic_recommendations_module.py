@@ -546,7 +546,7 @@ class StrategicRecommendationsModule(BaseModule):
             "intelligence_summary": TooltipData(
             title="Intelligence Analysis Summary",
                 description="Comprehensive intelligence analysis with key insights, confidence metrics, and critical findings for strategic decision-making",
-            source="Source: Intelligence Analysis Framework",
+            source="Sources: Intelligence Analysis Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Strategic Impact: Critical for understanding the strategic context and decision-making basis",
                 recommendations="• Review intelligence sources regularly\n• Validate insights with multiple sources\n• Update confidence scores based on new information\n• Prioritize high-impact insights for immediate action",
                 use_cases="• Strategic planning sessions\n• Intelligence briefings\n• Decision support systems\n• Risk assessment frameworks\n• Crisis management"
@@ -554,7 +554,7 @@ class StrategicRecommendationsModule(BaseModule):
             "strategic_recommendations": TooltipData(
                 title="Strategic Recommendations",
                 description="Comprehensive strategic recommendations organized by priority and timeline with confidence levels and implementation rationale",
-                source="Source: Strategic Planning Framework",
+                source="Sources: Strategic Planning Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Strategic Impact: Direct influence on strategic decision-making and resource allocation priorities",
                 recommendations="• Prioritize immediate recommendations for urgent action\n• Develop detailed implementation plans for short-term recommendations\n• Establish monitoring frameworks for long-term recommendations\n• Regular review and update of recommendation priorities",
                 use_cases="• Strategic planning\n• Resource allocation\n• Priority setting\n• Implementation planning\n• Performance monitoring"
@@ -562,7 +562,7 @@ class StrategicRecommendationsModule(BaseModule):
             "implementation_roadmap": TooltipData(
                 title="Implementation Roadmap",
                 description="Comprehensive implementation roadmap with phases, milestones, and confidence levels for strategic execution",
-                source="Source: Implementation Planning Framework",
+                source="Sources: Implementation Planning Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Strategic Impact: Essential for successful execution and achievement of strategic objectives",
                 recommendations="• Establish clear phase boundaries and milestones\n• Monitor confidence levels throughout implementation\n• Adjust timelines based on progress and challenges\n• Maintain stakeholder communication throughout phases",
                 use_cases="• Project management\n• Implementation planning\n• Progress tracking\n• Risk management\n• Stakeholder communication"
@@ -570,7 +570,7 @@ class StrategicRecommendationsModule(BaseModule):
             "monitoring_plan": TooltipData(
                 title="Monitoring & Evaluation Plan",
                 description="Comprehensive monitoring and evaluation framework with KPIs and assessment criteria for strategic oversight",
-                source="Source: Monitoring & Evaluation Framework",
+                source="Sources: Monitoring & Evaluation Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Strategic Impact: Critical for ensuring strategic objectives are achieved and maintaining accountability",
                 recommendations="• Establish regular monitoring schedules\n• Set up automated KPI tracking systems\n• Conduct periodic evaluation reviews\n• Adjust strategies based on monitoring results",
                 use_cases="• Performance monitoring\n• Strategic oversight\n• Accountability frameworks\n• Continuous improvement\n• Risk management"

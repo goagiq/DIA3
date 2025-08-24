@@ -514,7 +514,7 @@ class RiskAssessmentModule(BaseModule):
         self.add_tooltip("risk_overview", TooltipData(
             title="Risk Overview",
             description="Comprehensive analysis of the current risk landscape and its strategic implications.",
-            source="Risk Assessment Framework",
+            source="Sources: Risk Assessment Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="High - Critical for risk management and strategic planning",
             recommendations="• Monitor risk indicators regularly\n• Assess risk trends\n• Track escalation factors\n• Plan mitigation strategies",
             use_cases="Used in risk management, strategic planning, and threat assessment",
@@ -524,7 +524,7 @@ class RiskAssessmentModule(BaseModule):
         self.add_tooltip("risk_matrix", TooltipData(
             title="Risk Matrix",
             description="Comprehensive risk matrix showing probability and impact assessments across different risk categories.",
-            source="Risk Matrix Analysis Framework",
+            source="Sources: Risk Matrix Analysis Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="High - Essential for risk prioritization and resource allocation",
             recommendations="• Prioritize high-probability, high-impact risks\n• Monitor risk trends\n• Track risk evolution\n• Plan risk responses",
             use_cases="Used in risk prioritization and resource allocation",
@@ -534,7 +534,7 @@ class RiskAssessmentModule(BaseModule):
         self.add_tooltip("escalation_timeline", TooltipData(
             title="Escalation Timeline",
             description="Analysis of how risks may escalate over time and the probability of different escalation scenarios.",
-            source="Escalation Analysis Framework",
+            source="Sources: Escalation Analysis Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="High - Critical for proactive risk management and early warning",
             recommendations="• Monitor escalation indicators\n• Track timeline trends\n• Plan escalation responses\n• Develop early warning systems",
             use_cases="Used in proactive risk management and early warning systems",
@@ -544,7 +544,7 @@ class RiskAssessmentModule(BaseModule):
         self.add_tooltip("mitigation_strategies", TooltipData(
             title="Mitigation Strategies",
             description="Comprehensive analysis of mitigation strategies, their effectiveness, and implementation plans.",
-            source="Mitigation Strategy Framework",
+            source="Sources: Mitigation Strategy Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="High - Essential for risk reduction and strategic planning",
             recommendations="• Implement high-effectiveness strategies\n• Monitor strategy effectiveness\n• Track implementation progress\n• Plan strategy adjustments",
             use_cases="Used in risk reduction and strategic planning",

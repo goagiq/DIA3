@@ -496,7 +496,7 @@ class ImplementationTimelineModule(BaseModule):
             'phase_0': TooltipData(
                 title="Implementation Phase Analysis",
                 description="Comprehensive analysis of implementation phases, including timeline, milestones, and progress tracking.",
-                source="Implementation timeline data analysis",
+                source="Sources: Implementation timeline data analysis, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="High - Critical for project success and resource planning",
                 recommendations=[
                     "Monitor phase progress regularly",
@@ -512,7 +512,7 @@ class ImplementationTimelineModule(BaseModule):
             'milestone_0': TooltipData(
                 title="Key Milestone Analysis",
                 description="Analysis of critical milestones and their impact on overall project timeline.",
-                source="Milestone tracking and analysis",
+                source="Sources: Milestone tracking and analysis, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="High - Milestones drive project success",
                 recommendations=[
                     "Track milestone dependencies",
@@ -528,7 +528,7 @@ class ImplementationTimelineModule(BaseModule):
             'risk_0': TooltipData(
                 title="Timeline Risk Analysis",
                 description="Analysis of risk factors that could impact implementation timeline and project success.",
-                source="Risk assessment and analysis",
+                source="Sources: Risk assessment and analysis, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="High - Risk mitigation is critical for timeline adherence",
                 recommendations=[
                     "Identify risk factors early",

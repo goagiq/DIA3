@@ -4355,24 +4355,68 @@ This report contains comprehensive analysis results including deception analysis
             if hasattr(self, 'modular_report_mcp_tools') and self.modular_report_mcp_tools:
                 modular_report_tools = self.modular_report_mcp_tools.get_tools()
                 
-                for tool in modular_report_tools:
-                    tool_name = tool["name"]
-                    tool_description = tool["description"]
-                    
-                    # Create dynamic tool registration
-                    def create_modular_report_tool(tool_name, tool_description):
-                        @self.mcp.tool(description=tool_description)
-                        async def modular_report_tool(**kwargs):
-                            """Dynamic modular report tool."""
-                            result = await self.modular_report_mcp_tools.call_tool(tool_name, kwargs)
+                # Create a single dynamic tool that handles all modular report operations
+                @self.mcp.tool(description="Generate adaptive modular report with contextual intelligence and interactive visualizations")
+                async def generate_adaptive_modular_report(**kwargs):
+                    """Generate adaptive modular report."""
+                    result = await self.modular_report_mcp_tools.call_tool("generate_adaptive_modular_report", kwargs)
+                    return result.content[0].text if result.content else {"success": False, "error": "No content returned"}
+                
+                @self.mcp.tool(description="Generate a modular enhanced report with configurable components")
+                async def generate_modular_enhanced_report(**kwargs):
+                    """Generate modular enhanced report."""
+                    result = await self.modular_report_mcp_tools.call_tool("generate_modular_enhanced_report", kwargs)
                             return result.content[0].text if result.content else {"success": False, "error": "No content returned"}
                         
-                        return modular_report_tool
-                    
-                    # Register the tool
-                    create_modular_report_tool(tool_name, tool_description)
+                @self.mcp.tool(description="Get list of available modules and their configurations")
+                async def get_modular_report_modules(**kwargs):
+                    """Get modular report modules."""
+                    result = await self.modular_report_mcp_tools.call_tool("get_modular_report_modules", kwargs)
+                    return result.content[0].text if result.content else {"success": False, "error": "No content returned"}
                 
-                logger.info("✅ Modular Report tools registered")
+                @self.mcp.tool(description="Configure a specific module with custom settings")
+                async def configure_modular_report_module(**kwargs):
+                    """Configure modular report module."""
+                    result = await self.modular_report_mcp_tools.call_tool("configure_modular_report_module", kwargs)
+                    return result.content[0].text if result.content else {"success": False, "error": "No content returned"}
+                
+                @self.mcp.tool(description="Enable or disable specific modules")
+                async def enable_modular_report_modules(**kwargs):
+                    """Enable modular report modules."""
+                    result = await self.modular_report_mcp_tools.call_tool("enable_modular_report_modules", kwargs)
+                    return result.content[0].text if result.content else {"success": False, "error": "No content returned"}
+                
+                @self.mcp.tool(description="Adapt data for specific module with contextual intelligence")
+                async def adapt_data_for_module(**kwargs):
+                    """Adapt data for module."""
+                    result = await self.modular_report_mcp_tools.call_tool("adapt_data_for_module", kwargs)
+                    return result.content[0].text if result.content else {"success": False, "error": "No content returned"}
+                
+                @self.mcp.tool(description="Detect data structure type and context domain")
+                async def detect_data_structure(**kwargs):
+                    """Detect data structure."""
+                    result = await self.modular_report_mcp_tools.call_tool("detect_data_structure", kwargs)
+                    return result.content[0].text if result.content else {"success": False, "error": "No content returned"}
+                
+                @self.mcp.tool(description="Get modules that support a specific context domain")
+                async def get_modules_by_context(**kwargs):
+                    """Get modules by context."""
+                    result = await self.modular_report_mcp_tools.call_tool("get_modules_by_context", kwargs)
+                    return result.content[0].text if result.content else {"success": False, "error": "No content returned"}
+                
+                @self.mcp.tool(description="Get modules that support a specific data structure")
+                async def get_modules_by_data_structure(**kwargs):
+                    """Get modules by data structure."""
+                    result = await self.modular_report_mcp_tools.call_tool("get_modules_by_data_structure", kwargs)
+                    return result.content[0].text if result.content else {"success": False, "error": "No content returned"}
+                
+                @self.mcp.tool(description="Save modular report configuration to file")
+                async def save_modular_config(**kwargs):
+                    """Save modular config."""
+                    result = await self.modular_report_mcp_tools.call_tool("save_modular_config", kwargs)
+                    return result.content[0].text if result.content else {"success": False, "error": "No content returned"}
+                
+                logger.info(f"✅ Modular Report tools registered: {len(modular_report_tools)} tools")
             else:
                 logger.warning("⚠️ Modular Report tools not available")
         except Exception as e:

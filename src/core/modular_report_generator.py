@@ -6,6 +6,7 @@ Provides configuration management and module assembly capabilities.
 """
 
 import asyncio
+import json
 from typing import Dict, Any, List, Optional, Type
 from pathlib import Path
 from datetime import datetime
@@ -87,8 +88,23 @@ class ModularReportGenerator:
         """Register a module with the generator."""
         self.modules[module.module_id] = module
     
-    def get_available_modules(self) -> List[str]:
-        """Get list of available module IDs."""
+    def get_available_modules(self) -> Dict[str, Dict[str, Any]]:
+        """Get dictionary of available modules with their information."""
+        modules_info = {}
+        for module_id, module in self.modules.items():
+            modules_info[module_id] = {
+                'title': getattr(module, 'title',
+                                module_id.replace('_', ' ').title()),
+                'description': getattr(module, 'description',
+                                      f'{module_id} module'),
+                'enabled': module.is_enabled(),
+                'order': module.get_order(),
+                'category': getattr(module, 'category', 'general')
+            }
+        return modules_info
+    
+    def get_available_module_ids(self) -> List[str]:
+        """Get list of available module IDs (for backward compatibility)."""
         return list(self.modules.keys())
     
     def get_module(self, module_id: str) -> Optional[BaseModule]:
@@ -100,6 +116,10 @@ class ModularReportGenerator:
         module = self.get_module(module_id)
         if module:
             module.config.enabled = enabled
+    
+    def set_module_enabled(self, module_id: str, enabled: bool = True):
+        """Set module enabled status (alias for enable_module)."""
+        self.enable_module(module_id, enabled)
     
     def set_module_order(self, module_id: str, order: int):
         """Set the display order for a module."""
@@ -201,7 +221,72 @@ class ModularReportGenerator:
         modules: List[BaseModule],
         report_title: Optional[str] = None
     ) -> str:
-        """Generate the complete HTML report content."""
+        """Generate the complete HTML report content using enhanced template."""
+        
+        # Try to load the enhanced template from multiple locations
+        template_paths = [
+            Path(__file__).parent / "templates" / "default_enhanced_html_template.html",
+            Path("templates/enhanced_report_template.html"),
+            Path(__file__).parent.parent.parent / "templates" / "enhanced_report_template.html"
+        ]
+        
+        template_content = None
+        for template_path in template_paths:
+            if template_path.exists():
+                with open(template_path, 'r', encoding='utf-8') as f:
+                    template_content = f.read()
+                break
+        
+        if template_content is None:
+            # Fallback to basic template if enhanced template not found
+            return self._generate_basic_report_content(topic, data, modules, report_title)
+        
+        # Prepare template data
+        template_data = self._prepare_template_data(topic, data, modules, report_title)
+        
+        # Replace template placeholders
+        html_content = template_content
+        
+        # Replace basic placeholders
+        html_content = html_content.replace("{{title}}", template_data["title"])
+        html_content = html_content.replace("{{timestamp}}", template_data["timestamp"])
+        html_content = html_content.replace("{{executive_summary}}", template_data["executive_summary"])
+        html_content = html_content.replace("{{estimated_cost}}", template_data["estimated_cost"])
+        
+        # Replace modules section with actual module content
+        modules_html = self._generate_modules_html(modules, data)
+        html_content = html_content.replace("{{#each modules}}", "")
+        html_content = html_content.replace("{{/each}}", "")
+        html_content = html_content.replace("{{#each modules}}", "")
+        html_content = html_content.replace("{{/each}}", "")
+        
+        # Insert modules content
+        html_content = html_content.replace("<!-- Module Sections -->", modules_html)
+        
+        # Replace module-specific placeholders
+        for module in modules:
+            module_id = module.module_id
+            html_content = html_content.replace(f"{{{{module_id}}}}", module_id)
+            tooltip_data = module.get_tooltip_data()
+            chart_data = module.get_chart_data()
+            
+            # Convert tooltip data to JSON string
+            tooltip_json = json.dumps(tooltip_data, default=str)
+            chart_json = json.dumps(chart_data, default=str)
+            
+            html_content = html_content.replace(f"{{{{tooltip_data}}}}", tooltip_json)
+            html_content = html_content.replace(f"{{{{chart_data}}}}", chart_json)
+        
+        return html_content
+    
+    def _generate_basic_report_content(
+        self,
+        topic: str,
+        data: Dict[str, Any],
+        modules: List[BaseModule],
+        report_title: Optional[str] = None
+    ) -> str:
+        """Generate basic HTML report content as fallback."""
         
         # Generate header
         header_html = self._generate_header(topic, report_title)
@@ -277,6 +362,42 @@ class ModularReportGenerator:
         """
         
         return html_content
+    
+    def _prepare_template_data(
+        self,
+        topic: str,
+        data: Dict[str, Any],
+        modules: List[BaseModule],
+        report_title: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """Prepare data for the enhanced HTML template."""
+        return {
+            "title": report_title or f"{topic}: Modular Enhanced Analysis",
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "executive_summary": data.get("executive_summary", f"Comprehensive analysis of {topic}"),
+            "estimated_cost": data.get("estimated_cost", "$2.5B"),
+            "modules": modules
+        }
+    
+    def _generate_modules_html(self, modules: List[BaseModule], data: Dict[str, Any]) -> str:
+        """Generate HTML content for all modules."""
+        modules_html = []
+        
+        for module in modules:
+            try:
+                # Validate module data
+                module.validate_data(data)
+                
+                # Generate module content
+                content = module.generate_content(data)
+                modules_html.append(content)
+                    
+            except Exception as e:
+                # Log error and continue with other modules
+                print(f"Error generating content for module {module.module_id}: {e}")
+                continue
+        
+        return ''.join(modules_html)
     
     def _generate_header(self, topic: str, report_title: Optional[str] = None) -> str:
         """Generate the report header."""

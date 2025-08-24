@@ -474,7 +474,7 @@ class ScenarioAnalysisModule(BaseModule):
             "scenario_overview": TooltipData(
                 title="Scenario Analysis Overview",
                 description="Comprehensive scenario analysis framework for strategic planning and decision making with probability assessments and impact analysis",
-                source="Source: Scenario Analysis Framework",
+                source="Sources: Scenario Analysis Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Strategic Impact: Critical for understanding potential outcomes and strategic planning",
                 recommendations="Recommendations: Develop contingency plans for each scenario, monitor scenario indicators, and prepare for multiple outcomes",
                 use_cases="Use Cases: Strategic planning, risk assessment, contingency planning, decision making, resource allocation"
@@ -482,7 +482,7 @@ class ScenarioAnalysisModule(BaseModule):
             "prediction_scenarios": TooltipData(
                 title="Prediction Scenarios",
                 description="Advanced prediction modeling with confidence levels and timeline analysis for strategic forecasting",
-                source="Source: Prediction Modeling Engine",
+                source="Sources: Prediction Modeling Engine, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Strategic Impact: Essential for forward-looking strategic planning and preparation",
                 recommendations="Recommendations: Monitor prediction indicators, adjust strategies based on confidence levels, and maintain flexibility in planning",
                 use_cases="Use Cases: Strategic forecasting, timeline planning, confidence assessment, strategic preparation"
@@ -490,7 +490,7 @@ class ScenarioAnalysisModule(BaseModule):
             "multi_scenario_analysis": TooltipData(
                 title="Multi-Scenario Analysis",
                 description="Comprehensive multi-scenario analysis with detailed metrics and assessment criteria for strategic evaluation",
-                source="Source: Multi-Scenario Analysis Platform",
+                source="Sources: Multi-Scenario Analysis Platform, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Strategic Impact: Fundamental for comprehensive strategic evaluation and decision making",
                 recommendations="Recommendations: Use multiple scenario analysis for robust planning, monitor analysis metrics, and validate strategic assumptions",
                 use_cases="Use Cases: Strategic evaluation, comprehensive planning, assumption validation, strategic assessment"
@@ -498,7 +498,7 @@ class ScenarioAnalysisModule(BaseModule):
             "risk_assessment": TooltipData(
                 title="Risk Assessment",
                 description="Comprehensive risk assessment with probability analysis and mitigation strategies for strategic risk management",
-                source="Source: Risk Assessment Framework",
+                source="Sources: Risk Assessment Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Strategic Impact: Critical for identifying and managing strategic risks and vulnerabilities",
                 recommendations="Recommendations: Implement risk mitigation strategies, monitor risk factors, and develop contingency plans",
                 use_cases="Use Cases: Risk management, contingency planning, strategic vulnerability assessment, mitigation planning"

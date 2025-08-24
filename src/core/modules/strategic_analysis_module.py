@@ -329,7 +329,7 @@ class StrategicAnalysisModule(BaseModule):
         self.add_tooltip("strategic_overview", TooltipData(
             title="Strategic Analysis Overview",
             description="Comprehensive strategic analysis providing deep insights into the situation's strategic implications, geopolitical impact, and long-term consequences.",
-            source="Source: Strategic Analysis Framework",
+            source="Sources: Strategic Analysis Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="Direct influence on strategic direction and decision-making processes.",
             recommendations="• Prioritize insights by strategic impact\n• Develop action plans based on analysis\n• Monitor key indicators for changes",
             use_cases="Strategic planning, policy development, risk assessment, resource allocation",
@@ -339,7 +339,7 @@ class StrategicAnalysisModule(BaseModule):
         self.add_tooltip("strategic_insights", TooltipData(
             title="Strategic Insights",
             description="Key strategic insights derived from comprehensive analysis of the situation, including immediate and long-term implications.",
-            source="Source: Strategic Intelligence Analysis",
+            source="Sources: Strategic Intelligence Analysis, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="Critical for understanding strategic implications and developing appropriate responses.",
             recommendations="• Focus on high-impact insights\n• Develop contingency plans\n• Establish monitoring mechanisms",
             use_cases="Strategic planning, intelligence analysis, policy formulation, risk management",
@@ -349,7 +349,7 @@ class StrategicAnalysisModule(BaseModule):
         self.add_tooltip("geopolitical_impact", TooltipData(
             title="Geopolitical Impact Analysis",
             description="Analysis of how the situation affects regional and global geopolitical dynamics, power relationships, and international relations.",
-            source="Source: Geopolitical Analysis Framework",
+            source="Sources: Geopolitical Analysis Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="Essential for understanding broader international implications and regional stability.",
             recommendations="• Monitor regional developments\n• Engage with key stakeholders\n• Develop diplomatic strategies",
             use_cases="Foreign policy, international relations, regional security, diplomatic planning",
@@ -359,7 +359,7 @@ class StrategicAnalysisModule(BaseModule):
         self.add_tooltip("strategic_implications", TooltipData(
             title="Strategic Implications",
             description="Long-term strategic implications and consequences of the current situation for various stakeholders and interests.",
-            source="Source: Strategic Implications Analysis",
+            source="Sources: Strategic Implications Analysis, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="Critical for long-term strategic planning and policy development.",
             recommendations="• Plan for multiple scenarios\n• Develop adaptive strategies\n• Monitor emerging trends",
             use_cases="Long-term planning, scenario development, policy formulation, strategic assessment",
@@ -369,7 +369,7 @@ class StrategicAnalysisModule(BaseModule):
         self.add_tooltip("strategic_analysis_chart", TooltipData(
             title="Strategic Analysis Chart",
             description="Visual representation of strategic analysis components including strategic depth, geopolitical impact, risk assessment, and implementation feasibility.",
-            source="Source: Strategic Analysis Visualization",
+            source="Sources: Strategic Analysis Visualization, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="Provides clear visual understanding of strategic factors and their relative importance.",
             recommendations="• Use for strategic briefings\n• Include in decision-making processes\n• Update regularly with new data",
             use_cases="Strategic briefings, decision support, analysis presentation, planning sessions",
@@ -379,7 +379,7 @@ class StrategicAnalysisModule(BaseModule):
         self.add_tooltip("strategic_insights_chart", TooltipData(
             title="Strategic Insights Chart",
             description="Chart showing strategic insights across different timeframes, highlighting immediate, short-term, medium-term, and long-term strategic impacts.",
-            source="Source: Strategic Insights Analysis",
+            source="Sources: Strategic Insights Analysis, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="Helps prioritize strategic actions based on timing and impact assessment.",
             recommendations="• Focus on high-impact immediate actions\n• Plan for medium-term developments\n• Monitor long-term trends",
             use_cases="Strategic planning, timeline development, priority setting, resource allocation",
@@ -391,7 +391,7 @@ class StrategicAnalysisModule(BaseModule):
             self.add_tooltip(f"component_{i}", TooltipData(
                 title=f"Strategic Component {i+1}",
                 description=f"Key strategic component {i+1} that contributes to the overall strategic analysis and understanding of the situation.",
-                source="Source: Strategic Analysis Components",
+                source="Sources: Strategic Analysis Components, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Important factor in strategic assessment and decision-making process.",
                 recommendations="• Consider in strategic planning\n• Monitor for changes\n• Include in analysis updates",
                 use_cases="Strategic analysis, planning, assessment, monitoring",
@@ -402,7 +402,7 @@ class StrategicAnalysisModule(BaseModule):
             self.add_tooltip(f"insight_{i}", TooltipData(
                 title=f"Strategic Insight {i+1}",
                 description=f"Strategic insight {i+1} derived from comprehensive analysis of the situation and its implications.",
-                source="Source: Strategic Intelligence Analysis",
+                source="Sources: Strategic Intelligence Analysis, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Provides valuable perspective for strategic decision-making and planning.",
                 recommendations="• Incorporate into strategic planning\n• Use for scenario development\n• Monitor related indicators",
                 use_cases="Strategic planning, intelligence analysis, decision support, scenario planning",
@@ -413,7 +413,7 @@ class StrategicAnalysisModule(BaseModule):
             self.add_tooltip(f"implication_{i}", TooltipData(
                 title=f"Strategic Implication {i+1}",
                 description=f"Strategic implication {i+1} that outlines the long-term consequences and strategic significance of the current situation.",
-                source="Source: Strategic Implications Analysis",
+                source="Sources: Strategic Implications Analysis, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Critical for understanding long-term strategic consequences and planning accordingly.",
                 recommendations="• Plan for long-term scenarios\n• Develop adaptive strategies\n• Monitor emerging trends",
                 use_cases="Long-term planning, strategic assessment, policy development, scenario planning",

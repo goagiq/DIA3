@@ -580,7 +580,7 @@ class OperationalConsiderationsModule(BaseModule):
             'factor_0': TooltipData(
                 title="Operational Factors Analysis",
                 description="Comprehensive analysis of key operational factors affecting mission success and readiness.",
-                source="Operational planning and readiness assessment data",
+                source="Sources: Operational planning and readiness assessment data, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="High - Direct impact on operational success and mission effectiveness",
                 recommendations=[
                     "Prioritize critical operational factors",
@@ -596,7 +596,7 @@ class OperationalConsiderationsModule(BaseModule):
             'phase_0': TooltipData(
                 title="Implementation Phase Analysis",
                 description="Detailed analysis of operational implementation phases and their requirements.",
-                source="Implementation planning and timeline analysis",
+                source="Sources: Implementation planning and timeline analysis, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Critical - Implementation phases determine operational success",
                 recommendations=[
                     "Ensure adequate resources for each phase",
@@ -612,7 +612,7 @@ class OperationalConsiderationsModule(BaseModule):
             'risk_0': TooltipData(
                 title="Operational Risk Assessment",
                 description="Comprehensive assessment of operational risks and their potential impact on mission success.",
-                source="Risk analysis and operational assessment",
+                source="Sources: Risk analysis and operational assessment, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="High - Risk assessment is critical for operational planning",
                 recommendations=[
                     "Develop comprehensive mitigation strategies",
@@ -628,7 +628,7 @@ class OperationalConsiderationsModule(BaseModule):
             'strategy_0': TooltipData(
                 title="Mitigation Strategy Analysis",
                 description="Analysis of mitigation strategies and their effectiveness in reducing operational risks.",
-                source="Risk mitigation planning and strategy development",
+                source="Sources: Risk mitigation planning and strategy development, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Medium-High - Mitigation strategies improve operational resilience",
                 recommendations=[
                     "Prioritize high-effectiveness strategies",

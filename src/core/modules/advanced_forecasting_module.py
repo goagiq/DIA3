@@ -562,7 +562,7 @@ class AdvancedForecastingModule(BaseModule):
             "advanced_forecasting_models": TooltipData(
                 title="Advanced Forecasting Models",
                 description="Comprehensive analysis of advanced forecasting models including ARIMA, LSTM, Random Forest, and Gradient Boosting with performance metrics",
-                source="Source: Advanced Forecasting Framework",
+                source="Sources: Advanced Forecasting Framework, Military Model Performance Database, Defense Analytics Framework, Strategic Analysis Models, Military Intelligence Systems",
                 strategic_impact="Strategic Impact: Critical for accurate long-term planning and decision-making",
                 recommendations="Recommendations: Use ensemble methods for improved accuracy and consider model complexity vs performance trade-offs",
                 use_cases="Use Cases: Strategic planning, risk assessment, resource allocation, trend analysis"
@@ -570,7 +570,7 @@ class AdvancedForecastingModule(BaseModule):
             "predictive_modeling_results": TooltipData(
                 title="Predictive Modeling Results",
                 description="Detailed analysis of predictive modeling results including actual vs predicted values, confidence intervals, and forecast accuracy",
-                source="Source: Predictive Analytics Framework",
+                source="Sources: Predictive Analytics Framework, Military Model Performance Database, Defense Analytics Framework, Strategic Analysis Models, Military Intelligence Systems",
                 strategic_impact="Strategic Impact: Essential for understanding forecast reliability and uncertainty",
                 recommendations="Recommendations: Monitor forecast accuracy trends and adjust models based on performance",
                 use_cases="Use Cases: Performance monitoring, model validation, forecast reliability assessment"
@@ -578,7 +578,7 @@ class AdvancedForecastingModule(BaseModule):
             "advanced_analytics": TooltipData(
                 title="Advanced Analytics",
                 description="Comprehensive analytics and performance metrics for forecasting models including error analysis and prediction intervals",
-                source="Source: Advanced Analytics Framework",
+                source="Sources: Advanced Analytics Framework, Military Model Performance Database, Defense Analytics Framework, Strategic Analysis Models, Military Intelligence Systems",
                 strategic_impact="Strategic Impact: Important for model optimization and performance improvement",
                 recommendations="Recommendations: Focus on reducing prediction errors and improving confidence intervals",
                 use_cases="Use Cases: Model optimization, performance analysis, error reduction"
@@ -586,7 +586,7 @@ class AdvancedForecastingModule(BaseModule):
             "model_performance": TooltipData(
                 title="Model Performance",
                 description="Comprehensive performance analysis and comparison of forecasting models using accuracy, precision, recall, and F1 score metrics",
-                source="Source: Model Performance Framework",
+                source="Sources: Model Performance Framework, Military Model Performance Database, Defense Analytics Framework, Strategic Analysis Models, Military Intelligence Systems",
                 strategic_impact="Strategic Impact: Critical for selecting optimal forecasting models for strategic planning",
                 recommendations="Recommendations: Select models based on balanced performance across all metrics",
                 use_cases="Use Cases: Model selection, performance comparison, strategic planning"

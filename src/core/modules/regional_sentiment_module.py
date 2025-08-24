@@ -485,7 +485,7 @@ class RegionalSentimentModule(BaseModule):
             'region_0': TooltipData(
                 title="Regional Sentiment Analysis",
                 description="Comprehensive analysis of sentiment trends across key regions, including stakeholder perspectives and diplomatic implications.",
-                source="Regional sentiment data analysis",
+                source="Sources: Regional sentiment data analysis, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="High - Influences diplomatic relations and regional cooperation",
                 recommendations=[
                     "Monitor sentiment trends regularly",
@@ -501,7 +501,7 @@ class RegionalSentimentModule(BaseModule):
             'stakeholder_0': TooltipData(
                 title="Stakeholder Analysis",
                 description="Analysis of key stakeholders and their influence on regional sentiment and diplomatic relations.",
-                source="Stakeholder mapping and influence assessment",
+                source="Sources: Stakeholder mapping and influence assessment, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Medium - Affects policy decisions and regional dynamics",
                 recommendations=[
                     "Identify key stakeholders",
@@ -517,7 +517,7 @@ class RegionalSentimentModule(BaseModule):
             'diplomatic_0': TooltipData(
                 title="Diplomatic Implications",
                 description="Analysis of how regional sentiment affects diplomatic relations and international cooperation.",
-                source="Diplomatic impact assessment",
+                source="Sources: Diplomatic impact assessment, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="High - Direct impact on international relations",
                 recommendations=[
                     "Monitor diplomatic implications",

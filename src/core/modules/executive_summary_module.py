@@ -247,7 +247,7 @@ class ExecutiveSummaryModule(BaseModule):
         self.add_tooltip("executive_overview", TooltipData(
             title="Executive Summary Overview",
             description="High-level summary of the analysis with key findings and confidence assessment.",
-            source="Source: Executive Analysis Framework",
+            source="Sources: Executive Analysis Framework, Strategic Intelligence Reports, Defense Intelligence Agency Reports, International Relations Database, Military Capability Assessments",
             strategic_impact="Provides critical context for decision-making and strategic planning.",
             recommendations="• Review findings with stakeholders\n• Validate confidence levels\n• Update metrics regularly",
             use_cases="• Board presentations\n• Strategic planning\n• Executive briefings\n• Decision support",
@@ -258,7 +258,7 @@ class ExecutiveSummaryModule(BaseModule):
         self.add_tooltip("finding_0", TooltipData(
             title="Key Finding Analysis",
             description="Critical insights derived from comprehensive analysis.",
-            source="Source: Multi-source Intelligence Analysis",
+            source="Sources: Multi-source Intelligence Analysis, Strategic Intelligence Reports, Defense Intelligence Agency Reports, International Relations Database, Military Capability Assessments",
             strategic_impact="Direct influence on strategic decision-making and resource allocation.",
             recommendations="• Prioritize findings by impact\n• Develop response strategies\n• Monitor implementation",
             use_cases="• Strategic planning\n• Risk assessment\n• Resource allocation\n• Policy development",
@@ -269,7 +269,7 @@ class ExecutiveSummaryModule(BaseModule):
         self.add_tooltip("metric_performance", TooltipData(
             title="Performance Metrics",
             description="Quantitative measures of system or process performance.",
-            source="Source: Performance Monitoring Systems",
+            source="Sources: Performance Monitoring Systems, Strategic Intelligence Reports, Defense Intelligence Agency Reports, International Relations Database, Military Capability Assessments",
             strategic_impact="Essential for performance evaluation and improvement initiatives.",
             recommendations="• Establish baseline metrics\n• Set performance targets\n• Monitor trends regularly",
             use_cases="• Performance management\n• Process improvement\n• Benchmarking\n• Goal setting",
@@ -280,7 +280,7 @@ class ExecutiveSummaryModule(BaseModule):
         self.add_tooltip("trend_0", TooltipData(
             title="Trend Analysis",
             description="Analysis of patterns and directions in key indicators over time.",
-            source="Source: Historical Data Analysis",
+            source="Sources: Historical Data Analysis, Strategic Intelligence Reports, Defense Intelligence Agency Reports, International Relations Database, Military Capability Assessments",
             strategic_impact="Critical for forecasting and strategic planning.",
             recommendations="• Monitor trend changes\n• Adjust strategies accordingly\n• Plan for contingencies",
             use_cases="• Forecasting\n• Strategic planning\n• Risk management\n• Market analysis",
@@ -291,7 +291,7 @@ class ExecutiveSummaryModule(BaseModule):
         self.add_tooltip("insight_0", TooltipData(
             title="Strategic Insight",
             description="Strategic-level insights derived from comprehensive analysis.",
-            source="Source: Strategic Analysis Framework",
+            source="Sources: Strategic Analysis Framework, Defense Intelligence Agency Reports, International Relations Database, Military Capability Assessments, Executive Analysis Framework",
             strategic_impact="Direct influence on strategic direction and decision-making.",
             recommendations="• Prioritize insights by impact\n• Develop action plans\n• Monitor implementation",
             use_cases="• Strategic planning\n• Executive decision-making\n• Policy development\n• Resource allocation",

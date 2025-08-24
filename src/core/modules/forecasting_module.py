@@ -513,7 +513,7 @@ class ForecastingModule(BaseModule):
             'metric_0': TooltipData(
                 title="Forecasting Metrics Analysis",
                 description="Comprehensive analysis of key forecasting metrics and their implications for strategic planning.",
-                source="Forecasting data and trend analysis",
+                source="Sources: Forecasting data and trend analysis, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="High - Direct impact on strategic decision-making and resource allocation",
                 recommendations=[
                     "Monitor key metrics continuously",
@@ -529,7 +529,7 @@ class ForecastingModule(BaseModule):
             'scenario_0': TooltipData(
                 title="Scenario Analysis Assessment",
                 description="Analysis of multiple future scenarios and their probability of occurrence.",
-                source="Scenario planning and probability modeling",
+                source="Sources: Scenario planning and probability modeling, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Critical - Scenario analysis drives strategic preparedness",
                 recommendations=[
                     "Develop contingency plans for each scenario",
@@ -545,7 +545,7 @@ class ForecastingModule(BaseModule):
             'trend_0': TooltipData(
                 title="Trend Analysis Assessment",
                 description="Analysis of historical trends and their implications for future developments.",
-                source="Historical data analysis and pattern recognition",
+                source="Sources: Historical data analysis and pattern recognition, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Medium-High - Trend analysis informs strategic direction",
                 recommendations=[
                     "Identify emerging trends early",
@@ -561,7 +561,7 @@ class ForecastingModule(BaseModule):
             'risk_0': TooltipData(
                 title="Risk Assessment Analysis",
                 description="Comprehensive assessment of risks and uncertainties affecting forecasts.",
-                source="Risk analysis and uncertainty quantification",
+                source="Sources: Risk analysis and uncertainty quantification, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="High - Risk assessment is critical for robust planning",
                 recommendations=[
                     "Develop comprehensive mitigation strategies",

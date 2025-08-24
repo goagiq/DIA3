@@ -636,7 +636,7 @@ class ComparisonAnalysisModule(BaseModule):
             "strategic_options_comparison": TooltipData(
                 title="Strategic Options Comparison",
                 description="Comprehensive comparison of strategic options across cost, timeline, risk, benefit, and feasibility dimensions",
-                source="Source: Strategic Analysis Framework",
+                source="Sources: Strategic Analysis Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Strategic Impact: Critical for informed decision-making and resource allocation",
                 recommendations="Recommendations: Use radar chart analysis to identify optimal option balance",
                 use_cases="Use Cases: Strategic planning, option evaluation, decision support"
@@ -644,7 +644,7 @@ class ComparisonAnalysisModule(BaseModule):
             "strategic_options_assessment": TooltipData(
                 title="Strategic Options Assessment",
                 description="Detailed assessment of strategic options against key criteria including strategic alignment, cost effectiveness, and risk management",
-                source="Source: Multi-Criteria Decision Analysis",
+                source="Sources: Multi-Criteria Decision Analysis, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Strategic Impact: Essential for systematic option evaluation and prioritization",
                 recommendations="Recommendations: Weight criteria based on strategic priorities and organizational goals",
                 use_cases="Use Cases: Option prioritization, criteria-based evaluation, strategic alignment"
@@ -652,7 +652,7 @@ class ComparisonAnalysisModule(BaseModule):
             "comparative_analysis": TooltipData(
                 title="Comparative Analysis",
                 description="Detailed comparative analysis of strategic options across multiple metrics and performance indicators",
-                source="Source: Comparative Analysis Framework",
+                source="Sources: Comparative Analysis Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Strategic Impact: Important for understanding option trade-offs and relative performance",
                 recommendations="Recommendations: Consider normalized scores for fair comparison across different metrics",
                 use_cases="Use Cases: Performance comparison, trade-off analysis, metric evaluation"
@@ -660,7 +660,7 @@ class ComparisonAnalysisModule(BaseModule):
             "option_evaluation": TooltipData(
                 title="Option Evaluation",
                 description="Comprehensive evaluation of strategic options with strengths, weaknesses, and recommendations",
-                source="Source: Strategic Evaluation Framework",
+                source="Sources: Strategic Evaluation Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Strategic Impact: Critical for final option selection and implementation planning",
                 recommendations="Recommendations: Consider overall scores alongside specific strengths and weaknesses",
                 use_cases="Use Cases: Final option selection, implementation planning, strategic guidance"

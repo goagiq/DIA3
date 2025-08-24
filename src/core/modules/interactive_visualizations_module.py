@@ -505,7 +505,7 @@ class InteractiveVisualizationsModule(BaseModule):
         self.add_tooltip("visualization_overview", TooltipData(
             title="Visualization Overview",
             description="Comprehensive analysis of interactive visualization capabilities and strategic data presentation.",
-            source="Interactive Visualization Framework",
+            source="Sources: Interactive Visualization Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="High - Critical for data-driven decision making and strategic communication",
             recommendations="• Use appropriate chart types for data\n• Ensure interactive capabilities\n• Maintain visual clarity\n• Provide context and explanations",
             use_cases="Used in strategic reporting, data analysis, and decision support",
@@ -515,7 +515,7 @@ class InteractiveVisualizationsModule(BaseModule):
         self.add_tooltip("strategic_trends", TooltipData(
             title="Strategic Trends",
             description="Analysis of key trends and patterns in strategic data with interactive visualization capabilities.",
-            source="Strategic Trends Analysis Framework",
+            source="Sources: Strategic Trends Analysis Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="High - Essential for trend identification and strategic planning",
             recommendations="• Monitor trend indicators regularly\n• Analyze trend patterns\n• Track trend evolution\n• Plan trend responses",
             use_cases="Used in strategic planning and trend analysis",
@@ -525,7 +525,7 @@ class InteractiveVisualizationsModule(BaseModule):
         self.add_tooltip("data_metrics", TooltipData(
             title="Data Metrics",
             description="Comprehensive analysis of performance indicators and statistical metrics with interactive visualization.",
-            source="Data Metrics Analysis Framework",
+            source="Sources: Data Metrics Analysis Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="High - Critical for performance measurement and data quality assessment",
             recommendations="• Track key performance indicators\n• Monitor data quality metrics\n• Analyze statistical trends\n• Plan metric improvements",
             use_cases="Used in performance measurement and data analysis",
@@ -535,7 +535,7 @@ class InteractiveVisualizationsModule(BaseModule):
         self.add_tooltip("interactive_charts", TooltipData(
             title="Interactive Charts",
             description="Advanced interactive chart configurations and capabilities for enhanced data visualization.",
-            source="Interactive Chart Framework",
+            source="Sources: Interactive Chart Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="High - Essential for effective data communication and user engagement",
             recommendations="• Configure appropriate chart types\n• Enable interactive features\n• Ensure responsive design\n• Provide user guidance",
             use_cases="Used in data visualization and user interface design",

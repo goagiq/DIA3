@@ -25,86 +25,86 @@ class IntegratedAdaptiveModularReportGenerator:
     def __init__(self):
         self.data_adapter = AdaptiveDataAdapter()
         
-        # Define all available modules with categories
+        # Define all available modules with categories (using actual module IDs)
         self.all_modules = {
-            'executive_summary': {
+            'executivesummarymodule': {
                 'category': 'strategic', 'priority': 1, 'title': 'Executive Summary'
             },
-            'geopolitical_impact': {
+            'geopoliticalimpactmodule': {
                 'category': 'impact', 'priority': 2, 'title': 'Geopolitical Impact'
             },
-            'trade_impact': {
+            'tradeimpactmodule': {
                 'category': 'impact', 'priority': 3, 'title': 'Trade Impact'
             },
-            'balance_of_power': {
+            'balanceofpowermodule': {
                 'category': 'assessment', 'priority': 4, 'title': 'Balance of Power'
             },
-            'risk_assessment': {
+            'riskassessmentmodule': {
                 'category': 'assessment', 'priority': 5, 'title': 'Risk Assessment'
             },
-            'regional_sentiment': {
+            'regionalsentimentmodule': {
                 'category': 'visualization', 'priority': 6, 'title': 'Regional Sentiment'
             },
-            'implementation_timeline': {
+            'implementationtimelinemodule': {
                 'category': 'operational', 'priority': 7, 'title': 'Implementation Timeline'
             },
-            'acquisition_programs': {
+            'acquisitionprogramsmodule': {
                 'category': 'operational', 'priority': 8, 'title': 'Acquisition Programs'
             },
-            'forecasting': {
+            'forecastingmodule': {
                 'category': 'analytical', 'priority': 9, 'title': 'Forecasting'
             },
-            'operational_considerations': {
+            'operationalconsiderationsmodule': {
                 'category': 'operational', 'priority': 10, 
                 'title': 'Operational Considerations'
             },
-            'regional_security': {
+            'regionalsecuritymodule': {
                 'category': 'impact', 'priority': 11, 'title': 'Regional Security'
             },
-            'economic_analysis': {
+            'economicanalysismodule': {
                 'category': 'impact', 'priority': 12, 'title': 'Economic Analysis'
             },
-            'comparison_analysis': {
+            'comparisonanalysismodule': {
                 'category': 'assessment', 'priority': 13, 'title': 'Comparison Analysis'
             },
-            'advanced_forecasting': {
+            'advancedforecastingmodule': {
                 'category': 'analytical', 'priority': 14, 'title': 'Advanced Forecasting'
             },
-            'model_performance': {
+            'modelperformancemodule': {
                 'category': 'assessment', 'priority': 15, 'title': 'Model Performance'
             },
-            'strategic_capability': {
+            'strategiccapabilitymodule': {
                 'category': 'strategic', 'priority': 16, 'title': 'Strategic Capability'
             },
-            'predictive_analytics': {
+            'predictiveanalyticsmodule': {
                 'category': 'analytical', 'priority': 17, 'title': 'Predictive Analytics'
             },
-            'scenario_analysis': {
+            'scenarioanalysismodule': {
                 'category': 'analytical', 'priority': 18, 'title': 'Scenario Analysis'
             },
-            'strategic_recommendations': {
+            'strategicrecommendationsmodule': {
                 'category': 'strategic', 'priority': 19, 'title': 'Strategic Recommendations'
             },
-            'strategic_analysis': {
+            'strategicanalysismodule': {
                 'category': 'strategic', 'priority': 20, 'title': 'Strategic Analysis'
             },
-            'enhanced_data_analysis': {
+            'enhanceddataanalysismodule': {
                 'category': 'analytical', 'priority': 21, 'title': 'Enhanced Data Analysis'
             },
-            'interactive_visualizations': {
+            'interactivevisualizationsmodule': {
                 'category': 'visualization', 'priority': 22, 
                 'title': 'Interactive Visualizations'
             }
         }
         
-        # Define module categories
+        # Define module categories with actual module IDs
         self.module_categories = {
-            'strategic': ['executive_summary', 'strategic_recommendations', 'strategic_analysis', 'strategic_capability'],
-            'operational': ['operational_considerations', 'implementation_timeline', 'acquisition_programs'],
-            'analytical': ['enhanced_data_analysis', 'predictive_analytics', 'scenario_analysis', 'forecasting', 'advanced_forecasting'],
-            'impact': ['geopolitical_impact', 'trade_impact', 'economic_analysis', 'regional_security'],
-            'assessment': ['risk_assessment', 'balance_of_power', 'comparison_analysis', 'model_performance'],
-            'visualization': ['interactive_visualizations', 'regional_sentiment']
+            'strategic': ['executivesummarymodule', 'strategicrecommendationsmodule', 'strategicanalysismodule', 'strategiccapabilitymodule'],
+            'operational': ['operationalconsiderationsmodule', 'implementationtimelinemodule', 'acquisitionprogramsmodule'],
+            'analytical': ['enhanceddataanalysismodule', 'predictiveanalyticsmodule', 'scenarioanalysismodule', 'forecastingmodule', 'advancedforecastingmodule'],
+            'impact': ['geopoliticalimpactmodule', 'tradeimpactmodule', 'economicanalysismodule', 'regionalsecuritymodule'],
+            'assessment': ['riskassessmentmodule', 'balanceofpowermodule', 'comparisonanalysismodule', 'modelperformancemodule'],
+            'visualization': ['interactivevisualizationsmodule', 'regionalsentimentmodule']
         }
     
     async def generate_adaptive_report(
@@ -151,6 +151,7 @@ class IntegratedAdaptiveModularReportGenerator:
             result = await modular_report_generator.generate_modular_report(
                 topic=user_query,
                 data=module_specific_data,
+                enabled_modules=selected_modules,
                 report_title=f"Adaptive Analysis: {user_query}",
                 custom_config=module_config
             )
@@ -276,10 +277,13 @@ class IntegratedAdaptiveModularReportGenerator:
     def _validate_and_adapt_module_data(self, universal_data: Dict[str, Any], selected_modules: List[str]) -> Dict[str, Any]:
         """
         Validate and adapt data structure early to ensure backend compatibility.
-        This method catches data structure issues early and dynamically adapts
-        the data to match what each module expects.
+        This method ensures the data structure matches what each module expects.
         """
         print("🔍 Starting early data structure validation and adaptation...")
+        
+        # The modules are designed to receive the full universal_data and extract their specific section
+        # So we just need to ensure the universal_data contains the required keys for each module
+        validated_data = universal_data.copy()
         
         # Import module classes to get their required data keys
         try:
@@ -306,37 +310,35 @@ class IntegratedAdaptiveModularReportGenerator:
             from .modules.enhanced_data_analysis_module import EnhancedDataAnalysisModule
             from .modules.interactive_visualizations_module import InteractiveVisualizationsModule
             
-            # Module class mapping
+            # Module class mapping (using actual module IDs)
             module_classes = {
-                'executive_summary': ExecutiveSummaryModule,
-                'geopolitical_impact': GeopoliticalImpactModule,
-                'trade_impact': TradeImpactModule,
-                'balance_of_power': BalanceOfPowerModule,
-                'risk_assessment': RiskAssessmentModule,
-                'regional_sentiment': RegionalSentimentModule,
-                'implementation_timeline': ImplementationTimelineModule,
-                'acquisition_programs': AcquisitionProgramsModule,
-                'forecasting': ForecastingModule,
-                'operational_considerations': OperationalConsiderationsModule,
-                'regional_security': RegionalSecurityModule,
-                'economic_analysis': EconomicAnalysisModule,
-                'comparison_analysis': ComparisonAnalysisModule,
-                'advanced_forecasting': AdvancedForecastingModule,
-                'model_performance': ModelPerformanceModule,
-                'strategic_capability': StrategicCapabilityModule,
-                'predictive_analytics': PredictiveAnalyticsModule,
-                'scenario_analysis': ScenarioAnalysisModule,
-                'strategic_recommendations': StrategicRecommendationsModule,
-                'strategic_analysis': StrategicAnalysisModule,
-                'enhanced_data_analysis': EnhancedDataAnalysisModule,
-                'interactive_visualizations': InteractiveVisualizationsModule
+                'executivesummarymodule': ExecutiveSummaryModule,
+                'geopoliticalimpactmodule': GeopoliticalImpactModule,
+                'tradeimpactmodule': TradeImpactModule,
+                'balanceofpowermodule': BalanceOfPowerModule,
+                'riskassessmentmodule': RiskAssessmentModule,
+                'regionalsentimentmodule': RegionalSentimentModule,
+                'implementationtimelinemodule': ImplementationTimelineModule,
+                'acquisitionprogramsmodule': AcquisitionProgramsModule,
+                'forecastingmodule': ForecastingModule,
+                'operationalconsiderationsmodule': OperationalConsiderationsModule,
+                'regionalsecuritymodule': RegionalSecurityModule,
+                'economicanalysismodule': EconomicAnalysisModule,
+                'comparisonanalysismodule': ComparisonAnalysisModule,
+                'advancedforecastingmodule': AdvancedForecastingModule,
+                'modelperformancemodule': ModelPerformanceModule,
+                'strategiccapabilitymodule': StrategicCapabilityModule,
+                'predictiveanalyticsmodule': PredictiveAnalyticsModule,
+                'scenarioanalysismodule': ScenarioAnalysisModule,
+                'strategicrecommendationsmodule': StrategicRecommendationsModule,
+                'strategicanalysismodule': StrategicAnalysisModule,
+                'enhanceddataanalysismodule': EnhancedDataAnalysisModule,
+                'interactivevisualizationsmodule': InteractiveVisualizationsModule
             }
         except ImportError as e:
             print(f"⚠️ Warning: Could not import module classes: {e}")
             # Fallback to the old method
             return self._extract_module_data_fallback(universal_data, selected_modules)
-        
-        validated_data = {}
         
         for module_name in selected_modules:
             print(f"🔍 Validating data structure for module: {module_name}")
@@ -356,22 +358,16 @@ class IntegratedAdaptiveModularReportGenerator:
                 print(f"⚠️ Warning: Could not get required keys for {module_name}: {e}")
                 required_keys = []
             
-            # Extract module-specific data from universal data
-            module_specific_data = universal_data.get(module_name, {})
+            # Ensure the required keys exist in the universal data
+            for key in required_keys:
+                if key not in validated_data:
+                    print(f"⚠️ Missing required key: {key}, adding default data")
+                    validated_data[key] = self._get_default_value(key, module_name)
+                elif not isinstance(validated_data[key], dict):
+                    print(f"⚠️ Invalid data type for {key}, converting to dict")
+                    validated_data[key] = self._get_default_value(key, module_name)
             
-            if not isinstance(module_specific_data, dict):
-                print(f"⚠️ Warning: Module {module_name} data is not a dictionary, converting...")
-                module_specific_data = {}
-            
-            # Validate and adapt the data structure
-            adapted_data = self._adapt_data_for_module(
-                module_name, module_specific_data, required_keys, universal_data
-            )
-            
-            # Add the adapted data to the validated data
-            validated_data.update(adapted_data)
-            
-            print(f"✅ Module {module_name} data validated and adapted")
+            print(f"✅ Module {module_name} data validated")
         
         print(f"🎯 Total validated data keys: {len(validated_data)}")
         return validated_data

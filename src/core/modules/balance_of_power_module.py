@@ -613,7 +613,7 @@ class BalanceOfPowerModule(BaseModule):
         self.add_tooltip("balance_overview", TooltipData(
             title="Balance Overview",
             description="Comprehensive analysis of the current balance of power and its strategic implications.",
-            source="Strategic Balance Analysis Framework",
+            source="Sources: Strategic Balance Analysis Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="High - Critical for strategic planning and policy development",
             recommendations="• Monitor power shifts regularly\n• Assess capability developments\n• Track strategic trends\n• Plan for balance changes",
             use_cases="Used in strategic planning, policy development, and threat assessment",
@@ -623,7 +623,7 @@ class BalanceOfPowerModule(BaseModule):
         self.add_tooltip("naval_capabilities", TooltipData(
             title="Naval Capabilities",
             description="Detailed comparison of naval forces, capabilities, and readiness across key actors.",
-            source="Naval Analysis Framework",
+            source="Sources: Naval Analysis Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="High - Essential for maritime strategy and naval planning",
             recommendations="• Assess naval modernization programs\n• Monitor capability developments\n• Track readiness levels\n• Plan naval responses",
             use_cases="Used in naval strategy and maritime security planning",
@@ -633,7 +633,7 @@ class BalanceOfPowerModule(BaseModule):
         self.add_tooltip("strategic_deterrence", TooltipData(
             title="Strategic Deterrence",
             description="Analysis of nuclear and conventional deterrence capabilities and effectiveness.",
-            source="Deterrence Analysis Framework",
+            source="Sources: Deterrence Analysis Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="High - Critical for strategic stability and deterrence policy",
             recommendations="• Assess deterrence effectiveness\n• Monitor capability developments\n• Track strategic trends\n• Plan deterrence strategies",
             use_cases="Used in strategic policy and deterrence planning",
@@ -643,7 +643,7 @@ class BalanceOfPowerModule(BaseModule):
         self.add_tooltip("power_comparison", TooltipData(
             title="Power Comparison",
             description="Comprehensive comparison of military, economic, and technological power across actors.",
-            source="Power Analysis Framework",
+            source="Sources: Power Analysis Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="High - Essential for strategic assessment and planning",
             recommendations="• Monitor power shifts\n• Assess capability developments\n• Track strategic trends\n• Plan strategic responses",
             use_cases="Used in strategic assessment and policy planning",

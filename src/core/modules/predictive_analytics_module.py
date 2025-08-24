@@ -473,7 +473,7 @@ class PredictiveAnalyticsModule(BaseModule):
             "feature_importance": TooltipData(
                 title="Feature Importance Analysis",
                 description="Machine learning models identify critical success factors and their relative importance in predicting outcomes with confidence scores and impact assessments",
-                source="Source: Feature Importance Analytics",
+                source="Sources: Feature Importance Analytics, Military Model Performance Database, Defense Analytics Framework, Strategic Analysis Models, Military Intelligence Systems",
                 strategic_impact="Strategic Impact: Critical for understanding key strategic drivers and factors that influence success",
                 recommendations="Recommendations: Focus on high-importance features, monitor critical factors, and develop mitigation strategies for low-importance areas",
                 use_cases="Use Cases: Strategic planning, resource allocation, risk assessment, performance optimization, decision making"
@@ -481,7 +481,7 @@ class PredictiveAnalyticsModule(BaseModule):
             "predictive_insights": TooltipData(
                 title="Predictive Analytics Insights",
                 description="Key insights derived from advanced machine learning models and predictive analytics with confidence levels and strategic recommendations",
-                source="Source: Predictive Insights Platform",
+                source="Sources: Predictive Insights Platform, Military Model Performance Database, Defense Analytics Framework, Strategic Analysis Models, Military Intelligence Systems",
                 strategic_impact="Strategic Impact: Provides actionable strategic insights for data-driven decision making",
                 recommendations="Recommendations: Implement insights-based strategies, monitor confidence levels, and adjust approaches based on predictive analytics",
                 use_cases="Use Cases: Strategic planning, risk management, performance optimization, competitive analysis, scenario planning"
@@ -489,7 +489,7 @@ class PredictiveAnalyticsModule(BaseModule):
             "analytics_results": TooltipData(
                 title="Analytics Results",
                 description="Comprehensive analytics results and performance metrics from predictive models including accuracy, confidence, and validation scores",
-                source="Source: Analytics Results Platform",
+                source="Sources: Analytics Results Platform, Military Model Performance Database, Defense Analytics Framework, Strategic Analysis Models, Military Intelligence Systems",
                 strategic_impact="Strategic Impact: Essential for ensuring reliable strategic insights and data-driven decision making",
                 recommendations="Recommendations: Monitor model performance, validate results regularly, and maintain high accuracy standards",
                 use_cases="Use Cases: Performance monitoring, model validation, quality assurance, strategic assessment, decision support"
@@ -497,7 +497,7 @@ class PredictiveAnalyticsModule(BaseModule):
             "predictive_modeling": TooltipData(
                 title="Predictive Modeling",
                 description="Advanced predictive modeling scenarios and their probability distributions with capability levels and risk assessments",
-                source="Source: Predictive Modeling Engine",
+                source="Sources: Predictive Modeling Engine, Military Model Performance Database, Defense Analytics Framework, Strategic Analysis Models, Military Intelligence Systems",
                 strategic_impact="Strategic Impact: Enables data-driven strategic insights and forward-looking decision making",
                 recommendations="Recommendations: Develop scenario-based strategies, prepare for multiple outcomes, and maintain flexibility in planning",
                 use_cases="Use Cases: Scenario planning, risk assessment, strategic planning, contingency planning, decision making"

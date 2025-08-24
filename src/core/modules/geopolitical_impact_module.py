@@ -512,7 +512,7 @@ class GeopoliticalImpactModule(BaseModule):
         self.add_tooltip("geopolitical_overview", TooltipData(
             title="Geopolitical Overview",
             description="Comprehensive analysis of the geopolitical landscape and its implications for the subject matter.",
-            source="Strategic Intelligence Analysis",
+            source="Sources: Strategic Intelligence Analysis, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="High - Provides foundation for all geopolitical assessments",
             recommendations="• Monitor geopolitical developments regularly\n• Assess impact on strategic objectives\n• Update analysis based on new developments",
             use_cases="Used in strategic planning and policy development",
@@ -522,7 +522,7 @@ class GeopoliticalImpactModule(BaseModule):
         self.add_tooltip("intelligence_summary", TooltipData(
             title="Intelligence Summary",
             description="Summary of key intelligence insights related to geopolitical dynamics.",
-            source="Intelligence Analysis",
+            source="Sources: Intelligence Analysis, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="Medium - Supports decision-making processes",
             recommendations="• Validate intelligence sources\n• Cross-reference with multiple sources\n• Update assessments regularly",
             use_cases="Used in intelligence briefings and strategic assessments",
@@ -532,7 +532,7 @@ class GeopoliticalImpactModule(BaseModule):
         self.add_tooltip("confidence_metrics", TooltipData(
             title="Confidence Metrics",
             description="Quantified confidence levels for geopolitical assessments and predictions.",
-            source="Analytical Assessment",
+            source="Sources: Analytical Assessment, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="Medium - Indicates reliability of analysis",
             recommendations="• Establish confidence thresholds\n• Track confidence trends\n• Reassess confidence regularly",
             use_cases="Used in risk assessment and decision-making",
@@ -542,7 +542,7 @@ class GeopoliticalImpactModule(BaseModule):
         self.add_tooltip("high_impact_insights", TooltipData(
             title="High Impact Insights",
             description="Geopolitical insights with significant strategic implications.",
-            source="Strategic Analysis",
+            source="Sources: Strategic Analysis, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
             strategic_impact="High - Critical for strategic planning",
             recommendations="• Prioritize high-impact insights\n• Develop response strategies\n• Monitor impact evolution",
             use_cases="Used in policy development and strategic planning",

@@ -24,6 +24,22 @@ except ImportError as e:
     print(f"Integrated adaptive modular report generator not available: {e}")
     ADAPTIVE_MODULAR_REPORT_AVAILABLE = False
 
+# Import adaptive data adapter
+try:
+    from src.core.adaptive_data_adapter import adaptive_data_adapter
+    ADAPTIVE_DATA_ADAPTER_AVAILABLE = True
+except ImportError as e:
+    print(f"Adaptive data adapter not available: {e}")
+    ADAPTIVE_DATA_ADAPTER_AVAILABLE = False
+
+# Import modular report modules configuration
+try:
+    from src.config.modular_report_modules_config import modular_report_modules_config
+    MODULAR_CONFIG_AVAILABLE = True
+except ImportError as e:
+    print(f"Modular report modules configuration not available: {e}")
+    MODULAR_CONFIG_AVAILABLE = False
+
 
 class ModularReportMCPTools:
     """MCP tools for modular report generation with adaptive capabilities."""
@@ -32,6 +48,8 @@ class ModularReportMCPTools:
         """Initialize the modular report MCP tools."""
         self.generator = modular_report_generator if MODULAR_REPORT_AVAILABLE else None
         self.adaptive_generator = integrated_adaptive_modular_report_generator if ADAPTIVE_MODULAR_REPORT_AVAILABLE else None
+        self.data_adapter = adaptive_data_adapter if ADAPTIVE_DATA_ADAPTER_AVAILABLE else None
+        self.config = modular_report_modules_config if MODULAR_CONFIG_AVAILABLE else None
     
     def get_tools(self) -> List[Dict[str, Any]]:
         """Get list of available MCP tools."""
@@ -157,6 +175,90 @@ class ModularReportMCPTools:
                 }
             ])
         
+        # Adaptive data handling tools
+        if ADAPTIVE_DATA_ADAPTER_AVAILABLE:
+            tools.extend([
+                {
+                    "name": "adapt_data_for_module",
+                    "description": "Adapt data for specific module with contextual intelligence",
+                    "inputSchema": {
+                        "type": "object",
+                        "properties": {
+                            "data": {
+                                "type": "object",
+                                "description": "Input data (string or dict)"
+                            },
+                            "module_id": {
+                                "type": "string",
+                                "description": "Target module ID"
+                            }
+                        },
+                        "required": ["data", "module_id"]
+                    }
+                },
+                {
+                    "name": "detect_data_structure",
+                    "description": "Detect data structure type and context domain",
+                    "inputSchema": {
+                        "type": "object",
+                        "properties": {
+                            "data": {
+                                "type": "object",
+                                "description": "Input data to analyze"
+                            }
+                        },
+                        "required": ["data"]
+                    }
+                }
+            ])
+        
+        # Configuration management tools
+        if MODULAR_CONFIG_AVAILABLE:
+            tools.extend([
+                {
+                    "name": "get_modules_by_context",
+                    "description": "Get modules that support a specific context domain",
+                    "inputSchema": {
+                        "type": "object",
+                        "properties": {
+                            "context": {
+                                "type": "string",
+                                "description": "Context domain (healthcare, technology, finance, geopolitical, military, economic, cybersecurity, general)"
+                            }
+                        },
+                        "required": ["context"]
+                    }
+                },
+                {
+                    "name": "get_modules_by_data_structure",
+                    "description": "Get modules that support a specific data structure",
+                    "inputSchema": {
+                        "type": "object",
+                        "properties": {
+                            "data_structure": {
+                                "type": "string",
+                                "description": "Data structure type (string, dict, mixed)"
+                            }
+                        },
+                        "required": ["data_structure"]
+                    }
+                },
+                {
+                    "name": "save_modular_config",
+                    "description": "Save modular report configuration to file",
+                    "inputSchema": {
+                        "type": "object",
+                        "properties": {
+                            "file_path": {
+                                "type": "string",
+                                "description": "Path to save configuration file"
+                            }
+                        },
+                        "required": ["file_path"]
+                    }
+                }
+            ])
+        
         return tools
     
     async def call_tool(self, name: str, arguments: Dict[str, Any]) -> CallToolResult:
@@ -173,6 +275,16 @@ class ModularReportMCPTools:
                 return await self._configure_modular_report_module(arguments)
             elif name == "enable_modular_report_modules":
                 return await self._enable_modular_report_modules(arguments)
+            elif name == "adapt_data_for_module":
+                return await self._adapt_data_for_module(arguments)
+            elif name == "detect_data_structure":
+                return await self._detect_data_structure(arguments)
+            elif name == "get_modules_by_context":
+                return await self._get_modules_by_context(arguments)
+            elif name == "get_modules_by_data_structure":
+                return await self._get_modules_by_data_structure(arguments)
+            elif name == "save_modular_config":
+                return await self._save_modular_config(arguments)
             else:
                 return CallToolResult(
                     content=[{
@@ -408,6 +520,213 @@ class ModularReportMCPTools:
                 content=[{
                     "type": "text",
                     "text": f"❌ Error enabling/disabling modules: {str(e)}"
+                }]
+            )
+    
+    async def _adapt_data_for_module(self, arguments: Dict[str, Any]) -> CallToolResult:
+        """Adapt data for specific module with contextual intelligence."""
+        if not ADAPTIVE_DATA_ADAPTER_AVAILABLE:
+            return CallToolResult(
+                content=[{
+                    "type": "text",
+                    "text": "Adaptive data adapter not available"
+                }]
+            )
+        
+        data = arguments.get("data", {})
+        module_id = arguments.get("module_id", "")
+        
+        if not data or not module_id:
+            return CallToolResult(
+                content=[{
+                    "type": "text",
+                    "text": "Data and module_id are required for data adaptation"
+                }]
+            )
+        
+        try:
+            adapted_data = self.data_adapter.adapt_for_module(data, module_id)
+            
+            if "error" in adapted_data:
+                return CallToolResult(
+                    content=[{
+                        "type": "text",
+                        "text": f"❌ Error adapting data: {adapted_data['error']}"
+                    }]
+                )
+            
+            return CallToolResult(
+                content=[{
+                    "type": "text",
+                    "text": f"✅ Successfully adapted data for module: {module_id}\n"
+                           f"📊 Structure type: {adapted_data.get('structure_type', 'unknown')}\n"
+                           f"🎯 Context domain: {adapted_data.get('context_domain', 'unknown')}\n"
+                           f"📈 Confidence: {adapted_data.get('confidence', 0.0):.2f}"
+                }]
+            )
+        except Exception as e:
+            return CallToolResult(
+                content=[{
+                    "type": "text",
+                    "text": f"❌ Error adapting data: {str(e)}"
+                }]
+            )
+    
+    async def _detect_data_structure(self, arguments: Dict[str, Any]) -> CallToolResult:
+        """Detect data structure type and context domain."""
+        if not ADAPTIVE_DATA_ADAPTER_AVAILABLE:
+            return CallToolResult(
+                content=[{
+                    "type": "text",
+                    "text": "Adaptive data adapter not available"
+                }]
+            )
+        
+        data = arguments.get("data", {})
+        
+        if not data:
+            return CallToolResult(
+                content=[{
+                    "type": "text",
+                    "text": "Data is required for structure detection"
+                }]
+            )
+        
+        try:
+            structure_info = self.data_adapter.detect_data_structure(data)
+            
+            return CallToolResult(
+                content=[{
+                    "type": "text",
+                    "text": f"🔍 Data Structure Analysis:\n"
+                           f"📊 Structure type: {structure_info.structure_type.value}\n"
+                           f"🎯 Context domain: {structure_info.context_domain.value}\n"
+                           f"📈 Confidence: {structure_info.confidence:.2f}\n"
+                           f"🔑 Detected keys: {structure_info.detected_keys or 'N/A'}"
+                }]
+            )
+        except Exception as e:
+            return CallToolResult(
+                content=[{
+                    "type": "text",
+                    "text": f"❌ Error detecting data structure: {str(e)}"
+                }]
+            )
+    
+    async def _get_modules_by_context(self, arguments: Dict[str, Any]) -> CallToolResult:
+        """Get modules that support a specific context domain."""
+        if not MODULAR_CONFIG_AVAILABLE:
+            return CallToolResult(
+                content=[{
+                    "type": "text",
+                    "text": "Modular report modules configuration not available"
+                }]
+            )
+        
+        context = arguments.get("context", "").upper()
+        
+        if not context:
+            return CallToolResult(
+                content=[{
+                    "type": "text",
+                    "text": "Context is required for module filtering"
+                }]
+            )
+        
+        try:
+            from src.config.modular_report_modules_config import ContextDomain
+            
+            context_domain = getattr(ContextDomain, context, ContextDomain.GENERAL)
+            modules = self.config.get_modules_by_context(context_domain)
+            
+            return CallToolResult(
+                content=[{
+                    "type": "text",
+                    "text": f"📋 Modules for {context} context ({len(modules)}):\n" + "\n".join([f"• {module}" for module in modules])
+                }]
+            )
+        except Exception as e:
+            return CallToolResult(
+                content=[{
+                    "type": "text",
+                    "text": f"❌ Error getting modules by context: {str(e)}"
+                }]
+            )
+    
+    async def _get_modules_by_data_structure(self, arguments: Dict[str, Any]) -> CallToolResult:
+        """Get modules that support a specific data structure."""
+        if not MODULAR_CONFIG_AVAILABLE:
+            return CallToolResult(
+                content=[{
+                    "type": "text",
+                    "text": "Modular report modules configuration not available"
+                }]
+            )
+        
+        data_structure = arguments.get("data_structure", "").upper()
+        
+        if not data_structure:
+            return CallToolResult(
+                content=[{
+                    "type": "text",
+                    "text": "Data structure is required for module filtering"
+                }]
+            )
+        
+        try:
+            from src.config.modular_report_modules_config import DataStructureType
+            
+            structure_type = getattr(DataStructureType, data_structure, DataStructureType.STRING)
+            modules = self.config.get_modules_by_data_structure(structure_type)
+            
+            return CallToolResult(
+                content=[{
+                    "type": "text",
+                    "text": f"📋 Modules for {data_structure} data structure ({len(modules)}):\n" + "\n".join([f"• {module}" for module in modules])
+                }]
+            )
+        except Exception as e:
+            return CallToolResult(
+                content=[{
+                    "type": "text",
+                    "text": f"❌ Error getting modules by data structure: {str(e)}"
+                }]
+            )
+    
+    async def _save_modular_config(self, arguments: Dict[str, Any]) -> CallToolResult:
+        """Save modular report configuration to file."""
+        if not MODULAR_CONFIG_AVAILABLE:
+            return CallToolResult(
+                content=[{
+                    "type": "text",
+                    "text": "Modular report modules configuration not available"
+                }]
+            )
+        
+        file_path = arguments.get("file_path", "")
+        
+        if not file_path:
+            return CallToolResult(
+                content=[{
+                    "type": "text",
+                    "text": "File path is required for saving configuration"
+                }]
+            )
+        
+        try:
+            self.config.save_config(file_path)
+            
+            return CallToolResult(
+                content=[{
+                    "type": "text",
+                    "text": f"✅ Successfully saved modular configuration to: {file_path}"
+                }]
+            )
+        except Exception as e:
+            return CallToolResult(
+                content=[{
+                    "type": "text",
+                    "text": f"❌ Error saving configuration: {str(e)}"
                 }]
             )
 

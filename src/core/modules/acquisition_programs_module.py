@@ -612,7 +612,7 @@ class AcquisitionProgramsModule(BaseModule):
             'program_0': TooltipData(
                 title="Acquisition Program Analysis",
                 description="Comprehensive analysis of acquisition programs including budget, timeline, and strategic objectives.",
-                source="Acquisition program data and strategic analysis",
+                source="Sources: Acquisition program data and strategic analysis, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="High - Direct impact on capability development and strategic positioning",
                 recommendations=[
                     "Monitor program milestones closely",
@@ -628,7 +628,7 @@ class AcquisitionProgramsModule(BaseModule):
             'initiative_0': TooltipData(
                 title="Modernization Initiative Assessment",
                 description="Analysis of modernization initiatives and their impact on overall capability enhancement.",
-                source="Modernization planning and implementation tracking",
+                source="Sources: Modernization planning and implementation tracking, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Medium-High - Affects long-term capability development",
                 recommendations=[
                     "Prioritize high-impact initiatives",
@@ -644,7 +644,7 @@ class AcquisitionProgramsModule(BaseModule):
             'risk_0': TooltipData(
                 title="Program Risk Assessment",
                 description="Analysis of risks affecting acquisition programs and their potential impact on objectives.",
-                source="Risk assessment and program monitoring",
+                source="Sources: Risk assessment and program monitoring, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="High - Risk management is critical for program success",
                 recommendations=[
                     "Develop comprehensive mitigation strategies",
@@ -660,7 +660,7 @@ class AcquisitionProgramsModule(BaseModule):
             'gap_0': TooltipData(
                 title="Capability Gap Analysis",
                 description="Assessment of capability gaps and how acquisition programs address strategic requirements.",
-                source="Capability assessment and gap analysis",
+                source="Sources: Capability assessment and gap analysis, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Critical - Capability gaps affect strategic readiness",
                 recommendations=[
                     "Prioritize critical capability gaps",

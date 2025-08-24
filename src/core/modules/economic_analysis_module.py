@@ -510,7 +510,7 @@ class EconomicAnalysisModule(BaseModule):
             "economic_cost_breakdown": TooltipData(
                 title="Economic Cost Breakdown",
                 description="Comprehensive breakdown of all economic costs including acquisition, operations, maintenance, training, and infrastructure",
-                source="Source: Economic Analysis Framework",
+                source="Sources: Economic Analysis Framework, International Monetary Fund Data, World Bank Economic Indicators, Trade Statistics Database, Market Analysis Reports",
                 strategic_impact="Strategic Impact: Critical for budget planning and resource allocation",
                 recommendations="Recommendations: Regular cost monitoring and optimization analysis",
                 use_cases="Use Cases: Budget planning, cost optimization, resource allocation"
@@ -518,7 +518,7 @@ class EconomicAnalysisModule(BaseModule):
             "financial_implications": TooltipData(
                 title="Financial Implications",
                 description="Analysis of financial implications and economic impact over time including budget and GDP effects",
-                source="Source: Financial Impact Analysis",
+                source="Sources: Financial Impact Analysis, International Monetary Fund Data, World Bank Economic Indicators, Trade Statistics Database, Market Analysis Reports",
                 strategic_impact="Strategic Impact: Essential for understanding long-term financial commitments",
                 recommendations="Recommendations: Monitor financial metrics and adjust plans accordingly",
                 use_cases="Use Cases: Financial planning, impact assessment, policy development"
@@ -526,7 +526,7 @@ class EconomicAnalysisModule(BaseModule):
             "economic_planning": TooltipData(
                 title="Economic Planning",
                 description="Strategic economic planning including funding sources, cost mitigation, and economic benefits",
-                source="Source: Strategic Economic Planning Framework",
+                source="Sources: Strategic Economic Planning Framework, International Monetary Fund Data, World Bank Economic Indicators, Trade Statistics Database, Market Analysis Reports",
                 strategic_impact="Strategic Impact: Critical for sustainable program implementation",
                 recommendations="Recommendations: Diversify funding sources and maximize economic benefits",
                 use_cases="Use Cases: Strategic planning, funding strategy, benefit optimization"
@@ -534,7 +534,7 @@ class EconomicAnalysisModule(BaseModule):
             "budget_analysis": TooltipData(
                 title="Budget Analysis",
                 description="Comprehensive budget analysis and resource allocation assessment within defense spending",
-                source="Source: Budget Analysis Framework",
+                source="Sources: Budget Analysis Framework, International Monetary Fund Data, World Bank Economic Indicators, Trade Statistics Database, Market Analysis Reports",
                 strategic_impact="Strategic Impact: Essential for responsible fiscal management",
                 recommendations="Recommendations: Maintain budget efficiency and monitor utilization rates",
                 use_cases="Use Cases: Budget management, fiscal planning, efficiency monitoring"
@@ -542,7 +542,7 @@ class EconomicAnalysisModule(BaseModule):
             "economic_benefit": TooltipData(
                 title="Economic Benefit",
                 description="Quantified economic benefits including job creation, technology transfer, and industrial capacity building",
-                source="Source: Economic Impact Assessment",
+                source="Sources: Economic Impact Assessment, International Monetary Fund Data, World Bank Economic Indicators, Trade Statistics Database, Market Analysis Reports",
                 strategic_impact="Strategic Impact: Important for justifying program investments",
                 recommendations="Recommendations: Track and maximize economic benefit realization",
                 use_cases="Use Cases: Benefit tracking, impact measurement, program justification"

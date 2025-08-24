@@ -498,7 +498,7 @@ class EnhancedDataAnalysisModule(BaseModule):
             self.add_tooltip(f"metric_{i}", TooltipData(
                 title=f"Data Metric {i+1}",
                 description=f"Key data metric {i+1} that provides important insights into the current situation and trends.",
-                source="Data Metrics Analysis",
+                source="Sources: Data Metrics Analysis, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Valuable metric for understanding performance and trends.",
                 recommendations="• Monitor regularly for changes\n• Compare with historical data\n• Analyze trends and patterns\n• Use for strategic planning",
                 use_cases="Performance monitoring, trend analysis, strategic assessment, decision support",
@@ -509,7 +509,7 @@ class EnhancedDataAnalysisModule(BaseModule):
             self.add_tooltip(f"performance_indicator_{i}", TooltipData(
                 title=f"Performance Indicator {i+1}",
                 description=f"Performance indicator {i+1} that measures effectiveness and progress in key areas.",
-                source="Performance Measurement Framework",
+                source="Sources: Performance Measurement Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Critical indicator for performance evaluation and strategic planning.",
                 recommendations="• Track against targets\n• Monitor trends and changes\n• Analyze performance gaps\n• Develop improvement plans",
                 use_cases="Performance evaluation, strategic planning, operational assessment, goal setting",
@@ -520,7 +520,7 @@ class EnhancedDataAnalysisModule(BaseModule):
             self.add_tooltip(f"statistical_measure_{i}", TooltipData(
                 title=f"Statistical Measure {i+1}",
                 description=f"Statistical measure {i+1} that provides quantitative insights into data relationships and patterns.",
-                source="Statistical Analysis Framework",
+                source="Sources: Statistical Analysis Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Important statistical insight for data-driven decision making.",
                 recommendations="• Validate statistical significance\n• Consider confidence levels\n• Analyze with other measures\n• Use for modeling",
                 use_cases="Statistical analysis, research studies, data modeling, correlation analysis",
@@ -531,7 +531,7 @@ class EnhancedDataAnalysisModule(BaseModule):
             self.add_tooltip(f"correlation_{i}", TooltipData(
                 title=f"Correlation Analysis {i+1}",
                 description=f"Correlation analysis {i+1} showing relationships between different variables and factors.",
-                source="Correlation Analysis Framework",
+                source="Sources: Correlation Analysis Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Valuable insight into variable relationships and dependencies.",
                 recommendations="• Validate correlation strength\n• Consider causation vs correlation\n• Analyze with other factors\n• Monitor for changes",
                 use_cases="Correlation studies, relationship analysis, dependency mapping, statistical modeling",

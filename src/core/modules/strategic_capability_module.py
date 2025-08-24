@@ -522,7 +522,7 @@ class StrategicCapabilityModule(BaseModule):
             "capability_forecasts": TooltipData(
                 title="Capability Forecasts",
                 description="Long-term strategic capability forecasting and development planning with 5-year projections across multiple capability dimensions",
-                source="Source: Capability Forecasting Model",
+                source="Sources: Capability Forecasting Model, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Strategic Impact: Critical for long-term strategic planning and capability development",
                 recommendations="Recommendations: Focus on high-impact capabilities, maintain technological edge, and ensure balanced development across all dimensions",
                 use_cases="Use Cases: Strategic planning, resource allocation, capability development, long-term investment planning"
@@ -530,7 +530,7 @@ class StrategicCapabilityModule(BaseModule):
             "five_year_horizon": TooltipData(
                 title="5-Year Strategic Horizon",
                 description="Strategic planning horizon analysis and long-term capability development with baseline and target metrics",
-                source="Source: Strategic Horizon Analysis",
+                source="Sources: Strategic Horizon Analysis, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Strategic Impact: Essential for long-term strategic vision and planning",
                 recommendations="Recommendations: Set realistic targets, maintain strategic focus, and ensure continuous monitoring and adjustment",
                 use_cases="Use Cases: Strategic planning, goal setting, performance monitoring, strategic alignment"
@@ -538,7 +538,7 @@ class StrategicCapabilityModule(BaseModule):
             "capability_planning": TooltipData(
                 title="Capability Planning",
                 description="Comprehensive capability planning and development roadmap with phased approach and resource allocation",
-                source="Source: Capability Planning Framework",
+                source="Sources: Capability Planning Framework, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Strategic Impact: Critical for successful capability development and strategic execution",
                 recommendations="Recommendations: Prioritize phases based on strategic importance, ensure adequate resource allocation, and maintain flexibility for adjustments",
                 use_cases="Use Cases: Project planning, resource allocation, strategic execution, performance management"
@@ -546,7 +546,7 @@ class StrategicCapabilityModule(BaseModule):
             "strategic_development": TooltipData(
                 title="Strategic Development",
                 description="Strategic development areas and investment planning for capability enhancement with current and target levels",
-                source="Source: Strategic Development Model",
+                source="Sources: Strategic Development Model, Defense Intelligence Agency Reports, International Relations Database, Strategic Intelligence Reports, Military Capability Assessments",
                 strategic_impact="Strategic Impact: Fundamental for maintaining competitive advantage and strategic positioning",
                 recommendations="Recommendations: Focus on high-impact areas, ensure balanced investment, and maintain strategic alignment",
                 use_cases="Use Cases: Investment planning, strategic development, capability enhancement, competitive positioning"

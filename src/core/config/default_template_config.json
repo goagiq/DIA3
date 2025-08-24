@@ -1,0 +1,45 @@
+{
+  "default_template": "enhanced_html",
+  "template_path": "src/core/templates/default_enhanced_html_template.html",
+  "features": {
+    "advanced_tooltips": true,
+    "multiple_sources": true,
+    "interactive_charts": true,
+    "responsive_design": true,
+    "professional_styling": true
+  },
+  "modules": {
+    "all_modules_enabled": true,
+    "default_modules": [
+      "executive_summary",
+      "strategic_overview",
+      "threat_assessment",
+      "capability_analysis",
+      "regional_security",
+      "economic_impact",
+      "technological_assessment",
+      "intelligence_analysis",
+      "risk_management",
+      "policy_recommendations",
+      "stakeholder_analysis",
+      "timeline_analysis",
+      "cost_benefit_analysis",
+      "comparative_analysis",
+      "scenario_planning",
+      "resource_allocation",
+      "performance_metrics",
+      "compliance_analysis",
+      "communication_strategy",
+      "implementation_plan",
+      "monitoring_evaluation",
+      "model_performance"
+    ]
+  },
+  "output": {
+    "format": "html",
+    "directory": "Results",
+    "filename_pattern": "{topic}_enhanced_analysis_{timestamp}.html",
+    "include_timestamp": true,
+    "open_in_browser": true
+  }
+}

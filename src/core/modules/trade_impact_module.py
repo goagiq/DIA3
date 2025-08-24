@@ -524,7 +524,7 @@ class TradeImpactModule(BaseModule):
         self.add_tooltip("trade_overview", TooltipData(
             title="Trade Overview",
             description="Comprehensive analysis of trade patterns, disruptions, and economic implications.",
-            source="Trade Analysis Framework",
+            source="Sources: Trade Analysis Framework, International Monetary Fund Data, World Bank Economic Indicators, Trade Statistics Database, Market Analysis Reports",
             strategic_impact="High - Critical for economic planning and policy development",
             recommendations="• Monitor trade flows regularly\n• Assess disruption risks\n• Develop mitigation strategies\n• Track economic impacts",
             use_cases="Used in economic planning, policy development, and risk assessment",
@@ -534,7 +534,7 @@ class TradeImpactModule(BaseModule):
         self.add_tooltip("trade_disruptions", TooltipData(
             title="Trade Disruptions",
             description="Analysis of potential trade disruptions and their impact on economic stability.",
-            source="Risk Assessment Framework",
+            source="Sources: Risk Assessment Framework, International Monetary Fund Data, World Bank Economic Indicators, Trade Statistics Database, Market Analysis Reports",
             strategic_impact="High - Essential for contingency planning",
             recommendations="• Identify high-risk trade routes\n• Develop alternative supply chains\n• Establish early warning systems\n• Plan mitigation strategies",
             use_cases="Used in supply chain management and risk assessment",
@@ -544,7 +544,7 @@ class TradeImpactModule(BaseModule):
         self.add_tooltip("energy_trade", TooltipData(
             title="Energy Trade Analysis",
             description="Comprehensive analysis of energy trade patterns and their economic implications.",
-            source="Energy Analysis Framework",
+            source="Sources: Energy Analysis Framework, International Energy Agency Data, World Bank Economic Indicators, Trade Statistics Database, Market Analysis Reports",
             strategic_impact="High - Critical for energy security planning",
             recommendations="• Diversify energy sources\n• Monitor price volatility\n• Assess supply chain risks\n• Plan for energy transitions",
             use_cases="Used in energy policy and security planning",
@@ -554,7 +554,7 @@ class TradeImpactModule(BaseModule):
         self.add_tooltip("economic_implications", TooltipData(
             title="Economic Implications",
             description="Analysis of trade impacts on GDP, employment, and currency stability.",
-            source="Economic Analysis Framework",
+            source="Sources: Economic Analysis Framework, International Monetary Fund Data, World Bank Economic Indicators, Trade Statistics Database, Market Analysis Reports",
             strategic_impact="High - Critical for economic policy development",
             recommendations="• Monitor economic indicators\n• Assess employment impacts\n• Track currency effects\n• Plan economic responses",
             use_cases="Used in economic policy and planning",
