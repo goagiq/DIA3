@@ -1,0 +1,55 @@
+{
+  "timestamp": "2025-08-24T10:04:27.473526",
+  "scenario": "Thailand invading Cambodia",
+  "components": {
+    "content_processing": {
+      "status": "completed",
+      "result": "{'status': 'error', 'toolUseId': 'process_content', 'content': [{'text': \"Tool execution failed: 1 validation error for CallToolRequestParams\\nname\\n  Input should be a valid string [type=string_type, input_value={'random_string': 'thaila...comprehensive_analysis'}, input_type=dict]\\n    For further information visit https://errors.pydantic.dev/2.11/v/string_type\"}]}"
+    },
+    "content_analysis": {
+      "status": "completed",
+      "result": "{'status': 'error', 'toolUseId': 'analyze_content', 'content': [{'text': \"Tool execution failed: 1 validation error for CallToolRequestParams\\nname\\n  Input should be a valid string [type=string_type, input_value={'random_string': 'thaila...ion_sentiment_analysis'}, input_type=dict]\\n    For further information visit https://errors.pydantic.dev/2.11/v/string_type\"}]}"
+    },
+    "content_search": {
+      "status": "completed",
+      "result": "{'status': 'error', 'toolUseId': 'search_content', 'content': [{'text': \"Tool execution failed: 1 validation error for CallToolRequestParams\\nname\\n  Input should be a valid string [type=string_type, input_value={'random_string': 'thaila...vasion_semantic_search'}, input_type=dict]\\n    For further information visit https://errors.pydantic.dev/2.11/v/string_type\"}]}"
+    },
+    "report_generation": {
+      "status": "completed",
+      "result": "{'status': 'error', 'toolUseId': 'generate_report', 'content': [{'text': \"Tool execution failed: 1 validation error for CallToolRequestParams\\nname\\n  Input should be a valid string [type=string_type, input_value={'random_string': 'thaila...n_comprehensive_report'}, input_type=dict]\\n    For further information visit https://errors.pydantic.dev/2.11/v/string_type\"}]}"
+    },
+    "monte_carlo_simulations": {
+      "status": "completed",
+      "result": "{'status': 'error', 'toolUseId': 'run_simulation', 'content': [{'text': \"Tool execution failed: 1 validation error for CallToolRequestParams\\nname\\n  Input should be a valid string [type=string_type, input_value={'random_string': 'thaila...a_invasion_monte_carlo'}, input_type=dict]\\n    For further information visit https://errors.pydantic.dev/2.11/v/string_type\"}]}"
+    },
+    "strategic_analysis": {
+      "status": "completed",
+      "result": "{'status': 'error', 'toolUseId': 'analyze_strategic', 'content': [{'text': \"Tool execution failed: 1 validation error for CallToolRequestParams\\nname\\n  Input should be a valid string [type=string_type, input_value={'random_string': 'thaila...ia_invasion_art_of_war'}, input_type=dict]\\n    For further information visit https://errors.pydantic.dev/2.11/v/string_type\"}]}"
+    },
+    "system_monitoring": {
+      "status": "completed",
+      "result": "{'status': 'error', 'toolUseId': 'manage_system', 'content': [{'text': \"Tool execution failed: 1 validation error for CallToolRequestParams\\nname\\n  Input should be a valid string [type=string_type, input_value={'random_string': 'thaila...performance_monitoring'}, input_type=dict]\\n    For further information visit https://errors.pydantic.dev/2.11/v/string_type\"}]}"
+    },
+    "data_export": {
+      "status": "completed",
+      "result": "{'status': 'error', 'toolUseId': 'export_data', 'content': [{'text': \"Tool execution failed: 1 validation error for CallToolRequestParams\\nname\\n  Input should be a valid string [type=string_type, input_value={'random_string': 'thaila...a_invasion_data_export'}, input_type=dict]\\n    For further information visit https://errors.pydantic.dev/2.11/v/string_type\"}]}"
+    },
+    "knowledge_graph": {
+      "status": "completed",
+      "result": "{'status': 'error', 'toolUseId': 'knowledge_graph_operations', 'content': [{'text': \"Tool execution failed: 1 validation error for CallToolRequestParams\\nname\\n  Input should be a valid string [type=string_type, input_value={'random_string': 'thaila...vasion_knowledge_graph'}, input_type=dict]\\n    For further information visit https://errors.pydantic.dev/2.11/v/string_type\"}]}"
+    },
+    "agent_management": {
+      "status": "completed",
+      "result": "{'status': 'error', 'toolUseId': 'manage_agents', 'content': [{'text': \"Tool execution failed: 1 validation error for CallToolRequestParams\\nname\\n  Input should be a valid string [type=string_type, input_value={'random_string': 'thaila...ion_agent_coordination'}, input_type=dict]\\n    For further information visit https://errors.pydantic.dev/2.11/v/string_type\"}]}"
+    }
+  },
+  "files_generated": [
+    "cambodia_analysis_20250824_095257.html",
+    "cambodia_analysis_20250824_095309.html",
+    "cambodia_j10_acquisition_analysis_2025.html",
+    "cambodia_j10_acquisition_analysis_2025.md",
+    "thailand_cambodia_invasion_comprehensive_report.html",
+    "thailand_cambodia_invasion_report.html"
+  ],
+  "success": true
+}

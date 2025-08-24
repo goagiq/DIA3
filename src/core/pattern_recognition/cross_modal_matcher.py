@@ -20,7 +20,13 @@ import statistics
 from loguru import logger
 
 from src.core.error_handler import with_error_handling
-from src.core.unified_mcp_client import call_unified_mcp_tool
+# Import unified MCP client only when needed
+try:
+    from src.core.unified_mcp_client import call_unified_mcp_tool
+    UNIFIED_MCP_CLIENT_AVAILABLE = True
+except ImportError:
+    UNIFIED_MCP_CLIENT_AVAILABLE = False
+    call_unified_mcp_tool = None
 
 
 @dataclass

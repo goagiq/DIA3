@@ -17,7 +17,13 @@ from src.config.decision_support_config import (
     get_language_reasoning_patterns
 )
 from src.core.models import AnalysisRequest
-from src.core.unified_mcp_client import call_unified_mcp_tool
+# Import unified MCP client only when needed
+try:
+    from src.core.unified_mcp_client import call_unified_mcp_tool
+    UNIFIED_MCP_CLIENT_AVAILABLE = True
+except ImportError:
+    UNIFIED_MCP_CLIENT_AVAILABLE = False
+    call_unified_mcp_tool = None
 
 logger = logging.getLogger(__name__)
 

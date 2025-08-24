@@ -1,0 +1,408 @@
+{
+  "analysis_timestamp": "20250824_105846",
+  "executive_summary": {
+    "key_findings": [
+      "Cambodia's acquisition of 50 J-10 fighter jets represents a significant military modernization",
+      "The acquisition will strengthen Cambodia-China relations while straining US-Cambodia ties",
+      "Regional military balance will shift moderately toward China-aligned states",
+      "Economic dependencies on China will increase significantly",
+      "Escalation risks are moderate, with potential for regional instability",
+      "ASEAN unity may be tested by diverging security interests"
+    ],
+    "strategic_implications": [
+      "Enhanced Chinese influence in Southeast Asia",
+      "Reduced US strategic position in the region",
+      "Potential arms race dynamics in Southeast Asia",
+      "Increased regional security complexity",
+      "Economic integration patterns favoring China"
+    ],
+    "risk_assessment": {
+      "overall_risk": "MODERATE",
+      "escalation_probability": "LOW-MODERATE",
+      "economic_impact": "MODERATE",
+      "regional_stability": "MODERATE CONCERN"
+    }
+  },
+  "j10_capabilities": {
+    "total_cost_usd": 1750.0,
+    "annual_cost_usd": 350.0,
+    "delivery_timeline_years": 2.0833333333333335,
+    "capabilities": {
+      "air_superiority": 0.75,
+      "ground_attack": 0.7,
+      "maritime_strike": 0.65,
+      "electronic_warfare": 0.8,
+      "survivability": 0.6,
+      "maintenance_requirements": 0.85
+    },
+    "regional_impact": {
+      "cambodia_fighter_share_increase": 0.1893939393939394,
+      "regional_balance_shift": 0.15,
+      "threat_perception_increase": 0.25,
+      "china_influence_gain": 0.2,
+      "us_influence_loss": 0.15
+    },
+    "maintenance_challenges": {
+      "technical_expertise": {
+        "score": 0.3,
+        "description": "Requires extensive training and technical support"
+      },
+      "infrastructure": {
+        "score": 0.4,
+        "description": "Need for upgraded facilities and maintenance hangars"
+      },
+      "spare_parts": {
+        "score": 0.6,
+        "description": "Reliance on Chinese logistics and parts supply"
+      },
+      "training": {
+        "score": 0.3,
+        "description": "Need for comprehensive training programs"
+      }
+    }
+  },
+  "geopolitical_implications": {
+    "china_cambodia_relationship": {
+      "strengthening": 0.8,
+      "dependencies": [
+        "military_equipment",
+        "training",
+        "maintenance",
+        "spare_parts"
+      ],
+      "strategic_value": "Enhanced Chinese influence in Southeast Asia"
+    },
+    "us_cambodia_relationship": {
+      "weakening": 0.6,
+      "concerns": [
+        "military_modernization",
+        "china_alignment",
+        "regional_balance"
+      ],
+      "strategic_impact": "Reduced US influence in Cambodia"
+    },
+    "asean_dynamics": {
+      "internal_tensions": 0.4,
+      "china_influence": 0.6,
+      "united_states_concern": 0.7,
+      "regional_stability": 0.5
+    },
+    "south_china_sea_implications": {
+      "cambodia_support": 0.7,
+      "regional_balance": 0.6,
+      "diplomatic_leverage": 0.5
+    }
+  },
+  "trade_impact": {
+    "cambodia_china_trade": {
+      "increase_percentage": 25,
+      "new_sectors": [
+        "defense_equipment",
+        "technical_services",
+        "training"
+      ],
+      "dependency_increase": 0.3
+    },
+    "cambodia_us_trade": {
+      "decrease_percentage": 15,
+      "affected_sectors": [
+        "textiles",
+        "agriculture",
+        "tourism"
+      ],
+      "sanction_risk": 0.4
+    },
+    "regional_trade_patterns": {
+      "china_centric_shift": 0.4,
+      "asean_integration_impact": 0.3,
+      "supply_chain_changes": 0.5
+    },
+    "economic_dependencies": {
+      "china_military_equipment": 0.8,
+      "china_technical_support": 0.9,
+      "china_spare_parts": 0.85,
+      "china_training": 0.7
+    }
+  },
+  "balance_of_power": {
+    "cambodia_power_shift": {
+      "military_capability": 0.6,
+      "regional_influence": 0.4,
+      "strategic_position": 0.3,
+      "economic_leverage": 0.2
+    },
+    "china_aligned_powers": {
+      "total_military_strength": 0.35,
+      "regional_influence": 0.45,
+      "strategic_depth": 0.3,
+      "economic_integration": 0.4
+    },
+    "us_aligned_powers": {
+      "concern_level": 0.7,
+      "response_probability": 0.6,
+      "alliance_strengthening": 0.5,
+      "counter_measures": 0.4
+    },
+    "regional_stability": {
+      "overall_impact": 0.4,
+      "escalation_risk": 0.3,
+      "arms_race_probability": 0.5,
+      "conflict_probability": 0.2
+    }
+  },
+  "escalation_risks": {
+    "escalation_factors": {
+      "territorial_disputes": {
+        "thailand_cambodia": 0.3,
+        "vietnam_cambodia": 0.2,
+        "overall_risk": 0.25
+      },
+      "military_miscalculation": {
+        "airspace_incidents": 0.4,
+        "maritime_encounters": 0.3,
+        "overall_risk": 0.35
+      },
+      "political_tensions": {
+        "internal_opposition": 0.2,
+        "international_pressure": 0.5,
+        "overall_risk": 0.35
+      },
+      "economic_pressure": {
+        "sanctions_risk": 0.4,
+        "trade_restrictions": 0.3,
+        "overall_risk": 0.35
+      }
+    },
+    "scenarios": {
+      "low_escalation": {
+        "probability": 0.6,
+        "impact": "Minor diplomatic tensions, limited economic impact",
+        "duration": "6-12 months"
+      },
+      "medium_escalation": {
+        "probability": 0.3,
+        "impact": "Economic sanctions, military posturing, alliance shifts",
+        "duration": "1-2 years"
+      },
+      "high_escalation": {
+        "probability": 0.1,
+        "impact": "Military conflict, major economic disruption, regional instability",
+        "duration": "2+ years"
+      }
+    },
+    "mitigation_strategies": {
+      "cambodia": [
+        "Transparent communication about acquisition intentions",
+        "Participation in regional security dialogues",
+        "Balanced diplomatic engagement with all major powers",
+        "Gradual integration of new capabilities"
+      ],
+      "china": [
+        "Support for Cambodia's defense modernization",
+        "Regional security cooperation initiatives",
+        "Economic development assistance",
+        "Diplomatic engagement with concerned parties"
+      ],
+      "united_states": [
+        "Continued engagement with Cambodia",
+        "Regional security partnerships",
+        "Economic cooperation alternatives",
+        "Diplomatic dialogue with China"
+      ],
+      "regional_partners": [
+        "ASEAN security cooperation",
+        "Confidence-building measures",
+        "Transparency initiatives",
+        "Conflict prevention mechanisms"
+      ]
+    }
+  },
+  "diplomatic_consequences": {
+    "united_states": {
+      "reaction": "Strong concern and potential sanctions",
+      "diplomatic_pressure": 0.8,
+      "economic_measures": 0.6,
+      "military_response": 0.3,
+      "alliance_strengthening": 0.7
+    },
+    "china": {
+      "reaction": "Strong support and enhanced cooperation",
+      "diplomatic_support": 0.9,
+      "economic_assistance": 0.8,
+      "military_cooperation": 0.9,
+      "strategic_partnership": 0.8
+    },
+    "asean_members": {
+      "thailand": {
+        "concern": 0.6,
+        "response": "Diplomatic engagement"
+      },
+      "vietnam": {
+        "concern": 0.7,
+        "response": "Military modernization"
+      },
+      "philippines": {
+        "concern": 0.5,
+        "response": "US alliance strengthening"
+      },
+      "indonesia": {
+        "concern": 0.4,
+        "response": "Neutral diplomacy"
+      },
+      "malaysia": {
+        "concern": 0.3,
+        "response": "Balanced approach"
+      }
+    },
+    "international_organizations": {
+      "un_security_council": "Potential discussion of regional security",
+      "asean": "Internal discussions on security cooperation",
+      "g7": "Possible condemnation and measures",
+      "brics": "Support for Cambodia's sovereign decisions"
+    }
+  },
+  "monte_carlo_simulation": {
+    "simulation_results": {
+      "escalation_probability": "[0.24718271 0.16419095 0.31752371 ... 0.15275423 0.09664422 0.11253169]",
+      "economic_impact": "[-0.06601388 -0.27621394 -0.06993471 ...  0.02470872 -0.15920754\n -0.101246  ]",
+      "regional_instability": "[0.2912142  0.19997732 0.1154798  ... 0.37044986 0.44481672 0.03490576]",
+      "china_influence_gain": "[0.58416384 0.87771058 0.54115607 ... 0.69279498 0.67024491 0.56744019]",
+      "us_response_intensity": "[0.4889695  0.61440392 0.47884792 ... 0.44471168 0.26692881 0.36354968]",
+      "cambodia_capability_development": "[0.64157444 0.6123963  0.31352686 ... 0.36582037 0.27173782 0.0765339 ]"
+    },
+    "summary_statistics": {
+      "escalation_probability": {
+        "mean": 0.19937045728595834,
+        "std": 0.11860106281638014,
+        "percentile_95": 0.4234540365886373
+      },
+      "economic_impact": {
+        "mean": -0.14875157518948473,
+        "std": 0.0987262245967722,
+        "percentile_95": 0.013692944119807286
+      },
+      "regional_instability": {
+        "mean": 0.29956768922921,
+        "std": 0.13873524336413995,
+        "percentile_95": 0.5512684567127174
+      }
+    },
+    "risk_assessment": {
+      "escalation": "LOW",
+      "economic": "MODERATE",
+      "regional_instability": "LOW"
+    }
+  },
+  "recommendations": {
+    "for_cambodia": [
+      "Maintain transparent communication about defense modernization goals",
+      "Participate actively in regional security dialogues",
+      "Diversify economic partnerships to reduce over-dependence",
+      "Invest in human capital development for military modernization",
+      "Develop comprehensive maintenance and logistics capabilities"
+    ],
+    "for_china": [
+      "Support Cambodia's defense modernization responsibly",
+      "Engage with regional partners to address concerns",
+      "Promote regional security cooperation initiatives",
+      "Provide comprehensive training and support programs",
+      "Maintain diplomatic engagement with concerned parties"
+    ],
+    "for_united_states": [
+      "Continue engagement with Cambodia despite differences",
+      "Strengthen partnerships with regional allies",
+      "Develop alternative economic cooperation frameworks",
+      "Engage diplomatically with China on regional security",
+      "Support ASEAN centrality in regional security"
+    ],
+    "for_regional_partners": [
+      "Strengthen ASEAN security cooperation mechanisms",
+      "Develop confidence-building measures",
+      "Promote transparency in military acquisitions",
+      "Enhance conflict prevention capabilities",
+      "Maintain balanced relationships with major powers"
+    ]
+  },
+  "regional_data": {
+    "Cambodia": {
+      "country": "Cambodia",
+      "military_spending": 0.7,
+      "active_personnel": 124000,
+      "fighter_aircraft": 0,
+      "naval_vessels": 15,
+      "influence_score": 0.2,
+      "china_alignment": 0.8,
+      "us_alignment": 0.3
+    },
+    "Thailand": {
+      "country": "Thailand",
+      "military_spending": 7.3,
+      "active_personnel": 360000,
+      "fighter_aircraft": 87,
+      "naval_vessels": 78,
+      "influence_score": 0.7,
+      "china_alignment": 0.6,
+      "us_alignment": 0.7
+    },
+    "Vietnam": {
+      "country": "Vietnam",
+      "military_spending": 6.5,
+      "active_personnel": 482000,
+      "fighter_aircraft": 35,
+      "naval_vessels": 65,
+      "influence_score": 0.6,
+      "china_alignment": 0.4,
+      "us_alignment": 0.8
+    },
+    "Myanmar": {
+      "country": "Myanmar",
+      "military_spending": 2.4,
+      "active_personnel": 406000,
+      "fighter_aircraft": 25,
+      "naval_vessels": 125,
+      "influence_score": 0.3,
+      "china_alignment": 0.7,
+      "us_alignment": 0.2
+    },
+    "Laos": {
+      "country": "Laos",
+      "military_spending": 0.2,
+      "active_personnel": 29000,
+      "fighter_aircraft": 0,
+      "naval_vessels": 4,
+      "influence_score": 0.1,
+      "china_alignment": 0.9,
+      "us_alignment": 0.1
+    },
+    "Philippines": {
+      "country": "Philippines",
+      "military_spending": 4.2,
+      "active_personnel": 143000,
+      "fighter_aircraft": 12,
+      "naval_vessels": 67,
+      "influence_score": 0.5,
+      "china_alignment": 0.3,
+      "us_alignment": 0.9
+    },
+    "Malaysia": {
+      "country": "Malaysia",
+      "military_spending": 3.8,
+      "active_personnel": 113000,
+      "fighter_aircraft": 18,
+      "naval_vessels": 68,
+      "influence_score": 0.4,
+      "china_alignment": 0.5,
+      "us_alignment": 0.6
+    },
+    "Indonesia": {
+      "country": "Indonesia",
+      "military_spending": 8.7,
+      "active_personnel": 395000,
+      "fighter_aircraft": 37,
+      "naval_vessels": 221,
+      "influence_score": 0.8,
+      "china_alignment": 0.4,
+      "us_alignment": 0.7
+    }
+  }
+}

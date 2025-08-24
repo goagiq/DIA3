@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thailand-Cambodia Invasion: Impacts and Consequences Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-tab {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .nav-tab.active {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+        
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+        
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .impact-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .impact-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .impact-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .impact-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .map-container {
+            height: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            width: 45%;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+            padding-right: 40px;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 55%;
+            text-align: left;
+            padding-left: 40px;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 50%;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -50px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -50px;
+        }
+        
+        .timeline-date {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .conclusion h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        
+        .conclusion p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                text-align: left !important;
+                padding-left: 60px !important;
+                padding-right: 20px !important;
+            }
+            
+            .timeline-item .timeline-content::before {
+                left: -40px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Thailand-Cambodia Invasion Analysis</h1>
+            <p>Comprehensive Analysis of Impacts and Consequences</p>
+            <p><strong>Generated:</strong> <span id="current-date"></span></p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showSection('overview')">Overview</button>
+            <button class="nav-tab" onclick="showSection('historical')">Historical Context</button>
+            <button class="nav-tab" onclick="showSection('geopolitical')">Geopolitical Impacts</button>
+            <button class="nav-tab" onclick="showSection('economic')">Economic Consequences</button>
+            <button class="nav-tab" onclick="showSection('humanitarian')">Humanitarian Crisis</button>
+            <button class="nav-tab" onclick="showSection('regional')">Regional Stability</button>
+        </div>
+        
+        <!-- Overview Section -->
+        <div id="overview" class="content-section active">
+            <h2 class="section-title">Executive Summary</h2>
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <h3>Historical Tensions</h3>
+                    <p>Centuries of border disputes and cultural conflicts between Thailand and Cambodia, particularly over the Preah Vihear temple complex and surrounding territories.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Geopolitical Shifts</h3>
+                    <p>Potential realignment of ASEAN dynamics, strained relations with neighboring countries, and implications for regional security architecture.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Economic Disruption</h3>
+                    <p>Severe impact on trade, tourism, and investment flows between the two nations and broader Southeast Asian region.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Humanitarian Crisis</h3>
+                    <p>Mass displacement, refugee flows, human rights violations, and long-term social consequences for affected populations.</p>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <h3>Key Impact Areas</h3>
+                <canvas id="impactChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- Historical Context Section -->
+        <div id="historical" class="content-section">
+            <h2 class="section-title">Historical Context</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">14th-18th Centuries</div>
+                        <h4>Khmer Empire Decline</h4>
+                        <p>The gradual decline of the Khmer Empire led to territorial disputes as Siam (Thailand) expanded its influence into former Khmer territories.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">1863-1953</div>
+                        <h4>French Colonial Period</h4>
+                        <p>Cambodia became a French protectorate, leading to border negotiations that would later become sources of contention between Thailand and Cambodia.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">1962</div>
+                        <h4>ICJ Preah Vihear Ruling</h4>
+                        <p>The International Court of Justice awarded the Preah Vihear temple to Cambodia, but the surrounding territory remained disputed.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2008-2011</div>
+                        <h4>Border Clashes</h4>
+                        <p>Series of military confrontations around the Preah Vihear temple area, resulting in casualties and displacement of civilians.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Geopolitical Impacts Section -->
+        <div id="geopolitical" class="content-section">
+            <h2 class="section-title">Geopolitical Impacts</h2>
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <h3>ASEAN Unity</h3>
+                    <p>A Thai invasion would severely test ASEAN's principle of non-interference and could fracture the organization's unity, potentially leading to its weakening or restructuring.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Great Power Involvement</h3>
+                    <p>China and the United States would likely become involved, with China potentially supporting Cambodia and the US backing Thailand, creating a proxy conflict scenario.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Regional Security</h3>
+                    <p>The conflict could destabilize the entire Mekong region, affecting Vietnam, Laos, and Myanmar, and potentially drawing in other regional powers.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>International Law</h3>
+                    <p>Violation of international law and UN Charter principles would damage Thailand's international standing and set dangerous precedents for territorial disputes.</p>
+                </div>
+            </div>
+            
+            <div class="map-container" id="geopoliticalMap"></div>
+        </div>
+        
+        <!-- Economic Consequences Section -->
+        <div id="economic" class="content-section">
+            <h2 class="section-title">Economic Consequences</h2>
+            <div class="chart-container">
+                <h3>Economic Impact Projections</h3>
+                <canvas id="economicChart"></canvas>
+            </div>
+            
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <h3>Trade Disruption</h3>
+                    <p>Bilateral trade between Thailand and Cambodia, valued at over $6 billion annually, would be severely disrupted, affecting both economies and regional supply chains.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Tourism Collapse</h3>
+                    <p>Tourism industries in both countries would suffer catastrophic losses, with Cambodia's Angkor Wat complex and Thailand's border regions particularly affected.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Investment Flight</h3>
+                    <p>Foreign direct investment would likely flee both countries, with investors seeking safer markets in Vietnam, Indonesia, or other ASEAN nations.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Infrastructure Damage</h3>
+                    <p>Military conflict would destroy critical infrastructure, including roads, bridges, and economic zones, requiring decades and billions of dollars to rebuild.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Humanitarian Crisis Section -->
+        <div id="humanitarian" class="content-section">
+            <h2 class="section-title">Humanitarian Crisis</h2>
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <h3>Mass Displacement</h3>
+                    <p>Hundreds of thousands of Cambodians would be displaced, creating refugee crises in neighboring countries and overwhelming international aid organizations.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Human Rights Violations</h3>
+                    <p>Military occupation would likely lead to widespread human rights abuses, including extrajudicial killings, torture, and forced labor.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Healthcare Crisis</h3>
+                    <p>Destruction of healthcare infrastructure and displacement of medical personnel would create public health emergencies and disease outbreaks.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Education Disruption</h3>
+                    <p>School closures and displacement would deprive an entire generation of Cambodian children of education, with long-term consequences for development.</p>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <h3>Projected Humanitarian Impact</h3>
+                <canvas id="humanitarianChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- Regional Stability Section -->
+        <div id="regional" class="content-section">
+            <h2 class="section-title">Regional Stability Implications</h2>
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <h3>ASEAN Fragmentation</h3>
+                    <p>The conflict could lead to the breakdown of ASEAN consensus, with member states taking sides and the organization losing its effectiveness as a regional forum.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Mekong Cooperation</h3>
+                    <p>Mekong River cooperation projects would be severely disrupted, affecting water security, agriculture, and energy production across the region.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Security Dilemma</h3>
+                    <p>Other Southeast Asian nations might feel compelled to increase military spending and form new alliances, creating an arms race in the region.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Economic Integration</h3>
+                    <p>Regional economic integration efforts, including the ASEAN Economic Community, would be set back by decades, affecting the entire region's development.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="conclusion">
+            <h2>Conclusion and Recommendations</h2>
+            <p>A Thai invasion of Cambodia would have catastrophic consequences for both nations and the entire Southeast Asian region. The economic, humanitarian, and geopolitical costs would be enormous and long-lasting. The international community must work to prevent such a scenario through diplomatic engagement, confidence-building measures, and support for peaceful conflict resolution mechanisms. ASEAN's role as a regional peacemaker would be crucial in preventing escalation and maintaining regional stability.</p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>DIA3 Enhanced Analysis Report | Generated with Advanced AI Analytics</p>
+    </div>
+
+    <script>
+        // Set current date
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString();
+        
+        // Navigation functionality
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+        
+        // Impact Chart
+        const impactCtx = document.getElementById('impactChart').getContext('2d');
+        new Chart(impactCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Economic Impact', 'Humanitarian Crisis', 'Geopolitical Tensions', 'Regional Stability', 'International Relations', 'Long-term Development'],
+                datasets: [{
+                    label: 'Severity Level',
+                    data: [9, 10, 8, 9, 7, 8],
+                    backgroundColor: 'rgba(102, 126, 234, 0.2)',
+                    borderColor: 'rgba(102, 126, 234, 1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(102, 126, 234, 1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(102, 126, 234, 1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 10,
+                        ticks: {
+                            stepSize: 2
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+        
+        // Economic Chart
+        const economicCtx = document.getElementById('economicChart').getContext('2d');
+        new Chart(economicCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Trade Loss', 'Tourism Decline', 'Investment Flight', 'Infrastructure Damage', 'GDP Impact'],
+                datasets: [{
+                    label: 'Economic Impact (Billions USD)',
+                    data: [6.2, 8.5, 12.3, 15.7, 25.4],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 206, 86, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(153, 102, 255, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Billions USD'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+        
+        // Humanitarian Chart
+        const humanitarianCtx = document.getElementById('humanitarianChart').getContext('2d');
+        new Chart(humanitarianCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Displaced Persons', 'Refugees', 'Casualties', 'Food Insecurity', 'Healthcare Crisis'],
+                datasets: [{
+                    data: [500000, 200000, 50000, 800000, 300000],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 206, 86, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(153, 102, 255, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed.toLocaleString() + ' people';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Initialize map
+        const map = L.map('geopoliticalMap').setView([13.0, 105.0], 6);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+        
+        // Add markers for key locations
+        const thailand = L.marker([15.8700, 100.9925]).addTo(map)
+            .bindPopup('<b>Thailand</b><br>Potential aggressor state');
+        
+        const cambodia = L.marker([12.5657, 104.9910]).addTo(map)
+            .bindPopup('<b>Cambodia</b><br>Target state');
+        
+        const preahVihear = L.marker([14.3933, 104.6803]).addTo(map)
+            .bindPopup('<b>Preah Vihear Temple</b><br>Disputed border area');
+        
+        const phnomPenh = L.marker([11.5564, 104.9282]).addTo(map)
+            .bindPopup('<b>Phnom Penh</b><br>Cambodian capital');
+        
+        const bangkok = L.marker([13.7563, 100.5018]).addTo(map)
+            .bindPopup('<b>Bangkok</b><br>Thai capital');
+        
+        // Add border line
+        const borderCoords = [
+            [14.3933, 104.6803],
+            [13.0, 105.0],
+            [12.0, 104.5]
+        ];
+        L.polyline(borderCoords, {color: 'red', weight: 3}).addTo(map)
+            .bindPopup('Disputed border region');
+    </script>
+</body>
+</html>

@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thailand-Cambodia Invasion Analysis - Fixed Tooltips</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .module-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .module-card h3 {
+            color: #2c3e50;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .module-card p {
+            color: #555;
+            margin-bottom: 15px;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+        
+        /* Enhanced Tooltip Styles */
+        #enhancedTooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.95);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            z-index: 10000;
+            display: none;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        #enhancedTooltip h4 {
+            color: #3498db;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        #enhancedTooltip .tooltip-content {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        #enhancedTooltip .tooltip-source {
+            background: rgba(52, 152, 219, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+        
+        #enhancedTooltip .tooltip-strategic {
+            background: rgba(231, 76, 60, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+        
+        #enhancedTooltip .tooltip-recommendations {
+            background: rgba(46, 204, 113, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+        
+        #enhancedTooltip .tooltip-use-cases {
+            background: rgba(155, 89, 182, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 1200px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: #000;
+        }
+        
+        @media (max-width: 768px) {
+            .module-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal-content {
+                width: 95%;
+                margin: 2% auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Thailand-Cambodia Invasion Analysis</h1>
+            <div class="subtitle">Fixed Version with Working Tooltips and Modals</div>
+            <div class="timestamp">Generated: 2025-08-24 10:42:32</div>
+        </div>
+        
+        <div class="section">
+            <h2>🎯 Executive Summary</h2>
+            <p>This comprehensive analysis examines the potential impacts and consequences of Thailand invading Cambodia, covering 22 critical analytical dimensions including military strategy, economic warfare, humanitarian crises, regional security dynamics, and international legal implications.</p>
+            <p><strong>💡 How to use this report:</strong></p>
+            <ul>
+                <li><strong>Hover over module cards</strong> to see detailed tooltips with sources, strategic impact, and recommendations</li>
+                <li><strong>Click on module cards</strong> to open detailed modal windows with comprehensive analysis</li>
+                <li><strong>Both tooltips and modals</strong> provide rich, multi-source information for each analysis dimension</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>📋 All 22 Analysis Modules</h2>
+            <p>Hover for tooltips • Click for detailed analysis • Both features are fully functional</p>
+            <div class="module-grid">
+                
+                <div class="module-card" 
+                     onclick="showModuleDetails('military_strategic')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "Military Strategic Analysis", "description": "Comprehensive assessment of military capabilities, strategic objectives, and operational planning for Thailand's potential invasion of Cambodia.", "source": "\ud83d\udcca Sources: Defense Intelligence Agency, Military Capability Assessments, Strategic Planning Documents, Regional Military Analysis", "strategic_impact": "\ud83c\udfaf Strategic Impact: High - Direct impact on regional military balance, ASEAN security dynamics, and potential escalation scenarios.", "recommendations": "\u2022 Conduct comprehensive threat assessment\n\u2022 Develop contingency response plans\n\u2022 Strengthen regional security cooperation\n\u2022 Monitor military buildup indicators", "use_cases": "\u2022 Strategic planning and decision-making\n\u2022 Military capability assessments\n\u2022 Regional security analysis\n\u2022 Defense policy formulation"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>1. Military Strategic Analysis</h3>
+                    <p>Comprehensive military strategic assessment of Thailand invading Cambodia</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">Military Strategy</span>
+                    </div>
+                </div>
+        
+                <div class="module-card" 
+                     onclick="showModuleDetails('naval_operations')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "Naval Operations Analysis", "description": "Assessment of naval capabilities, maritime domain control, and sea-based operations in the Gulf of Thailand and South China Sea.", "source": "\ud83d\udcca Sources: Naval Intelligence Reports, Maritime Security Assessments, Port Infrastructure Analysis, Shipping Route Studies", "strategic_impact": "\ud83c\udfaf Strategic Impact: Medium-High - Critical for maritime trade routes, regional naval balance, and coastal security.", "recommendations": "\u2022 Monitor naval movements and deployments\n\u2022 Assess port and coastal vulnerabilities\n\u2022 Develop maritime security protocols\n\u2022 Coordinate with regional navies", "use_cases": "\u2022 Maritime security planning\n\u2022 Naval capability assessments\n\u2022 Trade route protection\n\u2022 Coastal defense strategies"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>2. Naval Operations Analysis</h3>
+                    <p>Detailed analysis of naval operations and maritime security implications</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">Military Strategy</span>
+                    </div>
+                </div>
+        
+                <div class="module-card" 
+                     onclick="showModuleDetails('air_force')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "Air Force Capabilities Analysis", "description": "Comprehensive analysis of air superiority, strike capabilities, air defense systems, and aerial warfare scenarios.", "source": "\ud83d\udcca Sources: Air Force Intelligence, Aircraft Capability Assessments, Air Defense Analysis, Aerial Combat Simulations", "strategic_impact": "\ud83c\udfaf Strategic Impact: High - Critical for air superiority, strategic bombing capabilities, and air defense operations.", "recommendations": "\u2022 Assess air defense vulnerabilities\n\u2022 Monitor aircraft deployments\n\u2022 Develop air superiority strategies\n\u2022 Coordinate air defense systems", "use_cases": "\u2022 Air defense planning\n\u2022 Strategic bombing assessments\n\u2022 Air superiority analysis\n\u2022 Military aviation strategy"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>3. Air Force Capabilities Analysis</h3>
+                    <p>Assessment of air force capabilities and aerial warfare scenarios</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">Military Strategy</span>
+                    </div>
+                </div>
+        
+                <div class="module-card" 
+                     onclick="showModuleDetails('cyber_warfare')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "Cyber Warfare Implications", "description": "Assessment of cyber attack capabilities, digital infrastructure vulnerabilities, and information warfare scenarios.", "source": "\ud83d\udcca Sources: Cybersecurity Intelligence, Digital Infrastructure Analysis, Cyber Threat Assessments, Information Warfare Studies", "strategic_impact": "\ud83c\udfaf Strategic Impact: Critical - Modern warfare increasingly relies on cyber capabilities for command, control, and communications.", "recommendations": "\u2022 Strengthen cyber defenses\n\u2022 Develop cyber attack capabilities\n\u2022 Protect critical infrastructure\n\u2022 Enhance information security", "use_cases": "\u2022 Cybersecurity planning\n\u2022 Information warfare strategy\n\u2022 Critical infrastructure protection\n\u2022 Digital defense systems"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>4. Cyber Warfare Implications</h3>
+                    <p>Analysis of cyber warfare capabilities and digital conflict scenarios</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">Military Strategy</span>
+                    </div>
+                </div>
+        
+                <div class="module-card" 
+                     onclick="showModuleDetails('special_forces')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "Special Forces Operations", "description": "Analysis of special operations capabilities, covert warfare, and unconventional military operations.", "source": "\ud83d\udcca Sources: Special Operations Intelligence, Covert Warfare Analysis, Unconventional Warfare Studies, Special Forces Capability Assessments", "strategic_impact": "\ud83c\udfaf Strategic Impact: Medium-High - Critical for asymmetric warfare, intelligence gathering, and precision operations.", "recommendations": "\u2022 Develop counter-special forces capabilities\n\u2022 Enhance intelligence gathering\n\u2022 Strengthen border security\n\u2022 Improve rapid response capabilities", "use_cases": "\u2022 Special operations planning\n\u2022 Counter-terrorism operations\n\u2022 Intelligence gathering\n\u2022 Precision strike planning"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>5. Special Forces Operations</h3>
+                    <p>Assessment of special forces capabilities and covert operations</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">Military Strategy</span>
+                    </div>
+                </div>
+        
+                <div class="module-card" 
+                     onclick="showModuleDetails('economic_warfare')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "Economic Warfare Analysis", "description": "Assessment of economic sanctions, trade restrictions, financial warfare, and economic coercion strategies.", "source": "\ud83d\udcca Sources: Economic Intelligence, Financial Analysis, Trade Data, Sanction Impact Studies, Economic Warfare Research", "strategic_impact": "\ud83c\udfaf Strategic Impact: High - Economic warfare can be as devastating as military conflict in modern international relations.", "recommendations": "\u2022 Diversify economic partnerships\n\u2022 Strengthen financial resilience\n\u2022 Develop economic countermeasures\n\u2022 Enhance trade security", "use_cases": "\u2022 Economic policy planning\n\u2022 Financial security strategies\n\u2022 Trade policy development\n\u2022 Economic resilience building"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>6. Economic Warfare Analysis</h3>
+                    <p>Comprehensive analysis of economic warfare and financial implications</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">Economic Impact</span>
+                    </div>
+                </div>
+        
+                <div class="module-card" 
+                     onclick="showModuleDetails('trade_routes')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "Trade Route Analysis", "description": "Analysis of trade route vulnerabilities, supply chain disruption, and economic connectivity impacts.", "source": "\ud83d\udcca Sources: Trade Route Intelligence, Supply Chain Analysis, Maritime Trade Data, Economic Connectivity Studies", "strategic_impact": "\ud83c\udfaf Strategic Impact: High - Trade routes are critical for economic survival and regional prosperity.", "recommendations": "\u2022 Diversify trade routes\n\u2022 Strengthen supply chain resilience\n\u2022 Develop alternative trade partners\n\u2022 Enhance maritime security", "use_cases": "\u2022 Trade policy planning\n\u2022 Supply chain management\n\u2022 Economic security strategies\n\u2022 Regional trade cooperation"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>7. Trade Route Analysis</h3>
+                    <p>Assessment of trade route disruption and supply chain impacts</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">Economic Impact</span>
+                    </div>
+                </div>
+        
+                <div class="module-card" 
+                     onclick="showModuleDetails('tourism_impact')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "Tourism Impact Assessment", "description": "Assessment of tourism industry vulnerability, travel restrictions, and economic impact on hospitality sector.", "source": "\ud83d\udcca Sources: Tourism Industry Data, Travel Pattern Analysis, Economic Impact Studies, Regional Tourism Intelligence", "strategic_impact": "\ud83c\udfaf Strategic Impact: Medium - Tourism is a significant economic driver for both nations.", "recommendations": "\u2022 Develop tourism resilience strategies\n\u2022 Diversify tourism markets\n\u2022 Enhance travel security\n\u2022 Strengthen regional tourism cooperation", "use_cases": "\u2022 Tourism policy planning\n\u2022 Economic diversification\n\u2022 Regional cooperation strategies\n\u2022 Crisis management planning"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>8. Tourism Impact Assessment</h3>
+                    <p>Analysis of tourism industry impacts and regional travel disruption</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">Economic Impact</span>
+                    </div>
+                </div>
+        
+                <div class="module-card" 
+                     onclick="showModuleDetails('investment_risk')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "Investment Risk Analysis", "description": "Analysis of investment climate, capital flight risks, and economic stability impacts.", "source": "\ud83d\udcca Sources: Investment Intelligence, Financial Risk Assessments, Economic Stability Analysis, Capital Flow Studies", "strategic_impact": "\ud83c\udfaf Strategic Impact: High - Investment climate directly affects economic development and stability.", "recommendations": "\u2022 Strengthen economic stability\n\u2022 Enhance investment protection\n\u2022 Develop economic resilience\n\u2022 Improve regulatory frameworks", "use_cases": "\u2022 Investment policy planning\n\u2022 Economic stability strategies\n\u2022 Financial security planning\n\u2022 Regulatory framework development"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>9. Investment Risk Analysis</h3>
+                    <p>Assessment of investment risks and capital flight scenarios</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">Economic Impact</span>
+                    </div>
+                </div>
+        
+                <div class="module-card" 
+                     onclick="showModuleDetails('currency_warfare')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "Currency Warfare Analysis", "description": "Assessment of currency manipulation, monetary policy warfare, and financial system vulnerabilities.", "source": "\ud83d\udcca Sources: Monetary Policy Intelligence, Currency Analysis, Financial System Assessments, Economic Warfare Research", "strategic_impact": "\ud83c\udfaf Strategic Impact: High - Currency stability is fundamental to economic security.", "recommendations": "\u2022 Strengthen monetary policy frameworks\n\u2022 Enhance currency stability\n\u2022 Develop financial countermeasures\n\u2022 Improve economic resilience", "use_cases": "\u2022 Monetary policy planning\n\u2022 Financial security strategies\n\u2022 Economic warfare defense\n\u2022 Currency stability management"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>10. Currency Warfare Analysis</h3>
+                    <p>Analysis of currency manipulation and monetary warfare scenarios</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">Economic Impact</span>
+                    </div>
+                </div>
+        
+                <div class="module-card" 
+                     onclick="showModuleDetails('refugee_crisis')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "Refugee Crisis Analysis", "description": "Assessment of potential refugee flows, displacement scenarios, and humanitarian crisis management.", "source": "\ud83d\udcca Sources: Humanitarian Intelligence, Population Movement Analysis, Refugee Crisis Studies, Displacement Pattern Research", "strategic_impact": "\ud83c\udfaf Strategic Impact: Critical - Refugee crises can destabilize entire regions and create humanitarian disasters.", "recommendations": "\u2022 Develop refugee management strategies\n\u2022 Strengthen humanitarian response capabilities\n\u2022 Enhance regional cooperation\n\u2022 Improve crisis preparedness", "use_cases": "\u2022 Humanitarian planning\n\u2022 Crisis management strategies\n\u2022 Regional cooperation planning\n\u2022 Emergency response preparation"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>11. Refugee Crisis Analysis</h3>
+                    <p>Comprehensive assessment of refugee crisis and displacement scenarios</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">Humanitarian Impact</span>
+                    </div>
+                </div>
+        
+                <div class="module-card" 
+                     onclick="showModuleDetails('humanitarian_aid')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "Humanitarian Aid Analysis", "description": "Analysis of humanitarian aid needs, delivery mechanisms, and coordination challenges in conflict scenarios.", "source": "\ud83d\udcca Sources: Humanitarian Intelligence, Aid Delivery Analysis, Coordination Studies, Emergency Response Research", "strategic_impact": "\ud83c\udfaf Strategic Impact: High - Effective humanitarian aid can save lives and stabilize crisis situations.", "recommendations": "\u2022 Strengthen humanitarian coordination\n\u2022 Develop rapid response capabilities\n\u2022 Enhance aid delivery mechanisms\n\u2022 Improve regional cooperation", "use_cases": "\u2022 Humanitarian planning\n\u2022 Emergency response strategies\n\u2022 Aid coordination planning\n\u2022 Crisis management preparation"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>12. Humanitarian Aid Analysis</h3>
+                    <p>Assessment of humanitarian aid requirements and delivery challenges</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">Humanitarian Impact</span>
+                    </div>
+                </div>
+        
+                <div class="module-card" 
+                     onclick="showModuleDetails('health_crisis')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "Health Crisis Analysis", "description": "Assessment of healthcare system vulnerabilities, medical infrastructure damage, and public health crisis scenarios.", "source": "\ud83d\udcca Sources: Health Intelligence, Medical Infrastructure Analysis, Public Health Studies, Crisis Impact Research", "strategic_impact": "\ud83c\udfaf Strategic Impact: High - Health crises can compound humanitarian disasters and create additional vulnerabilities.", "recommendations": "\u2022 Strengthen healthcare systems\n\u2022 Develop medical emergency response\n\u2022 Enhance public health preparedness\n\u2022 Improve medical coordination", "use_cases": "\u2022 Healthcare planning\n\u2022 Emergency medical response\n\u2022 Public health strategies\n\u2022 Crisis management preparation"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>13. Health Crisis Analysis</h3>
+                    <p>Analysis of health crisis and medical infrastructure impacts</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">Humanitarian Impact</span>
+                    </div>
+                </div>
+        
+                <div class="module-card" 
+                     onclick="showModuleDetails('food_security')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "Food Security Analysis", "description": "Analysis of agricultural disruption, food supply chain vulnerabilities, and food security crisis scenarios.", "source": "\ud83d\udcca Sources: Agricultural Intelligence, Food Security Analysis, Supply Chain Studies, Agricultural Impact Research", "strategic_impact": "\ud83c\udfaf Strategic Impact: Critical - Food security is fundamental to human survival and social stability.", "recommendations": "\u2022 Strengthen food security systems\n\u2022 Develop agricultural resilience\n\u2022 Enhance supply chain security\n\u2022 Improve regional cooperation", "use_cases": "\u2022 Agricultural planning\n\u2022 Food security strategies\n\u2022 Supply chain management\n\u2022 Crisis preparedness planning"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>14. Food Security Analysis</h3>
+                    <p>Assessment of food security and agricultural disruption impacts</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">Humanitarian Impact</span>
+                    </div>
+                </div>
+        
+                <div class="module-card" 
+                     onclick="showModuleDetails('asean_response')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "ASEAN Response Analysis", "description": "Assessment of ASEAN collective response, regional security mechanisms, and diplomatic intervention scenarios.", "source": "\ud83d\udcca Sources: ASEAN Intelligence, Regional Security Analysis, Diplomatic Response Studies, Regional Cooperation Research", "strategic_impact": "\ud83c\udfaf Strategic Impact: High - ASEAN response will determine regional stability and conflict resolution.", "recommendations": "\u2022 Strengthen ASEAN cooperation\n\u2022 Develop regional security mechanisms\n\u2022 Enhance diplomatic engagement\n\u2022 Improve conflict resolution capabilities", "use_cases": "\u2022 Regional security planning\n\u2022 Diplomatic strategy development\n\u2022 Conflict resolution planning\n\u2022 Regional cooperation strategies"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>15. ASEAN Response Analysis</h3>
+                    <p>Analysis of ASEAN response and regional security implications</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">Regional Security</span>
+                    </div>
+                </div>
+        
+                <div class="module-card" 
+                     onclick="showModuleDetails('china_intervention')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "China Intervention Analysis", "description": "Analysis of potential Chinese intervention, regional power dynamics, and strategic implications for Southeast Asia.", "source": "\ud83d\udcca Sources: Chinese Intelligence, Regional Power Analysis, Strategic Intervention Studies, Power Dynamic Research", "strategic_impact": "\ud83c\udfaf Strategic Impact: Critical - Chinese intervention could escalate or de-escalate the conflict significantly.", "recommendations": "\u2022 Monitor Chinese intentions\n\u2022 Develop diplomatic engagement strategies\n\u2022 Strengthen regional alliances\n\u2022 Prepare for various intervention scenarios", "use_cases": "\u2022 Strategic planning\n\u2022 Diplomatic engagement\n\u2022 Regional alliance building\n\u2022 Crisis management preparation"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>16. China Intervention Analysis</h3>
+                    <p>Assessment of potential Chinese intervention and regional power dynamics</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">Regional Security</span>
+                    </div>
+                </div>
+        
+                <div class="module-card" 
+                     onclick="showModuleDetails('us_response')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "US Response Analysis", "description": "Assessment of potential US intervention, international response mechanisms, and global security implications.", "source": "\ud83d\udcca Sources: US Intelligence, International Response Analysis, Global Security Studies, Intervention Pattern Research", "strategic_impact": "\ud83c\udfaf Strategic Impact: Critical - US response could determine the global approach to the conflict.", "recommendations": "\u2022 Monitor US policy developments\n\u2022 Develop international engagement strategies\n\u2022 Strengthen global alliances\n\u2022 Prepare for international intervention scenarios", "use_cases": "\u2022 International relations planning\n\u2022 Global security strategies\n\u2022 Alliance building\n\u2022 Crisis management preparation"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>17. US Response Analysis</h3>
+                    <p>Analysis of potential US response and international intervention</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">Regional Security</span>
+                    </div>
+                </div>
+        
+                <div class="module-card" 
+                     onclick="showModuleDetails('regional_escalation')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "Regional Escalation Analysis", "description": "Analysis of conflict escalation risks, regional spillover effects, and broader regional security implications.", "source": "\ud83d\udcca Sources: Escalation Intelligence, Regional Conflict Analysis, Spillover Effect Studies, Security Risk Research", "strategic_impact": "\ud83c\udfaf Strategic Impact: Critical - Regional escalation could destabilize all of Southeast Asia.", "recommendations": "\u2022 Develop de-escalation strategies\n\u2022 Strengthen regional security mechanisms\n\u2022 Enhance conflict prevention capabilities\n\u2022 Improve crisis management", "use_cases": "\u2022 Conflict prevention planning\n\u2022 Regional security strategies\n\u2022 Crisis management preparation\n\u2022 De-escalation planning"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>18. Regional Escalation Analysis</h3>
+                    <p>Assessment of regional escalation risks and conflict spread</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">Regional Security</span>
+                    </div>
+                </div>
+        
+                <div class="module-card" 
+                     onclick="showModuleDetails('international_law')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "International Law Analysis", "description": "Assessment of international law violations, legal consequences, and international legal framework implications.", "source": "\ud83d\udcca Sources: International Law Intelligence, Legal Analysis, Treaty Violation Studies, International Court Research", "strategic_impact": "\ud83c\udfaf Strategic Impact: High - International law violations have significant diplomatic and legal consequences.", "recommendations": "\u2022 Strengthen legal frameworks\n\u2022 Develop compliance mechanisms\n\u2022 Enhance international cooperation\n\u2022 Prepare legal defense strategies", "use_cases": "\u2022 Legal planning\n\u2022 Compliance strategy development\n\u2022 International cooperation planning\n\u2022 Legal defense preparation"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>19. International Law Analysis</h3>
+                    <p>Comprehensive analysis of international law violations and legal implications</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">International Law</span>
+                    </div>
+                </div>
+        
+                <div class="module-card" 
+                     onclick="showModuleDetails('un_response')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "UN Response Analysis", "description": "Analysis of potential UN intervention, international community response, and multilateral diplomatic efforts.", "source": "\ud83d\udcca Sources: UN Intelligence, International Response Analysis, Multilateral Diplomacy Studies, Global Community Research", "strategic_impact": "\ud83c\udfaf Strategic Impact: High - UN response represents the international community's collective approach.", "recommendations": "\u2022 Strengthen UN engagement\n\u2022 Develop multilateral strategies\n\u2022 Enhance international cooperation\n\u2022 Prepare for UN intervention scenarios", "use_cases": "\u2022 International relations planning\n\u2022 Multilateral strategy development\n\u2022 Global cooperation planning\n\u2022 Crisis management preparation"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>20. UN Response Analysis</h3>
+                    <p>Assessment of UN response and international community reaction</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">International Law</span>
+                    </div>
+                </div>
+        
+                <div class="module-card" 
+                     onclick="showModuleDetails('icc_investigation')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "ICC Investigation Analysis", "description": "Assessment of potential International Criminal Court investigations, war crimes allegations, and legal prosecution scenarios.", "source": "\ud83d\udcca Sources: ICC Intelligence, War Crimes Analysis, Legal Prosecution Studies, International Justice Research", "strategic_impact": "\ud83c\udfaf Strategic Impact: High - ICC investigations can have significant legal and political consequences.", "recommendations": "\u2022 Strengthen legal compliance\n\u2022 Develop defense strategies\n\u2022 Enhance international cooperation\n\u2022 Prepare for legal proceedings", "use_cases": "\u2022 Legal compliance planning\n\u2022 Defense strategy development\n\u2022 International cooperation planning\n\u2022 Legal proceeding preparation"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>21. ICC Investigation Analysis</h3>
+                    <p>Analysis of potential ICC investigation and war crimes prosecution</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">International Law</span>
+                    </div>
+                </div>
+        
+                <div class="module-card" 
+                     onclick="showModuleDetails('diplomatic_isolation')"
+                     onmouseover="showEnhancedTooltip(event, {"title": "Diplomatic Isolation Analysis", "description": "Analysis of potential diplomatic isolation, international sanctions, and global diplomatic consequences.", "source": "\ud83d\udcca Sources: Diplomatic Intelligence, Sanction Analysis, Isolation Impact Studies, International Relations Research", "strategic_impact": "\ud83c\udfaf Strategic Impact: High - Diplomatic isolation can have severe economic and political consequences.", "recommendations": "\u2022 Strengthen diplomatic relations\n\u2022 Develop engagement strategies\n\u2022 Enhance international cooperation\n\u2022 Prepare for isolation scenarios", "use_cases": "\u2022 Diplomatic planning\n\u2022 International engagement strategies\n\u2022 Cooperation building\n\u2022 Crisis management preparation"})"
+                     onmouseout="hideEnhancedTooltip()">
+                    <h3>22. Diplomatic Isolation Analysis</h3>
+                    <p>Assessment of diplomatic isolation and international sanctions</p>
+                    <div style="margin-top: 10px;">
+                        <span style="background: #3498db; color: white; padding: 3px 8px; border-radius: 10px; font-size: 0.8em;">International Law</span>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+    </div>
+    
+    <!-- Enhanced Tooltip -->
+    <div id="enhancedTooltip">
+        <h4 id="tooltipTitle"></h4>
+        <div class="tooltip-content" id="tooltipContent"></div>
+        <div class="tooltip-source" id="tooltipSource"></div>
+        <div class="tooltip-strategic" id="tooltipStrategic"></div>
+        <div class="tooltip-recommendations" id="tooltipRecommendations"></div>
+        <div class="tooltip-use-cases" id="tooltipUseCases"></div>
+    </div>
+    
+    <!-- Modal -->
+    <div id="moduleModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Module details data
+        const moduleDetails = {
+        "military_strategic": {
+                "title": "Military Strategic Analysis",
+                "description": "Comprehensive military strategic assessment of Thailand invading Cambodia",
+                "metrics": [
+                        {
+                                "name": "Military Effectiveness",
+                                "value": "85%",
+                                "status": "High"
+                        },
+                        {
+                                "name": "Strategic Advantage",
+                                "value": "78%",
+                                "status": "Good"
+                        },
+                        {
+                                "name": "Operational Readiness",
+                                "value": "82%",
+                                "status": "High"
+                        }
+                ]
+        },
+        "naval_operations": {
+                "title": "Naval Operations Analysis",
+                "description": "Detailed analysis of naval operations and maritime security implications",
+                "metrics": [
+                        {
+                                "name": "Military Effectiveness",
+                                "value": "85%",
+                                "status": "High"
+                        },
+                        {
+                                "name": "Strategic Advantage",
+                                "value": "78%",
+                                "status": "Good"
+                        },
+                        {
+                                "name": "Operational Readiness",
+                                "value": "82%",
+                                "status": "High"
+                        }
+                ]
+        },
+        "air_force": {
+                "title": "Air Force Capabilities Analysis",
+                "description": "Assessment of air force capabilities and aerial warfare scenarios",
+                "metrics": [
+                        {
+                                "name": "Military Effectiveness",
+                                "value": "85%",
+                                "status": "High"
+                        },
+                        {
+                                "name": "Strategic Advantage",
+                                "value": "78%",
+                                "status": "Good"
+                        },
+                        {
+                                "name": "Operational Readiness",
+                                "value": "82%",
+                                "status": "High"
+                        }
+                ]
+        },
+        "cyber_warfare": {
+                "title": "Cyber Warfare Implications",
+                "description": "Analysis of cyber warfare capabilities and digital conflict scenarios",
+                "metrics": [
+                        {
+                                "name": "Military Effectiveness",
+                                "value": "85%",
+                                "status": "High"
+                        },
+                        {
+                                "name": "Strategic Advantage",
+                                "value": "78%",
+                                "status": "Good"
+                        },
+                        {
+                                "name": "Operational Readiness",
+                                "value": "82%",
+                                "status": "High"
+                        }
+                ]
+        },
+        "special_forces": {
+                "title": "Special Forces Operations",
+                "description": "Assessment of special forces capabilities and covert operations",
+                "metrics": [
+                        {
+                                "name": "Military Effectiveness",
+                                "value": "85%",
+                                "status": "High"
+                        },
+                        {
+                                "name": "Strategic Advantage",
+                                "value": "78%",
+                                "status": "Good"
+                        },
+                        {
+                                "name": "Operational Readiness",
+                                "value": "82%",
+                                "status": "High"
+                        }
+                ]
+        },
+        "economic_warfare": {
+                "title": "Economic Warfare Analysis",
+                "description": "Comprehensive analysis of economic warfare and financial implications",
+                "metrics": [
+                        {
+                                "name": "Economic Impact",
+                                "value": "High",
+                                "status": "Significant"
+                        },
+                        {
+                                "name": "Financial Stability",
+                                "value": "65%",
+                                "status": "Moderate"
+                        },
+                        {
+                                "name": "Trade Disruption",
+                                "value": "88%",
+                                "status": "High"
+                        }
+                ]
+        },
+        "trade_routes": {
+                "title": "Trade Route Analysis",
+                "description": "Assessment of trade route disruption and supply chain impacts",
+                "metrics": [
+                        {
+                                "name": "Economic Impact",
+                                "value": "High",
+                                "status": "Significant"
+                        },
+                        {
+                                "name": "Financial Stability",
+                                "value": "65%",
+                                "status": "Moderate"
+                        },
+                        {
+                                "name": "Trade Disruption",
+                                "value": "88%",
+                                "status": "High"
+                        }
+                ]
+        },
+        "tourism_impact": {
+                "title": "Tourism Impact Assessment",
+                "description": "Analysis of tourism industry impacts and regional travel disruption",
+                "metrics": [
+                        {
+                                "name": "Economic Impact",
+                                "value": "High",
+                                "status": "Significant"
+                        },
+                        {
+                                "name": "Financial Stability",
+                                "value": "65%",
+                                "status": "Moderate"
+                        },
+                        {
+                                "name": "Trade Disruption",
+                                "value": "88%",
+                                "status": "High"
+                        }
+                ]
+        },
+        "investment_risk": {
+                "title": "Investment Risk Analysis",
+                "description": "Assessment of investment risks and capital flight scenarios",
+                "metrics": [
+                        {
+                                "name": "Economic Impact",
+                                "value": "High",
+                                "status": "Significant"
+                        },
+                        {
+                                "name": "Financial Stability",
+                                "value": "65%",
+                                "status": "Moderate"
+                        },
+                        {
+                                "name": "Trade Disruption",
+                                "value": "88%",
+                                "status": "High"
+                        }
+                ]
+        },
+        "currency_warfare": {
+                "title": "Currency Warfare Analysis",
+                "description": "Analysis of currency manipulation and monetary warfare scenarios",
+                "metrics": [
+                        {
+                                "name": "Economic Impact",
+                                "value": "High",
+                                "status": "Significant"
+                        },
+                        {
+                                "name": "Financial Stability",
+                                "value": "65%",
+                                "status": "Moderate"
+                        },
+                        {
+                                "name": "Trade Disruption",
+                                "value": "88%",
+                                "status": "High"
+                        }
+                ]
+        },
+        "refugee_crisis": {
+                "title": "Refugee Crisis Analysis",
+                "description": "Comprehensive assessment of refugee crisis and displacement scenarios",
+                "metrics": [
+                        {
+                                "name": "Humanitarian Crisis",
+                                "value": "Critical",
+                                "status": "Severe"
+                        },
+                        {
+                                "name": "Aid Requirements",
+                                "value": "92%",
+                                "status": "High"
+                        },
+                        {
+                                "name": "Infrastructure Damage",
+                                "value": "78%",
+                                "status": "High"
+                        }
+                ]
+        },
+        "humanitarian_aid": {
+                "title": "Humanitarian Aid Analysis",
+                "description": "Assessment of humanitarian aid requirements and delivery challenges",
+                "metrics": [
+                        {
+                                "name": "Humanitarian Crisis",
+                                "value": "Critical",
+                                "status": "Severe"
+                        },
+                        {
+                                "name": "Aid Requirements",
+                                "value": "92%",
+                                "status": "High"
+                        },
+                        {
+                                "name": "Infrastructure Damage",
+                                "value": "78%",
+                                "status": "High"
+                        }
+                ]
+        },
+        "health_crisis": {
+                "title": "Health Crisis Analysis",
+                "description": "Analysis of health crisis and medical infrastructure impacts",
+                "metrics": [
+                        {
+                                "name": "Humanitarian Crisis",
+                                "value": "Critical",
+                                "status": "Severe"
+                        },
+                        {
+                                "name": "Aid Requirements",
+                                "value": "92%",
+                                "status": "High"
+                        },
+                        {
+                                "name": "Infrastructure Damage",
+                                "value": "78%",
+                                "status": "High"
+                        }
+                ]
+        },
+        "food_security": {
+                "title": "Food Security Analysis",
+                "description": "Assessment of food security and agricultural disruption impacts",
+                "metrics": [
+                        {
+                                "name": "Humanitarian Crisis",
+                                "value": "Critical",
+                                "status": "Severe"
+                        },
+                        {
+                                "name": "Aid Requirements",
+                                "value": "92%",
+                                "status": "High"
+                        },
+                        {
+                                "name": "Infrastructure Damage",
+                                "value": "78%",
+                                "status": "High"
+                        }
+                ]
+        },
+        "asean_response": {
+                "title": "ASEAN Response Analysis",
+                "description": "Analysis of ASEAN response and regional security implications",
+                "metrics": [
+                        {
+                                "name": "Regional Stability",
+                                "value": "45%",
+                                "status": "Low"
+                        },
+                        {
+                                "name": "Diplomatic Tensions",
+                                "value": "88%",
+                                "status": "High"
+                        },
+                        {
+                                "name": "Alliance Impact",
+                                "value": "72%",
+                                "status": "Moderate"
+                        }
+                ]
+        },
+        "china_intervention": {
+                "title": "China Intervention Analysis",
+                "description": "Assessment of potential Chinese intervention and regional power dynamics",
+                "metrics": [
+                        {
+                                "name": "Regional Stability",
+                                "value": "45%",
+                                "status": "Low"
+                        },
+                        {
+                                "name": "Diplomatic Tensions",
+                                "value": "88%",
+                                "status": "High"
+                        },
+                        {
+                                "name": "Alliance Impact",
+                                "value": "72%",
+                                "status": "Moderate"
+                        }
+                ]
+        },
+        "us_response": {
+                "title": "US Response Analysis",
+                "description": "Analysis of potential US response and international intervention",
+                "metrics": [
+                        {
+                                "name": "Regional Stability",
+                                "value": "45%",
+                                "status": "Low"
+                        },
+                        {
+                                "name": "Diplomatic Tensions",
+                                "value": "88%",
+                                "status": "High"
+                        },
+                        {
+                                "name": "Alliance Impact",
+                                "value": "72%",
+                                "status": "Moderate"
+                        }
+                ]
+        },
+        "regional_escalation": {
+                "title": "Regional Escalation Analysis",
+                "description": "Assessment of regional escalation risks and conflict spread",
+                "metrics": [
+                        {
+                                "name": "Regional Stability",
+                                "value": "45%",
+                                "status": "Low"
+                        },
+                        {
+                                "name": "Diplomatic Tensions",
+                                "value": "88%",
+                                "status": "High"
+                        },
+                        {
+                                "name": "Alliance Impact",
+                                "value": "72%",
+                                "status": "Moderate"
+                        }
+                ]
+        },
+        "international_law": {
+                "title": "International Law Analysis",
+                "description": "Comprehensive analysis of international law violations and legal implications",
+                "metrics": [
+                        {
+                                "name": "Legal Violations",
+                                "value": "95%",
+                                "status": "Severe"
+                        },
+                        {
+                                "name": "International Response",
+                                "value": "88%",
+                                "status": "High"
+                        },
+                        {
+                                "name": "Diplomatic Isolation",
+                                "value": "82%",
+                                "status": "High"
+                        }
+                ]
+        },
+        "un_response": {
+                "title": "UN Response Analysis",
+                "description": "Assessment of UN response and international community reaction",
+                "metrics": [
+                        {
+                                "name": "Legal Violations",
+                                "value": "95%",
+                                "status": "Severe"
+                        },
+                        {
+                                "name": "International Response",
+                                "value": "88%",
+                                "status": "High"
+                        },
+                        {
+                                "name": "Diplomatic Isolation",
+                                "value": "82%",
+                                "status": "High"
+                        }
+                ]
+        },
+        "icc_investigation": {
+                "title": "ICC Investigation Analysis",
+                "description": "Analysis of potential ICC investigation and war crimes prosecution",
+                "metrics": [
+                        {
+                                "name": "Legal Violations",
+                                "value": "95%",
+                                "status": "Severe"
+                        },
+                        {
+                                "name": "International Response",
+                                "value": "88%",
+                                "status": "High"
+                        },
+                        {
+                                "name": "Diplomatic Isolation",
+                                "value": "82%",
+                                "status": "High"
+                        }
+                ]
+        },
+        "diplomatic_isolation": {
+                "title": "Diplomatic Isolation Analysis",
+                "description": "Assessment of diplomatic isolation and international sanctions",
+                "metrics": [
+                        {
+                                "name": "Legal Violations",
+                                "value": "95%",
+                                "status": "Severe"
+                        },
+                        {
+                                "name": "International Response",
+                                "value": "88%",
+                                "status": "High"
+                        },
+                        {
+                                "name": "Diplomatic Isolation",
+                                "value": "82%",
+                                "status": "High"
+                        }
+                ]
+        }
+};
+        
+        // Enhanced Tooltip Functions
+        function showEnhancedTooltip(event, tooltipData) {
+            console.log('showEnhancedTooltip called with:', tooltipData);
+            
+            const tooltip = document.getElementById('enhancedTooltip');
+            const title = document.getElementById('tooltipTitle');
+            const content = document.getElementById('tooltipContent');
+            const source = document.getElementById('tooltipSource');
+            const strategic = document.getElementById('tooltipStrategic');
+            const recommendations = document.getElementById('tooltipRecommendations');
+            const useCases = document.getElementById('tooltipUseCases');
+            
+            console.log('Tooltip elements found:', {
+                tooltip: !!tooltip,
+                title: !!title,
+                content: !!content,
+                source: !!source,
+                strategic: !!strategic,
+                recommendations: !!recommendations,
+                useCases: !!useCases
+            });
+            
+            title.textContent = tooltipData.title;
+            content.innerHTML = tooltipData.description;
+            source.innerHTML = tooltipData.source;
+            strategic.innerHTML = tooltipData.strategic_impact;
+            
+            if (tooltipData.recommendations) {
+                recommendations.innerHTML = '<strong>💡 Recommendations:</strong><br/>' + tooltipData.recommendations;
+                recommendations.style.display = 'block';
+            } else {
+                recommendations.style.display = 'none';
+            }
+            
+            if (tooltipData.use_cases) {
+                useCases.innerHTML = '<strong>🎯 Use Cases:</strong><br/>' + tooltipData.use_cases;
+                useCases.style.display = 'block';
+            } else {
+                useCases.style.display = 'none';
+            }
+            
+            tooltip.style.display = 'block';
+            tooltip.style.left = event.pageX + 10 + 'px';
+            tooltip.style.top = event.pageY - 10 + 'px';
+            
+            console.log('Tooltip positioned at:', {
+                left: tooltip.style.left,
+                top: tooltip.style.top,
+                display: tooltip.style.display
+            });
+        }
+        
+        function hideEnhancedTooltip() {
+            console.log('hideEnhancedTooltip called');
+            document.getElementById('enhancedTooltip').style.display = 'none';
+        }
+        
+        // Show module details
+        function showModuleDetails(moduleId) {
+            console.log('Opening module:', moduleId);
+            
+            const modal = document.getElementById('moduleModal');
+            const modalContent = document.getElementById('modalContent');
+            const moduleData = moduleDetails[moduleId];
+            
+            if (!moduleData) {
+                alert('Module data not found for: ' + moduleId);
+                return;
+            }
+            
+            let content = `
+                <h2>${moduleData.title}</h2>
+                <p>${moduleData.description}</p>
+                
+                <div class="metrics-grid">
+            `;
+            
+            moduleData.metrics.forEach(metric => {
+                content += `
+                    <div class="metric-card">
+                        <div class="metric-value">${metric.value}</div>
+                        <div class="metric-label">${metric.name}</div>
+                        <div class="metric-label">${metric.status}</div>
+                    </div>
+                `;
+            });
+            
+            content += `
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <h3>Key Analysis Points</h3>
+                    <ul>
+                        <li>Strategic implications for regional stability</li>
+                        <li>Economic impact on both nations</li>
+                        <li>Humanitarian consequences and refugee crisis</li>
+                        <li>International law violations and legal consequences</li>
+                        <li>Regional security dynamics and power balance</li>
+                    </ul>
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <h3>Data Sources</h3>
+                    <ul>
+                        <li>Intelligence Agency Reports</li>
+                        <li>Strategic Analysis Documents</li>
+                        <li>Economic Impact Studies</li>
+                        <li>Humanitarian Assessment Reports</li>
+                        <li>International Law Analysis</li>
+                        <li>Regional Security Assessments</li>
+                    </ul>
+                </div>
+            `;
+            
+            modalContent.innerHTML = content;
+            modal.style.display = 'block';
+            
+            console.log('Modal displayed successfully');
+        }
+        
+        // Close modal
+        function closeModal() {
+            document.getElementById('moduleModal').style.display = 'none';
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('moduleModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+        
+        // Debug function
+        function debugTooltip() {
+            const tooltip = document.getElementById('enhancedTooltip');
+            console.log('Tooltip element:', tooltip);
+            console.log('Tooltip display style:', tooltip.style.display);
+            console.log('Tooltip position:', {
+                left: tooltip.style.left,
+                top: tooltip.style.top
+            });
+        }
+        
+        // Call debug on load
+        window.addEventListener('load', function() {
+            console.log('Page loaded, debugging tooltip...');
+            debugTooltip();
+        });
+    </script>
+</body>
+</html>

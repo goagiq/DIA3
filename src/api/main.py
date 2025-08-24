@@ -16,7 +16,6 @@ from src.core.models import (
     AnalysisRequest, AnalysisResult, ModelConfig
 )
 from src.config.config import config
-from src.mcp_servers.unified_mcp_server import create_unified_mcp_server
 
 # Import multi-domain strategic analysis routes
 try:

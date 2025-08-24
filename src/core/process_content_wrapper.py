@@ -158,8 +158,8 @@ def process_content_with_auto_options(
         
         # Import the MCP tool function
         try:
-            from src.mcp_servers.unified_mcp_server import UnifiedMCPServer
-            server = UnifiedMCPServer()
+            from src.mcp_servers.enhanced_optimized_mcp_server import EnhancedOptimizedMCPServer
+            server = EnhancedOptimizedMCPServer()
             
             # Call the process_content method directly
             import asyncio

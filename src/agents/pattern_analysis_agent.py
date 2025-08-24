@@ -31,7 +31,13 @@ from loguru import logger
 
 # Import core services
 from core.orchestrator import SentimentOrchestrator
-from core.unified_mcp_client import call_unified_mcp_tool
+# Import unified MCP client only when needed
+try:
+    from core.unified_mcp_client import call_unified_mcp_tool
+    UNIFIED_MCP_CLIENT_AVAILABLE = True
+except ImportError:
+    UNIFIED_MCP_CLIENT_AVAILABLE = False
+    call_unified_mcp_tool = None
 
 
 class PatternAnalysisAgent:

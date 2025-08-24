@@ -17,13 +17,13 @@ from src.core.source_tracking import (
     SourceTracker, SourceReference, CalculationStep, DataPoint,
     track_source, track_calculation, create_tracked_data_point
 )
-# Import enhanced MCP client if available
+# Import enhanced MCP client only when available
 try:
     from src.core.enhanced_mcp_client import get_enhanced_mcp_client
     ENHANCED_MCP_CLIENT_AVAILABLE = True
 except ImportError:
     ENHANCED_MCP_CLIENT_AVAILABLE = False
-    logger.warning("⚠️ Enhanced MCP client not available")
+    get_enhanced_mcp_client = None
 
 
 class EnhancedReportOrchestrator:
@@ -36,11 +36,10 @@ class EnhancedReportOrchestrator:
         self.source_tracker = SourceTracker()
         
         # Initialize MCP client if available
-        if ENHANCED_MCP_CLIENT_AVAILABLE:
+        if ENHANCED_MCP_CLIENT_AVAILABLE and get_enhanced_mcp_client:
             self.mcp_client = get_enhanced_mcp_client()
         else:
             self.mcp_client = None
-            logger.warning("⚠️ Enhanced MCP client not available, some features may be limited")
         
         logger.info(f"Enhanced Report Orchestrator initialized with output dir: {output_dir}")
     

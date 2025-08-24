@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_0bd997275825086b8b512366e10d807b {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_0bd997275825086b8b512366e10d807b" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_0bd997275825086b8b512366e10d807b = L.map(
+                "map_0bd997275825086b8b512366e10d807b",
+                {
+                    center: [20.0, 65.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 5,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_b325f2d981cd48c70668831be51df389 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_b325f2d981cd48c70668831be51df389.addTo(map_0bd997275825086b8b512366e10d807b);
+        
+    
+            var marker_9adb142a833f3e7ac1a45f7e8071ab8d = L.marker(
+                [24.8607, 66.9905],
+                {
+}
+            ).addTo(map_0bd997275825086b8b512366e10d807b);
+        
+    
+            var icon_d2595ac02d80f75936549fc936858e1c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "anchor",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e43b3105136d5335503d3a3882f74cd5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a0b1055a815817455a2781194c12f76c = $(`<div id="html_a0b1055a815817455a2781194c12f76c" style="width: 100.0%; height: 100.0%;"><b>Karachi Naval Base</b><br>Type: Main Base</div>`)[0];
+                popup_e43b3105136d5335503d3a3882f74cd5.setContent(html_a0b1055a815817455a2781194c12f76c);
+            
+        
+
+        marker_9adb142a833f3e7ac1a45f7e8071ab8d.bindPopup(popup_e43b3105136d5335503d3a3882f74cd5)
+        ;
+
+        
+    
+    
+                marker_9adb142a833f3e7ac1a45f7e8071ab8d.setIcon(icon_d2595ac02d80f75936549fc936858e1c);
+            
+    
+            var marker_1ec850e1d22ade39770f536ddb803d82 = L.marker(
+                [25.2083, 62.3275],
+                {
+}
+            ).addTo(map_0bd997275825086b8b512366e10d807b);
+        
+    
+            var icon_74aa798d9e4ec4940502ce67e2d36233 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "anchor",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2022988e8d59babdd898269df9faf862 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ba35e5d7b6e1a1a863552b53c8654c6a = $(`<div id="html_ba35e5d7b6e1a1a863552b53c8654c6a" style="width: 100.0%; height: 100.0%;"><b>Orkara Naval Base</b><br>Type: Forward Base</div>`)[0];
+                popup_2022988e8d59babdd898269df9faf862.setContent(html_ba35e5d7b6e1a1a863552b53c8654c6a);
+            
+        
+
+        marker_1ec850e1d22ade39770f536ddb803d82.bindPopup(popup_2022988e8d59babdd898269df9faf862)
+        ;
+
+        
+    
+    
+                marker_1ec850e1d22ade39770f536ddb803d82.setIcon(icon_74aa798d9e4ec4940502ce67e2d36233);
+            
+    
+            var marker_21a9ec1aa320cc5d36997bcbfaf444a7 = L.marker(
+                [25.1264, 62.3223],
+                {
+}
+            ).addTo(map_0bd997275825086b8b512366e10d807b);
+        
+    
+            var icon_778282c43b54095c1fe01a161f97c9ec = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "anchor",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_438fbe53648819605159fbd8370e5068 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cbf140457f5e891de165c4f0e49f9cac = $(`<div id="html_cbf140457f5e891de165c4f0e49f9cac" style="width: 100.0%; height: 100.0%;"><b>Gwadar Port</b><br>Type: Strategic Port</div>`)[0];
+                popup_438fbe53648819605159fbd8370e5068.setContent(html_cbf140457f5e891de165c4f0e49f9cac);
+            
+        
+
+        marker_21a9ec1aa320cc5d36997bcbfaf444a7.bindPopup(popup_438fbe53648819605159fbd8370e5068)
+        ;
+
+        
+    
+    
+                marker_21a9ec1aa320cc5d36997bcbfaf444a7.setIcon(icon_778282c43b54095c1fe01a161f97c9ec);
+            
+    
+            var marker_75fa8a9db0f78be54f2698f464e7543a = L.marker(
+                [19.076, 72.8777],
+                {
+}
+            ).addTo(map_0bd997275825086b8b512366e10d807b);
+        
+    
+            var icon_b056e338a0b68ac0dd3ac5767c2816f6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "anchor",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5d7bf7d4d859e7f574da64bc783d19b1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8414904982dcaf089c53434327833ba1 = $(`<div id="html_8414904982dcaf089c53434327833ba1" style="width: 100.0%; height: 100.0%;"><b>Mumbai Naval Base</b><br>Type: Western Command</div>`)[0];
+                popup_5d7bf7d4d859e7f574da64bc783d19b1.setContent(html_8414904982dcaf089c53434327833ba1);
+            
+        
+
+        marker_75fa8a9db0f78be54f2698f464e7543a.bindPopup(popup_5d7bf7d4d859e7f574da64bc783d19b1)
+        ;
+
+        
+    
+    
+                marker_75fa8a9db0f78be54f2698f464e7543a.setIcon(icon_b056e338a0b68ac0dd3ac5767c2816f6);
+            
+    
+            var marker_859350808dea08f52ab8123246ae46fc = L.marker(
+                [17.6868, 83.2185],
+                {
+}
+            ).addTo(map_0bd997275825086b8b512366e10d807b);
+        
+    
+            var icon_0546bc7e33d0f0604deb5ca044550bde = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "anchor",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0465ed8e46b5f28c371b08aad0b8ab0b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bd44d00d1d6eed612138a4be6a54ca23 = $(`<div id="html_bd44d00d1d6eed612138a4be6a54ca23" style="width: 100.0%; height: 100.0%;"><b>Visakhapatnam</b><br>Type: Eastern Command</div>`)[0];
+                popup_0465ed8e46b5f28c371b08aad0b8ab0b.setContent(html_bd44d00d1d6eed612138a4be6a54ca23);
+            
+        
+
+        marker_859350808dea08f52ab8123246ae46fc.bindPopup(popup_0465ed8e46b5f28c371b08aad0b8ab0b)
+        ;
+
+        
+    
+    
+                marker_859350808dea08f52ab8123246ae46fc.setIcon(icon_0546bc7e33d0f0604deb5ca044550bde);
+            
+    
+            var marker_2b354e48bf9403339a79fe383861c1f7 = L.marker(
+                [9.9312, 76.2673],
+                {
+}
+            ).addTo(map_0bd997275825086b8b512366e10d807b);
+        
+    
+            var icon_1e5e291fdbd092b89c52aa4f6dd9c43b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "anchor",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9abb601ebd27945eeef464035aebc231 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_805e388d153d54fef951e3f04611ae8d = $(`<div id="html_805e388d153d54fef951e3f04611ae8d" style="width: 100.0%; height: 100.0%;"><b>Kochi Naval Base</b><br>Type: Southern Command</div>`)[0];
+                popup_9abb601ebd27945eeef464035aebc231.setContent(html_805e388d153d54fef951e3f04611ae8d);
+            
+        
+
+        marker_2b354e48bf9403339a79fe383861c1f7.bindPopup(popup_9abb601ebd27945eeef464035aebc231)
+        ;
+
+        
+    
+    
+                marker_2b354e48bf9403339a79fe383861c1f7.setIcon(icon_1e5e291fdbd092b89c52aa4f6dd9c43b);
+            
+    
+            var marker_9abcd6640e28139d380f6b9bdb6db93e = L.marker(
+                [26.592, 56.2474],
+                {
+}
+            ).addTo(map_0bd997275825086b8b512366e10d807b);
+        
+    
+            var icon_2bfef40e9ad72fb1ed8abf8e5c6e760f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fdc73e2e1504d21cdfe912b9044cf9a3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_281986647e8025511700b7000c7e5dc4 = $(`<div id="html_281986647e8025511700b7000c7e5dc4" style="width: 100.0%; height: 100.0%;"><b>Strait of Hormuz</b><br>Critical Trade Chokepoint</div>`)[0];
+                popup_fdc73e2e1504d21cdfe912b9044cf9a3.setContent(html_281986647e8025511700b7000c7e5dc4);
+            
+        
+
+        marker_9abcd6640e28139d380f6b9bdb6db93e.bindPopup(popup_fdc73e2e1504d21cdfe912b9044cf9a3)
+        ;
+
+        
+    
+    
+                marker_9abcd6640e28139d380f6b9bdb6db93e.setIcon(icon_2bfef40e9ad72fb1ed8abf8e5c6e760f);
+            
+    
+            var marker_5ac0d318a1282d789c6891d6533eedd1 = L.marker(
+                [1.3521, 103.8198],
+                {
+}
+            ).addTo(map_0bd997275825086b8b512366e10d807b);
+        
+    
+            var icon_a92f45e6eaf9f630e8371f6cfe5952cd = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d3b9b5e6d9683df1902e1baa4501f21d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_eaf9dfd4bcf7b0d86c368b552a6f952a = $(`<div id="html_eaf9dfd4bcf7b0d86c368b552a6f952a" style="width: 100.0%; height: 100.0%;"><b>Malacca Strait</b><br>Critical Trade Chokepoint</div>`)[0];
+                popup_d3b9b5e6d9683df1902e1baa4501f21d.setContent(html_eaf9dfd4bcf7b0d86c368b552a6f952a);
+            
+        
+
+        marker_5ac0d318a1282d789c6891d6533eedd1.bindPopup(popup_d3b9b5e6d9683df1902e1baa4501f21d)
+        ;
+
+        
+    
+    
+                marker_5ac0d318a1282d789c6891d6533eedd1.setIcon(icon_a92f45e6eaf9f630e8371f6cfe5952cd);
+            
+    
+            var marker_052f74f1a2365564f475d1570a8b20f3 = L.marker(
+                [12.585, 43.145],
+                {
+}
+            ).addTo(map_0bd997275825086b8b512366e10d807b);
+        
+    
+            var icon_0f3ae796a6bff3d354d644fe7db994b3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_24049d0192317d917a1b4bd63c507247 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ce654923a70cdb32c5dd97138c496b03 = $(`<div id="html_ce654923a70cdb32c5dd97138c496b03" style="width: 100.0%; height: 100.0%;"><b>Bab el-Mandeb</b><br>Critical Trade Chokepoint</div>`)[0];
+                popup_24049d0192317d917a1b4bd63c507247.setContent(html_ce654923a70cdb32c5dd97138c496b03);
+            
+        
+
+        marker_052f74f1a2365564f475d1570a8b20f3.bindPopup(popup_24049d0192317d917a1b4bd63c507247)
+        ;
+
+        
+    
+    
+                marker_052f74f1a2365564f475d1570a8b20f3.setIcon(icon_0f3ae796a6bff3d354d644fe7db994b3);
+            
+</script>
+</html>

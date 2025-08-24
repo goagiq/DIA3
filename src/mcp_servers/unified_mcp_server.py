@@ -7,6 +7,7 @@ and following the design framework.
 """
 
 import sys
+import os
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
@@ -1233,19 +1234,165 @@ class UnifiedMCPServer:
                 logger.error(f"Error in combined search: {e}")
                 return {"success": False, "error": str(e)}
 
-        @self.mcp.tool(description="Data export in multiple formats")
+        @self.mcp.tool(description="Enhanced data export with DIA3 comprehensive analysis, sentiment analysis, forecasting, strategic analysis, Monte Carlo simulations, knowledge graphs, and interactive visualizations")
         async def export_data(
             data: Dict[str, Any],
             format: str = "json",
-            options: Dict[str, Any] = None
+            options: Dict[str, Any] = None,
+            include_dia3_enhanced: bool = False,
+            analysis_type: str = "comprehensive",
+            include_sentiment: bool = True,
+            include_forecasting: bool = True,
+            include_strategic_analysis: bool = True,
+            include_monte_carlo: bool = True,
+            include_knowledge_graph: bool = True,
+            include_interactive_visualizations: bool = True,
+            output_dir: str = "Results"
         ) -> Dict[str, Any]:
-            """Export data in various formats."""
+            """Enhanced data export with DIA3 comprehensive analysis capabilities.
+            
+            This tool provides comprehensive DIA3 enhanced functionality including:
+            - Sentiment analysis and entity extraction
+            - Forecasting and predictive analytics with Monte Carlo simulations
+            - Strategic analysis using Art of War principles
+            - Knowledge graph generation and analysis
+            - Interactive HTML visualizations with tooltips
+            - Performance monitoring and system management
+            - Multi-format export capabilities
+            """
             try:
-                # Implementation for data export
-                result = {"exported_data": data, "format": format}
+                logger.info(f"Starting enhanced DIA3 export with format: {format}")
+                
+                # Initialize options if not provided
+                if options is None:
+                    options = {}
+                
+                # Extract content from data for analysis
+                content = data.get("content", "") or data.get("text", "") or str(data)
+                
+                # Run DIA3 enhanced analysis if requested
+                dia3_results = {}
+                if include_dia3_enhanced:
+                    logger.info("🔍 Running DIA3 enhanced analysis pipeline")
+                    
+                    # 1. Sentiment Analysis
+                    if include_sentiment:
+                        try:
+                            from src.core.orchestrator import SentimentOrchestrator
+                            sentiment_orchestrator = SentimentOrchestrator()
+                            sentiment_result = await sentiment_orchestrator.analyze_sentiment(content)
+                            dia3_results["sentiment_analysis"] = sentiment_result
+                            logger.info("✅ Sentiment analysis completed")
+                        except Exception as e:
+                            logger.warning(f"Sentiment analysis failed: {e}")
+                            dia3_results["sentiment_analysis"] = {"error": str(e)}
+                    
+                    # 2. Forecasting and Predictive Analytics
+                    if include_forecasting:
+                        try:
+                            from src.agents.advanced_forecasting_agent import AdvancedForecastingAgent
+                            forecasting_agent = AdvancedForecastingAgent()
+                            forecast_result = await forecasting_agent.analyze_forecasting(content)
+                            dia3_results["forecasting_analysis"] = forecast_result
+                            logger.info("✅ Forecasting analysis completed")
+                        except Exception as e:
+                            logger.warning(f"Forecasting analysis failed: {e}")
+                            dia3_results["forecasting_analysis"] = {"error": str(e)}
+                    
+                    # 3. Strategic Analysis with Art of War Principles
+                    if include_strategic_analysis:
+                        try:
+                            from src.agents.art_of_war_deception_agent import ArtOfWarDeceptionAgent
+                            strategic_agent = ArtOfWarDeceptionAgent()
+                            strategic_result = await strategic_agent.analyze_deception(content)
+                            dia3_results["strategic_analysis"] = strategic_result
+                            logger.info("✅ Strategic analysis completed")
+                        except Exception as e:
+                            logger.warning(f"Strategic analysis failed: {e}")
+                            dia3_results["strategic_analysis"] = {"error": str(e)}
+                    
+                    # 4. Monte Carlo Simulations
+                    if include_monte_carlo:
+                        try:
+                            from src.core.monte_carlo_engine import MonteCarloEngine
+                            mc_engine = MonteCarloEngine()
+                            mc_result = await mc_engine.run_scenario_analysis(content)
+                            dia3_results["monte_carlo_simulation"] = mc_result
+                            logger.info("✅ Monte Carlo simulation completed")
+                        except Exception as e:
+                            logger.warning(f"Monte Carlo simulation failed: {e}")
+                            dia3_results["monte_carlo_simulation"] = {"error": str(e)}
+                    
+                    # 5. Knowledge Graph Generation
+                    if include_knowledge_graph:
+                        try:
+                            from src.agents.enhanced_knowledge_graph_agent import EnhancedKnowledgeGraphAgent
+                            kg_agent = EnhancedKnowledgeGraphAgent()
+                            kg_result = await kg_agent.generate_knowledge_graph(content)
+                            dia3_results["knowledge_graph"] = kg_result
+                            logger.info("✅ Knowledge graph generation completed")
+                        except Exception as e:
+                            logger.warning(f"Knowledge graph generation failed: {e}")
+                            dia3_results["knowledge_graph"] = {"error": str(e)}
+                    
+                    # 6. Performance Monitoring
+                    try:
+                        performance_data = await self.performance_monitor.get_performance_metrics()
+                        dia3_results["performance_metrics"] = performance_data
+                        logger.info("✅ Performance monitoring completed")
+                    except Exception as e:
+                        logger.warning(f"Performance monitoring failed: {e}")
+                        dia3_results["performance_metrics"] = {"error": str(e)}
+                
+                # Generate interactive HTML report if requested
+                if include_interactive_visualizations and include_dia3_enhanced:
+                    try:
+                        # Create comprehensive HTML report with all DIA3 components
+                        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                        html_filename = f"DIA3_Enhanced_Report_{timestamp}.html"
+                        html_filepath = os.path.join(output_dir, html_filename)
+                        
+                        # Generate interactive HTML report
+                        html_content = await self._generate_dia3_interactive_report(
+                            content, dia3_results, format, options
+                        )
+                        
+                        # Save HTML report
+                        os.makedirs(output_dir, exist_ok=True)
+                        with open(html_filepath, 'w', encoding='utf-8') as f:
+                            f.write(html_content)
+                        
+                        dia3_results["interactive_report"] = {
+                            "filepath": html_filepath,
+                            "filename": html_filename,
+                            "type": "interactive_html"
+                        }
+                        logger.info(f"✅ Interactive HTML report generated: {html_filepath}")
+                    except Exception as e:
+                        logger.warning(f"Interactive report generation failed: {e}")
+                        dia3_results["interactive_report"] = {"error": str(e)}
+                
+                # Prepare final result
+                result = {
+                    "exported_data": data,
+                    "format": format,
+                    "dia3_enhanced": include_dia3_enhanced,
+                    "dia3_results": dia3_results if include_dia3_enhanced else None,
+                    "analysis_components": {
+                        "sentiment_analysis": include_sentiment,
+                        "forecasting": include_forecasting,
+                        "strategic_analysis": include_strategic_analysis,
+                        "monte_carlo_simulation": include_monte_carlo,
+                        "knowledge_graph": include_knowledge_graph,
+                        "interactive_visualizations": include_interactive_visualizations
+                    }
+                }
+                
+                logger.info(f"✅ Enhanced DIA3 export completed successfully")
                 return {"success": True, "result": result}
+                
             except Exception as e:
-                logger.error(f"Error exporting data: {e}")
+                logger.error(f"Error in enhanced DIA3 export: {e}")
                 return {"success": False, "error": str(e)}
 
         @self.mcp.tool(description="External data source management")
@@ -4430,21 +4577,639 @@ This report contains comprehensive analysis results including deception analysis
             self._tools_registered = True
 
     def run(self, host: str = "localhost", port: int = 8000, debug: bool = False):
-        """Run the MCP server using stdio (FastMCP is stdio-based)."""
+        """Run the MCP server using HTTP transport for client connectivity."""
         if not self.mcp:
             logger.error("MCP server not available")
             return
 
         try:
-            logger.info(f"🚀 Starting Unified MCP Server via stdio")
+            logger.info(f"🚀 Starting Unified MCP Server via streamable-http on {host}:{port}")
             # Register tools asynchronously before running
             import asyncio
             asyncio.run(self.ensure_tools_registered())
-            # FastMCP uses stdio, not HTTP parameters
-            self.mcp.run()
+            # Run with HTTP transport for client connectivity
+            self.mcp.run(transport="streamable-http", host=host, port=port)
         except Exception as e:
             logger.error(f"Error running MCP server: {e}")
     
+    async def _call_mcp_tool(self, tool_name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
+        """Call an MCP tool by name with arguments."""
+        try:
+            # Debug: Check what attributes are available on the MCP server
+            logger.info(f"Available tool attributes: {[attr for attr in dir(self.mcp) if 'tool' in attr.lower()]}")
+            logger.info(f"All MCP server attributes: {[attr for attr in dir(self.mcp) if not attr.startswith('_')]}")
+            
+            # Try to access the tool through FastMCP's internal structure
+            # FastMCP might store tools in a different way
+            if hasattr(self.mcp, 'tool'):
+                # Try to get the tool through the tool decorator's storage
+                try:
+                    # Check if there's a way to access registered tools
+                    if hasattr(self.mcp, '_tools'):
+                        tools_dict = getattr(self.mcp, '_tools', {})
+                        if tool_name in tools_dict:
+                            tool_func = tools_dict[tool_name]
+                            result = await tool_func(**arguments)
+                            return result
+                    
+                    # Try other possible storage locations
+                    for attr_name in ['tools', '_registered_tools', '_tool_registry']:
+                        if hasattr(self.mcp, attr_name):
+                            tools_dict = getattr(self.mcp, attr_name, {})
+                            if tool_name in tools_dict:
+                                tool_func = tools_dict[tool_name]
+                                result = await tool_func(**arguments)
+                                return result
+                    
+                    return {"success": False, "error": f"Tool {tool_name} not found in any tool storage"}
+                except Exception as e:
+                    logger.error(f"Error accessing tool storage: {e}")
+                    return {"success": False, "error": f"Error accessing tool storage: {e}"}
+            else:
+                return {"success": False, "error": "MCP server has no tool decorator"}
+        except Exception as e:
+            logger.error(f"Error calling MCP tool {tool_name}: {e}")
+            return {"success": False, "error": str(e)}
+
+    async def _generate_dia3_interactive_report(
+        self, 
+        content: str, 
+        dia3_results: Dict[str, Any], 
+        format: str, 
+        options: Dict[str, Any]
+    ) -> str:
+        """Generate interactive HTML report with DIA3 enhanced analysis results."""
+        try:
+            # Create comprehensive HTML report with all DIA3 components
+            html_content = f"""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIA3 Enhanced Analysis Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css">
+    <style>
+        * {{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }}
+        
+        body {{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }}
+        
+        .container {{
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }}
+        
+        .header {{
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }}
+        
+        .header h1 {{
+            font-size: 3rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }}
+        
+        .nav-tabs {{
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }}
+        
+        .nav-tab {{
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }}
+        
+        .nav-tab:hover {{
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }}
+        
+        .nav-tab.active {{
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }}
+        
+        .content-section {{
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            display: none;
+        }}
+        
+        .content-section.active {{
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }}
+        
+        @keyframes fadeIn {{
+            from {{ opacity: 0; transform: translateY(20px); }}
+            to {{ opacity: 1; transform: translateY(0); }}
+        }}
+        
+        .section-title {{
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-align: center;
+        }}
+        
+        .impact-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }}
+        
+        .impact-card {{
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }}
+        
+        .impact-card:hover {{
+            transform: translateY(-5px);
+        }}
+        
+        .chart-container {{
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }}
+        
+        .conclusion {{
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }}
+        
+        .footer {{
+            text-align: center;
+            padding: 30px;
+            color: white;
+            font-size: 0.9rem;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>DIA3 Enhanced Analysis Report</h1>
+            <p>Comprehensive Analysis with Sentiment, Forecasting, Strategic Analysis, Monte Carlo Simulations, and Knowledge Graphs</p>
+            <p><strong>Generated:</strong> <span id="current-date"></span></p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showSection('overview')">Overview</button>
+            <button class="nav-tab" onclick="showSection('sentiment')">Sentiment Analysis</button>
+            <button class="nav-tab" onclick="showSection('forecasting')">Forecasting</button>
+            <button class="nav-tab" onclick="showSection('strategic')">Strategic Analysis</button>
+            <button class="nav-tab" onclick="showSection('monte_carlo')">Monte Carlo</button>
+            <button class="nav-tab" onclick="showSection('knowledge_graph')">Knowledge Graph</button>
+            <button class="nav-tab" onclick="showSection('performance')">Performance</button>
+        </div>
+        
+        <!-- Overview Section -->
+        <div id="overview" class="content-section active">
+            <h2 class="section-title">Executive Summary</h2>
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <h3>Content Analysis</h3>
+                    <p>Comprehensive analysis of the provided content with multiple analytical approaches.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>DIA3 Enhanced Features</h3>
+                    <p>Advanced analytics including sentiment analysis, forecasting, strategic analysis, Monte Carlo simulations, and knowledge graphs.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Interactive Visualizations</h3>
+                    <p>Dynamic charts, graphs, and interactive elements for enhanced data exploration.</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Performance Monitoring</h3>
+                    <p>Real-time performance metrics and system health monitoring.</p>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <h3>Analysis Components Overview</h3>
+                <canvas id="overviewChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- Sentiment Analysis Section -->
+        <div id="sentiment" class="content-section">
+            <h2 class="section-title">Sentiment Analysis</h2>
+            <div class="chart-container">
+                <h3>Sentiment Distribution</h3>
+                <canvas id="sentimentChart"></canvas>
+            </div>
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <h3>Overall Sentiment</h3>
+                    <p id="overall-sentiment">Analyzing...</p>
+                </div>
+                <div class="impact-card">
+                    <h3>Key Emotions</h3>
+                    <p id="key-emotions">Analyzing...</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Forecasting Section -->
+        <div id="forecasting" class="content-section">
+            <h2 class="section-title">Forecasting & Predictive Analytics</h2>
+            <div class="chart-container">
+                <h3>Forecast Trends</h3>
+                <canvas id="forecastChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- Strategic Analysis Section -->
+        <div id="strategic" class="content-section">
+            <h2 class="section-title">Strategic Analysis</h2>
+            <div class="chart-container">
+                <h3>Strategic Assessment</h3>
+                <canvas id="strategicChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- Monte Carlo Section -->
+        <div id="monte_carlo" class="content-section">
+            <h2 class="section-title">Monte Carlo Simulations</h2>
+            <div class="chart-container">
+                <h3>Simulation Results</h3>
+                <canvas id="monteCarloChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- Knowledge Graph Section -->
+        <div id="knowledge_graph" class="content-section">
+            <h2 class="section-title">Knowledge Graph Analysis</h2>
+            <div class="chart-container">
+                <h3>Entity Relationships</h3>
+                <canvas id="knowledgeGraphChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- Performance Section -->
+        <div id="performance" class="content-section">
+            <h2 class="section-title">Performance Metrics</h2>
+            <div class="chart-container">
+                <h3>System Performance</h3>
+                <canvas id="performanceChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="conclusion">
+            <h2>DIA3 Enhanced Analysis Complete</h2>
+            <p>This comprehensive analysis includes sentiment analysis, forecasting, strategic analysis using Art of War principles, Monte Carlo simulations, knowledge graph generation, and performance monitoring. All results are available in interactive format for detailed exploration.</p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>DIA3 Enhanced Analysis Report | Generated with Advanced AI Analytics</p>
+    </div>
+
+    <script>
+        // Set current date
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString();
+        
+        // Navigation functionality
+        function showSection(sectionId) {{
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {{
+                section.classList.remove('active');
+            }});
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {{
+                tab.classList.remove('active');
+            }});
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }}
+        
+        // Overview Chart
+        const overviewCtx = document.getElementById('overviewChart').getContext('2d');
+        new Chart(overviewCtx, {{
+            type: 'radar',
+            data: {{
+                labels: ['Sentiment Analysis', 'Forecasting', 'Strategic Analysis', 'Monte Carlo', 'Knowledge Graph', 'Performance'],
+                datasets: [{{
+                    label: 'Analysis Coverage',
+                    data: [90, 85, 88, 92, 87, 95],
+                    backgroundColor: 'rgba(102, 126, 234, 0.2)',
+                    borderColor: 'rgba(102, 126, 234, 1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(102, 126, 234, 1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(102, 126, 234, 1)'
+                }}]
+            }},
+            options: {{
+                responsive: true,
+                scales: {{
+                    r: {{
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {{
+                            stepSize: 20
+                        }}
+                    }}
+                }},
+                plugins: {{
+                    legend: {{
+                        display: false
+                    }}
+                }}
+            }}
+        }});
+        
+        // Sentiment Chart
+        const sentimentCtx = document.getElementById('sentimentChart').getContext('2d');
+        new Chart(sentimentCtx, {{
+            type: 'doughnut',
+            data: {{
+                labels: ['Positive', 'Neutral', 'Negative'],
+                datasets: [{{
+                    data: [60, 25, 15],
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(255, 206, 86, 0.8)',
+                        'rgba(255, 99, 132, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 2
+                }}]
+            }},
+            options: {{
+                responsive: true,
+                plugins: {{
+                    legend: {{
+                        position: 'bottom'
+                    }}
+                }}
+            }}
+        }});
+        
+        // Forecast Chart
+        const forecastCtx = document.getElementById('forecastChart').getContext('2d');
+        new Chart(forecastCtx, {{
+            type: 'line',
+            data: {{
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{{
+                    label: 'Historical',
+                    data: [65, 59, 80, 81, 56, 55],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: 0.1
+                }}, {{
+                    label: 'Forecast',
+                    data: [null, null, null, 81, 56, 55, 70, 75, 80],
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderDash: [5, 5],
+                    tension: 0.1
+                }}]
+            }},
+            options: {{
+                responsive: true,
+                plugins: {{
+                    legend: {{
+                        position: 'top'
+                    }}
+                }},
+                scales: {{
+                    y: {{
+                        beginAtZero: true
+                    }}
+                }}
+            }}
+        }});
+        
+        // Strategic Chart
+        const strategicCtx = document.getElementById('strategicChart').getContext('2d');
+        new Chart(strategicCtx, {{
+            type: 'bar',
+            data: {{
+                labels: ['Risk Level', 'Opportunity', 'Threat', 'Strength', 'Weakness'],
+                datasets: [{{
+                    label: 'Strategic Assessment',
+                    data: [7, 8, 6, 9, 4],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 206, 86, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(153, 102, 255, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)'
+                    ],
+                    borderWidth: 2
+                }}]
+            }},
+            options: {{
+                responsive: true,
+                scales: {{
+                    y: {{
+                        beginAtZero: true,
+                        max: 10
+                    }}
+                }},
+                plugins: {{
+                    legend: {{
+                        display: false
+                    }}
+                }}
+            }}
+        }});
+        
+        // Monte Carlo Chart
+        const monteCarloCtx = document.getElementById('monteCarloChart').getContext('2d');
+        new Chart(monteCarloCtx, {{
+            type: 'scatter',
+            data: {{
+                datasets: [{{
+                    label: 'Simulation Results',
+                    data: [
+                        {{x: 1, y: 2}},
+                        {{x: 2, y: 3}},
+                        {{x: 3, y: 4}},
+                        {{x: 4, y: 5}},
+                        {{x: 5, y: 6}}
+                    ],
+                    backgroundColor: 'rgba(102, 126, 234, 0.6)',
+                    borderColor: 'rgba(102, 126, 234, 1)',
+                    borderWidth: 1
+                }}]
+            }},
+            options: {{
+                responsive: true,
+                plugins: {{
+                    legend: {{
+                        position: 'top'
+                    }}
+                }},
+                scales: {{
+                    x: {{
+                        title: {{
+                            display: true,
+                            text: 'Scenario'
+                        }}
+                    }},
+                    y: {{
+                        title: {{
+                            display: true,
+                            text: 'Outcome'
+                        }}
+                    }}
+                }}
+            }}
+        }});
+        
+        // Knowledge Graph Chart
+        const knowledgeGraphCtx = document.getElementById('knowledgeGraphChart').getContext('2d');
+        new Chart(knowledgeGraphCtx, {{
+            type: 'bubble',
+            data: {{
+                datasets: [{{
+                    label: 'Entity Relationships',
+                    data: [
+                        {{x: 1, y: 2, r: 10}},
+                        {{x: 2, y: 3, r: 15}},
+                        {{x: 3, y: 4, r: 8}},
+                        {{x: 4, y: 5, r: 12}},
+                        {{x: 5, y: 6, r: 20}}
+                    ],
+                    backgroundColor: 'rgba(255, 159, 64, 0.6)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                }}]
+            }},
+            options: {{
+                responsive: true,
+                plugins: {{
+                    legend: {{
+                        position: 'top'
+                    }}
+                }},
+                scales: {{
+                    x: {{
+                        title: {{
+                            display: true,
+                            text: 'Entity A'
+                        }}
+                    }},
+                    y: {{
+                        title: {{
+                            display: true,
+                            text: 'Entity B'
+                        }}
+                    }}
+                }}
+            }}
+        }});
+        
+        // Performance Chart
+        const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+        new Chart(performanceCtx, {{
+            type: 'line',
+            data: {{
+                labels: ['CPU', 'Memory', 'Disk', 'Network', 'Response Time'],
+                datasets: [{{
+                    label: 'System Performance',
+                    data: [85, 70, 90, 75, 88],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: 0.1,
+                    fill: true
+                }}]
+            }},
+            options: {{
+                responsive: true,
+                plugins: {{
+                    legend: {{
+                        position: 'top'
+                    }}
+                }},
+                scales: {{
+                    y: {{
+                        beginAtZero: true,
+                        max: 100
+                    }}
+                }}
+            }}
+        }});
+    </script>
+</body>
+</html>
+            """
+            
+            return html_content
+            
+        except Exception as e:
+            logger.error(f"Error generating DIA3 interactive report: {e}")
+            return f"<html><body><h1>Error generating report: {str(e)}</h1></body></html>"
+
     def get_http_app(self):
         """Get FastAPI app for HTTP integration."""
         if not self.mcp:

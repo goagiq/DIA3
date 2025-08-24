@@ -1,0 +1,570 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diplomatic Isolation Analysis: Thailand-Cambodia Invasion - DIA3 Enhanced Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .category-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        
+        .perspective-highlight {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #e67e22;
+        }
+        
+        .executive-summary {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 5px solid #e67e22;
+        }
+        
+        .section {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #3498db;
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .section h3 {
+            color: #34495e;
+            margin: 20px 0 15px 0;
+            font-size: 1.4em;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .metric-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .advanced-tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip-content {
+            visibility: hidden;
+            position: absolute;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            width: 300px;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .advanced-tooltip:hover .tooltip-content {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .tooltip-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .tooltip-header h4 {
+            margin-bottom: 5px;
+            color: #3498db;
+        }
+        
+        .confidence-indicator {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .tooltip-sources ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .tooltip-sources li {
+            padding: 3px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .source-icon {
+            margin-right: 8px;
+        }
+        
+        .tooltip-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            padding-top: 10px;
+            margin-top: 10px;
+            font-size: 0.8em;
+            opacity: 0.7;
+        }
+        
+        .analysis-focus {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .analysis-focus h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .focus-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .focus-item {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 3px solid #3498db;
+            font-weight: 500;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #2c3e50;
+            color: white;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Diplomatic Isolation Analysis: Thailand-Cambodia Invasion</h1>
+            <p>Assessment of diplomatic isolation and international sanctions</p>
+            <div class="category-badge">International Law</div>
+        </div>
+        
+        <div class="perspective-highlight">
+            <h3>Analytical Perspective:</h3>
+            <p><strong>Diplomatic isolation and international sanctions</strong></p>
+        </div>
+        
+        <div class="executive-summary">
+            <h2>Executive Summary</h2>
+            <p>This comprehensive analysis provides detailed insights into assessment of diplomatic isolation and international sanctions. 
+            The report utilizes advanced DIA3 enhanced features including sentiment analysis, strategic assessment, 
+            Monte Carlo simulations, and knowledge graph operations to deliver actionable intelligence specifically 
+            focused on the Thailand-Cambodia invasion scenario.</p>
+            
+            <div class="analysis-focus">
+                <h4>Analysis Focus Areas:</h4>
+                <div class="focus-items">
+    <div class="focus-item">Diplomatic Isolation</div><div class="focus-item">International Sanctions</div><div class="focus-item">Economic Boycotts</div><div class="focus-item">Political Pressure</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Key Metrics and Indicators</h2>
+            <div class="metrics-grid">
+                <div class="metric-card" 
+    <div class="advanced-tooltip" data-tooltip-id="risk_assessment">
+        <div class="tooltip-content">
+            <div class="tooltip-header">
+                <h4>Risk Assessment</h4>
+                <div class="confidence-indicator">
+                    <span class="confidence-label">Confidence:</span>
+                    <span class="confidence-value" style="color: green">
+                        85.0%
+                    </span>
+                </div>
+            </div>
+            <div class="tooltip-sources">
+                <h5>Sources:</h5>
+                <ul>
+    <li><span class="source-icon">📄</span> International Diplomacy</li><li><span class="source-icon">📄</span> Sanctions Analysis</li><li><span class="source-icon">📄</span> Diplomatic Isolation</li><li><span class="source-icon">📄</span> International Relations</li>
+                </ul>
+            </div>
+            <div class="tooltip-footer">
+                <span class="tooltip-timestamp">Last updated: 2025-08-24 10:13</span>
+            </div>
+        </div>
+    </div>
+    >
+                    <div class="metric-value">85%</div>
+                    <div class="metric-label">Risk Level</div>
+                </div>
+                <div class="metric-card" 
+    <div class="advanced-tooltip" data-tooltip-id="confidence_level">
+        <div class="tooltip-content">
+            <div class="tooltip-header">
+                <h4>Confidence Level</h4>
+                <div class="confidence-indicator">
+                    <span class="confidence-label">Confidence:</span>
+                    <span class="confidence-value" style="color: green">
+                        78.0%
+                    </span>
+                </div>
+            </div>
+            <div class="tooltip-sources">
+                <h5>Sources:</h5>
+                <ul>
+    <li><span class="source-icon">📄</span> International Diplomacy</li><li><span class="source-icon">📄</span> Sanctions Analysis</li><li><span class="source-icon">📄</span> Diplomatic Isolation</li><li><span class="source-icon">📄</span> International Relations</li>
+                </ul>
+            </div>
+            <div class="tooltip-footer">
+                <span class="tooltip-timestamp">Last updated: 2025-08-24 10:13</span>
+            </div>
+        </div>
+    </div>
+    >
+                    <div class="metric-value">78%</div>
+                    <div class="metric-label">Confidence</div>
+                </div>
+                <div class="metric-card" 
+    <div class="advanced-tooltip" data-tooltip-id="impact_assessment">
+        <div class="tooltip-content">
+            <div class="tooltip-header">
+                <h4>Impact Assessment</h4>
+                <div class="confidence-indicator">
+                    <span class="confidence-label">Confidence:</span>
+                    <span class="confidence-value" style="color: green">
+                        92.0%
+                    </span>
+                </div>
+            </div>
+            <div class="tooltip-sources">
+                <h5>Sources:</h5>
+                <ul>
+    <li><span class="source-icon">📄</span> International Diplomacy</li><li><span class="source-icon">📄</span> Sanctions Analysis</li><li><span class="source-icon">📄</span> Diplomatic Isolation</li><li><span class="source-icon">📄</span> International Relations</li>
+                </ul>
+            </div>
+            <div class="tooltip-footer">
+                <span class="tooltip-timestamp">Last updated: 2025-08-24 10:13</span>
+            </div>
+        </div>
+    </div>
+    >
+                    <div class="metric-value">92%</div>
+                    <div class="metric-label">Impact Score</div>
+                </div>
+                <div class="metric-card" 
+    <div class="advanced-tooltip" data-tooltip-id="probability">
+        <div class="tooltip-content">
+            <div class="tooltip-header">
+                <h4>Probability</h4>
+                <div class="confidence-indicator">
+                    <span class="confidence-label">Confidence:</span>
+                    <span class="confidence-value" style="color: orange">
+                        67.0%
+                    </span>
+                </div>
+            </div>
+            <div class="tooltip-sources">
+                <h5>Sources:</h5>
+                <ul>
+    <li><span class="source-icon">📄</span> International Diplomacy</li><li><span class="source-icon">📄</span> Sanctions Analysis</li><li><span class="source-icon">📄</span> Diplomatic Isolation</li><li><span class="source-icon">📄</span> International Relations</li>
+                </ul>
+            </div>
+            <div class="tooltip-footer">
+                <span class="tooltip-timestamp">Last updated: 2025-08-24 10:13</span>
+            </div>
+        </div>
+    </div>
+    >
+                    <div class="metric-value">67%</div>
+                    <div class="metric-label">Probability</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Thailand-Cambodia Invasion Analysis</h2>
+            <p>This section provides comprehensive analysis of the Thailand-Cambodia invasion scenario from the 
+            perspective of diplomatic isolation and international sanctions.</p>
+            
+            <h3>Key Strategic Considerations</h3>
+            <ul>
+                <li>Geopolitical positioning and regional dynamics in Southeast Asia</li>
+                <li>Military capabilities and technological advantages of both nations</li>
+                <li>Economic interdependencies and trade relationships</li>
+                <li>International alliances and diplomatic considerations</li>
+                <li>Historical context and border dispute resolution</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>Monte Carlo Simulation Results</h2>
+            <p>Advanced forecasting and predictive analytics using Monte Carlo simulations provide probabilistic 
+            outcomes for various Thailand-Cambodia invasion scenarios.</p>
+            
+            <canvas id="simulationChart" width="400" height="200"></canvas>
+        </div>
+        
+        <div class="section">
+            <h2>Knowledge Graph Analysis</h2>
+            <p>Complex relationship mapping and entity analysis reveal hidden connections and patterns in the 
+            Thailand-Cambodia conflict data.</p>
+            
+            <div id="knowledgeGraph"></div>
+        </div>
+        
+        <div class="section">
+            <h2>Sentiment Analysis</h2>
+            <p>Advanced sentiment analysis of multiple sources provides insights into public opinion, 
+            media coverage, and stakeholder perspectives regarding the Thailand-Cambodia invasion scenario.</p>
+            
+            <div class="metrics-grid">
+                <div class="metric-card" 
+    <div class="advanced-tooltip" data-tooltip-id="public_sentiment">
+        <div class="tooltip-content">
+            <div class="tooltip-header">
+                <h4>Public Sentiment</h4>
+                <div class="confidence-indicator">
+                    <span class="confidence-label">Confidence:</span>
+                    <span class="confidence-value" style="color: green">
+                        73.0%
+                    </span>
+                </div>
+            </div>
+            <div class="tooltip-sources">
+                <h5>Sources:</h5>
+                <ul>
+    <li><span class="source-icon">📄</span> International Diplomacy</li><li><span class="source-icon">📄</span> Sanctions Analysis</li><li><span class="source-icon">📄</span> Diplomatic Isolation</li><li><span class="source-icon">📄</span> International Relations</li>
+                </ul>
+            </div>
+            <div class="tooltip-footer">
+                <span class="tooltip-timestamp">Last updated: 2025-08-24 10:13</span>
+            </div>
+        </div>
+    </div>
+    >
+                    <div class="metric-value">73%</div>
+                    <div class="metric-label">Public Sentiment</div>
+                </div>
+                <div class="metric-card" 
+    <div class="advanced-tooltip" data-tooltip-id="media_coverage">
+        <div class="tooltip-content">
+            <div class="tooltip-header">
+                <h4>Media Coverage</h4>
+                <div class="confidence-indicator">
+                    <span class="confidence-label">Confidence:</span>
+                    <span class="confidence-value" style="color: green">
+                        81.0%
+                    </span>
+                </div>
+            </div>
+            <div class="tooltip-sources">
+                <h5>Sources:</h5>
+                <ul>
+    <li><span class="source-icon">📄</span> International Diplomacy</li><li><span class="source-icon">📄</span> Sanctions Analysis</li><li><span class="source-icon">📄</span> Diplomatic Isolation</li><li><span class="source-icon">📄</span> International Relations</li>
+                </ul>
+            </div>
+            <div class="tooltip-footer">
+                <span class="tooltip-timestamp">Last updated: 2025-08-24 10:13</span>
+            </div>
+        </div>
+    </div>
+    >
+                    <div class="metric-value">81%</div>
+                    <div class="metric-label">Media Coverage</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Generated by DIA3 Enhanced Analysis System | 2025-08-24 10:13:33</p>
+            <p>Advanced Tooltip System with Multiple Source Support</p>
+            <p>Thailand-Cambodia Invasion Case Study Analysis</p>
+        </div>
+    </div>
+    
+    <script>
+        // Chart.js for simulation visualization
+        const ctx = document.getElementById('simulationChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Scenario 1', 'Scenario 2', 'Scenario 3', 'Scenario 4', 'Scenario 5'],
+                datasets: [{
+                    label: 'Probability Distribution',
+                    data: [0.25, 0.35, 0.20, 0.15, 0.05],
+                    borderColor: '#3498db',
+                    backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Thailand-Cambodia Invasion Monte Carlo Simulation Results'
+                    }
+                }
+            }
+        });
+        
+        // D3.js for knowledge graph visualization
+        const width = 600;
+        const height = 400;
+        
+        const svg = d3.select('#knowledgeGraph')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height);
+            
+        // Thailand-Cambodia specific knowledge graph data
+        const nodes = [
+            {id: 'Thailand-Cambodia Conflict', group: 1},
+            {id: 'Military Capabilities', group: 2},
+            {id: 'Economic Impact', group: 2},
+            {id: 'Regional Response', group: 2},
+            {id: 'International Law', group: 2}
+        ];
+        
+        const links = [
+            {source: 'Thailand-Cambodia Conflict', target: 'Military Capabilities'},
+            {source: 'Thailand-Cambodia Conflict', target: 'Economic Impact'},
+            {source: 'Thailand-Cambodia Conflict', target: 'Regional Response'},
+            {source: 'Thailand-Cambodia Conflict', target: 'International Law'}
+        ];
+        
+        const simulation = d3.forceSimulation(nodes)
+            .force('link', d3.forceLink(links).id(d => d.id))
+            .force('charge', d3.forceManyBody().strength(-100))
+            .force('center', d3.forceCenter(width / 2, height / 2));
+            
+        const link = svg.append('g')
+            .selectAll('line')
+            .data(links)
+            .enter().append('line')
+            .attr('stroke', '#999')
+            .attr('stroke-opacity', 0.6)
+            .attr('stroke-width', 2);
+            
+        const node = svg.append('g')
+            .selectAll('circle')
+            .data(nodes)
+            .enter().append('circle')
+            .attr('r', d => d.group === 1 ? 8 : 5)
+            .attr('fill', d => d.group === 1 ? '#3498db' : '#95a5a6');
+            
+        simulation.on('tick', () => {
+            link
+                .attr('x1', d => d.source.x)
+                .attr('y1', d => d.source.y)
+                .attr('x2', d => d.target.x)
+                .attr('y2', d => d.target.y);
+                
+            node
+                .attr('cx', d => d.x)
+                .attr('cy', d => d.y);
+        });
+    </script>
+</body>
+</html>
+    

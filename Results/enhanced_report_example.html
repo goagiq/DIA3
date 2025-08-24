@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Analysis Report - Enhanced Analysis Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        .header .timestamp {
+            font-size: 0.9rem;
+            color: #95a5a6;
+            font-style: italic;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .section h3 {
+            color: #34495e;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .metric-card h5 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .metric-trend {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .metric-description {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-top: 10px;
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            margin: 20px 0;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chart-container canvas {
+            max-width: 100% !important;
+            max-height: 100% !important;
+            width: 100% !important;
+            height: 100% !important;
+        }
+        
+        .enhanced-tooltip {
+            position: absolute;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 0.95em;
+            z-index: 1000;
+            max-width: 400px;
+            display: none;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .tooltip-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .tooltip-content {
+            line-height: 1.5;
+        }
+        
+        .tooltip-source {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+        
+        .tooltip-strategic {
+            margin-top: 8px;
+            padding: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+        
+        .tooltip-recommendations {
+            margin-top: 8px;
+            padding: 8px;
+            background: rgba(46, 204, 113, 0.2);
+            border-radius: 6px;
+            font-size: 0.9em;
+            border-left: 3px solid #2ecc71;
+        }
+        
+        .tooltip-use-cases {
+            margin-top: 8px;
+            padding: 8px;
+            background: rgba(155, 89, 182, 0.2);
+            border-radius: 6px;
+            font-size: 0.9em;
+            border-left: 3px solid #9b59b6;
+        }
+        
+        .intelligence-recommendations {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            color: white;
+        }
+        
+        .recommendation-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3498db;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .recommendation-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .recommendations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .recommendation-card {
+            background: rgba(52, 152, 219, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #3498db;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .recommendation-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .recommendation-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .recommendation-description {
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+        
+        .recommendation-priority, .recommendation-timeline {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+        }
+        
+        .recommendation-priority {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .recommendation-timeline {
+            background: #3498db;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .charts-grid { grid-template-columns: 1fr; }
+        }
+        
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="header">
+            <h1>📊 Market Analysis Report</h1>
+            <div class="subtitle">Enhanced Analysis Report with Interactive Visualizations</div>
+            <div class="timestamp">Generated: 2025-01-15 14:30:00</div>
+        </div>
+        
+        <!-- Executive Summary Section -->
+        <div class="section" id="executive-summary">
+            <h2>📋 Executive Summary</h2>
+            <p>The market analysis reveals strong growth potential in the technology sector, with emerging trends in artificial intelligence and cloud computing driving significant market expansion. Key findings indicate a 25% year-over-year growth in market size and increasing adoption rates across all major segments.</p>
+            
+            <div class="metrics-grid">
+                <div class="metric-card" data-tooltip="market_size">
+                    <h5>Market Size</h5>
+                    <div class="metric-value">$2.5T</div>
+                    <div class="metric-trend">
+                        <span class="trend-label">Trend:</span>
+                        <span class="trend-value stable">+25% YoY</span>
+                    </div>
+                    <p class="metric-description">Total addressable market size</p>
+                </div>
+                
+                <div class="metric-card" data-tooltip="growth_rate">
+                    <h5>Growth Rate</h5>
+                    <div class="metric-value">18.5%</div>
+                    <div class="metric-trend">
+                        <span class="trend-label">Trend:</span>
+                        <span class="trend-value stable">Accelerating</span>
+                    </div>
+                    <p class="metric-description">Annual growth rate</p>
+                </div>
+                
+                <div class="metric-card" data-tooltip="adoption_rate">
+                    <h5>Adoption Rate</h5>
+                    <div class="metric-value">67%</div>
+                    <div class="metric-trend">
+                        <span class="trend-label">Trend:</span>
+                        <span class="trend-value stable">Increasing</span>
+                    </div>
+                    <p class="metric-description">Technology adoption rate</p>
+                </div>
+                
+                <div class="metric-card" data-tooltip="competition_level">
+                    <h5>Competition</h5>
+                    <div class="metric-value">High</div>
+                    <div class="metric-trend">
+                        <span class="trend-label">Trend:</span>
+                        <span class="trend-value stable">Intensifying</span>
+                    </div>
+                    <p class="metric-description">Competitive intensity</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Enhanced Data Analysis Section -->
+        <div class="section" id="enhanced-data-analysis">
+            <h2>📊 Enhanced Data Analysis</h2>
+            <p>Comprehensive data analysis with performance indicators and statistical insights</p>
+            
+            <div class="data-analysis-overview">
+                <div class="overview-header" data-tooltip="data_analysis_overview">
+                    <h3>📊 Data Analysis Overview</h3>
+                    <div class="quality-indicator">
+                        <span class="quality-label">Data Quality Score:</span>
+                        <span class="quality-value">92.5%</span>
+                    </div>
+                    <div class="confidence-indicator">
+                        <span class="confidence-label">Analysis Confidence:</span>
+                        <span class="confidence-value">88.0%</span>
+                    </div>
+                </div>
+                
+                <div class="key-findings">
+                    <h4>🔍 Key Data Findings</h4>
+                    <ul>
+                        <li data-tooltip="finding_1">AI market segment shows 40% growth potential</li>
+                        <li data-tooltip="finding_2">Cloud computing adoption reaches 85% in enterprise</li>
+                        <li data-tooltip="finding_3">Cybersecurity spending increases by 30%</li>
+                        <li data-tooltip="finding_4">Mobile technology penetration at 95%</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="key-data-metrics">
+                <h3>📈 Key Data Metrics</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card" data-tooltip="ai_growth">
+                        <h5>AI Growth</h5>
+                        <div class="metric-value">40%</div>
+                        <div class="metric-trend">
+                            <span class="trend-label">Trend:</span>
+                            <span class="trend-value stable">Rapid Growth</span>
+                        </div>
+                        <p class="metric-description">AI market segment growth</p>
+                    </div>
+                    
+                    <div class="metric-card" data-tooltip="cloud_adoption">
+                        <h5>Cloud Adoption</h5>
+                        <div class="metric-value">85%</div>
+                        <div class="metric-trend">
+                            <span class="trend-label">Trend:</span>
+                            <span class="trend-value stable">High Adoption</span>
+                        </div>
+                        <p class="metric-description">Enterprise cloud adoption</p>
+                    </div>
+                    
+                    <div class="metric-card" data-tooltip="cybersecurity">
+                        <h5>Cybersecurity</h5>
+                        <div class="metric-value">30%</div>
+                        <div class="metric-trend">
+                            <span class="trend-label">Trend:</span>
+                            <span class="trend-value stable">Increasing</span>
+                        </div>
+                        <p class="metric-description">Spending increase</p>
+                    </div>
+                    
+                    <div class="metric-card" data-tooltip="mobile_penetration">
+                        <h5>Mobile Penetration</h5>
+                        <div class="metric-value">95%</div>
+                        <div class="metric-trend">
+                            <span class="trend-label">Trend:</span>
+                            <span class="trend-value stable">Saturated</span>
+                        </div>
+                        <p class="metric-description">Mobile technology adoption</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="interactive-visualizations">
+                <h3>📈 Interactive Visualizations</h3>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <canvas id="marketGrowthChart" width="400" height="300"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="segmentBreakdownChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Strategic Analysis Section -->
+        <div class="section" id="strategic-analysis">
+            <h2>🎯 Strategic Analysis</h2>
+            <p>Comprehensive strategic analysis with multiple perspectives and scenarios</p>
+            
+            <div class="strategic-overview">
+                <h3>📋 Strategic Overview</h3>
+                <p>The strategic analysis identifies three key market opportunities: artificial intelligence integration, cloud infrastructure expansion, and cybersecurity enhancement. Each opportunity presents significant growth potential with varying risk profiles and implementation timelines.</p>
+            </div>
+            
+            <div class="strategic-metrics">
+                <h3>📊 Strategic Metrics</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card" data-tooltip="ai_opportunity">
+                        <h5>AI Opportunity</h5>
+                        <div class="metric-value">$500B</div>
+                        <div class="metric-trend">
+                            <span class="trend-label">Potential:</span>
+                            <span class="trend-value stable">High Value</span>
+                        </div>
+                        <p class="metric-description">AI market opportunity</p>
+                    </div>
+                    
+                    <div class="metric-card" data-tooltip="cloud_opportunity">
+                        <h5>Cloud Opportunity</h5>
+                        <div class="metric-value">$300B</div>
+                        <div class="metric-trend">
+                            <span class="trend-label">Potential:</span>
+                            <span class="trend-value stable">Medium Value</span>
+                        </div>
+                        <p class="metric-description">Cloud market opportunity</p>
+                    </div>
+                    
+                    <div class="metric-card" data-tooltip="security_opportunity">
+                        <h5>Security Opportunity</h5>
+                        <div class="metric-value">$200B</div>
+                        <div class="metric-trend">
+                            <span class="trend-label">Potential:</span>
+                            <span class="trend-value stable">Growing</span>
+                        </div>
+                        <p class="metric-description">Cybersecurity opportunity</p>
+                    </div>
+                    
+                    <div class="metric-card" data-tooltip="total_opportunity">
+                        <h5>Total Opportunity</h5>
+                        <div class="metric-value">$1T</div>
+                        <div class="metric-trend">
+                            <span class="trend-label">Combined:</span>
+                            <span class="trend-value stable">Significant</span>
+                        </div>
+                        <p class="metric-description">Total market opportunity</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="strategic-visualizations">
+                <h3>📈 Strategic Visualizations</h3>
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <canvas id="opportunityChart" width="400" height="300"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="riskAnalysisChart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Strategic Recommendations Section -->
+        <div class="section" id="strategic-recommendations">
+            <h2>💡 Strategic Recommendations</h2>
+            <p>Comprehensive strategic recommendations with implementation roadmap</p>
+            
+            <div class="recommendations-overview">
+                <h3>📋 Recommendations Overview</h3>
+                <p>Based on the comprehensive analysis, we recommend a three-phase approach focusing on AI integration, cloud expansion, and cybersecurity enhancement. Each phase is designed to maximize market opportunity while managing risk effectively.</p>
+            </div>
+            
+            <div class="intelligence-recommendations">
+                <h3>🎯 Key Recommendations</h3>
+                <div class="recommendations-grid">
+                    <div class="recommendation-card" data-tooltip="ai_integration">
+                        <div class="recommendation-title">AI Integration Strategy</div>
+                        <div class="recommendation-description">Implement comprehensive AI integration across all business processes to capture the $500B market opportunity</div>
+                        <div class="recommendation-priority">High</div>
+                        <div class="recommendation-timeline">12-18 months</div>
+                    </div>
+                    
+                    <div class="recommendation-card" data-tooltip="cloud_expansion">
+                        <div class="recommendation-title">Cloud Infrastructure Expansion</div>
+                        <div class="recommendation-description">Expand cloud infrastructure capabilities to address the growing $300B cloud market opportunity</div>
+                        <div class="recommendation-priority">Medium</div>
+                        <div class="recommendation-timeline">6-12 months</div>
+                    </div>
+                    
+                    <div class="recommendation-card" data-tooltip="cybersecurity">
+                        <div class="recommendation-title">Cybersecurity Enhancement</div>
+                        <div class="recommendation-description">Enhance cybersecurity offerings to capture the $200B security market opportunity</div>
+                        <div class="recommendation-priority">High</div>
+                        <div class="recommendation-timeline">9-15 months</div>
+                    </div>
+                    
+                    <div class="recommendation-card" data-tooltip="partnerships">
+                        <div class="recommendation-title">Strategic Partnerships</div>
+                        <div class="recommendation-description">Develop strategic partnerships to accelerate market entry and reduce implementation risk</div>
+                        <div class="recommendation-priority">Medium</div>
+                        <div class="recommendation-timeline">3-6 months</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="implementation-roadmap">
+                <h3>🗺️ Implementation Roadmap</h3>
+                <div class="roadmap-content">
+                    <h4>Phase 1: Foundation (Months 1-6)</h4>
+                    <ul>
+                        <li>Establish strategic partnerships</li>
+                        <li>Develop AI capabilities framework</li>
+                        <li>Assess current cloud infrastructure</li>
+                        <li>Conduct security audit</li>
+                    </ul>
+                    
+                    <h4>Phase 2: Implementation (Months 7-18)</h4>
+                    <ul>
+                        <li>Deploy AI integration solutions</li>
+                        <li>Expand cloud infrastructure</li>
+                        <li>Enhance cybersecurity measures</li>
+                        <li>Launch pilot programs</li>
+                    </ul>
+                    
+                    <h4>Phase 3: Scale (Months 19-24)</h4>
+                    <ul>
+                        <li>Scale successful pilots</li>
+                        <li>Optimize performance</li>
+                        <li>Expand market presence</li>
+                        <li>Continuous improvement</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="monitoring-plan">
+                <h3>📊 Monitoring & Evaluation Plan</h3>
+                <div class="monitoring-content">
+                    <h4>Key Performance Indicators</h4>
+                    <ul>
+                        <li>Market share growth</li>
+                        <li>Revenue increase</li>
+                        <li>Customer acquisition rate</li>
+                        <li>Technology adoption rate</li>
+                        <li>Risk mitigation effectiveness</li>
+                    </ul>
+                    
+                    <h4>Evaluation Criteria</h4>
+                    <ul>
+                        <li>Strategic objective achievement</li>
+                        <li>Market position improvement</li>
+                        <li>Technology leadership</li>
+                        <li>Financial performance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- Enhanced Tooltip -->
+    <div class="enhanced-tooltip" id="enhancedTooltip">
+        <div class="tooltip-title" id="tooltipTitle"></div>
+        <div class="tooltip-content" id="tooltipContent"></div>
+        <div class="tooltip-source" id="tooltipSource"></div>
+        <div class="tooltip-strategic" id="tooltipStrategic"></div>
+        <div class="tooltip-recommendations" id="tooltipRecommendations"></div>
+        <div class="tooltip-use-cases" id="tooltipUseCases"></div>
+    </div>
+    
+    <script>
+        // Enhanced tooltip functionality
+        function showEnhancedTooltip(event, tooltipData) {
+            const tooltip = document.getElementById('enhancedTooltip');
+            const title = document.getElementById('tooltipTitle');
+            const content = document.getElementById('tooltipContent');
+            const source = document.getElementById('tooltipSource');
+            const strategic = document.getElementById('tooltipStrategic');
+            const recommendations = document.getElementById('tooltipRecommendations');
+            const useCases = document.getElementById('tooltipUseCases');
+            
+            title.textContent = tooltipData.title;
+            content.innerHTML = tooltipData.description;
+            source.innerHTML = tooltipData.source;
+            strategic.innerHTML = tooltipData.strategic_impact;
+            
+            if (tooltipData.recommendations) {
+                recommendations.innerHTML = '<strong>💡 Recommendations:</strong><br/>' + tooltipData.recommendations;
+                recommendations.style.display = 'block';
+            } else {
+                recommendations.style.display = 'none';
+            }
+            
+            if (tooltipData.use_cases) {
+                useCases.innerHTML = '<strong>🎯 Use Cases:</strong><br/>' + tooltipData.use_cases;
+                useCases.style.display = 'block';
+            } else {
+                useCases.style.display = 'none';
+            }
+            
+            tooltip.style.display = 'block';
+            tooltip.style.left = event.pageX + 10 + 'px';
+            tooltip.style.top = event.pageY - 10 + 'px';
+        }
+        
+        function hideEnhancedTooltip() {
+            document.getElementById('enhancedTooltip').style.display = 'none';
+        }
+        
+        // Tooltip data
+        const tooltipData = {
+            market_size: {
+                title: "Market Size",
+                description: "Total addressable market size of $2.5 trillion with strong growth potential",
+                source: "Market Research Analysis 2024",
+                strategic_impact: "High - Represents significant opportunity for market expansion",
+                recommendations: "Focus on high-growth segments, develop scalable solutions",
+                use_cases: "Strategic planning, investment decisions, market entry"
+            },
+            ai_growth: {
+                title: "AI Growth",
+                description: "Artificial intelligence market segment showing 40% growth potential",
+                source: "AI Market Analysis 2024",
+                strategic_impact: "Critical - AI represents the fastest growing technology segment",
+                recommendations: "Invest in AI capabilities, develop AI-first products",
+                use_cases: "Product development, technology strategy, investment planning"
+            },
+            cloud_adoption: {
+                title: "Cloud Adoption",
+                description: "85% of enterprises have adopted cloud computing solutions",
+                source: "Cloud Computing Survey 2024",
+                strategic_impact: "High - Cloud is now the standard for enterprise IT",
+                recommendations: "Enhance cloud offerings, focus on hybrid solutions",
+                use_cases: "IT strategy, product development, market positioning"
+            }
+        };
+        
+        // Initialize tooltips
+        document.querySelectorAll('[data-tooltip]').forEach(element => {
+            const tooltipId = element.getAttribute('data-tooltip');
+            const data = tooltipData[tooltipId];
+            
+            if (data) {
+                element.addEventListener('mouseenter', (e) => {
+                    showEnhancedTooltip(e, data);
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    hideEnhancedTooltip();
+                });
+            }
+        });
+        
+        // Initialize charts
+        function initializeCharts() {
+            // Market Growth Chart
+            const marketGrowthCtx = document.getElementById('marketGrowthChart').getContext('2d');
+            new Chart(marketGrowthCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2020', '2021', '2022', '2023', '2024', '2025'],
+                    datasets: [{
+                        label: 'Market Size ($B)',
+                        data: [1500, 1800, 2100, 2400, 2500, 2800],
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Market Growth Trend'
+                        }
+                    }
+                }
+            });
+            
+            // Segment Breakdown Chart
+            const segmentBreakdownCtx = document.getElementById('segmentBreakdownChart').getContext('2d');
+            new Chart(segmentBreakdownCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['AI/ML', 'Cloud Computing', 'Cybersecurity', 'Mobile', 'IoT'],
+                    datasets: [{
+                        data: [25, 30, 15, 20, 10],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.8)',
+                            'rgba(54, 162, 235, 0.8)',
+                            'rgba(255, 205, 86, 0.8)',
+                            'rgba(75, 192, 192, 0.8)',
+                            'rgba(153, 102, 255, 0.8)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Market Segment Breakdown'
+                        }
+                    }
+                }
+            });
+            
+            // Opportunity Chart
+            const opportunityCtx = document.getElementById('opportunityChart').getContext('2d');
+            new Chart(opportunityCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['AI Integration', 'Cloud Expansion', 'Cybersecurity'],
+                    datasets: [{
+                        label: 'Market Opportunity ($B)',
+                        data: [500, 300, 200],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.8)',
+                            'rgba(54, 162, 235, 0.8)',
+                            'rgba(255, 205, 86, 0.8)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Strategic Opportunities'
+                        }
+                    }
+                }
+            });
+            
+            // Risk Analysis Chart
+            const riskAnalysisCtx = document.getElementById('riskAnalysisChart').getContext('2d');
+            new Chart(riskAnalysisCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Market Risk', 'Technology Risk', 'Competition Risk', 'Regulatory Risk', 'Execution Risk'],
+                    datasets: [{
+                        label: 'Risk Level',
+                        data: [0.3, 0.4, 0.6, 0.2, 0.5],
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 1
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Risk Analysis'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Initialize the report when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+        });
+        
+    </script>
+</body>
+</html>
+

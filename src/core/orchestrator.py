@@ -22,7 +22,13 @@ from src.core.models import (
 )
 from src.core.model_manager import ModelManager
 from src.core.duplicate_detection_service import DuplicateDetectionService
-from src.core.unified_mcp_client import call_unified_mcp_tool
+# Import unified MCP client only when needed
+try:
+    from src.core.unified_mcp_client import call_unified_mcp_tool
+    UNIFIED_MCP_CLIENT_AVAILABLE = True
+except ImportError:
+    UNIFIED_MCP_CLIENT_AVAILABLE = False
+    call_unified_mcp_tool = None
 
 
 class SentimentOrchestrator:
@@ -428,16 +434,23 @@ class SentimentOrchestrator:
     async def analyze_pdf(self, pdf_path: str, **kwargs) -> AnalysisResult:
         """Analyze PDF content and extract text using unified MCP tools."""
         try:
-            # Use unified MCP tool for PDF processing
-            result = await call_unified_mcp_tool(
-                "process_content",
-                {
-                    "content": pdf_path,
-                    "content_type": "pdf",
-                    "language": kwargs.get("language", "auto"),
-                    "options": kwargs
+            # Use unified MCP tool for PDF processing if available
+            if UNIFIED_MCP_CLIENT_AVAILABLE and call_unified_mcp_tool:
+                result = await call_unified_mcp_tool(
+                    "process_content",
+                    {
+                        "content": pdf_path,
+                        "content_type": "pdf",
+                        "language": kwargs.get("language", "auto"),
+                        "options": kwargs
+                    }
+                )
+            else:
+                # Fallback to basic PDF processing
+                result = {
+                    "success": False,
+                    "error": "MCP client not available for PDF processing"
                 }
-            )
             
             if result.get("success", False):
                 return AnalysisResult(
