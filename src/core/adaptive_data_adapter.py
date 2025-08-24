@@ -288,7 +288,7 @@ class AdaptiveDataAdapter:
             errors.extend(self._validate_string_data(data))
         elif isinstance(data, dict):
             errors.extend(self._validate_dict_data(data))
-            else:
+        else:
             errors.append("Mixed data must be string or dictionary")
         
         return errors
@@ -347,7 +347,7 @@ class AdaptiveDataAdapter:
     def _transform_string_data(self, data: str, target_structure: str) -> Dict[str, Any]:
         """Transform string data to target structure."""
         if target_structure == "module_format":
-        return {
+            return {
                 "content": data,
                 "type": "text",
                 "length": len(data),
@@ -365,7 +365,7 @@ class AdaptiveDataAdapter:
     def _transform_dict_data(self, data: Dict[str, Any], target_structure: str) -> Dict[str, Any]:
         """Transform dictionary data to target structure."""
         if target_structure == "module_format":
-        return {
+            return {
                 "structured_data": data,
                 "type": "structured",
                 "keys": list(data.keys()),
