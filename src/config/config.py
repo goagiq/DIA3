@@ -250,6 +250,54 @@ class LanguageConfig(BaseSettings):
         return self.supported_languages.get(code, code)
 
 
+class AdaptiveReportConfig(BaseSettings):
+    """Configuration for adaptive modular report system."""
+    
+    # Default behavior
+    default_modules_count: int = Field(
+        default=22,
+        description="Default number of modules to generate (all modules)"
+    )
+    enable_interactive_visualizations: bool = Field(
+        default=True,
+        description="Enable interactive Chart.js visualizations by default"
+    )
+    enable_advanced_tooltips: bool = Field(
+        default=True,
+        description="Enable advanced tooltips with strategic insights"
+    )
+    enable_contextual_adaptation: bool = Field(
+        default=True,
+        description="Enable contextual adaptation based on query content"
+    )
+    
+    # Context detection keywords
+    healthcare_keywords: List[str] = Field(
+        default=["healthcare", "medical", "ai", "machine learning", "health", "clinical", "hospital", "patient"],
+        description="Keywords that trigger healthcare context"
+    )
+    cybersecurity_keywords: List[str] = Field(
+        default=["cyber", "digital", "technology", "innovation", "security", "hacking", "threat"],
+        description="Keywords that trigger cybersecurity context"
+    )
+    economic_keywords: List[str] = Field(
+        default=["economic", "trade", "finance", "market", "investment", "monetary", "fiscal"],
+        description="Keywords that trigger economic context"
+    )
+    
+    # Data validation
+    enable_early_validation: bool = Field(
+        default=True,
+        description="Enable early data structure validation before module generation"
+    )
+    robust_error_handling: bool = Field(
+        default=True,
+        description="Enable robust error handling and data adaptation"
+    )
+    
+    model_config = ConfigDict(env_prefix="ADAPTIVE_REPORT_")
+
+
 class SentimentConfig(BaseSettings):
     """Main configuration class."""
     
@@ -267,6 +315,9 @@ class SentimentConfig(BaseSettings):
     
     # Agent configuration
     agent: AgentConfig = Field(default_factory=AgentConfig)
+    
+    # Adaptive report configuration
+    adaptive_report: AdaptiveReportConfig = Field(default_factory=AdaptiveReportConfig)
     
     # YouTube-DL configuration
     youtube_dl: YouTubeDLConfig = Field(default_factory=YouTubeDLConfig)

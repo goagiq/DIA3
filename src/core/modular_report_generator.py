@@ -160,9 +160,10 @@ class ModularReportGenerator:
                 topic, data, active_modules, report_title
             )
             
-            # Generate filename
+            # Generate filename with proper sanitization
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            filename = f"{topic.lower().replace(' ', '_')}_modular_enhanced_analysis_{timestamp}.html"
+            sanitized_topic = self._sanitize_filename(topic.lower())
+            filename = f"{sanitized_topic}_modular_enhanced_analysis_{timestamp}.html"
             file_path = self.output_dir / filename
             
             # Write report to file
@@ -585,6 +586,38 @@ class ModularReportGenerator:
                 "Custom styling and theming"
             ]
         }
+    
+    def _sanitize_filename(self, filename: str) -> str:
+        """
+        Sanitize filename by removing or replacing invalid characters.
+        
+        Args:
+            filename: The original filename
+            
+        Returns:
+            Sanitized filename safe for filesystem
+        """
+        import re
+        
+        # Replace spaces with underscores
+        sanitized = filename.replace(' ', '_')
+        
+        # Remove or replace invalid characters for Windows/Unix filesystems
+        # Invalid characters: < > : " | ? * \ /
+        invalid_chars = r'[<>:"|?*\\/]'
+        sanitized = re.sub(invalid_chars, '', sanitized)
+        
+        # Replace multiple underscores with single underscore
+        sanitized = re.sub(r'_+', '_', sanitized)
+        
+        # Remove leading/trailing underscores
+        sanitized = sanitized.strip('_')
+        
+        # Ensure filename is not empty
+        if not sanitized:
+            sanitized = "report"
+        
+        return sanitized
 
 
 # Global instance for easy access

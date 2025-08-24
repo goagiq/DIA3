@@ -3,7 +3,7 @@ Enhanced Report API Routes with Source Tracking and Modular Report System
 
 This module provides API endpoints for generating enhanced reports with comprehensive
 source tracking, tooltips, and detailed references for all data points.
-Now includes the modular report system as the default template.
+Now includes the modular report system as the default template and adaptive system.
 """
 
 from typing import Dict, List, Any, Optional
@@ -39,6 +39,15 @@ except ImportError as e:
     logger.warning(f"Modular report generator not available: {e}")
     MODULAR_REPORT_AVAILABLE = False
 
+# Import integrated adaptive modular report generator
+try:
+    from src.core.integrated_adaptive_modular_report_generator import integrated_adaptive_modular_report_generator
+    ADAPTIVE_MODULAR_REPORT_AVAILABLE = True
+    logger.info("✅ Integrated adaptive modular report generator available")
+except ImportError as e:
+    logger.warning(f"Integrated adaptive modular report generator not available: {e}")
+    ADAPTIVE_MODULAR_REPORT_AVAILABLE = False
+
 # Create router
 router = APIRouter(prefix="/enhanced-report", tags=["Enhanced Report with Source Tracking and Modular System"])
 
@@ -46,7 +55,7 @@ router = APIRouter(prefix="/enhanced-report", tags=["Enhanced Report with Source
 class EnhancedReportRequest(BaseModel):
     """Request model for enhanced report generation."""
     content: str = Field(..., description="Content to analyze and generate report for")
-    report_type: str = Field(default="modular", description="Type of report to generate (modular, comprehensive, basic)")
+    report_type: str = Field(default="adaptive", description="Type of report to generate (adaptive, modular, comprehensive, basic)")
     include_tooltips: bool = Field(default=True, description="Include interactive tooltips")
     include_source_references: bool = Field(default=True, description="Include source references")
     include_calculations: bool = Field(default=True, description="Include calculation details")
@@ -54,6 +63,18 @@ class EnhancedReportRequest(BaseModel):
     format: str = Field(default="html", description="Output format (html, markdown)")
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata")
     enabled_modules: Optional[List[str]] = Field(default=None, description="List of module IDs to enable (for modular reports)")
+
+
+class AdaptiveReportRequest(BaseModel):
+    """Request model for enhanced adaptive report generation with contextual intelligence."""
+    query: str = Field(..., description="The analysis query with automatic context detection (e.g., 'AI Healthcare Innovation', 'Cybersecurity Strategy', 'Economic Analysis')")
+    data: Optional[Dict[str, Any]] = Field(default=None, description="Optional analysis data (system will generate contextually adaptive data if not provided)")
+    max_modules: Optional[int] = Field(default=None, description="Maximum number of modules to generate (default: all 22 with interactive visualizations)")
+    modules: Optional[List[str]] = Field(default=None, description="Specific modules to include (e.g., ['executive_summary', 'risk_assessment']). All include interactive visualizations.")
+    module_categories: Optional[List[str]] = Field(default=None, description="Module categories to include (e.g., ['strategic', 'operational', 'analytical'])")
+    include_tooltips: bool = Field(default=True, description="Include advanced interactive tooltips with strategic insights")
+    include_source_references: bool = Field(default=True, description="Include comprehensive source references")
+    format: str = Field(default="html", description="Output format (html, markdown) with Chart.js integration")
 
 
 class ModularReportRequest(BaseModel):
@@ -74,6 +95,21 @@ class EnhancedReportResponse(BaseModel):
     enhanced_report: Optional[Dict[str, Any]] = None
     source_tracking: Optional[Dict[str, Any]] = None
     tooltip_data: Optional[Dict[str, Any]] = None
+    error: Optional[str] = None
+    metadata: Optional[Dict[str, Any]] = None
+
+
+class AdaptiveReportResponse(BaseModel):
+    """Response model for adaptive report generation."""
+    success: bool
+    report_file: Optional[str] = None
+    file_path: Optional[str] = None
+    file_size: Optional[int] = None
+    query: Optional[str] = None
+    universal_data_sections: Optional[int] = None
+    modules_generated: Optional[int] = None
+    integrated_adaptive_mode: Optional[bool] = None
+    generated_at: Optional[str] = None
     error: Optional[str] = None
     metadata: Optional[Dict[str, Any]] = None
 
@@ -132,6 +168,16 @@ async def generate_enhanced_report(request: EnhancedReportRequest):
     try:
         logger.info(f"Generating enhanced report: {request.report_type}")
         
+        # If adaptive report is requested and available, use adaptive system
+        if request.report_type == "adaptive" and ADAPTIVE_MODULAR_REPORT_AVAILABLE:
+            return await generate_adaptive_report(AdaptiveReportRequest(
+                query=request.content,
+                data=request.metadata or {},
+                include_tooltips=request.include_tooltips,
+                include_source_references=request.include_source_references,
+                format=request.format
+            ))
+        
         # If modular report is requested and available, use modular system
         if request.report_type == "modular" and MODULAR_REPORT_AVAILABLE:
             return await generate_modular_report(ModularReportRequest(
@@ -174,6 +220,50 @@ async def generate_enhanced_report(request: EnhancedReportRequest):
     except Exception as e:
         logger.error(f"Error generating enhanced report: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to generate enhanced report: {str(e)}")
+
+
+@router.post("/generate-adaptive", response_model=AdaptiveReportResponse)
+async def generate_adaptive_report(request: AdaptiveReportRequest):
+    """Generate an adaptive enhanced report using the integrated adaptive modular system."""
+    try:
+        if not ADAPTIVE_MODULAR_REPORT_AVAILABLE:
+            raise HTTPException(
+                status_code=503,
+                detail="Integrated adaptive modular report system is not available"
+            )
+        
+        logger.info(f"Generating adaptive report for query: {request.query}")
+        
+        result = await integrated_adaptive_modular_report_generator.generate_adaptive_report(
+            query=request.query,
+            data=request.data,
+            max_modules=request.max_modules,
+            modules=request.modules,
+            module_categories=request.module_categories
+        )
+        
+        if result.get("success"):
+            return AdaptiveReportResponse(
+                success=True,
+                report_file=result.get("filename"),
+                file_path=result.get("file_path"),
+                file_size=result.get("file_size"),
+                query=request.query,
+                universal_data_sections=result.get("universal_data_sections"),
+                modules_generated=result.get("modules_generated"),
+                integrated_adaptive_mode=result.get("integrated_adaptive_mode"),
+                generated_at=result.get("generated_at"),
+                metadata=result.get("metadata")
+            )
+        else:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Failed to generate adaptive report: {result.get('error', 'Unknown error')}"
+            )
+            
+    except Exception as e:
+        logger.error(f"Error generating adaptive report: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate adaptive report: {str(e)}")
 
 
 @router.post("/generate-modular", response_model=ModularReportResponse)
@@ -401,6 +491,7 @@ async def health_check():
             "status": "healthy",
             "version": "3.0.0",
             "modular_system_available": MODULAR_REPORT_AVAILABLE,
+            "adaptive_modular_system_available": ADAPTIVE_MODULAR_REPORT_AVAILABLE,
             "timestamp": datetime.now().isoformat()
         }
         
@@ -417,6 +508,17 @@ async def get_capabilities():
             "service": "enhanced_report",
             "version": "3.0.0",
             "features": {
+                "adaptive_modular_reports": {
+                    "description": "Integrated adaptive modular report system that generates reports based on natural language queries and adapts to new data.",
+                    "available": ADAPTIVE_MODULAR_REPORT_AVAILABLE,
+                    "capabilities": [
+                        "Natural language query processing",
+                        "Adaptive data generation",
+                        "Universal data sections",
+                        "Multiple module integration",
+                        "Professional HTML output"
+                    ] if ADAPTIVE_MODULAR_REPORT_AVAILABLE else ["Not available"]
+                },
                 "modular_reports": {
                     "description": "Modular report system with 22 configurable components",
                     "available": MODULAR_REPORT_AVAILABLE,
@@ -470,7 +572,8 @@ async def get_capabilities():
                 }
             },
             "api_endpoints": [
-                "POST /enhanced-report/generate - Generate enhanced report (modular by default)",
+                "POST /enhanced-report/generate - Generate enhanced report (adaptive by default)",
+                "POST /enhanced-report/generate-adaptive - Generate adaptive report",
                 "POST /enhanced-report/generate-modular - Generate modular report",
                 "GET /enhanced-report/modules - Get available modules",
                 "POST /enhanced-report/configure-module - Configure module",
@@ -497,37 +600,36 @@ async def get_enhanced_report_examples():
         examples = {
             "service": "enhanced_report",
             "examples": {
-                "modular_report": {
-                    "description": "Generate a modular enhanced report (default)",
+                "adaptive_report": {
+                    "description": "Generate an adaptive enhanced report (default)",
                     "request": {
                         "content": "Pakistan Submarine Acquisition Analysis and Deterrence Enhancement",
-                        "report_type": "modular",
+                        "report_type": "adaptive",
                         "include_tooltips": True,
                         "include_source_references": True,
                         "format": "html"
                     }
                 },
-                "basic_report": {
-                    "description": "Generate a basic enhanced report",
+                "modular_report": {
+                    "description": "Generate a modular enhanced report",
                     "request": {
                         "content": "Sample content for analysis",
-                        "report_type": "comprehensive",
+                        "report_type": "modular",
                         "include_tooltips": True,
                         "include_source_references": True,
                         "include_calculations": True
                     }
                 },
-                "modular_report_detailed": {
-                    "description": "Generate modular report with specific modules",
+                "adaptive_report_detailed": {
+                    "description": "Generate adaptive report with specific query and data",
                     "request": {
-                        "topic": "Strategic Analysis Topic",
+                        "query": "Pakistan Submarine Acquisition Analysis",
                         "data": {
                             "executive_summary": {...},
                             "strategic_analysis": {...},
                             "economic_analysis": {...}
                         },
-                        "enabled_modules": ["executivesummarymodule", "strategicanalysismodule"],
-                        "report_title": "Custom Report Title"
+                        "include_tooltips": True
                     }
                 },
                 "visualization": {
