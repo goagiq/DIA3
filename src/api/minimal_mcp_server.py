@@ -3,6 +3,8 @@ Minimal MCP Server for port 8000 with proper MCP protocol support.
 Now includes the modular report system as the default template.
 """
 
+import asyncio
+import json
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from loguru import logger
@@ -251,20 +253,56 @@ async def mcp_endpoint(request: dict):
                     
                     if tool_name in tool_names:
                         logger.info(f"Delegating tool call '{tool_name}' to unified MCP server")
-                        # For now, return a success message indicating the tool is available
-                        # In a full implementation, we would call the actual tool method
-                        return {
-                            "jsonrpc": "2.0",
-                            "id": request_id,
-                            "result": {
-                                "content": [
-                                    {
-                                        "type": "text",
-                                        "text": f"Tool '{tool_name}' is available in unified MCP server. Full implementation pending."
+                        try:
+                            # Call the actual tool method on the unified MCP server
+                            if hasattr(unified_mcp_server, tool_name):
+                                tool_method = getattr(unified_mcp_server, tool_name)
+                                if asyncio.iscoroutinefunction(tool_method):
+                                    result = await tool_method(**arguments)
+                                else:
+                                    result = tool_method(**arguments)
+                                
+                                # Convert result to MCP format
+                                if isinstance(result, dict):
+                                    return {
+                                        "jsonrpc": "2.0",
+                                        "id": request_id,
+                                        "result": {
+                                            "content": [
+                                                {
+                                                    "type": "text",
+                                                    "text": f"Tool '{tool_name}' executed successfully: {json.dumps(result, indent=2)}"
+                                                }
+                                            ]
+                                        }
                                     }
-                                ]
+                                else:
+                                    return {
+                                        "jsonrpc": "2.0",
+                                        "id": request_id,
+                                        "result": {
+                                            "content": [
+                                                {
+                                                    "type": "text",
+                                                    "text": f"Tool '{tool_name}' executed successfully: {str(result)}"
+                                                }
+                                            ]
+                                        }
+                                    }
+                            else:
+                                # Tool method not found, return error
+                                return {
+                                    "jsonrpc": "2.0",
+                                    "id": request_id,
+                                    "error": {"code": -32601, "message": f"Tool method '{tool_name}' not found in unified MCP server"}
+                                }
+                        except Exception as e:
+                            logger.error(f"Error executing tool '{tool_name}': {e}")
+                            return {
+                                "jsonrpc": "2.0",
+                                "id": request_id,
+                                "error": {"code": -32603, "message": f"Error executing tool '{tool_name}': {str(e)}"}
                             }
-                        }
                 except Exception as e:
                     logger.error(f"Error delegating to unified MCP server: {e}")
                     # Continue with local tool handling
