@@ -105,6 +105,14 @@ except ImportError as e:
     logger.warning(f"Enhanced report MCP tools not available: {e}")
     ENHANCED_REPORT_MCP_AVAILABLE = False
 
+# Import modular report MCP tools
+try:
+    from src.mcp_servers.modular_report_mcp_tools import ModularReportMCPTools
+    MODULAR_REPORT_MCP_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Modular report MCP tools not available: {e}")
+    MODULAR_REPORT_MCP_AVAILABLE = False
+
 # Import markdown export MCP tools
 try:
     from src.mcp_servers.markdown_export_mcp_tools import MarkdownExportMCPTools
@@ -274,6 +282,17 @@ class UnifiedMCPServer:
                 self.enhanced_report_mcp_tools = None
         else:
             self.enhanced_report_mcp_tools = None
+        
+        # Initialize modular report MCP tools
+        if MODULAR_REPORT_MCP_AVAILABLE:
+            try:
+                self.modular_report_mcp_tools = ModularReportMCPTools()
+                logger.info("✅ Modular Report MCP Tools initialized")
+            except Exception as e:
+                logger.warning(f"⚠️ Could not initialize Modular Report MCP Tools: {e}")
+                self.modular_report_mcp_tools = None
+        else:
+            self.modular_report_mcp_tools = None
         
         # Initialize markdown export MCP tools
         if MARKDOWN_EXPORT_MCP_AVAILABLE:
@@ -2440,7 +2459,15 @@ class UnifiedMCPServer:
                         "type": "strategic_intelligence_forecast"
                     })
             
-
+            # Add Modular Report tools if available
+            if hasattr(self, 'modular_report_mcp_tools') and self.modular_report_mcp_tools:
+                modular_report_tools = self.modular_report_mcp_tools.get_tools()
+                for tool in modular_report_tools:
+                    tools.append({
+                        "name": tool["name"],
+                        "description": tool["description"],
+                        "type": "modular_report"
+                    })
             
             return tools
             
@@ -4322,6 +4349,35 @@ This report contains comprehensive analysis results including deception analysis
         except Exception as e:
             logger.error(f"Failed to register Enhanced Report tools: {e}")
             logger.warning("⚠️ Enhanced Report tools not available")
+
+        # Register Modular Report tools if available
+        try:
+            if hasattr(self, 'modular_report_mcp_tools') and self.modular_report_mcp_tools:
+                modular_report_tools = self.modular_report_mcp_tools.get_tools()
+                
+                for tool in modular_report_tools:
+                    tool_name = tool["name"]
+                    tool_description = tool["description"]
+                    
+                    # Create dynamic tool registration
+                    def create_modular_report_tool(tool_name, tool_description):
+                        @self.mcp.tool(description=tool_description)
+                        async def modular_report_tool(**kwargs):
+                            """Dynamic modular report tool."""
+                            result = await self.modular_report_mcp_tools.call_tool(tool_name, kwargs)
+                            return result.content[0].text if result.content else {"success": False, "error": "No content returned"}
+                        
+                        return modular_report_tool
+                    
+                    # Register the tool
+                    create_modular_report_tool(tool_name, tool_description)
+                
+                logger.info("✅ Modular Report tools registered")
+            else:
+                logger.warning("⚠️ Modular Report tools not available")
+        except Exception as e:
+            logger.error(f"Failed to register Modular Report tools: {e}")
+            logger.warning("⚠️ Modular Report tools not available")
 
     async def ensure_tools_registered(self):
         """Ensure tools are registered (async)."""

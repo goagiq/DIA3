@@ -3,7 +3,8 @@
 Combined Server Startup Script
 
 This script starts the combined FastAPI + MCP server on port 8000 with both
-API endpoints and MCP tools available.
+API endpoints and MCP tools available. Now includes the modular report system
+as the default template.
 """
 
 import uvicorn
@@ -18,20 +19,29 @@ if __name__ == "__main__":
         # Import the minimal MCP server directly (following the working main.py pattern)
         from src.api.minimal_mcp_server import app
         
-        print("🚀 Starting DIA3 Combined Server (API + MCP)...")
+        print("🚀 Starting DIA3 Combined Server (API + MCP + Modular Reports)...")
         print("📋 Server will be available at: http://localhost:8000")
         print("📋 API endpoints at: http://localhost:8000/api/v1/*")
         print("📋 MCP endpoint at: http://localhost:8000/mcp")
         print("📋 MCP stream endpoint at: http://localhost:8000/mcp/stream")
         print("📋 Health check at: http://localhost:8000/health")
         print("📋 Enhanced reports at: http://localhost:8000/api/v1/enhanced-reports/generate")
-        print("=" * 70)
-        print("🔧 Configuration:")
-        print("   - HTML reports enabled by default")
-        print("   - MCP tools integrated")
-        print("   - Interactive tooltips and visualizations")
-        print("   - Source tracking enabled")
-        print("=" * 70)
+        print("📋 Modular reports at: http://localhost:8000/api/v1/enhanced-reports/generate-modular")
+        print("=" * 80)
+        print("🔧 New Features:")
+        print("   - Modular Report System (22 configurable modules)")
+        print("   - Enhanced Report API with modular integration")
+        print("   - MCP tools for modular report generation")
+        print("   - Generic topic support for any analysis")
+        print("   - Interactive tooltips and Chart.js visualizations")
+        print("   - Professional HTML output with source tracking")
+        print("=" * 80)
+        print("🎯 Usage Examples:")
+        print("   - Generate modular report: POST /api/v1/enhanced-reports/generate-modular")
+        print("   - List modules: GET /api/v1/enhanced-reports/modules")
+        print("   - MCP tool: generate_modular_report")
+        print("   - Generic demo: python src/applications/generic_modular_report_demo.py")
+        print("=" * 80)
         
         # Start the combined server
         uvicorn.run(

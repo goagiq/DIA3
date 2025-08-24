@@ -17,7 +17,13 @@ from src.core.source_tracking import (
     SourceTracker, SourceReference, CalculationStep, DataPoint,
     track_source, track_calculation, create_tracked_data_point
 )
-from src.core.enhanced_mcp_client import get_enhanced_mcp_client
+# Import enhanced MCP client if available
+try:
+    from src.core.enhanced_mcp_client import get_enhanced_mcp_client
+    ENHANCED_MCP_CLIENT_AVAILABLE = True
+except ImportError:
+    ENHANCED_MCP_CLIENT_AVAILABLE = False
+    logger.warning("⚠️ Enhanced MCP client not available")
 
 
 class EnhancedReportOrchestrator:
@@ -28,7 +34,13 @@ class EnhancedReportOrchestrator:
         self.output_dir.mkdir(parents=True, exist_ok=True)
         
         self.source_tracker = SourceTracker()
-        self.mcp_client = get_enhanced_mcp_client()
+        
+        # Initialize MCP client if available
+        if ENHANCED_MCP_CLIENT_AVAILABLE:
+            self.mcp_client = get_enhanced_mcp_client()
+        else:
+            self.mcp_client = None
+            logger.warning("⚠️ Enhanced MCP client not available, some features may be limited")
         
         logger.info(f"Enhanced Report Orchestrator initialized with output dir: {output_dir}")
     
@@ -60,10 +72,19 @@ class EnhancedReportOrchestrator:
         )
         
         try:
-            # Generate the base report using MCP tools
-            base_report_result = await self.mcp_client.generate_report_with_tracking(
-                content, report_type, **kwargs
-            )
+            # Generate the base report using MCP tools if available
+            if self.mcp_client is not None:
+                base_report_result = await self.mcp_client.generate_report_with_tracking(
+                    content, report_type, **kwargs
+                )
+            else:
+                # Fallback when MCP client is not available
+                base_report_result = {
+                    "success": True,
+                    "result": {
+                        "content": f"# Enhanced Report ({report_type})\n\n{content}\n\n*Note: MCP client not available, using fallback generation*"
+                    }
+                }
             
             # Track the base report generation
             base_report_calc = track_calculation(

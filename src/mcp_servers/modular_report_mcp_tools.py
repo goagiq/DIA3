@@ -5,7 +5,7 @@ MCP tools for generating modular enhanced reports with configurable components.
 """
 
 from typing import Dict, Any, List, Optional
-from mcp import CallToolResult
+from mcp.types import CallToolResult
 
 # Import modular report generator
 try:

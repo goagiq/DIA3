@@ -1,8 +1,9 @@
 """
-Enhanced Report API Routes with Source Tracking
+Enhanced Report API Routes with Source Tracking and Modular Report System
 
 This module provides API endpoints for generating enhanced reports with comprehensive
 source tracking, tooltips, and detailed references for all data points.
+Now includes the modular report system as the default template.
 """
 
 from typing import Dict, List, Any, Optional
@@ -11,26 +12,60 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 from loguru import logger
 
-from src.core.enhanced_report_orchestrator import (
-    get_enhanced_report_orchestrator,
-    generate_enhanced_report_with_tracking,
-    generate_visualization_with_enhanced_tooltips
-)
+# Import enhanced report orchestrator if available
+try:
+    from src.core.enhanced_report_orchestrator import (
+        get_enhanced_report_orchestrator,
+        generate_enhanced_report_with_tracking,
+        generate_visualization_with_enhanced_tooltips
+    )
+    ENHANCED_REPORT_ORCHESTRATOR_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Enhanced report orchestrator not available: {e}")
+    ENHANCED_REPORT_ORCHESTRATOR_AVAILABLE = False
+    # Create dummy functions for fallback
+    def get_enhanced_report_orchestrator():
+        return None
+    def generate_enhanced_report_with_tracking(*args, **kwargs):
+        return {"success": False, "error": "Enhanced report orchestrator not available"}
+    def generate_visualization_with_enhanced_tooltips(*args, **kwargs):
+        return {"success": False, "error": "Enhanced report orchestrator not available"}
+
+# Import modular report generator
+try:
+    from src.core.modular_report_generator import modular_report_generator
+    MODULAR_REPORT_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Modular report generator not available: {e}")
+    MODULAR_REPORT_AVAILABLE = False
 
 # Create router
-router = APIRouter(prefix="/enhanced-report", tags=["Enhanced Report with Source Tracking"])
+router = APIRouter(prefix="/enhanced-report", tags=["Enhanced Report with Source Tracking and Modular System"])
 
 # Pydantic models
 class EnhancedReportRequest(BaseModel):
     """Request model for enhanced report generation."""
     content: str = Field(..., description="Content to analyze and generate report for")
-    report_type: str = Field(default="comprehensive", description="Type of report to generate")
+    report_type: str = Field(default="modular", description="Type of report to generate (modular, comprehensive, basic)")
     include_tooltips: bool = Field(default=True, description="Include interactive tooltips")
     include_source_references: bool = Field(default=True, description="Include source references")
     include_calculations: bool = Field(default=True, description="Include calculation details")
     language: str = Field(default="en", description="Report language")
-    format: str = Field(default="markdown", description="Output format")
+    format: str = Field(default="html", description="Output format (html, markdown)")
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata")
+    enabled_modules: Optional[List[str]] = Field(default=None, description="List of module IDs to enable (for modular reports)")
+
+
+class ModularReportRequest(BaseModel):
+    """Request model for modular report generation."""
+    topic: str = Field(..., description="The analysis topic")
+    data: Dict[str, Any] = Field(..., description="Analysis data for all modules")
+    enabled_modules: Optional[List[str]] = Field(default=None, description="List of module IDs to enable")
+    report_title: Optional[str] = Field(default=None, description="Custom report title")
+    custom_config: Optional[Dict[str, Any]] = Field(default=None, description="Custom configuration for modules")
+    include_tooltips: bool = Field(default=True, description="Include interactive tooltips")
+    include_source_references: bool = Field(default=True, description="Include source references")
+    format: str = Field(default="html", description="Output format (html, markdown)")
 
 
 class EnhancedReportResponse(BaseModel):
@@ -39,6 +74,18 @@ class EnhancedReportResponse(BaseModel):
     enhanced_report: Optional[Dict[str, Any]] = None
     source_tracking: Optional[Dict[str, Any]] = None
     tooltip_data: Optional[Dict[str, Any]] = None
+    error: Optional[str] = None
+    metadata: Optional[Dict[str, Any]] = None
+
+
+class ModularReportResponse(BaseModel):
+    """Response model for modular report generation."""
+    success: bool
+    report_file: Optional[str] = None
+    file_path: Optional[str] = None
+    file_size: Optional[int] = None
+    modules_used: Optional[List[str]] = None
+    generated_at: Optional[str] = None
     error: Optional[str] = None
     metadata: Optional[Dict[str, Any]] = None
 
@@ -85,6 +132,20 @@ async def generate_enhanced_report(request: EnhancedReportRequest):
     try:
         logger.info(f"Generating enhanced report: {request.report_type}")
         
+        # If modular report is requested and available, use modular system
+        if request.report_type == "modular" and MODULAR_REPORT_AVAILABLE:
+            return await generate_modular_report(ModularReportRequest(
+                topic=request.content,
+                data=request.metadata or {},
+                enabled_modules=request.enabled_modules,
+                report_title=request.metadata.get("report_title") if request.metadata else None,
+                custom_config=request.metadata.get("custom_config") if request.metadata else None,
+                include_tooltips=request.include_tooltips,
+                include_source_references=request.include_source_references,
+                format=request.format
+            ))
+        
+        # Fall back to original enhanced report system
         result = await generate_enhanced_report_with_tracking(
             content=request.content,
             report_type=request.report_type,
@@ -99,28 +160,176 @@ async def generate_enhanced_report(request: EnhancedReportRequest):
         if not result.get("success", False):
             raise HTTPException(
                 status_code=500,
-                detail=result.get("error", "Enhanced report generation failed")
-        )
+                detail=f"Failed to generate enhanced report: {result.get('error', 'Unknown error')}"
+            )
         
         return EnhancedReportResponse(
             success=True,
             enhanced_report=result.get("enhanced_report"),
             source_tracking=result.get("source_tracking"),
-            tooltip_data=result.get("source_tracking", {}).get("tooltip_data"),
-            metadata={
-                "report_type": request.report_type,
-                "generated_at": datetime.now().isoformat(),
-                "enhancement_features": result.get("enhancement_features")
-            }
+            tooltip_data=result.get("tooltip_data"),
+            metadata=result.get("metadata")
         )
         
     except Exception as e:
         logger.error(f"Error generating enhanced report: {e}")
-        raise HTTPException(status_code=500, detail=f"Enhanced report generation failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate enhanced report: {str(e)}")
+
+
+@router.post("/generate-modular", response_model=ModularReportResponse)
+async def generate_modular_report(request: ModularReportRequest):
+    """Generate a modular enhanced report with configurable components."""
+    try:
+        if not MODULAR_REPORT_AVAILABLE:
+            raise HTTPException(
+                status_code=503,
+                detail="Modular report system is not available"
+            )
+        
+        logger.info(f"Generating modular report for topic: {request.topic}")
+        
+        result = await modular_report_generator.generate_modular_report(
+            topic=request.topic,
+            data=request.data,
+            enabled_modules=request.enabled_modules,
+            report_title=request.report_title,
+            custom_config=request.custom_config
+        )
+        
+        if result.get("success"):
+            return ModularReportResponse(
+                success=True,
+                report_file=result.get("filename"),
+                file_path=result.get("file_path"),
+                file_size=result.get("file_size"),
+                modules_used=result.get("modules_used"),
+                generated_at=result.get("generated_at"),
+                metadata=result.get("metadata")
+            )
+        else:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Failed to generate modular report: {result.get('error', 'Unknown error')}"
+            )
+            
+    except Exception as e:
+        logger.error(f"Error generating modular report: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate modular report: {str(e)}")
+
+
+@router.get("/modules")
+async def get_available_modules():
+    """Get list of available modules and their configurations."""
+    try:
+        if not MODULAR_REPORT_AVAILABLE:
+            raise HTTPException(
+                status_code=503,
+                detail="Modular report system is not available"
+            )
+        
+        available_modules = modular_report_generator.get_available_modules()
+        enabled_modules = [m.module_id for m in modular_report_generator.get_enabled_modules()]
+        
+        module_details = []
+        for module_id in available_modules:
+            module = modular_report_generator.get_module(module_id)
+            if module:
+                metadata = module.get_module_metadata()
+                module_details.append({
+                    "module_id": module_id,
+                    "name": metadata.get("name", module_id),
+                    "description": metadata.get("description", ""),
+                    "enabled": module_id in enabled_modules,
+                    "required_data_keys": module.get_required_data_keys(),
+                    "capabilities": metadata.get("capabilities", [])
+                })
+        
+        return {
+            "success": True,
+            "modules": module_details,
+            "total_modules": len(module_details),
+            "enabled_modules": enabled_modules,
+            "available_modules": available_modules
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting available modules: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to get available modules: {str(e)}")
+
+
+@router.post("/configure-module")
+async def configure_module(module_id: str, config: Dict[str, Any]):
+    """Configure a specific module with custom settings."""
+    try:
+        if not MODULAR_REPORT_AVAILABLE:
+            raise HTTPException(
+                status_code=503,
+                detail="Modular report system is not available"
+            )
+        
+        module = modular_report_generator.get_module(module_id)
+        if not module:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Module {module_id} not found"
+            )
+        
+        # Configure the module
+        module.configure(config)
+        
+        return {
+            "success": True,
+            "message": f"Module {module_id} configured successfully",
+            "module_id": module_id,
+            "config": config
+        }
+        
+    except Exception as e:
+        logger.error(f"Error configuring module {module_id}: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to configure module: {str(e)}")
+
+
+@router.post("/enable-modules")
+async def enable_modules(module_ids: List[str], disable_others: bool = False):
+    """Enable or disable specific modules."""
+    try:
+        if not MODULAR_REPORT_AVAILABLE:
+            raise HTTPException(
+                status_code=503,
+                detail="Modular report system is not available"
+            )
+        
+        # Enable specified modules
+        for module_id in module_ids:
+            module = modular_report_generator.get_module(module_id)
+            if module:
+                module.enable()
+        
+        # Disable other modules if requested
+        if disable_others:
+            available_modules = modular_report_generator.get_available_modules()
+            for module_id in available_modules:
+                if module_id not in module_ids:
+                    module = modular_report_generator.get_module(module_id)
+                    if module:
+                        module.disable()
+        
+        enabled_modules = [m.module_id for m in modular_report_generator.get_enabled_modules()]
+        
+        return {
+            "success": True,
+            "message": f"Modules updated successfully",
+            "enabled_modules": enabled_modules,
+            "requested_modules": module_ids
+        }
+        
+    except Exception as e:
+        logger.error(f"Error enabling modules: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to enable modules: {str(e)}")
 
 
 @router.post("/visualization", response_model=VisualizationResponse)
-async def generate_visualization_with_tooltips(request: VisualizationRequest):
+async def generate_visualization(request: VisualizationRequest):
     """Generate visualization with enhanced tooltips."""
     try:
         logger.info(f"Generating visualization: {request.visualization_type}")
@@ -136,7 +345,7 @@ async def generate_visualization_with_tooltips(request: VisualizationRequest):
         if not result.get("success", False):
             raise HTTPException(
                 status_code=500,
-                detail=result.get("error", "Visualization generation failed")
+                detail=f"Failed to generate visualization: {result.get('error', 'Unknown error')}"
             )
         
         return VisualizationResponse(
@@ -144,91 +353,81 @@ async def generate_visualization_with_tooltips(request: VisualizationRequest):
             visualization=result.get("visualization"),
             tooltip_data=result.get("tooltip_data"),
             source_tracking=result.get("source_tracking"),
-            metadata={
-                "visualization_type": request.visualization_type,
-                "generated_at": datetime.now().isoformat()
-            }
+            metadata=result.get("metadata")
         )
         
     except Exception as e:
         logger.error(f"Error generating visualization: {e}")
-        raise HTTPException(status_code=500, detail=f"Visualization generation failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate visualization: {str(e)}")
 
 
 @router.post("/source-tracking", response_model=SourceTrackingResponse)
 async def manage_source_tracking(request: SourceTrackingRequest):
     """Manage source tracking operations."""
     try:
-        logger.info(f"Source tracking operation: {request.operation}")
+        logger.info(f"Managing source tracking: {request.operation}")
         
         orchestrator = get_enhanced_report_orchestrator()
+        result = await orchestrator.manage_source_tracking(
+            operation=request.operation,
+            data_points=request.data_points,
+            session_id=request.session_id,
+            **(request.metadata or {})
+        )
         
-        if request.operation == "get_tooltip_data":
-            result = orchestrator.get_tooltip_data()
-        elif request.operation == "save_session":
-            filename = f"source_tracking_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-            result = {"filepath": orchestrator.save_tracking_session(filename)}
-        elif request.operation == "generate_report":
-            result = orchestrator.generate_source_report()
-        else:
+        if not result.get("success", False):
             raise HTTPException(
-                status_code=400,
-                detail=f"Unsupported operation: {request.operation}"
+                status_code=500,
+                detail=f"Failed to manage source tracking: {result.get('error', 'Unknown error')}"
             )
         
         return SourceTrackingResponse(
             success=True,
-            result=result,
-            metadata={
-                "operation": request.operation,
-                "timestamp": datetime.now().isoformat()
-            }
+            result=result.get("result"),
+            metadata=result.get("metadata")
         )
         
     except Exception as e:
-        logger.error(f"Error in source tracking operation: {e}")
-        raise HTTPException(status_code=500, detail=f"Source tracking operation failed: {str(e)}")
+        logger.error(f"Error managing source tracking: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to manage source tracking: {str(e)}")
 
 
 @router.get("/health")
-async def enhanced_report_health():
+async def health_check():
     """Health check for enhanced report service."""
     try:
-        orchestrator = get_enhanced_report_orchestrator()
-        
         return {
             "service": "enhanced_report",
             "status": "healthy",
-            "features": [
-                "comprehensive_source_tracking",
-                "interactive_tooltips",
-                "detailed_calculations",
-                "source_references",
-                "visualization_tooltips",
-                "session_management"
-            ],
-            "capabilities": {
-                "report_types": ["comprehensive", "sentiment", "business", "technical"],
-                "visualization_types": ["interactive", "static", "dashboard"],
-                "output_formats": ["markdown", "html", "json"],
-                "tooltip_features": ["source_references", "calculations", "confidence_scores"]
-            },
+            "version": "3.0.0",
+            "modular_system_available": MODULAR_REPORT_AVAILABLE,
             "timestamp": datetime.now().isoformat()
         }
         
     except Exception as e:
         logger.error(f"Health check failed: {e}")
-        raise HTTPException(status_code=503, detail=f"Service unhealthy: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Health check failed: {str(e)}")
 
 
 @router.get("/capabilities")
-async def get_enhanced_report_capabilities():
-    """Get enhanced report capabilities and features."""
+async def get_capabilities():
+    """Get enhanced report capabilities."""
     try:
-        return {
+        capabilities = {
             "service": "enhanced_report",
-            "version": "2.0.0",
+            "version": "3.0.0",
             "features": {
+                "modular_reports": {
+                    "description": "Modular report system with 22 configurable components",
+                    "available": MODULAR_REPORT_AVAILABLE,
+                    "capabilities": [
+                        "22 independent report modules",
+                        "Configurable module selection",
+                        "Interactive tooltips and charts",
+                        "Professional HTML output",
+                        "Source tracking integration"
+                    ] if MODULAR_REPORT_AVAILABLE else ["Not available"]
+                },
                 "source_tracking": {
                     "description": "Comprehensive tracking of all data sources and calculations",
                     "capabilities": [
@@ -271,7 +470,11 @@ async def get_enhanced_report_capabilities():
                 }
             },
             "api_endpoints": [
-                "POST /enhanced-report/generate - Generate enhanced report",
+                "POST /enhanced-report/generate - Generate enhanced report (modular by default)",
+                "POST /enhanced-report/generate-modular - Generate modular report",
+                "GET /enhanced-report/modules - Get available modules",
+                "POST /enhanced-report/configure-module - Configure module",
+                "POST /enhanced-report/enable-modules - Enable/disable modules",
                 "POST /enhanced-report/visualization - Generate visualization with tooltips",
                 "POST /enhanced-report/source-tracking - Manage source tracking",
                 "GET /enhanced-report/health - Health check",
@@ -279,6 +482,8 @@ async def get_enhanced_report_capabilities():
             ],
             "timestamp": datetime.now().isoformat()
         }
+        
+        return capabilities
         
     except Exception as e:
         logger.error(f"Error getting capabilities: {e}")
@@ -289,9 +494,19 @@ async def get_enhanced_report_capabilities():
 async def get_enhanced_report_examples():
     """Get examples of enhanced report usage."""
     try:
-        return {
+        examples = {
             "service": "enhanced_report",
             "examples": {
+                "modular_report": {
+                    "description": "Generate a modular enhanced report (default)",
+                    "request": {
+                        "content": "Pakistan Submarine Acquisition Analysis and Deterrence Enhancement",
+                        "report_type": "modular",
+                        "include_tooltips": True,
+                        "include_source_references": True,
+                        "format": "html"
+                    }
+                },
                 "basic_report": {
                     "description": "Generate a basic enhanced report",
                     "request": {
@@ -300,6 +515,19 @@ async def get_enhanced_report_examples():
                         "include_tooltips": True,
                         "include_source_references": True,
                         "include_calculations": True
+                    }
+                },
+                "modular_report_detailed": {
+                    "description": "Generate modular report with specific modules",
+                    "request": {
+                        "topic": "Strategic Analysis Topic",
+                        "data": {
+                            "executive_summary": {...},
+                            "strategic_analysis": {...},
+                            "economic_analysis": {...}
+                        },
+                        "enabled_modules": ["executivesummarymodule", "strategicanalysismodule"],
+                        "report_title": "Custom Report Title"
                     }
                 },
                 "visualization": {
@@ -319,6 +547,8 @@ async def get_enhanced_report_examples():
             },
             "timestamp": datetime.now().isoformat()
         }
+        
+        return examples
         
     except Exception as e:
         logger.error(f"Error getting examples: {e}")

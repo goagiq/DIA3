@@ -72,6 +72,18 @@
       "startup_timeout": 30,
       "health_check_interval": 60,
       "resource_check_interval": 10
+    },
+    "modular_report_system": {
+      "enabled": true,
+      "priority": 11,
+      "max_cpu_percent": 85.0,
+      "max_memory_mb": 6144.0,
+      "max_gpu_percent": 90.0,
+      "auto_scale": true,
+      "dependencies": [],
+      "startup_timeout": 30,
+      "health_check_interval": 60,
+      "resource_check_interval": 10
     }
   }
 }
