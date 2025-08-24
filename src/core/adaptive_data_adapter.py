@@ -928,7 +928,7 @@ class AdaptiveDataAdapter:
     
     def _generate_strategic_analysis_data(self, query: str) -> Dict[str, Any]:
         """Generate rich data for strategic analysis module."""
-            return {
+        return {
             'strategic_framework': {
                 'title': f'Strategic Analysis: {query}',
                 'analysis_overview': f'Comprehensive strategic analysis of {query} with long-term implications and strategic options.',
@@ -951,7 +951,7 @@ class AdaptiveDataAdapter:
     
     def _generate_enhanced_data_analysis_data(self, query: str) -> Dict[str, Any]:
         """Generate rich data for enhanced data analysis module."""
-            return {
+        return {
             'data_framework': {
                 'title': f'Enhanced Data Analysis: {query}',
                 'analysis_overview': f'Advanced data analysis framework for {query} with statistical modeling and predictive analytics.',
@@ -972,7 +972,7 @@ class AdaptiveDataAdapter:
     
     def _generate_regional_sentiment_data(self, query: str) -> Dict[str, Any]:
         """Generate rich data for regional sentiment module."""
-            return {
+        return {
             'sentiment_analysis': {
                 'title': f'Regional Sentiment Analysis: {query}',
                 'sentiment_overview': f'Analysis of regional sentiment and public opinion regarding {query}.',
@@ -995,7 +995,7 @@ class AdaptiveDataAdapter:
     
     def _generate_implementation_timeline_data(self, query: str) -> Dict[str, Any]:
         """Generate rich data for implementation timeline module."""
-            return {
+        return {
             'timeline_framework': {
                 'title': f'Implementation Timeline: {query}',
                 'timeline_overview': f'Detailed implementation timeline for {query} with milestones and deliverables.',
