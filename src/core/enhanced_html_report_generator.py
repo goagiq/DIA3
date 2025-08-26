@@ -1699,7 +1699,7 @@ class EnhancedHTMLReportGenerator:
                     
                     if (data) {{
                         tooltipTitle.textContent = data.title;
-                        tooltipContent.textContent = data.content;
+                        tooltipContent.innerHTML = data.content;
                         
                         // Create enhanced sources HTML with comprehensive metadata and MCP tool identification
                         const sourcesHtml = data.sources.map(source => {{
@@ -1976,7 +1976,7 @@ class EnhancedHTMLReportGenerator:
                     
                     if (data) {{
                         tooltipTitle.textContent = data.title;
-                        tooltipContent.textContent = data.content;
+                        tooltipContent.innerHTML = data.content;
                         
                         // Create sources HTML
                         const sourcesHtml = data.sources.map(source => 
