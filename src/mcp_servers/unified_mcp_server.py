@@ -2498,20 +2498,27 @@ class UnifiedMCPServer:
             logger.error(f"Error getting tools info: {e}")
             return []
 
-    async def _process_bulk_import_request(self, content: str, language: str, options: Dict[str, Any]) -> Dict[str, Any]:
+    async def _process_bulk_import_request(self, content: str, language: str, options: Dict[str, Any] = None) -> Dict[str, Any]:
         """Process bulk import request with multiple URLs."""
         try:
-            # Extract URLs from the request
+            logger.info("Processing bulk import request...")
+            
+            # Extract URLs from the content
             urls = self._extract_urls_from_request(content)
             
             if not urls:
-                return {"success": False, "error": "No URLs found in bulk import request"}
+                return {
+                    "success": False,
+                    "error": "No URLs found in bulk import request"
+                }
             
-            logger.info(f"Processing bulk import request with {len(urls)} URLs: {urls}")
+            logger.info(f"Processing {len(urls)} URLs: {urls}")
             
             results = []
             total_entities = 0
             total_relationships = 0
+            total_nodes = 0
+            total_edges = 0
             
             # Process each URL
             for url in urls:
@@ -2522,19 +2529,24 @@ class UnifiedMCPServer:
                         result = await self._process_ctext_content(url, language, options)
                     else:
                         # Handle as standard URL
-                        result = await self.text_agent.process_content(url, language, options)
+                        result = await self._process_standard_content(url, language, options)
                     
-                    if result.get("success"):
+                    if result.get("success", False):
                         results.append({
                             "url": url,
                             "success": True,
-                            "title": result.get("result", {}).get("metadata", {}).get("title", "Unknown"),
-                            "entities_count": result.get("result", {}).get("metadata", {}).get("entities_count", 0),
-                            "relationships_count": result.get("result", {}).get("metadata", {}).get("relationships_count", 0)
+                            "title": result.get("title", "Unknown"),
+                            "vector_id": result.get("vector_id"),
+                            "entities_count": result.get("entities_count", 0),
+                            "relationships_count": result.get("relationships_count", 0),
+                            "knowledge_graph_nodes": result.get("knowledge_graph_nodes", 0),
+                            "knowledge_graph_edges": result.get("knowledge_graph_edges", 0)
                         })
                         
-                        total_entities += result.get("result", {}).get("metadata", {}).get("entities_count", 0)
-                        total_relationships += result.get("result", {}).get("metadata", {}).get("relationships_count", 0)
+                        total_entities += result.get("entities_count", 0)
+                        total_relationships += result.get("relationships_count", 0)
+                        total_nodes += result.get("knowledge_graph_nodes", 0)
+                        total_edges += result.get("knowledge_graph_edges", 0)
                     else:
                         results.append({
                             "url": url,
@@ -2550,268 +2562,423 @@ class UnifiedMCPServer:
                         "error": str(e)
                     })
             
+            successful_imports = len([r for r in results if r["success"]])
+            failed_imports = len([r for r in results if not r["success"]])
+            
             return {
                 "success": True,
-                "content_type": "bulk_import",
                 "urls_processed": len(urls),
-                "successful_imports": len([r for r in results if r["success"]]),
-                "failed_imports": len([r for r in results if not r["success"]]),
+                "successful_imports": successful_imports,
+                "failed_imports": failed_imports,
                 "total_entities": total_entities,
                 "total_relationships": total_relationships,
+                "total_knowledge_graph_nodes": total_nodes,
+                "total_knowledge_graph_edges": total_edges,
                 "results": results
             }
             
         except Exception as e:
             logger.error(f"Error processing bulk import request: {e}")
-            return {"success": False, "error": str(e)}
-    
-    async def _process_openlibrary_content(self, url: str, language: str, options: Dict[str, Any]) -> Dict[str, Any]:
-        """Process Open Library content with full pipeline."""
-        try:
-            # Download content from Open Library
-            webpage_content = await self._download_openlibrary_content(url)
-            
-            if not webpage_content:
-                return {"success": False, "error": "Failed to download content from Open Library"}
-            
-            # Extract text content
-            content_text = webpage_content.get("text", "")
-            title = webpage_content.get("title", "Unknown Book")
-            
-            # Extract metadata
-            metadata = self._extract_metadata_from_content(content_text, title, url)
-            
-            # Store in vector database
-            vector_id = await self.vector_store.store_content(content_text, metadata)
-            
-            # Extract entities and create knowledge graph
-            entities_result = await self.kg_agent.extract_entities(content_text, language)
-            entities = entities_result.get("content", [{}])[0].get("json", {}).get("entities", [])
-            
-            relationships_result = await self.kg_agent.map_relationships(content_text, entities)
-            relationships = relationships_result.get("content", [{}])[0].get("json", {}).get("relationships", [])
-            
-            # Create knowledge graph
-            transformed_entities = [
-                {
-                    "name": entity.get("text", ""),
-                    "type": entity.get("type", "CONCEPT"),
-                    "confidence": entity.get("confidence", 0.0),
-                    "source": title
-                }
-                for entity in entities
-            ]
-            
-            transformed_relationships = [
-                {
-                    "source": rel.get("source", ""),
-                    "target": rel.get("target", ""),
-                    "relationship_type": rel.get("type", "RELATED_TO"),
-                    "confidence": rel.get("confidence", 0.0),
-                    "source_type": title
-                }
-                for rel in relationships
-            ]
-            
-            kg_result = await self.knowledge_graph.create_knowledge_graph(transformed_entities, transformed_relationships)
-            
             return {
-                "success": True,
-                "content_type": "open_library",
-                "title": title,
-                "vector_id": vector_id,
-                "entities_count": len(entities),
-                "relationships_count": len(relationships),
-                "knowledge_graph_nodes": kg_result.number_of_nodes(),
-                "knowledge_graph_edges": kg_result.number_of_edges(),
-                "content_length": len(content_text)
+                "success": False,
+                "error": str(e)
             }
-            
+    
+    def _extract_urls_from_request(self, content: str) -> List[str]:
+        """Extract URLs from bulk import request content."""
+        import re
+        url_pattern = r'@(https?://[^\s]+)'
+        urls = re.findall(url_pattern, content)
+        return urls
+    
+    def _is_openlibrary_url(self, url: str) -> bool:
+        """Check if URL is from Open Library."""
+        return "openlibrary.org" in url.lower()
+    
+    def _is_ctext_url(self, url: str) -> bool:
+        """Check if URL is from Chinese Text Project."""
+        return "ctext.org" in url.lower()
+    
+    def _detect_bulk_import_request(self, content: str) -> bool:
+        """Detect if this is a bulk import request with multiple URLs or MCP tool processing request."""
+        import re
+        
+        # Detect language for multilingual pattern matching
+        detected_language = detect_language_for_mcp_detection(content)
+        logger.debug(f"Detected language for MCP detection: {detected_language}")
+        
+        # Get language-specific patterns
+        bulk_patterns = get_all_mcp_detection_patterns(detected_language)
+        processing_keywords = get_mcp_processing_keywords(detected_language)
+        
+        content_lower = content.lower()
+        
+        # Check for URL patterns first (most specific) - this is language-agnostic
+        url_pattern = r'@(https?://[^\s]+)'
+        has_urls = bool(re.search(url_pattern, content))
+        
+        # Check for any of the bulk patterns using language-specific patterns
+        has_bulk_pattern = any(re.search(pattern, content_lower) for pattern in bulk_patterns)
+        
+        # Additional context-based detection using language-specific keywords
+        has_processing_keywords = any(keyword in content_lower for keyword in processing_keywords)
+        
+        # Return True if we have URLs and processing keywords, or if we have bulk patterns
+        result = (has_urls and has_processing_keywords) or has_bulk_pattern
+        logger.debug(f"MCP bulk import detection result: {result} (language: {detected_language})")
+        return result
+    
+    async def _process_openlibrary_content(self, url: str, language: str, options: Dict[str, Any] = None) -> Dict[str, Any]:
+        """Process Open Library content."""
+        try:
+            if hasattr(self, 'enhanced_process_content_agent') and self.enhanced_process_content_agent:
+                from src.core.models import AnalysisRequest, DataType
+                request = AnalysisRequest(
+                    data_type=DataType.TEXT,
+                    content=url,
+                    language=language
+                )
+                result = await self.enhanced_process_content_agent._process_openlibrary_content(url, request)
+                return {
+                    "success": True,
+                    "title": result.metadata.get("title", "Unknown"),
+                    "vector_id": result.metadata.get("vector_id"),
+                    "entities_count": result.metadata.get("entities_count", 0),
+                    "relationships_count": result.metadata.get("relationships_count", 0),
+                    "knowledge_graph_nodes": result.metadata.get("knowledge_graph_nodes", 0),
+                    "knowledge_graph_edges": result.metadata.get("knowledge_graph_edges", 0)
+                }
+            else:
+                # Fallback processing
+                return await self.text_agent.process_content(url, language, options or {})
         except Exception as e:
             logger.error(f"Error processing Open Library content: {e}")
             return {"success": False, "error": str(e)}
     
-    async def _process_ctext_content(self, url: str, language: str, options: Dict[str, Any]) -> Dict[str, Any]:
-        """Process ctext.org content with full pipeline."""
+    async def _process_ctext_content(self, url: str, language: str, options: Dict[str, Any] = None) -> Dict[str, Any]:
+        """Process Chinese Text Project content."""
         try:
-            # Download content from ctext.org
-            webpage_content = await self._download_ctext_content(url)
-            
-            if not webpage_content:
-                return {"success": False, "error": "Failed to download content from ctext.org"}
-            
-            # Extract text content
-            content_text = webpage_content.get("text", "")
-            title = webpage_content.get("title", "Unknown Text")
-            
-            # Extract metadata
-            metadata = self._extract_metadata_from_content(content_text, title, url)
-            metadata.update({
-                "source": "ctext.org",
-                "content_type": "classical_text"
-            })
-            
-            # Store in vector database
-            vector_id = await self.vector_store.store_content(content_text, metadata)
-            
-            # Extract entities and create knowledge graph
-            entities_result = await self.kg_agent.extract_entities(content_text, "zh")  # Chinese for classical texts
-            entities = entities_result.get("content", [{}])[0].get("json", {}).get("entities", [])
-            
-            relationships_result = await self.kg_agent.map_relationships(content_text, entities)
-            relationships = relationships_result.get("content", [{}])[0].get("json", {}).get("relationships", [])
-            
-            # Create knowledge graph
-            transformed_entities = [
-                {
-                    "name": entity.get("text", ""),
-                    "type": entity.get("type", "CONCEPT"),
-                    "confidence": entity.get("confidence", 0.0),
-                    "source": title
+            if hasattr(self, 'enhanced_process_content_agent') and self.enhanced_process_content_agent:
+                from src.core.models import AnalysisRequest, DataType
+                request = AnalysisRequest(
+                    data_type=DataType.TEXT,
+                    content=url,
+                    language=language
+                )
+                result = await self.enhanced_process_content_agent._process_ctext_content(url, request)
+                return {
+                    "success": True,
+                    "title": result.metadata.get("title", "Unknown"),
+                    "vector_id": result.metadata.get("vector_id"),
+                    "entities_count": result.metadata.get("entities_count", 0),
+                    "relationships_count": result.metadata.get("relationships_count", 0),
+                    "knowledge_graph_nodes": result.metadata.get("knowledge_graph_nodes", 0),
+                    "knowledge_graph_edges": result.metadata.get("knowledge_graph_edges", 0)
                 }
-                for entity in entities
-            ]
-            
-            transformed_relationships = [
-                {
-                    "source": rel.get("source", ""),
-                    "target": rel.get("target", ""),
-                    "relationship_type": rel.get("type", "RELATED_TO"),
-                    "confidence": rel.get("confidence", 0.0),
-                    "source_type": title
-                }
-                for rel in relationships
-            ]
-            
-            kg_result = await self.knowledge_graph.create_knowledge_graph(transformed_entities, transformed_relationships)
-            
-            return {
-                "success": True,
-                "content_type": "ctext_classical_text",
-                "title": title,
-                "vector_id": vector_id,
-                "entities_count": len(entities),
-                "relationships_count": len(relationships),
-                "knowledge_graph_nodes": kg_result.number_of_nodes(),
-                "knowledge_graph_edges": kg_result.number_of_edges(),
-                "content_length": len(content_text)
-            }
-            
+            else:
+                # Fallback processing
+                return await self.text_agent.process_content(url, language, options or {})
         except Exception as e:
-            logger.error(f"Error processing ctext.org content: {e}")
+            logger.error(f"Error processing ctext content: {e}")
             return {"success": False, "error": str(e)}
     
-    async def _download_openlibrary_content(self, url: str) -> Optional[Dict[str, Any]]:
-        """Download content from Open Library URL."""
+    async def _process_standard_content(self, url: str, language: str, options: Dict[str, Any] = None) -> Dict[str, Any]:
+        """Process standard URL content."""
         try:
-            # Use the web agent's _fetch_webpage method directly
-            webpage_data = await self.web_agent._fetch_webpage(url)
+            # Use web agent to fetch and process content
+            if hasattr(self, 'web_agent') and self.web_agent:
+                result = await self.web_agent.process_content(url, language, options or {})
+                
+                # Ensure content is stored in both vector DB and knowledge graph
+                if result.get("success", False):
+                    content = result.get("content", "")
+                    
+                    # Store in vector database
+                    vector_id = None
+                    if hasattr(self, 'vector_store') and self.vector_store:
+                        vector_id = await self.vector_store.store_content(content, {
+                            "source": url,
+                            "type": "url",
+                            "language": language
+                        })
+                    
+                    # Store in knowledge graph
+                    kg_result = None
+                    if hasattr(self, 'kg_agent') and self.kg_agent:
+                        kg_result = await self.kg_agent.process_content(content, language)
+                    
+                    return {
+                        "success": True,
+                        "title": result.get("title", "Unknown"),
+                        "vector_id": vector_id,
+                        "entities_count": kg_result.get("entities_count", 0) if kg_result else 0,
+                        "relationships_count": kg_result.get("relationships_count", 0) if kg_result else 0,
+                        "knowledge_graph_nodes": kg_result.get("knowledge_graph_nodes", 0) if kg_result else 0,
+                        "knowledge_graph_edges": kg_result.get("knowledge_graph_edges", 0) if kg_result else 0
+                    }
+                else:
+                    return result
+            else:
+                # Fallback to text agent
+                return await self.text_agent.process_content(url, language, options or {})
+        except Exception as e:
+            logger.error(f"Error processing standard content: {e}")
+            return {"success": False, "error": str(e)}
+    
+    # Direct method access for testing and integration
+    async def process_content(
+        self,
+        content: str,
+        content_type: str = "auto",
+        language: str = "en",
+        options: Dict[str, Any] = None
+    ) -> Dict[str, Any]:
+        """Process any type of content with unified interface, including bulk import requests, Open Library URLs, and intelligent detection of processing requests with phrases like 'add the following', 'process these', 'include the following', and various MCP tool usage patterns."""
+        try:
+            # Auto-detect content type if not specified
+            if content_type == "auto":
+                content_type = self._detect_content_type(content)
             
-            # Process the webpage data
-            cleaned_text = self.web_agent._clean_webpage_text(webpage_data["html"])
+            # Check for bulk import requests first
+            if self._detect_bulk_import_request(content):
+                logger.info("Detected bulk import request, processing multiple URLs...")
+                return await self._process_bulk_import_request(content, language, options)
             
-            webpage_content = {
-                "url": url,
-                "title": webpage_data["title"],
-                "text": cleaned_text,
-                "html": webpage_data["html"],
-                "status_code": webpage_data["status_code"]
+            # Check for Open Library URLs
+            if self._is_openlibrary_url(content):
+                logger.info("Detected Open Library URL, processing with enhanced agent...")
+                return await self._process_openlibrary_content(content, language, options)
+            
+            # Check for ctext.org URLs
+            if self._is_ctext_url(content):
+                logger.info("Detected ctext.org URL, processing with enhanced agent...")
+                return await self._process_ctext_content(content, language, options)
+
+            # Route to appropriate agent based on content type
+            if content_type in ["text", "pdf"]:
+                result = await self.text_agent.process_content(
+                    content, language, options
+                )
+            elif content_type in ["audio", "video"]:
+                result = await self.audio_agent.process_content(
+                    content, language, options
+                )
+            elif content_type in ["image", "vision"]:
+                result = await self.vision_agent.process_content(
+                    content, language, options
+                )
+            else:
+                result = await self.text_agent.process_content(
+                    content, language, options
+                )
+
+            return {"success": True, "result": result}
+        except Exception as e:
+            logger.error(f"Error processing content: {e}")
+            return {"success": False, "error": str(e)}
+    
+    async def verify_ingestion(
+        self,
+        search_queries: List[str] = None,
+        test_knowledge_graph: bool = True,
+        test_semantic_search: bool = True
+    ) -> Dict[str, Any]:
+        """Verify that ingested content is properly stored and searchable."""
+        try:
+            logger.info("🔍 Starting ingestion verification...")
+            
+            # Default search queries if none provided
+            if search_queries is None:
+                search_queries = [
+                    "Sun Tzu Art of War",
+                    "Leo Tolstoy War and Peace", 
+                    "military strategy",
+                    "Napoleonic Wars",
+                    "Russian aristocracy 19th century",
+                    "The Art of War principles"
+                ]
+            
+            verification_results = {
+                "success": True,
+                "vector_database": {},
+                "knowledge_graph": {},
+                "semantic_search": {},
+                "knowledge_graph_search": {},
+                "summary": {}
             }
             
-            logger.info(f"✅ Successfully downloaded Open Library content: {len(cleaned_text)} characters")
-            return webpage_content
+            # Test vector database functionality
+            try:
+                vector_stats = await self.vector_store.get_database_stats()
+                verification_results["vector_database"] = {
+                    "status": "success",
+                    "stats": vector_stats
+                }
+                logger.info("✅ Vector database verification successful")
+            except Exception as e:
+                verification_results["vector_database"] = {
+                    "status": "error",
+                    "error": str(e)
+                }
+                logger.warning(f"❌ Vector database verification failed: {e}")
             
-        except Exception as e:
-            logger.error(f"❌ Error downloading Open Library content: {e}")
-            return None
-    
-    async def _download_ctext_content(self, url: str) -> Optional[Dict[str, Any]]:
-        """Download content from ctext.org URL."""
-        try:
-            # Use the web agent's _fetch_webpage method directly
-            webpage_data = await self.web_agent._fetch_webpage(url)
+            # Test semantic search
+            if test_semantic_search:
+                semantic_results = {}
+                for query in search_queries:
+                    try:
+                        search_result = await self.vector_store.query(
+                            collection_name="semantic_search",
+                            query_text=query,
+                            n_results=5
+                        )
+                        semantic_results[query] = {
+                            "status": "success",
+                            "results_count": len(search_result),
+                            "has_results": len(search_result) > 0
+                        }
+                    except Exception as e:
+                        semantic_results[query] = {
+                            "status": "error",
+                            "error": str(e)
+                        }
+                
+                verification_results["semantic_search"] = semantic_results
+                logger.info("✅ Semantic search verification completed")
             
-            # Process the webpage data
-            cleaned_text = self.web_agent._clean_webpage_text(webpage_data["html"])
+            # Test knowledge graph search
+            if test_knowledge_graph:
+                kg_results = {}
+                kg_queries = [
+                    "Sun Tzu military strategy",
+                    "Leo Tolstoy War and Peace characters",
+                    "Napoleonic Wars Russia",
+                    "The Art of War principles",
+                    "Russian aristocracy 19th century"
+                ]
+                
+                for query in kg_queries:
+                    try:
+                        kg_search_result = await self.vector_store.query(
+                            collection_name="knowledge_graph",
+                            query_text=query,
+                            n_results=5
+                        )
+                        kg_results[query] = {
+                            "status": "success",
+                            "results_count": len(kg_search_result),
+                            "has_results": len(kg_search_result) > 0
+                        }
+                    except Exception as e:
+                        kg_results[query] = {
+                            "status": "error",
+                            "error": str(e)
+                        }
+                
+                verification_results["knowledge_graph_search"] = kg_results
+                logger.info("✅ Knowledge graph search verification completed")
             
-            webpage_content = {
-                "url": url,
-                "title": webpage_data["title"],
-                "text": cleaned_text,
-                "html": webpage_data["html"],
-                "status_code": webpage_data["status_code"]
+            # Generate summary
+            total_queries = len(search_queries)
+            successful_semantic = sum(1 for r in verification_results["semantic_search"].values() 
+                                    if r.get("status") == "success" and r.get("has_results", False))
+            successful_kg = sum(1 for r in verification_results["knowledge_graph_search"].values() 
+                              if r.get("status") == "success" and r.get("has_results", False))
+            
+            verification_results["summary"] = {
+                "total_queries_tested": total_queries,
+                "semantic_search_success_rate": f"{successful_semantic}/{total_queries}",
+                "knowledge_graph_success_rate": f"{successful_kg}/{len(kg_queries) if test_knowledge_graph else 0}",
+                "vector_database_status": verification_results["vector_database"].get("status", "unknown"),
+                "overall_status": "success" if verification_results["vector_database"].get("status") == "success" else "partial"
             }
             
-            logger.info(f"✅ Successfully downloaded ctext.org content: {len(cleaned_text)} characters")
-            return webpage_content
+            logger.info("🎉 Ingestion verification completed successfully")
+            return verification_results
             
         except Exception as e:
-            logger.error(f"❌ Error downloading ctext.org content: {e}")
-            return None
+            logger.error(f"❌ Verification failed: {e}")
+            return {
+                "success": False,
+                "error": str(e),
+                "summary": {"overall_status": "failed"}
+            }
     
-    def _extract_metadata_from_content(self, content: str, title: str, url: str = "") -> Dict[str, Any]:
-        """Extract metadata from content text."""
-        import re
-        content_lower = content.lower()
-        
-        # Try to extract author
-        author = "Unknown"
-        author_patterns = ["by ", "author:", "written by", "author is"]
-        for pattern in author_patterns:
-            if pattern in content_lower:
-                start_idx = content_lower.find(pattern) + len(pattern)
-                end_idx = content.find("\n", start_idx)
-                if end_idx == -1:
-                    end_idx = start_idx + 100
-                author = content[start_idx:end_idx].strip()
-                break
-        
-        # Try to extract publication year
-        year_pattern = r'\b(19|20)\d{2}\b'
-        years = re.findall(year_pattern, content)
-        publication_year = years[0] if years else "Unknown"
-        
-        # Determine genre
-        genre_keywords = {
-            "fiction": ["novel", "story", "tale", "fiction"],
-            "non-fiction": ["history", "biography", "memoir", "essay"],
-            "poetry": ["poem", "poetry", "verse"],
-            "drama": ["play", "drama", "theater", "theatre"],
-            "science": ["science", "physics", "chemistry", "biology"],
-            "philosophy": ["philosophy", "philosophical", "ethics"],
-            "religion": ["religion", "religious", "spiritual", "theology"]
-        }
-        
-        detected_genre = "Literature"
-        for genre, keywords in genre_keywords.items():
-            if any(keyword in content_lower for keyword in keywords):
-                detected_genre = genre.title()
-                break
-        
-        # Extract subjects
-        subjects = []
-        subject_keywords = [
-            "history", "war", "peace", "love", "family", "politics", 
-            "society", "culture", "art", "music", "science", "philosophy",
-            "religion", "nature", "travel", "adventure", "mystery"
-        ]
-        
-        for subject in subject_keywords:
-            if subject in content_lower:
-                subjects.append(subject.title())
-        
-        return {
-            "title": title,
-            "author": author,
-            "publication_year": publication_year,
-            "genre": detected_genre,
-            "category": "Classic Literature" if "classic" in content_lower else detected_genre,
-            "subjects": subjects[:10],
-            "source": "Open Library" if "openlibrary.org" in url else "ctext.org" if "ctext.org" in url else "Unknown",
-            "source_url": url,
-            "content_type": "book_description",
-            "language": "en"
-        }
+    async def query_knowledge_graph(self, query: str) -> Dict[str, Any]:
+        """Query the knowledge graph for information."""
+        try:
+            if hasattr(self, 'kg_agent') and self.kg_agent:
+                result = await self.kg_agent.query_knowledge_graph(query)
+                return {"success": True, "result": result}
+            else:
+                return {"success": False, "error": "Knowledge graph agent not available"}
+        except Exception as e:
+            logger.error(f"Error querying knowledge graph: {e}")
+            return {"success": False, "error": str(e)}
+    
+    async def semantic_search(self, query: str, n_results: int = 5) -> Dict[str, Any]:
+        """Perform semantic search on stored content."""
+        try:
+            if hasattr(self, 'vector_store') and self.vector_store:
+                result = await self.vector_store.query(
+                    collection_name="semantic_search",
+                    query_text=query,
+                    n_results=n_results
+                )
+                return {"success": True, "result": result}
+            else:
+                return {"success": False, "error": "Vector store not available"}
+        except Exception as e:
+            logger.error(f"Error performing semantic search: {e}")
+            return {"success": False, "error": str(e)}
+    
+    async def generate_strategic_recommendations(
+        self,
+        assessment_result: Dict[str, Any],
+        domain: str = "general",
+        language: str = "en",
+        options: Dict[str, Any] = None
+    ) -> Dict[str, Any]:
+        """Generate strategic recommendations based on assessment results and Art of War principles."""
+        try:
+            if not self.strategic_engine:
+                return {"success": False, "error": "Strategic Analytics Engine not available"}
+            
+            # Convert domain string to StrategicDomain enum
+            from src.core.strategic_analytics_engine import StrategicDomain
+            try:
+                domain_enum = StrategicDomain(domain.lower())
+            except ValueError:
+                return {"success": False, "error": f"Invalid domain: {domain}. Valid domains: {[d.value for d in StrategicDomain]}"}
+            
+            # Create strategic metrics from assessment result
+            from src.core.strategic_analytics_engine import StrategicMetrics
+            metrics = StrategicMetrics(
+                domain=domain_enum,
+                five_fundamentals=assessment_result.get("five_fundamentals", {}),
+                deception_effectiveness=assessment_result.get("deception_effectiveness", 0.5),
+                resource_efficiency=assessment_result.get("resource_efficiency", 0.5),
+                intelligence_superiority=assessment_result.get("intelligence_superiority", 0.5),
+                alliance_strength=assessment_result.get("alliance_strength", 0.5),
+                risk_factors=assessment_result.get("risk_factors", []),
+                opportunities=assessment_result.get("opportunities", []),
+                confidence_score=assessment_result.get("confidence_score", 0.5)
+            )
+            
+            # Generate recommendations
+            recommendations = self.strategic_engine.generate_strategic_recommendations(metrics)
+            
+            result = {
+                "recommendations": [asdict(rec) for rec in recommendations],
+                "domain": domain,
+                "total_recommendations": len(recommendations),
+                "generation_timestamp": datetime.now().isoformat()
+            }
+            
+            return {"success": True, "result": result}
+        except Exception as e:
+            logger.error(f"Error in strategic recommendations: {e}")
+            return {"success": False, "error": str(e)}
 
     def _generate_visualization_html(
         self,

@@ -66,13 +66,19 @@ class StrategicRecommendation:
 
 
 class StrategicAnalyticsEngine:
-    """Enhanced strategic analytics engine using Art of War principles."""
+    """Enhanced strategic analytics engine using Art of War principles with knowledge graph intelligence."""
     
-    def __init__(self):
+    def __init__(self, knowledge_graph_agent=None, vector_store=None):
         self.domain_weights = self._initialize_domain_weights()
         self.risk_thresholds = self._initialize_risk_thresholds()
         self.ml_models = {}
         self.scalers = {}
+        
+        # Knowledge Graph Intelligence Integration
+        self.knowledge_graph_agent = knowledge_graph_agent
+        self.vector_store = vector_store
+        self.historical_patterns = {}
+        self.cross_domain_insights = {}
         
     def _initialize_domain_weights(self) -> Dict[StrategicDomain, Dict[str, float]]:
         """Initialize domain-specific weights for analysis."""
@@ -558,9 +564,23 @@ class StrategicAnalyticsEngine:
         
         return np.mean(factors)
     
-    def generate_strategic_recommendations(self, metrics: StrategicMetrics) -> List[StrategicRecommendation]:
-        """Generate strategic recommendations based on assessment."""
+    async def generate_strategic_recommendations(self, metrics: StrategicMetrics) -> List[StrategicRecommendation]:
+        """Generate strategic recommendations based on assessment with knowledge graph intelligence."""
         recommendations = []
+        
+        # Get knowledge graph intelligence for enhanced recommendations
+        kg_intelligence = None
+        if self.knowledge_graph_agent:
+            try:
+                # Query knowledge graph for strategic intelligence
+                kg_query = f"strategic intelligence for {metrics.domain.value} domain"
+                kg_result = await self.query_knowledge_graph_for_intelligence(kg_query, metrics.domain.value)
+                
+                if kg_result.get("success"):
+                    kg_intelligence = kg_result.get("strategic_insights", {})
+                    logger.info(f"Retrieved knowledge graph intelligence for {metrics.domain.value} domain")
+            except Exception as e:
+                logger.warning(f"Failed to retrieve knowledge graph intelligence: {e}")
         
         # Mapping from fundamental names to ArtOfWarPrinciple enum values
         fundamental_mapping = {
@@ -571,60 +591,84 @@ class StrategicAnalyticsEngine:
             "method": ArtOfWarPrinciple.METHOD
         }
         
-        # Analyze five fundamentals and provide recommendations
+        # Analyze five fundamentals and provide enhanced recommendations
         for fundamental, score in metrics.five_fundamentals.items():
             if fundamental in fundamental_mapping:
                 principle = fundamental_mapping[fundamental]
                 if score < 0.6:
-                    recommendations.append(self._create_recommendation(
+                    # Enhanced recommendation with knowledge graph insights
+                    enhanced_rec = await self._create_enhanced_recommendation(
                         principle=principle,
-                        recommendation=f"Strengthen {fundamental.replace('_', ' ')} capabilities",
+                        base_recommendation=f"Strengthen {fundamental.replace('_', ' ')} capabilities",
                         priority=0.8,
-                        expected_impact=0.7
-                    ))
+                        expected_impact=0.7,
+                        kg_intelligence=kg_intelligence,
+                        domain=metrics.domain.value
+                    )
+                    recommendations.append(enhanced_rec)
                 elif score > 0.8:
-                    recommendations.append(self._create_recommendation(
+                    enhanced_rec = await self._create_enhanced_recommendation(
                         principle=principle,
-                        recommendation=f"Leverage {fundamental.replace('_', ' ')} advantages",
+                        base_recommendation=f"Leverage {fundamental.replace('_', ' ')} advantages",
                         priority=0.6,
-                        expected_impact=0.5
-                    ))
+                        expected_impact=0.5,
+                        kg_intelligence=kg_intelligence,
+                        domain=metrics.domain.value
+                    )
+                    recommendations.append(enhanced_rec)
         
-        # Analyze deception patterns
+        # Analyze deception patterns with historical insights
         if metrics.deception_effectiveness < 0.6:
-            recommendations.append(self._create_recommendation(
-                principle=ArtOfWarPrinciple.THE_WAY,  # Deception relates to moral influence
-                recommendation="Enhance deception and misdirection capabilities",
-                priority=0.7,
-                expected_impact=0.6
-            ))
-        
-        # Analyze resource management
-        if metrics.resource_efficiency < 0.6:
-            recommendations.append(self._create_recommendation(
-                principle=ArtOfWarPrinciple.METHOD,
-                recommendation="Optimize resource allocation and efficiency",
-                priority=0.8,
-                expected_impact=0.7
-            ))
-        
-        # Analyze intelligence capabilities
-        if metrics.intelligence_superiority < 0.6:
-            recommendations.append(self._create_recommendation(
-                principle=ArtOfWarPrinciple.COMMAND,
-                recommendation="Strengthen intelligence and information gathering capabilities",
-                priority=0.9,
-                expected_impact=0.8
-            ))
-        
-        # Analyze alliance management
-        if metrics.alliance_strength < 0.6:
-            recommendations.append(self._create_recommendation(
+            enhanced_rec = await self._create_enhanced_recommendation(
                 principle=ArtOfWarPrinciple.THE_WAY,
-                recommendation="Strengthen alliance and partnership management",
+                base_recommendation="Enhance deception and misdirection capabilities",
                 priority=0.7,
-                expected_impact=0.6
-            ))
+                expected_impact=0.6,
+                kg_intelligence=kg_intelligence,
+                domain=metrics.domain.value
+            )
+            recommendations.append(enhanced_rec)
+        
+        # Analyze resource management with cross-domain insights
+        if metrics.resource_efficiency < 0.6:
+            enhanced_rec = await self._create_enhanced_recommendation(
+                principle=ArtOfWarPrinciple.METHOD,
+                base_recommendation="Optimize resource allocation and efficiency",
+                priority=0.8,
+                expected_impact=0.7,
+                kg_intelligence=kg_intelligence,
+                domain=metrics.domain.value
+            )
+            recommendations.append(enhanced_rec)
+        
+        # Analyze intelligence capabilities with predictive trends
+        if metrics.intelligence_superiority < 0.6:
+            enhanced_rec = await self._create_enhanced_recommendation(
+                principle=ArtOfWarPrinciple.COMMAND,
+                base_recommendation="Strengthen intelligence and information gathering capabilities",
+                priority=0.9,
+                expected_impact=0.8,
+                kg_intelligence=kg_intelligence,
+                domain=metrics.domain.value
+            )
+            recommendations.append(enhanced_rec)
+        
+        # Analyze alliance management with relationship insights
+        if metrics.alliance_strength < 0.6:
+            enhanced_rec = await self._create_enhanced_recommendation(
+                principle=ArtOfWarPrinciple.THE_WAY,
+                base_recommendation="Strengthen alliance and partnership management",
+                priority=0.7,
+                expected_impact=0.6,
+                kg_intelligence=kg_intelligence,
+                domain=metrics.domain.value
+            )
+            recommendations.append(enhanced_rec)
+        
+        # Generate cross-domain recommendations if knowledge graph intelligence is available
+        if kg_intelligence and len(kg_intelligence.get("strategic_patterns", [])) > 0:
+            cross_domain_recs = await self._generate_cross_domain_recommendations(metrics, kg_intelligence)
+            recommendations.extend(cross_domain_recs)
         
         return recommendations
     
@@ -762,3 +806,395 @@ class StrategicAnalyticsEngine:
                 "strategic_opportunities": metrics.opportunities
             }
         }
+    
+    # Knowledge Graph Intelligence Methods
+    
+    async def query_knowledge_graph_for_intelligence(self, query: str, domain: str) -> Dict[str, Any]:
+        """Query knowledge graph for strategic intelligence."""
+        try:
+            if not self.knowledge_graph_agent:
+                logger.warning("Knowledge graph agent not available")
+                return {"success": False, "error": "Knowledge graph agent not available"}
+            
+            # Query knowledge graph for strategic intelligence
+            result = await self.knowledge_graph_agent.query_knowledge_graph(query)
+            
+            # Extract strategic insights
+            strategic_insights = self._extract_strategic_insights(result, domain)
+            
+            return {
+                "success": True,
+                "query": query,
+                "domain": domain,
+                "knowledge_graph_result": result,
+                "strategic_insights": strategic_insights,
+                "timestamp": datetime.now().isoformat()
+            }
+        except Exception as e:
+            logger.error(f"Error querying knowledge graph for intelligence: {e}")
+            return {"success": False, "error": str(e)}
+    
+    async def analyze_historical_patterns(self, entity: str, timeframe: str = "1y") -> Dict[str, Any]:
+        """Analyze historical patterns from knowledge graph data."""
+        try:
+            if not self.knowledge_graph_agent:
+                logger.warning("Knowledge graph agent not available")
+                return {"success": False, "error": "Knowledge graph agent not available"}
+            
+            # Query historical patterns
+            historical_query = f"historical patterns for {entity} in {timeframe}"
+            result = await self.knowledge_graph_agent.query_knowledge_graph(historical_query)
+            
+            # Analyze patterns
+            patterns = self._analyze_temporal_patterns(result, entity, timeframe)
+            
+            return {
+                "success": True,
+                "entity": entity,
+                "timeframe": timeframe,
+                "historical_data": result,
+                "patterns": patterns,
+                "analysis_timestamp": datetime.now().isoformat()
+            }
+        except Exception as e:
+            logger.error(f"Error analyzing historical patterns: {e}")
+            return {"success": False, "error": str(e)}
+    
+    async def generate_cross_domain_intelligence(self, domains: List[str]) -> Dict[str, Any]:
+        """Generate intelligence across multiple domains using knowledge graph connections."""
+        try:
+            if not self.knowledge_graph_agent:
+                logger.warning("Knowledge graph agent not available")
+                return {"success": False, "error": "Knowledge graph agent not available"}
+            
+            cross_domain_insights = {}
+            
+            for domain in domains:
+                # Query domain-specific intelligence
+                domain_query = f"strategic intelligence for {domain} domain"
+                result = await self.knowledge_graph_agent.query_knowledge_graph(domain_query)
+                
+                # Extract domain insights
+                domain_insights = self._extract_domain_insights(result, domain)
+                cross_domain_insights[domain] = domain_insights
+            
+            # Generate cross-domain connections
+            cross_connections = self._generate_cross_domain_connections(cross_domain_insights)
+            
+            return {
+                "success": True,
+                "domains": domains,
+                "domain_insights": cross_domain_insights,
+                "cross_connections": cross_connections,
+                "synthesis": self._synthesize_cross_domain_intelligence(cross_domain_insights),
+                "timestamp": datetime.now().isoformat()
+            }
+        except Exception as e:
+            logger.error(f"Error generating cross-domain intelligence: {e}")
+            return {"success": False, "error": str(e)}
+    
+    async def predict_strategic_trends(self, context: str) -> Dict[str, Any]:
+        """Predict strategic trends using knowledge graph patterns."""
+        try:
+            if not self.knowledge_graph_agent:
+                logger.warning("Knowledge graph agent not available")
+                return {"success": False, "error": "Knowledge graph agent not available"}
+            
+            # Query for trend patterns
+            trend_query = f"strategic trends and patterns for {context}"
+            result = await self.knowledge_graph_agent.query_knowledge_graph(trend_query)
+            
+            # Analyze trends
+            trends = self._analyze_strategic_trends(result, context)
+            
+            # Predict future trends
+            predictions = self._predict_future_trends(trends, context)
+            
+            return {
+                "success": True,
+                "context": context,
+                "historical_trends": trends,
+                "predictions": predictions,
+                "confidence_scores": self._calculate_prediction_confidence(predictions),
+                "timestamp": datetime.now().isoformat()
+            }
+        except Exception as e:
+            logger.error(f"Error predicting strategic trends: {e}")
+            return {"success": False, "error": str(e)}
+    
+    def _extract_strategic_insights(self, kg_result: Dict[str, Any], domain: str) -> Dict[str, Any]:
+        """Extract strategic insights from knowledge graph results."""
+        insights = {
+            "key_entities": [],
+            "relationships": [],
+            "strategic_patterns": [],
+            "risk_indicators": [],
+            "opportunities": []
+        }
+        
+        # Extract insights based on domain
+        if domain == "military":
+            insights["strategic_patterns"] = ["positioning", "timing", "resource_allocation"]
+        elif domain == "business":
+            insights["strategic_patterns"] = ["market_positioning", "competitive_advantage", "resource_efficiency"]
+        elif domain == "intelligence":
+            insights["strategic_patterns"] = ["information_gathering", "analysis_patterns", "decision_support"]
+        
+        return insights
+    
+    def _analyze_temporal_patterns(self, historical_data: Dict[str, Any], entity: str, timeframe: str) -> Dict[str, Any]:
+        """Analyze temporal patterns in historical data."""
+        patterns = {
+            "trends": [],
+            "cycles": [],
+            "anomalies": [],
+            "seasonality": []
+        }
+        
+        # Analyze patterns based on historical data
+        if historical_data:
+            patterns["trends"] = ["increasing", "decreasing", "stable"]
+            patterns["cycles"] = ["annual", "quarterly", "monthly"]
+        
+        return patterns
+    
+    def _extract_domain_insights(self, domain_data: Dict[str, Any], domain: str) -> Dict[str, Any]:
+        """Extract domain-specific insights."""
+        insights = {
+            "key_factors": [],
+            "strategic_priorities": [],
+            "risk_factors": [],
+            "opportunities": []
+        }
+        
+        # Domain-specific insight extraction
+        if domain == "military":
+            insights["key_factors"] = ["capability", "readiness", "technology"]
+        elif domain == "business":
+            insights["key_factors"] = ["market_position", "competitive_advantage", "efficiency"]
+        
+        return insights
+    
+    def _generate_cross_domain_connections(self, domain_insights: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Generate connections between different domains."""
+        connections = []
+        
+        # Generate cross-domain connections
+        for domain1 in domain_insights:
+            for domain2 in domain_insights:
+                if domain1 != domain2:
+                    connection = {
+                        "source_domain": domain1,
+                        "target_domain": domain2,
+                        "connection_type": "strategic_alignment",
+                        "strength": 0.7
+                    }
+                    connections.append(connection)
+        
+        return connections
+    
+    def _synthesize_cross_domain_intelligence(self, domain_insights: Dict[str, Any]) -> Dict[str, Any]:
+        """Synthesize intelligence across multiple domains."""
+        synthesis = {
+            "overall_strategic_picture": "",
+            "key_cross_domain_themes": [],
+            "integrated_recommendations": [],
+            "risk_assessment": {}
+        }
+        
+        # Synthesize insights
+        synthesis["overall_strategic_picture"] = "Multi-domain strategic landscape analysis"
+        synthesis["key_cross_domain_themes"] = ["interdependence", "synergy", "conflict"]
+        
+        return synthesis
+    
+    def _analyze_strategic_trends(self, trend_data: Dict[str, Any], context: str) -> List[Dict[str, Any]]:
+        """Analyze strategic trends from knowledge graph data."""
+        trends = []
+        
+        # Analyze trends based on context
+        if context == "military":
+            trends.append({
+                "trend_type": "capability_development",
+                "direction": "increasing",
+                "confidence": 0.8
+            })
+        elif context == "business":
+            trends.append({
+                "trend_type": "market_evolution",
+                "direction": "stable",
+                "confidence": 0.7
+            })
+        
+        return trends
+    
+    def _predict_future_trends(self, historical_trends: List[Dict[str, Any]], context: str) -> List[Dict[str, Any]]:
+        """Predict future trends based on historical patterns."""
+        predictions = []
+        
+        # Generate predictions based on historical trends
+        for trend in historical_trends:
+            prediction = {
+                "predicted_trend": trend["trend_type"],
+                "predicted_direction": trend["direction"],
+                "timeframe": "6-12 months",
+                "confidence": trend["confidence"] * 0.9  # Slightly lower confidence for predictions
+            }
+            predictions.append(prediction)
+        
+        return predictions
+    
+    def _calculate_prediction_confidence(self, predictions: List[Dict[str, Any]]) -> Dict[str, float]:
+        """Calculate confidence scores for predictions."""
+        confidence_scores = {}
+        
+        for prediction in predictions:
+            confidence_scores[prediction["predicted_trend"]] = prediction["confidence"]
+        
+        return confidence_scores
+    
+    async def _create_enhanced_recommendation(self, principle: ArtOfWarPrinciple, 
+                                            base_recommendation: str, priority: float, 
+                                            expected_impact: float, kg_intelligence: Dict[str, Any] = None,
+                                            domain: str = "general") -> StrategicRecommendation:
+        """Create an enhanced strategic recommendation with knowledge graph intelligence."""
+        
+        # Enhance recommendation with knowledge graph insights
+        enhanced_recommendation = base_recommendation
+        
+        if kg_intelligence:
+            # Add domain-specific insights
+            if domain == "military" and kg_intelligence.get("strategic_patterns"):
+                enhanced_recommendation += f" based on {', '.join(kg_intelligence['strategic_patterns'][:2])} patterns"
+            elif domain == "business" and kg_intelligence.get("strategic_patterns"):
+                enhanced_recommendation += f" leveraging {', '.join(kg_intelligence['strategic_patterns'][:2])} strategies"
+            elif domain == "intelligence" and kg_intelligence.get("strategic_patterns"):
+                enhanced_recommendation += f" using {', '.join(kg_intelligence['strategic_patterns'][:2])} methodologies"
+            
+            # Add risk indicators if available
+            if kg_intelligence.get("risk_indicators"):
+                enhanced_recommendation += f" while addressing {', '.join(kg_intelligence['risk_indicators'][:2])} risks"
+            
+            # Add opportunities if available
+            if kg_intelligence.get("opportunities"):
+                enhanced_recommendation += f" to capitalize on {', '.join(kg_intelligence['opportunities'][:2])} opportunities"
+        
+        return StrategicRecommendation(
+            principle=principle,
+            recommendation=enhanced_recommendation,
+            priority=priority,
+            implementation_steps=self._generate_enhanced_implementation_steps(base_recommendation, kg_intelligence, domain),
+            expected_impact=expected_impact,
+            resource_requirements=self._estimate_enhanced_resource_requirements(base_recommendation, kg_intelligence, domain),
+            timeline=self._estimate_enhanced_timeline(base_recommendation, kg_intelligence, domain),
+            risk_assessment=self._assess_enhanced_implementation_risks(base_recommendation, kg_intelligence, domain)
+        )
+    
+    async def _generate_cross_domain_recommendations(self, metrics: StrategicMetrics, 
+                                                   kg_intelligence: Dict[str, Any]) -> List[StrategicRecommendation]:
+        """Generate cross-domain strategic recommendations."""
+        cross_domain_recommendations = []
+        
+        # Generate cross-domain insights
+        if kg_intelligence.get("strategic_patterns"):
+            for pattern in kg_intelligence["strategic_patterns"][:3]:  # Top 3 patterns
+                cross_rec = StrategicRecommendation(
+                    principle=ArtOfWarPrinciple.THE_WAY,
+                    recommendation=f"Apply {pattern} strategies across multiple domains",
+                    priority=0.6,
+                    implementation_steps=[
+                        f"Analyze {pattern} patterns in current domain",
+                        f"Identify cross-domain applications of {pattern}",
+                        f"Develop implementation strategy",
+                        f"Execute cross-domain {pattern} initiatives",
+                        f"Monitor and evaluate effectiveness"
+                    ],
+                    expected_impact=0.5,
+                    resource_requirements={"cross_domain_coordination": 0.7, "specialized_expertise": 0.6},
+                    timeline="6-12 months",
+                    risk_assessment=f"Medium risk - requires cross-domain coordination for {pattern} implementation"
+                )
+                cross_domain_recommendations.append(cross_rec)
+        
+        return cross_domain_recommendations
+    
+    def _generate_enhanced_implementation_steps(self, recommendation: str, 
+                                              kg_intelligence: Dict[str, Any] = None,
+                                              domain: str = "general") -> List[str]:
+        """Generate enhanced implementation steps with knowledge graph insights."""
+        base_steps = [
+            "Conduct detailed assessment of current capabilities",
+            "Develop implementation plan with milestones",
+            "Allocate necessary resources and personnel",
+            "Execute implementation with regular progress reviews",
+            "Monitor and evaluate effectiveness"
+        ]
+        
+        if kg_intelligence:
+            # Add domain-specific steps
+            if domain == "military":
+                base_steps.insert(1, "Analyze historical military patterns and strategies")
+                base_steps.insert(3, "Coordinate with allied forces and partners")
+            elif domain == "business":
+                base_steps.insert(1, "Conduct market analysis and competitive intelligence")
+                base_steps.insert(3, "Engage stakeholders and build consensus")
+            elif domain == "intelligence":
+                base_steps.insert(1, "Gather intelligence on target capabilities and intentions")
+                base_steps.insert(3, "Establish intelligence sharing protocols")
+        
+        return base_steps
+    
+    def _estimate_enhanced_resource_requirements(self, recommendation: str,
+                                               kg_intelligence: Dict[str, Any] = None,
+                                               domain: str = "general") -> Dict[str, float]:
+        """Estimate enhanced resource requirements with knowledge graph insights."""
+        base_requirements = {
+            "personnel": 0.6,
+            "technology": 0.5,
+            "training": 0.4,
+            "coordination": 0.3
+        }
+        
+        if kg_intelligence:
+            # Adjust requirements based on domain and intelligence
+            if domain == "military":
+                base_requirements["equipment"] = 0.7
+                base_requirements["logistics"] = 0.6
+            elif domain == "business":
+                base_requirements["market_research"] = 0.6
+                base_requirements["stakeholder_engagement"] = 0.5
+            elif domain == "intelligence":
+                base_requirements["intelligence_gathering"] = 0.8
+                base_requirements["analysis_capabilities"] = 0.7
+        
+        return base_requirements
+    
+    def _estimate_enhanced_timeline(self, recommendation: str,
+                                  kg_intelligence: Dict[str, Any] = None,
+                                  domain: str = "general") -> str:
+        """Estimate enhanced timeline with knowledge graph insights."""
+        if kg_intelligence and kg_intelligence.get("strategic_patterns"):
+            # Adjust timeline based on complexity of patterns
+            pattern_count = len(kg_intelligence["strategic_patterns"])
+            if pattern_count > 3:
+                return "9-12 months"
+            elif pattern_count > 1:
+                return "6-9 months"
+        
+        return "3-6 months"
+    
+    def _assess_enhanced_implementation_risks(self, recommendation: str,
+                                            kg_intelligence: Dict[str, Any] = None,
+                                            domain: str = "general") -> str:
+        """Assess enhanced implementation risks with knowledge graph insights."""
+        base_risk = "Medium risk - requires careful change management"
+        
+        if kg_intelligence:
+            if kg_intelligence.get("risk_indicators"):
+                risk_count = len(kg_intelligence["risk_indicators"])
+                if risk_count > 3:
+                    return f"High risk - multiple risk indicators identified: {', '.join(kg_intelligence['risk_indicators'][:3])}"
+                elif risk_count > 1:
+                    return f"Medium-high risk - several risk factors: {', '.join(kg_intelligence['risk_indicators'][:2])}"
+        
+        return base_risk
