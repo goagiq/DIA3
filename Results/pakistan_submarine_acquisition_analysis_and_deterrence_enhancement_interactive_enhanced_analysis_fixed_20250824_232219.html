@@ -1,0 +1,1007 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pakistan Submarine Acquisition Analysis and Deterrence Enhancement</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header h2 {
+            color: #7f8c8d;
+            font-size: 1.3em;
+            font-weight: 400;
+        }
+        
+        .timestamp {
+            color: #95a5a6;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section h3 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card h4 {
+            color: #2c3e50;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+        
+        .card-content {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .chart-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.95);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            max-width: 400px;
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .tooltip.show {
+            opacity: 1;
+        }
+        
+        .tooltip-title {
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+        
+        .tooltip-sources {
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .tooltip-sources h5 {
+            color: #f39c12;
+            margin-bottom: 5px;
+            font-size: 0.85em;
+        }
+        
+        .tooltip-sources ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .tooltip-sources li {
+            padding: 2px 0;
+            font-size: 0.8em;
+            color: #bdc3c7;
+        }
+        
+        .tooltip-sources li:before {
+            content: "• ";
+            color: #3498db;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .metric {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .recommendations {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .recommendations h4 {
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .recommendations ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .recommendations li {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            border-left: 4px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .use-case {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .use-case h5 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .navigation {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        
+        .navigation button {
+            display: block;
+            width: 100%;
+            padding: 8px 12px;
+            margin: 5px 0;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .navigation button:hover {
+            background: #2980b9;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="tooltip" id="tooltip"></div>
+    
+    <div class="navigation">
+        <button onclick="scrollToSection('executive')">Executive Summary</button>
+        <button onclick="scrollToSection('geopolitical')">Geopolitical Impact</button>
+        <button onclick="scrollToSection('trade')">Trade Impact</button>
+        <button onclick="scrollToSection('balance')">Balance of Power</button>
+        <button onclick="scrollToSection('escalation')">Escalation Scenarios</button>
+        <button onclick="scrollToSection('use-cases')">Use Cases</button>
+        <button onclick="scrollToSection('recommendations')">Recommendations</button>
+        <button onclick="scrollToSection('security-implications')">Security Implications</button>
+        <button onclick="scrollToSection('economic-implications')">Economic Implications</button>
+        <button onclick="scrollToSection('financial-implications')">Financial Implications</button>
+        <button onclick="scrollToSection('regional_analysis')">Regional Analysis</button>
+        <button onclick="scrollToSection('comparative_analysis')">Comparative Analysis</button>
+        <button onclick="scrollToSection('predictive_analysis')">Predictive Analysis</button>
+        <button onclick="scrollToSection('risk-assessment')">Risk Assessment</button>
+        <button onclick="scrollToSection('scenario-analysis')">Scenario Analysis</button>
+        <button onclick="scrollToSection('strategic-options')">Strategic Options</button>
+        <button onclick="scrollToSection('conclusion')">Conclusion</button>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Pakistan Submarine Acquisition Analysis and Deterrence Enhancement</h1>
+            <h2>Interactive Analysis: Geopolitics, Trade, Balance of Power, and Escalation Scenarios</h2>
+            <div class="timestamp">Generated: 2025-08-24 23:22:19</div>
+        </div>
+
+        <div class="section" id="executive">
+            <h3>Executive Summary</h3>
+            <div class="card-content">
+                <p>Pakistan's proposed acquisition of 50 submarines represents one of the most ambitious naval modernization programs in modern history, with profound implications for regional security dynamics.</p>
+                
+                <div class="metrics-grid">
+                    <div class="metric">
+                        <div class="metric-value">600-1000%</div>
+                        <div class="metric-label">Fleet Size Increase</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">$15-25B</div>
+                        <div class="metric-label">Acquisition Cost</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">$2-4B</div>
+                        <div class="metric-label">Annual Operating Cost</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">10 Years</div>
+                        <div class="metric-label">Implementation Timeline</div>
+                    </div>
+                </div>
+                
+                <h4>Key Findings:</h4>
+                <ul>
+                    <li>600-1000% increase in submarine fleet size</li><li>Estimated $15-25 billion acquisition cost</li><li>Significant enhancement of conventional deterrence capabilities</li><li>Major impact on regional balance of power</li><li>Complex economic and operational challenges</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section" id="geopolitical">
+            <h3>Geopolitical Impact Analysis</h3>
+            <div class="grid">
+                <div class="card" 
+                     data-tooltip-title="South Asian Regional Dynamics"
+                     data-tooltip-content="Comprehensive analysis of regional security implications and strategic responses to Pakistan's submarine acquisition program."
+                     data-sources='["DIA3 Threat Assessment", "Indian Defense Ministry Reports", "Strategic Studies Institute", "DIA3 Regional Analysis", "Bangladesh Maritime Policy", "DIA3 Strategic Assessment"]'>
+                    <h4>South Asia</h4>
+                    <div class="card-content">
+                        <p><strong>India Response:</strong> Likely massive investment in anti-submarine warfare capabilities</p>
+                        <p><strong>Bangladesh:</strong> Maritime security implications in Bay of Bengal</p>
+                        <p><strong>Sri Lanka:</strong> Strategic neutrality challenges</p>
+                    </div>
+                </div>
+                
+                <div class="card" 
+                     data-tooltip-title="Middle Eastern Implications"
+                     data-tooltip-content="Analysis of Middle Eastern security dynamics, energy security implications, and strategic partnerships."
+                     data-sources='["DIA3 Alliance Analysis", "Iran-Pakistan Relations", "DIA3 Energy Security Assessment", "Gulf Cooperation Council Reports", "DIA3 Maritime Strategy Analysis"]'>
+                    <h4>Middle East</h4>
+                    <div class="card-content">
+                        <p><strong>Iran Relations:</strong> Potential for enhanced naval cooperation</p>
+                        <p><strong>Gulf States:</strong> Energy security implications</p>
+                        <p><strong>Red Sea Access:</strong> Strategic chokepoint control</p>
+                    </div>
+                </div>
+                
+                <div class="card" 
+                     data-tooltip-title="Central Asian Dynamics"
+                     data-tooltip-content="Great power competition implications and regional stability considerations in Central Asia."
+                     data-sources='["DIA3 Technology Assessment", "Russia-Pakistan Defense Relations", "DIA3 Strategic Partnership Analysis", "BRI Security Implications"]'>
+                    <h4>Central Asia</h4>
+                    <div class="card-content">
+                        <p><strong>Russia Relations:</strong> Technology transfer and training cooperation</p>
+                        <p><strong>China Partnership:</strong> Belt and Road Initiative alignment</p>
+                        <p><strong>Regional Stability:</strong> Impact on existing security arrangements</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="geopoliticalChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+        <div class="section" id="trade">
+            <h3>Trade and Economic Impact</h3>
+            <div class="grid">
+                <div class="card" 
+                     data-tooltip-title="Maritime Commerce Impact"
+                     data-tooltip-content="Comprehensive analysis of shipping route security and maritime domain awareness implications."
+                     data-sources='["DIA3 Maritime Domain Analysis", "Arabian Sea Trade Routes", "DIA3 Energy Security Analysis", "Strait of Hormuz Studies"]'>
+                    <h4>Maritime Commerce</h4>
+                    <div class="card-content">
+                        <p><strong>Arabian Sea:</strong> Enhanced control over key shipping lanes</p>
+                        <p><strong>Strait of Hormuz:</strong> Strategic influence over energy flows</p>
+                        <p><strong>Indian Ocean:</strong> Extended maritime domain awareness</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="tradeChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+        <div class="section" id="balance">
+            <h3>Balance of Power Analysis</h3>
+            <div class="grid">
+                <div class="card" 
+                     data-tooltip-title="Military Balance Assessment"
+                     data-tooltip-content="Current and projected naval capabilities balance with asymmetric warfare considerations."
+                     data-sources='["DIA3 Military Balance Assessment", "IISS Military Balance 2024", "DIA3 Capability Gap Analysis", "Naval Force Comparison Studies"]'>
+                    <h4>Military Balance</h4>
+                    <div class="card-content">
+                        <p><strong>Current Balance:</strong> India's naval superiority in region</p>
+                        <p><strong>Proposed Shift:</strong> Significant reduction in capability gap</p>
+                        <p><strong>Asymmetric Advantages:</strong> Submarine force multiplier effects</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="balanceChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+        <div class="section" id="escalation">
+            <h3>Escalation Scenarios and Crisis Management</h3>
+            <div class="grid">
+                <div class="card" 
+                     data-tooltip-title="Low-Intensity Crisis Scenarios"
+                     data-tooltip-content="Analysis of maritime incidents and economic coercion scenarios in low-intensity conflicts."
+                     data-sources='["DIA3 Crisis Escalation Modeling", "Maritime Incident Analysis", "DIA3 Economic Warfare Analysis"]'>
+                    <h4>Low Intensity</h4>
+                    <div class="card-content">
+                        <p><strong>Maritime Incidents:</strong> Increased risk of naval confrontations</p>
+                        <p><strong>Economic Coercion:</strong> Trade route interdiction capabilities</p>
+                    </div>
+                </div>
+                
+                <div class="card" 
+                     data-tooltip-title="Medium-Intensity Conflict Scenarios"
+                     data-tooltip-content="Submarine warfare scenarios and maritime blockade capabilities analysis."
+                     data-sources='["DIA3 Conflict Scenario Modeling", "Submarine Warfare Studies", "DIA3 Blockade Analysis"]'>
+                    <h4>Medium Intensity</h4>
+                    <div class="card-content">
+                        <p><strong>Limited Conflict:</strong> Submarine warfare scenarios</p>
+                        <p><strong>Blockade Operations:</strong> Maritime blockade capabilities</p>
+                    </div>
+                </div>
+                
+                <div class="card" 
+                     data-tooltip-title="High-Intensity Scenarios"
+                     data-tooltip-content="Major conflict implications and nuclear escalation dynamics analysis."
+                     data-sources='["DIA3 Major Conflict Modeling", "Naval Warfare Studies", "DIA3 Nuclear Escalation Analysis"]'>
+                    <h4>High Intensity</h4>
+                    <div class="card-content">
+                        <p><strong>Major Conflict:</strong> Full-scale naval warfare implications</p>
+                        <p><strong>Nuclear Escalation:</strong> Nuclear deterrence dynamics</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="use-cases">
+            <h3>Strategic Use Cases</h3>
+            <div class="use-cases">
+                <div class="use-case">
+                    <h5>Strategic Deterrence</h5>
+                    <p><strong>Conventional Deterrence:</strong> Enhanced ability to deter conventional aggression</p>
+                    <p><strong>Nuclear Escalation Control:</strong> Provides options short of nuclear use</p>
+                </div>
+                
+                <div class="use-case">
+                    <h5>Maritime Security</h5>
+                    <p><strong>Trade Protection:</strong> Enhanced protection of maritime trade routes</p>
+                    <p><strong>Energy Security:</strong> Improved energy supply security</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="recommendations">
+            <h3>Strategic Recommendations</h3>
+            
+            <div class="recommendations">
+                <h4>Pakistan Perspective</h4>
+                <ul>
+                    <li><strong>Phased Approach:</strong> Consider 10-15 submarines over 10 years</li>
+                    <li><strong>Quality Focus:</strong> Emphasize capability over quantity</li>
+                </ul>
+            </div>
+            
+            <div class="recommendations">
+                <h4>Regional Perspective</h4>
+                <ul>
+                    <li><strong>Confidence Building:</strong> Maintain transparency where possible</li>
+                    <li><strong>Arms Control:</strong> Consider regional arms limitations</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section" id="security_implications">
+            <h3>Security Implications</h3>
+            <div class="grid">
+                <div class="card" 
+                     data-tooltip-title="National Security"
+                     data-tooltip-content="Enhanced ability to control maritime approaches and protect territorial waters."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>National Security</h4>
+                    <div class="card-content">
+                        <p><strong>Maritime Dominance:</strong> Enhanced ability to control maritime approaches and protect territorial waters</p>
+                        <p><strong>Strategic Depth:</strong> Increased strategic depth and operational flexibility in crisis scenarios</p>
+                        <p><strong>Deterrence Capability:</strong> Significant enhancement of conventional deterrence against regional threats</p>
+                    </div>
+                </div>
+                <div class="card" 
+                     data-tooltip-title="Regional Security"
+                     data-tooltip-content="Fundamental shift in regional maritime security balance, potential for increased escalation risks, and challenges to confidence-building measures."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Regional Security</h4>
+                    <div class="card-content">
+                        <p><strong>Balance Shift:</strong> Fundamental shift in regional maritime security balance</p>
+                        <p><strong>Escalation Risks:</strong> Potential for increased escalation risks in maritime disputes</p>
+                        <p><strong>Confidence Building:</strong> Challenges to regional confidence-building measures</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="economic_implications">
+            <h3>Economic Implications</h3>
+            <div class="grid">
+                <div class="card" 
+                     data-tooltip-title="Economic Impact"
+                     data-tooltip-content="Significant increase in defense spending affecting national budget allocation, potential for domestic industrial development, and positive employment effects."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Economic Impact</h4>
+                    <div class="card-content">
+                        <p><strong>Defense Spending:</strong> Significant increase in defense spending affecting national budget allocation</p>
+                        <p><strong>Industrial Development:</strong> Potential for domestic industrial development and technology transfer</p>
+                        <p><strong>Employment Effects:</strong> Positive employment effects in defense and related sectors</p>
+                    </div>
+                </div>
+                <div class="card" 
+                     data-tooltip-title="Trade Implications"
+                     data-tooltip-content="Enhanced ability to protect and potentially control maritime trade routes, improved energy security, and potential for economic coercion."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Trade Implications</h4>
+                    <div class="card-content">
+                        <p><strong>Maritime Trade:</strong> Enhanced ability to protect and potentially control maritime trade routes</p>
+                        <p><strong>Energy Security:</strong> Improved energy security through enhanced maritime protection capabilities</p>
+                        <p><strong>Economic Coercion:</strong> Potential for economic coercion through maritime trade control</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="financial_implications">
+            <h3>Financial Implications</h3>
+            <div class="grid">
+                <div class="card" 
+                     data-tooltip-title="Acquisition Costs"
+                     data-tooltip-content="Massive initial investment of $15-25 billion over 10-15 years, annual operational costs, and significant long-term maintenance costs."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Acquisition Costs</h4>
+                    <div class="card-content">
+                        <p><strong>Initial Investment:</strong> Massive initial investment of $15-25 billion over 10-15 years</p>
+                        <p><strong>Operational Costs:</strong> Annual operational costs estimated at $2-4 billion</p>
+                        <p><strong>Maintenance Burden:</strong> Significant long-term maintenance and modernization costs</p>
+                    </div>
+                </div>
+                <div class="card" 
+                     data-tooltip-title="Funding Sources"
+                     data-tooltip-content="Challenges in domestic funding allocation, potential for external support, and questions about long-term economic sustainability."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Funding Sources</h4>
+                    <div class="card-content">
+                        <p><strong>Domestic Funding:</strong> Challenges in domestic funding allocation and budget priorities</p>
+                        <p><strong>External Support:</strong> Potential for external funding support from strategic partners</p>
+                        <p><strong>Economic Sustainability:</strong> Questions about long-term economic sustainability of the program</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="regional_analysis">
+            <h3>Regional Analysis</h3>
+            <div class="grid">
+                <div class="card" 
+                     data-tooltip-title="South Asia Detailed"
+                     data-tooltip-content="Comprehensive analysis of India's likely military, diplomatic, and economic responses, Bangladesh and Myanmar's maritime security policies, and Sri Lanka and Maldives' neutrality policies."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>South Asia Detailed</h4>
+                    <div class="card-content">
+                        <p><strong>India Comprehensive:</strong> Comprehensive analysis of India's likely military, diplomatic, and economic responses</p>
+                        <p><strong>Bangladesh-Myanmar:</strong> Impact on Bangladesh and Myanmar's maritime security policies</p>
+                        <p><strong>Sri Lanka-Maldives:</strong> Strategic implications for Sri Lanka and Maldives' neutrality policies</p>
+                    </div>
+                </div>
+                <div class="card" 
+                     data-tooltip-title="Middle East Extended"
+                     data-tooltip-content="Enhanced cooperation opportunities with Gulf Cooperation Council states, deepening strategic partnership with Iran in maritime security, and strategic access to Red Sea and Suez Canal routes."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Middle East Extended</h4>
+                    <div class="card-content">
+                        <p><strong>Gulf Cooperation:</strong> Enhanced cooperation opportunities with Gulf Cooperation Council states</p>
+                        <p><strong>Iran Partnership:</strong> Deepening strategic partnership with Iran in maritime security</p>
+                        <p><strong>Red Sea Access:</strong> Strategic access to Red Sea and Suez Canal routes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="comparative_analysis">
+            <h3>Comparative Analysis</h3>
+            <div class="grid">
+                <div class="card" 
+                     data-tooltip-title="Global Programs"
+                     data-tooltip-content="Comparison with China's submarine modernization program, Russia's submarine capabilities, and US submarine force structure."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Global Programs</h4>
+                    <div class="card-content">
+                        <p><strong>China Comparison:</strong> Comparison with China's submarine modernization program and strategic objectives</p>
+                        <p><strong>Russia Comparison:</strong> Analysis of Russia's submarine capabilities and technology transfer potential</p>
+                        <p><strong>US Comparison:</strong> Comparison with US submarine force structure and operational concepts</p>
+                    </div>
+                </div>
+                <div class="card" 
+                     data-tooltip-title="Regional Comparison"
+                     data-tooltip-content="Detailed comparison with India's submarine program, Iran's potential cooperation, and Bangladesh's limited aspirations."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Regional Comparison</h4>
+                    <div class="card-content">
+                        <p><strong>India Comparison:</strong> Detailed comparison with India's submarine program and capabilities</p>
+                        <p><strong>Iran Comparison:</strong> Analysis of Iran's submarine program and potential cooperation</p>
+                        <p><strong>Bangladesh Comparison:</strong> Comparison with Bangladesh's limited submarine aspirations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="predictive_analysis">
+            <h3>Predictive Analysis</h3>
+            <div class="grid">
+                <div class="card" 
+                     data-tooltip-title="Short-Term"
+                     data-tooltip-content="Predicted implementation challenges and timeline adjustments, immediate regional reactions, and projected economic impact."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Short-Term</h4>
+                    <div class="card-content">
+                        <p><strong>Implementation Phase:</strong> Predicted implementation challenges and timeline adjustments in first 2-3 years</p>
+                        <p><strong>Regional Reactions:</strong> Expected immediate regional reactions and diplomatic responses</p>
+                        <p><strong>Economic Impact:</strong> Projected economic impact on Pakistan's defense budget and economy</p>
+                    </div>
+                </div>
+                <div class="card" 
+                     data-tooltip-title="Medium-Term"
+                     data-tooltip-content="Predicted submarine force capability development, regional balance changes, and strategic relationship evolution."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Medium-Term</h4>
+                    <div class="card-content">
+                        <p><strong>Capability Development:</strong> Predicted submarine force capability development over 5-10 years</p>
+                        <p><strong>Regional Balance:</strong> Projected changes in regional military balance and security dynamics</p>
+                        <p><strong>Strategic Relationships:</strong> Expected evolution of strategic relationships with major powers</p>
+                    </div>
+                </div>
+                <div class="card" 
+                     data-tooltip-title="Long-Term"
+                     data-tooltip-content="Predicted long-term strategic outcomes, technological evolution, and global implications."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Long-Term</h4>
+                    <div class="card-content">
+                        <p><strong>Strategic Outcomes:</strong> Long-term strategic outcomes and regional power dynamics</p>
+                        <p><strong>Technological Evolution:</strong> Predicted technological evolution and its impact on submarine capabilities</p>
+                        <p><strong>Global Implications:</strong> Long-term global implications for maritime security and great power competition</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="risk_assessment">
+            <h3>Risk Assessment</h3>
+            <div class="grid">
+                <div class="card" 
+                     data-tooltip-title="Operational Risks"
+                     data-tooltip-content="Technical risks associated with submarine acquisition and operation, training risks, and maintenance risks."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Operational Risks</h4>
+                    <div class="card-content">
+                        <p><strong>Technical Risks:</strong> Technical risks associated with submarine acquisition and operation</p>
+                        <p><strong>Training Risks:</strong> Risks related to crew training and operational proficiency</p>
+                        <p><strong>Maintenance Risks:</strong> Maintenance and logistics risks for complex submarine systems</p>
+                    </div>
+                </div>
+                <div class="card" 
+                     data-tooltip-title="Strategic Risks"
+                     data-tooltip-content="Risks of regional escalation and conflict provocation, alliance risks, and economic risks."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Strategic Risks</h4>
+                    <div class="card-content">
+                        <p><strong>Escalation Risks:</strong> Risks of regional escalation and conflict provocation</p>
+                        <p><strong>Alliance Risks:</strong> Risks to existing alliances and strategic partnerships</p>
+                        <p><strong>Economic Risks:</strong> Economic risks including budget overruns and sustainability</p>
+                    </div>
+                </div>
+                <div class="card" 
+                     data-tooltip-title="Mitigation Strategies"
+                     data-tooltip-content="Strategies for mitigating identified operational and strategic risks, contingency planning, and monitoring framework."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Mitigation Strategies</h4>
+                    <div class="card-content">
+                        <p><strong>Risk Mitigation:</strong> Strategies for mitigating identified operational and strategic risks</p>
+                        <p><strong>Contingency Planning:</strong> Contingency planning for various risk scenarios</p>
+                        <p><strong>Monitoring Framework:</strong> Framework for ongoing risk monitoring and assessment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="scenario_analysis">
+            <h3>Scenario Analysis</h3>
+            <div class="grid">
+                <div class="card" 
+                     data-tooltip-title="Optimistic Scenario"
+                     data-tooltip-content="Scenario where program is successfully implemented with minimal challenges, enhanced regional cooperation, and balanced economic impact."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Optimistic Scenario</h4>
+                    <div class="card-content">
+                        <p><strong>Successful Implementation:</strong> Scenario where program is successfully implemented with minimal challenges</p>
+                        <p><strong>Regional Cooperation:</strong> Scenario of enhanced regional cooperation and stability</p>
+                        <p><strong>Economic Benefits:</strong> Scenario where economic benefits outweigh costs</p>
+                    </div>
+                </div>
+                <div class="card" 
+                     data-tooltip-title="Pessimistic Scenario"
+                     data-tooltip-content="Scenario where program faces significant implementation challenges, regional escalation, and unsustainable economic costs."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Pessimistic Scenario</h4>
+                    <div class="card-content">
+                        <p><strong>Implementation Failure:</strong> Scenario where program faces significant implementation challenges</p>
+                        <p><strong>Regional Escalation:</strong> Scenario of regional escalation and increased tensions</p>
+                        <p><strong>Economic Burden:</strong> Scenario where economic costs become unsustainable</p>
+                    </div>
+                </div>
+                <div class="card" 
+                     data-tooltip-title="Most Likely Scenario"
+                     data-tooltip-content="Most likely scenario of moderate success with manageable challenges, mixed regional responses, and balanced economic impact."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Most Likely Scenario</h4>
+                    <div class="card-content">
+                        <p><strong>Moderate Success:</strong> Most likely scenario of moderate success with manageable challenges</p>
+                        <p><strong>Mixed Regional Response:</strong> Scenario of mixed regional responses with both cooperation and tension</p>
+                        <p><strong>Balanced Economic Impact:</strong> Scenario of balanced economic impact with both benefits and costs</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="strategic_options">
+            <h3>Strategic Options Assessment & Comparison</h3>
+            <div class="grid">
+                <div class="card" 
+                     data-tooltip-title="Pakistan Options"
+                     data-tooltip-content="Options for pursuing full 50-submarine program, scaled-down program, or phased implementation."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Pakistan Options</h4>
+                    <div class="card-content">
+                        <p><strong>Full Program:</strong> Option of pursuing full 50-submarine program as planned</p>
+                        <p><strong>Scaled Program:</strong> Option of scaled-down program with 15-25 submarines</p>
+                        <p><strong>Phased Approach:</strong> Option of phased implementation over extended timeline</p>
+                    </div>
+                </div>
+                <div class="card" 
+                     data-tooltip-title="Regional Options"
+                     data-tooltip-content="Options for developing regional cooperation framework, enhanced confidence-building measures, and regional arms control agreements."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Regional Options</h4>
+                    <div class="card-content">
+                        <p><strong>Cooperation Framework:</strong> Option of developing regional cooperation framework</p>
+                        <p><strong>Confidence Building:</strong> Option of enhanced confidence-building measures</p>
+                        <p><strong>Arms Control:</strong> Option of regional arms control agreements</p>
+                    </div>
+                </div>
+                <div class="card" 
+                     data-tooltip-title="International Options"
+                     data-tooltip-content="Options for multilateral engagement, strengthening bilateral strategic partnerships, and transparency initiatives."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>International Options</h4>
+                    <div class="card-content">
+                        <p><strong>Multilateral Engagement:</strong> Option of multilateral engagement with international community</p>
+                        <p><strong>Bilateral Partnerships:</strong> Option of strengthening bilateral strategic partnerships</p>
+                        <p><strong>Transparency Initiatives:</strong> Option of transparency initiatives to build international confidence</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="conclusion">
+            <h3>Conclusion</h3>
+            <div class="grid">
+                <div class="card" 
+                     data-tooltip-title="Strategic Implications"
+                     data-tooltip-content="Comprehensive analysis of how Pakistan's submarine program will transform regional security dynamics and great power competition."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Strategic Implications</h4>
+                    <div class="card-content">
+                        <p><strong>Regional Transformation:</strong> Pakistan's submarine acquisition program represents a fundamental transformation of South Asian maritime security dynamics, potentially altering the regional balance of power for decades to come.</p>
+                        <p><strong>Great Power Competition:</strong> The program intensifies great power competition in the Indian Ocean, with China and Russia likely to provide technology and training support, while the US and India may respond with enhanced naval presence.</p>
+                        <p><strong>Nuclear Deterrence Evolution:</strong> Enhanced conventional capabilities may reduce reliance on nuclear deterrence in crisis scenarios, potentially improving crisis stability but also increasing conventional conflict risks.</p>
+                    </div>
+                </div>
+                
+                <div class="card" 
+                     data-tooltip-title="Future Outlook"
+                     data-tooltip-content="Analysis of implementation challenges, regional responses, and international implications of the submarine program."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Future Outlook</h4>
+                    <div class="card-content">
+                        <p><strong>Implementation Challenges:</strong> Economic constraints, technological limitations, and operational complexity suggest the full 50-submarine program may be scaled back or implemented over an extended timeline.</p>
+                        <p><strong>Regional Responses:</strong> India's response will likely include massive investment in anti-submarine warfare capabilities, while other regional actors may seek to balance or bandwagon with Pakistan.</p>
+                        <p><strong>International Implications:</strong> The program may influence global arms control discussions, energy security policies, and maritime security cooperation in the Indian Ocean region.</p>
+                    </div>
+                </div>
+                
+                <div class="card" 
+                     data-tooltip-title="Key Takeaways"
+                     data-tooltip-content="Essential insights about strategic significance, complexity factors, and uncertainty management."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Key Takeaways</h4>
+                    <div class="card-content">
+                        <p><strong>Strategic Significance:</strong> This represents one of the most significant naval modernization programs in modern history, with implications extending far beyond South Asia.</p>
+                        <p><strong>Complexity Factors:</strong> The program's success depends on economic sustainability, technological capability, operational effectiveness, and regional diplomatic management.</p>
+                        <p><strong>Uncertainty Management:</strong> High levels of uncertainty surround implementation timelines, regional responses, and long-term strategic outcomes, requiring flexible policy approaches.</p>
+                    </div>
+                </div>
+                
+                <div class="card" 
+                     data-tooltip-title="Final Assessment"
+                     data-tooltip-content="Comprehensive final assessment of overall impact, policy implications, and monitoring requirements."
+                     data-sources='["DIA3 Analysis"]'>
+                    <h4>Final Assessment</h4>
+                    <div class="card-content">
+                        <p><strong>Overall Impact:</strong> Pakistan's submarine acquisition program, if implemented, will fundamentally reshape regional security dynamics, requiring careful management by all stakeholders to prevent escalation and promote stability.</p>
+                        <p><strong>Policy Implications:</strong> The international community must engage proactively to manage the program's implications, promote transparency, and develop confidence-building measures.</p>
+                        <p><strong>Monitoring Requirements:</strong> Ongoing monitoring of program implementation, regional responses, and strategic developments will be essential for informed policy-making and conflict prevention.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced tooltip functionality with multiple sources
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card[data-tooltip-title]');
+            const tooltip = document.getElementById('tooltip');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function(e) {
+                    const title = this.getAttribute('data-tooltip-title');
+                    const content = this.getAttribute('data-tooltip-content');
+                    const sourcesJson = this.getAttribute('data-sources');
+                    let sources = [];
+                    
+                    try {
+                        sources = JSON.parse(sourcesJson);
+                    } catch (e) {
+                        sources = [];
+                    }
+                    
+                    let tooltipHTML = `<div class="tooltip-title">${title}</div>`;
+                    tooltipHTML += `<div>${content}</div>`;
+                    
+                    if (sources && sources.length > 0) {
+                        tooltipHTML += `<div class="tooltip-sources">`;
+                        tooltipHTML += `<h5>Data Sources:</h5>`;
+                        tooltipHTML += `<ul>`;
+                        sources.forEach(source => {
+                            tooltipHTML += `<li>${source}</li>`;
+                        });
+                        tooltipHTML += `</ul></div>`;
+                    }
+                    
+                    tooltip.innerHTML = tooltipHTML;
+                    tooltip.style.left = e.pageX + 15 + 'px';
+                    tooltip.style.top = e.pageY + 15 + 'px';
+                    tooltip.classList.add('show');
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    tooltip.classList.remove('show');
+                });
+                
+                card.addEventListener('mousemove', function(e) {
+                    if (tooltip.classList.contains('show')) {
+                        tooltip.style.left = e.pageX + 15 + 'px';
+                        tooltip.style.top = e.pageY + 15 + 'px';
+                    }
+                });
+            });
+        });
+        
+        // Navigation function
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+        
+        // Interactive charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Geopolitical Impact Chart
+            const geopoliticalCtx = document.getElementById('geopoliticalChart').getContext('2d');
+            new Chart(geopoliticalCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['India Response', 'China Support', 'US Reaction', 'Russia Relations', 'EU Concerns'],
+                    datasets: [{
+                        label: 'Impact Level',
+                        data: [85, 70, 75, 60, 65],
+                        backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+            
+            // Trade Impact Chart
+            const tradeCtx = document.getElementById('tradeChart').getContext('2d');
+            new Chart(tradeCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Arabian Sea', 'Strait of Hormuz', 'Indian Ocean', 'Energy Security'],
+                    datasets: [{
+                        label: 'Impact Score',
+                        data: [80, 90, 75, 85],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.8)',
+                            'rgba(54, 162, 235, 0.8)',
+                            'rgba(255, 206, 86, 0.8)',
+                            'rgba(75, 192, 192, 0.8)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+            
+            // Balance of Power Chart
+            const balanceCtx = document.getElementById('balanceChart').getContext('2d');
+            new Chart(balanceCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Current Balance', 'Proposed Shift', 'Strategic Depth'],
+                    datasets: [{
+                        data: [30, 45, 25],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.8)',
+                            'rgba(54, 162, 235, 0.8)',
+                            'rgba(255, 206, 86, 0.8)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+        

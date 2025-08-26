@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Improved Knowledge Graph - Russian-Ukraine War Articles</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .graph-section {
+            margin-bottom: 40px;
+        }
+        
+        .graph-title {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .graph-container {
+            border: 2px solid #ecf0f1;
+            border-radius: 10px;
+            padding: 20px;
+            background: #f8f9fa;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .control-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            margin: 2px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+        
+        .control-btn:hover {
+            background: #2980b9;
+        }
+        
+        .control-btn:active {
+            background: #1f5f8b;
+        }
+        
+        .node {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .node:hover {
+            stroke-width: 3px;
+        }
+        
+        .link {
+            stroke: #95a5a6;
+            stroke-width: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .link:hover {
+            stroke: #e74c3c;
+            stroke-width: 4px;
+        }
+        
+        .node-label {
+            font-size: 12px;
+            font-weight: bold;
+            text-anchor: middle;
+            pointer-events: none;
+        }
+        
+        .tooltip {
+            position: absolute;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1001;
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #333;
+        }
+        
+        .summary-section {
+            background: #ecf0f1;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        
+        .summary-title {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .summary-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .summary-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #bdc3c7;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .summary-list li:before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .instructions {
+            background: #e8f4fd;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .instructions h4 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+        
+        .instructions ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin: 5px 0;
+            color: #34495e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Improved Knowledge Graph</h1>
+            <p>Russian-Ukraine War Articles Analysis - 2025-08-14 23:14:28</p>
+        </div>
+        
+        <div class="content">
+            <div class="graph-section">
+                <h2 class="graph-title">Entity Relationship Network</h2>
+                
+                <div class="instructions">
+                    <h4>Interactive Controls:</h4>
+                    <ul>
+                        <li><strong>Mouse Wheel:</strong> Zoom in/out</li>
+                        <li><strong>Click & Drag:</strong> Pan around the graph</li>
+                        <li><strong>Double-click:</strong> Reset zoom and position</li>
+                        <li><strong>Drag Nodes:</strong> Move individual nodes</li>
+                    </ul>
+                </div>
+                
+                <div class="graph-container">
+                    <div class="controls">
+                        <button class="control-btn" onclick="resetZoom()">Reset View</button>
+                        <button class="control-btn" onclick="zoomIn()">Zoom In</button>
+                        <button class="control-btn" onclick="zoomOut()">Zoom Out</button>
+                        <button class="control-btn" onclick="fitToScreen()">Fit to Screen</button>
+                    </div>
+                    <div id="graph"></div>
+                </div>
+                
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #e74c3c;"></div>
+                        <span>People</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #3498db;"></div>
+                        <span>Organizations</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #f39c12;"></div>
+                        <span>Locations</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #27ae60;"></div>
+                        <span>Events</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="summary-section">
+                <h3 class="summary-title">Graph Statistics</h3>
+                <ul class="summary-list">
+                    <li><strong>Total Nodes:</strong> 377</li>
+                    <li><strong>Total Edges:</strong> 10</li>
+                    <li><strong>People:</strong> 0</li>
+                    <li><strong>Organizations:</strong> 0</li>
+                    <li><strong>Locations:</strong> 0</li>
+                    <li><strong>Events:</strong> 0</li>
+                    <li><strong>Generated:</strong> 2025-08-14 23:14:28</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // Graph data
+        const graphData = {
+            nodes: [{"id": "DOCTYPE html", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "html xmlns", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "head profile", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "base href", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "meta http", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "meta name", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Donald Sturgeon", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "link rel", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "The Art", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "of War", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "full text", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "fully browsable", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "and searchable", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "discussion and", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "list of", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "publications related", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "to The", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Art of", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "In English", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "and simplified", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "and traditional", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Chinese Text", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "meta property", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "link href", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "if IE", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "style type", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "alternate stylesheet", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "script language", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "async src", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "script type", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "body text", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "span id", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "div id", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "else  setActiveStyleSheet", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "return false", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "img id", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Switch to", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "compact display", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "full desktop", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "span style", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "span class", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "menuitem container", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "div style", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "div class", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "About the", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Font test", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Help us", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Frequently Asked", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "System Statistics", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Digital humanities", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "menuitem listhead", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Qin and", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "The Analects", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Xiao Jing", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Shuo Yuan", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Chun Qiu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Fan Lu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Han Shi", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Wai Zhuan", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Da Dai", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Li Ji", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Bai Hu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Xin Shu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Xin Xu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Yangzi Fayan", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Zhong Lun", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Kongzi Jiayu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Qian Fu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Tai Xuan", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Fengsu Tongyi", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Shen Jian", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Zhong Jing", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Su Shu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Xin Yu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Du Duan", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Cai Zhong", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Lang Ji", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Mo Bian", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Zhu Xu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Dao De", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "He Guan", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Wen Shi", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Zhen Jing", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Lie Xian", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Heshanggong Laozi", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Shang Jun", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Shen Bu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Jian Zhu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Ke Shu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "School of", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "the Military", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Wu Zi", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Liu Tao", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Si Ma", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Wei Liao", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Three Strategies", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Hai Dao", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Suan Jing", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "The Nine", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Sunzi Suan", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Zhou Bi", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Miscellaneous Schools", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Shi Chun", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Gui Gu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Yin Wen", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Deng Xi", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Zuo Zhuan", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Lost Book", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "of Zhou", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Guo Yu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Yanzi Chun", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Wu Yue", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Yue Jue", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Zhan Guo", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Yan Tie", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Guliang Zhuan", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Gongyang Zhuan", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Han Shu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Qian Han", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Dong Guan", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Han Ji", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Hou Han", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Zhushu Jinian", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Mutianzi Zhuan", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Gu San", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Xijing Zaji", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Ancient Classics", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Book of", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Shang Shu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "The Rites", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Chu Ci", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Shan Hai", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Jiaoshi Yilin", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Jingshi Yizhuan", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Shi Shuo", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Shuo Wen", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Jie Zi", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Er Ya", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Shi Ming", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Fang Yan", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Ji Jiu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Chinese Medicine", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Huangdi Neijing", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Nan Jing", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Shang Han", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Jinkui Yaolue", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Excavated texts", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "and North", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Three Character", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Romance of", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "the Three", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Mozi Jiangu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Hong Lou", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Quan Tang", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Kangxi Zidian", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "The Scholars", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Republican era", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Data Wiki", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "form id", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "select name", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "option value", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "input type", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Title search", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "function applyfilter", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Log in", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "noprint opt", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "img src", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Follow us", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "on Facebook", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "to receive", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "important updates", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "on Twitter", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "on sina", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "microblogging site", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "on Douban", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "table id", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "td valign", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "font size", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "table border", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "td align", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "etext noprint", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Show translation", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "span itemscope", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "span itemprop", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "var tids", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "table width", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "etext opt", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Spring and", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "BC Sun", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "English translation", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Lionel Giles", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "More about", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Books referencing", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Library Resources", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Show all", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Related resources", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "text search", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "form method", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Find by", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "ICS Sunzi", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Line or", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "More information", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "should be", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "to match", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Should be", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Comment or", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "question about", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Classics of", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Ancient China", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Master Sun", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Sun Zi", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Military Methods", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Related texts", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Word cloud", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "for The", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Laying Plans", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Waging War", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Attack by", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Tactical Dispositions", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Weak Points", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "and Strong", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Variation in", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "The Army", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "on the", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "The Attack", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "by Fire", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "The Use", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "of Spies", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Sun Tzu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "on The", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Versions of", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "this work", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "urnlabel etext", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "span title", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "This is", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "the CTP", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "URN that", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "uniquely identifies", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "this textual", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "td class", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "this site", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Please help", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Site design", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "and content", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "When quoting", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "or citing", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "information from", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "please link", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "to the", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "corresponding page", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "or to", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Please note", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "that the", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "use of", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "automatic download", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "software on", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "strictly prohibited", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "and that", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "users of", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "such software", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "are automatically", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "banned without", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "warning to", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "save bandwidth", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "raise them", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Do not", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "click this", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "The Art of", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "full text database", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "fully browsable and", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "discussion and list", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "of publications related", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "to The Art", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "In English and", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "simplified and traditional", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Chinese Text Project", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Switch to compact", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Switch to full", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "About the site", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Font test page", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Frequently Asked Questions", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Qin and Han", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Chun Qiu Fan", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Han Shi Wai", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Da Dai Li", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Bai Hu Tong", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Qian Fu Lun", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Tai Xuan Jing", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Cai Zhong Lang", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Mo Bian Zhu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Dao De Jing", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "He Guan Zi", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Wen Shi Zhen", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Lie Xian Zhuan", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Shang Jun Shu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Shen Bu Hai", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Jian Zhu Ke", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "School of Names", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "School of the", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Si Ma Fa", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Wei Liao Zi", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Hai Dao Suan", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "The Nine Chapters", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Sunzi Suan Jing", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Zhou Bi Suan", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Shi Chun Qiu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Gui Gu Zi", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Yin Wen Zi", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Deng Xi Zi", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Chun Qiu Zuo", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Lost Book of", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Yanzi Chun Qiu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Wu Yue Chun", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Yue Jue Shu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Zhan Guo Ce", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Yan Tie Lun", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Qian Han Ji", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Dong Guan Han", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Hou Han Shu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Gu San Fen", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Book of Poetry", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Book of Changes", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "The Rites of", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Shan Hai Jing", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Shuo Wen Jie", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Ji Jiu Pian", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Shang Han Lun", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Three Character Classic", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Romance of the", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Hong Lou Meng", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Quan Tang Shi", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "menuitem listhead opt", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Follow us on", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Facebook to receive", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Twitter to receive", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "microblogging site to", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "receive important updates", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Douban to receive", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "span itemscope itemtype", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Spring and Autumn", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "BC Sun Wu", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "More about translations", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Find by reference", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Line or Page", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "to match Giles", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Comment or ask", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "question about The", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Art of War", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Classics of Ancient", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Word cloud for", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Attack by Stratagem", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Weak Points and", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Variation in Tactics", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "The Army on", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "The Nine Situations", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "The Attack by", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "The Use of", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Sun Tzu on", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Versions of this", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "This is the", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "CTP URN that", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "uniquely identifies this", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Site design and", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "When quoting or", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "citing information from", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "please link to", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "the corresponding page", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Please note that", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "the use of", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "automatic download software", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "on this site", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "and that users", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "of such software", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "are automatically banned", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "without warning to", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "raise them here", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}, {"id": "Do not click", "group": 0, "size": 18, "type": "PERSON", "confidence": 0.6}],
+            links: [{"source": "DOCTYPE html", "target": "html xmlns", "value": 3, "label": "RELATED_TO", "confidence": 0.6}, {"source": "html xmlns", "target": "head profile", "value": 3, "label": "RELATED_TO", "confidence": 0.6}, {"source": "head profile", "target": "base href", "value": 3, "label": "RELATED_TO", "confidence": 0.6}, {"source": "base href", "target": "meta http", "value": 3, "label": "RELATED_TO", "confidence": 0.6}, {"source": "meta http", "target": "meta name", "value": 3, "label": "RELATED_TO", "confidence": 0.6}, {"source": "meta name", "target": "Donald Sturgeon", "value": 3, "label": "RELATED_TO", "confidence": 0.6}, {"source": "Donald Sturgeon", "target": "link rel", "value": 3, "label": "RELATED_TO", "confidence": 0.6}, {"source": "link rel", "target": "The Art", "value": 3, "label": "RELATED_TO", "confidence": 0.6}, {"source": "The Art", "target": "of War", "value": 3, "label": "RELATED_TO", "confidence": 0.6}, {"source": "of War", "target": "full text", "value": 3, "label": "RELATED_TO", "confidence": 0.6}]
+        };
+
+        const colors = ["#9b59b6", "#e74c3c", "#3498db", "#f39c12", "#27ae60"];
+        let simulation, svg, links, nodes, zoom, g;
+
+        function createGraph() {
+            const width = 800;
+            const height = 500;
+            
+            // Create zoom behavior
+            zoom = d3.zoom()
+                .scaleExtent([0.1, 10])
+                .on("zoom", zoomed);
+            
+            svg = d3.select("#graph")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .call(zoom)
+                .on("dblclick", resetZoom);
+            
+            // Create main group for zooming
+            g = svg.append("g");
+            
+            // Create links
+            links = g.append("g")
+                .selectAll("line")
+                .data(graphData.links)
+                .enter().append("line")
+                .attr("class", "link")
+                .style("stroke-width", d => Math.sqrt(d.value || 1) * 2);
+            
+            // Create nodes
+            nodes = g.append("g")
+                .selectAll("circle")
+                .data(graphData.nodes)
+                .enter().append("circle")
+                .attr("class", "node")
+                .attr("r", d => d.size || 8)
+                .style("fill", d => colors[d.group || 0])
+                .style("stroke", "#fff")
+                .style("stroke-width", 2)
+                .call(d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended));
+            
+            // Add labels
+            g.append("g")
+                .selectAll("text")
+                .data(graphData.nodes)
+                .enter().append("text")
+                .attr("class", "node-label")
+                .text(d => d.id)
+                .style("fill", "#2c3e50");
+            
+            // Create simulation
+            simulation = d3.forceSimulation(graphData.nodes)
+                .force("link", d3.forceLink(graphData.links).id(d => d.id).distance(100))
+                .force("charge", d3.forceManyBody().strength(-300))
+                .force("center", d3.forceCenter(width / 2, height / 2))
+                .on("tick", ticked);
+            
+            // Add tooltip
+            const tooltip = d3.select("#tooltip");
+            
+            nodes.on("mouseover", function(event, d) {
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                tooltip.html(`<strong>${d.id}</strong><br/>Type: ${d.type}<br/>Confidence: ${(d.confidence || 0).toFixed(2)}`)
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY - 28) + "px");
+            })
+            .on("mouseout", function(d) {
+                tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            });
+        }
+
+        function zoomed(event) {
+            g.attr("transform", event.transform);
+        }
+
+        function resetZoom() {
+            svg.transition().duration(750).call(
+                zoom.transform,
+                d3.zoomIdentity
+            );
+        }
+
+        function zoomIn() {
+            svg.transition().duration(300).call(
+                zoom.scaleBy,
+                1.5
+            );
+        }
+
+        function zoomOut() {
+            svg.transition().duration(300).call(
+                zoom.scaleBy,
+                0.75
+            );
+        }
+
+        function fitToScreen() {
+            const width = 800;
+            const height = 500;
+            const padding = 50;
+            
+            // Calculate bounds
+            const bounds = g.node().getBBox();
+            const fullWidth = bounds.width + padding * 2;
+            const fullHeight = bounds.height + padding * 2;
+            const widthScale = (width - padding * 2) / fullWidth;
+            const heightScale = (height - padding * 2) / fullHeight;
+            const scale = Math.min(widthScale, heightScale, 1);
+            
+            // Calculate center
+            const centerX = width / 2 - (bounds.x + bounds.width / 2) * scale;
+            const centerY = height / 2 - (bounds.y + bounds.height / 2) * scale;
+            
+            // Apply transform
+            svg.transition().duration(750).call(
+                zoom.transform,
+                d3.zoomIdentity.translate(centerX, centerY).scale(scale)
+            );
+        }
+
+        function ticked() {
+            links
+                .attr("x1", d => d.source.x)
+                .attr("y1", d => d.source.y)
+                .attr("x2", d => d.target.x)
+                .attr("y2", d => d.target.y);
+            
+            nodes
+                .attr("cx", d => d.x)
+                .attr("cy", d => d.y);
+            
+            g.selectAll(".node-label")
+                .attr("x", d => d.x)
+                .attr("y", d => d.y + 5);
+        }
+
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+
+        // Initialize graph
+        createGraph();
+    </script>
+</body>
+</html>

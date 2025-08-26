@@ -1,0 +1,769 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Strategic Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/dist/vis-network.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 50px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 3.5em;
+            font-weight: 300;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .header p {
+            margin: 15px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.3em;
+        }
+        .timestamp {
+            font-size: 1em;
+            opacity: 0.7;
+            margin-top: 15px;
+        }
+        .content {
+            padding: 40px;
+        }
+        .section {
+            margin-bottom: 50px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #1e3c72;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #1e3c72;
+            padding-bottom: 10px;
+        }
+        .section h3 {
+            color: #2a5298;
+            font-size: 1.6em;
+            margin: 25px 0 15px 0;
+        }
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #1e3c72;
+            transition: transform 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        .stat-value {
+            font-size: 3em;
+            font-weight: bold;
+            color: #1e3c72;
+            margin: 15px 0;
+        }
+        .stat-label {
+            color: #6c757d;
+            font-size: 1em;
+            font-weight: 600;
+        }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        .chart-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .chart-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .chart-wrapper {
+            position: relative;
+            height: 350px;
+        }
+        .knowledge-graph-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 30px 0;
+        }
+        .knowledge-graph-container {
+            height: 600px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+        }
+        .professional-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .professional-table th {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        .professional-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 1em;
+        }
+        .professional-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .professional-table tr:hover {
+            background: #e3f2fd;
+        }
+        .risk-high { color: #dc3545; font-weight: bold; }
+        .risk-medium { color: #ffc107; font-weight: bold; }
+        .risk-low { color: #28a745; font-weight: bold; }
+        .risk-critical { color: #dc3545; font-weight: bold; background: #fff5f5; }
+        .key-findings {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 5px solid #2196f3;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .risk-assessment {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        .recommendations {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border-left: 5px solid #4caf50;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .conclusion {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            border-left: 5px solid #9c27b0;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .metric-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .metric-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+        .metric-label {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Test Strategic Analysis</h1>
+            <p>Comprehensive Strategic Analysis</p>
+            <div class="timestamp">Generated: August 22, 2025 - 02:12:35 | Analysis Type: Comprehensive Strategic Assessment | Confidence Level: 85%</div>
+        </div>
+
+        <div class="content">
+            
+        <div class="section">
+            <h2>📊 Strategic Visualizations</h2>
+            
+            <div class="charts-grid">
+                <div class="chart-section">
+                    <div class="chart-title">Current vs Proposed Comparison</div>
+                    <div class="chart-wrapper">
+                        <canvas id="fleetComparison"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-section">
+                    <div class="chart-title">Cost Breakdown Analysis</div>
+                    <div class="chart-wrapper">
+                        <canvas id="costBreakdown"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-section">
+                    <div class="chart-title">Strategic Impact Assessment</div>
+                    <div class="chart-wrapper">
+                        <canvas id="strategicImpact"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="knowledge-graph-section">
+            <h2>🧠 Knowledge Graph Analysis</h2>
+            <p>Interactive visualization of key concepts, relationships, and strategic factors identified in this analysis.</p>
+            <div id="knowledgeGraph" class="knowledge-graph-container"></div>
+        </div>
+        
+
+                <div class="section">
+                    <h2>🎲 Monte Carlo Simulation Analysis</h2>
+                    <p>Probabilistic analysis using 10,000 Monte Carlo iterations to assess uncertainty and risk in strategic outcomes.</p>
+                    
+                    <div class="monte-carlo-stats">
+                        <h3>Simulation Results Summary</h3>
+                        <div class="metric-grid">
+                            
+                            <div class="metric-item">
+                                <div class="metric-value">1500.00</div>
+                                <div class="metric-label">Total Cost</div>
+                                <div class="metric-unit">billion USD</div>
+                            </div>
+                            
+                            <div class="metric-item">
+                                <div class="metric-value">0.70</div>
+                                <div class="metric-label">Risk Score</div>
+                                <div class="metric-unit">risk score</div>
+                            </div>
+                            
+                            <div class="metric-item">
+                                <div class="metric-value">4.20</div>
+                                <div class="metric-label">Strategic Impact</div>
+                                <div class="metric-unit">impact score</div>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="monte-carlo-charts">
+                        <h3>Probability Distributions</h3>
+                        <div class="charts-grid">
+                            <div class="chart-section">
+                                <div class="chart-title">Cost Distribution Analysis</div>
+                                <div class="chart-wrapper">
+                                    <canvas id="monteCarloCostDistribution"></canvas>
+                                </div>
+                            </div>
+
+                            <div class="chart-section">
+                                <div class="chart-title">Risk Assessment Distribution</div>
+                                <div class="chart-wrapper">
+                                    <canvas id="monteCarloRiskDistribution"></canvas>
+                                </div>
+                            </div>
+
+                            <div class="chart-section">
+                                <div class="chart-title">Strategic Impact Distribution</div>
+                                <div class="chart-wrapper">
+                                    <canvas id="monteCarloImpactDistribution"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="confidence-intervals">
+                        <h3>Confidence Intervals</h3>
+                        <table class="professional-table">
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Mean</th>
+                                    <th>Std Dev</th>
+                                    <th>90% CI</th>
+                                    <th>95% CI</th>
+                                    <th>99% CI</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                <tr>
+                                    <td>Total Cost</td>
+                                    <td>1500.00</td>
+                                    <td>300.00</td>
+                                    <td>0.00 - 0.00</td>
+                                    <td>0.00 - 0.00</td>
+                                    <td>0.00 - 0.00</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>Risk Score</td>
+                                    <td>0.70</td>
+                                    <td>0.10</td>
+                                    <td>0.00 - 0.00</td>
+                                    <td>0.00 - 0.00</td>
+                                    <td>0.00 - 0.00</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>Strategic Impact</td>
+                                    <td>4.20</td>
+                                    <td>0.50</td>
+                                    <td>0.00 - 0.00</td>
+                                    <td>0.00 - 0.00</td>
+                                    <td>0.00 - 0.00</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="simulation-insights">
+                        <h3>Key Simulation Insights</h3>
+                        <div class="key-findings">
+                            <ul>
+                                <li><strong>Cost Uncertainty:</strong> 1500.0 billion USD with ±300.0 billion standard deviation</li>
+                                <li><strong>Risk Assessment:</strong> 0.70 average risk score with 0.00 95th percentile</li>
+                                <li><strong>Strategic Impact:</strong> 4.20 average impact score with 0.00 5th percentile</li>
+                                <li><strong>Simulation Reliability:</strong> 10,000 iterations provide statistical significance for decision-making</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+
+            <div class="section">
+                <h2>📊 Sentiment Analysis</h2>
+                <p>Comprehensive sentiment analysis of strategic content and implications:</p>
+                
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-value">0.333</div>
+                        <div class="metric-label">Average Sentiment</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">1</div>
+                        <div class="metric-label">Positive Texts</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">0</div>
+                        <div class="metric-label">Negative Texts</div>
+                    </div>
+                </div>
+                
+                <h3>Sentiment Distribution</h3>
+                <div class="chart-section">
+                    <div class="chart-wrapper">
+                        <canvas id="sentimentDistributionChart"></canvas>
+                    </div>
+                </div>
+                
+                <h3>Key Sentiment Insights</h3>
+                <ul>
+                    <li><strong>Overall Tone:</strong> Positive sentiment across strategic assessments</li>
+                    <li><strong>Sentiment Range:</strong> 0.000 to 1.000</li>
+                    <li><strong>Analysis Coverage:</strong> 3 strategic text samples analyzed</li>
+                </ul>
+                
+                <p><strong>📄 Full Sentiment Report:</strong> <a href="Results/sentiment_analysis_report_20250822_021235.html" target="_blank">View Comprehensive Analysis</a></p>
+            </div>
+            
+            <script>
+                // Sentiment Distribution Chart
+                const sentimentCtx = document.getElementById('sentimentDistributionChart').getContext('2d');
+                new Chart(sentimentCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Positive', 'Negative', 'Neutral'],
+                        datasets: [{
+                            data: [
+                                1,
+                                0,
+                                2
+                            ],
+                            backgroundColor: ['#28a745', '#dc3545', '#6c757d'],
+                            borderWidth: 3,
+                            borderColor: '#fff'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Strategic Content Sentiment Distribution'
+                            },
+                            legend: { position: 'bottom' }
+                        }
+                    }
+                });
+            </script>
+            
+
+            <div class="section">
+                <h2>📈 Forecasting Analysis</h2>
+                <p>Time series forecasting and trend prediction for strategic indicators:</p>
+                
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-value">30</div>
+                        <div class="metric-label">Forecast Periods</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">increasing</div>
+                        <div class="metric-label">Trend Direction</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">0.048</div>
+                        <div class="metric-label">Trend Strength</div>
+                    </div>
+                </div>
+                
+                <h3>Forecast Comparison</h3>
+                <div class="chart-section">
+                    <div class="chart-wrapper">
+                        <canvas id="forecastComparisonChart"></canvas>
+                    </div>
+                </div>
+                
+                <h3>Model Performance</h3>
+                <table class="professional-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Mean Forecast</th>
+                            <th>Standard Deviation</th>
+                            <th>Trend</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Moving Average</td>
+                            <td>4.86</td>
+                            <td>0.00</td>
+                            <td>Stable</td>
+                        </tr>
+                        <tr>
+                            <td>Linear Trend</td>
+                            <td>5.67</td>
+                            <td>0.42</td>
+                            <td>increasing</td>
+                        </tr>
+                        <tr>
+                            <td>Exponential Smoothing</td>
+                            <td>6.74</td>
+                            <td>0.00</td>
+                            <td>Adaptive</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <p><strong>📄 Full Forecast Report:</strong> <a href="Results/forecast_report_20250822_021235.html" target="_blank">View Comprehensive Analysis</a></p>
+            </div>
+            
+            <script>
+                // Forecast Comparison Chart
+                const forecastCtx = document.getElementById('forecastComparisonChart').getContext('2d');
+                new Chart(forecastCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['2020-01-01', '2020-01-02', '2020-01-03', '2020-01-04', '2020-01-05', '2020-01-06', '2020-01-07', '2020-01-08', '2020-01-09', '2020-01-10', '2020-01-11', '2020-01-12', '2020-01-13', '2020-01-14', '2020-01-15', '2020-01-16', '2020-01-17', '2020-01-18', '2020-01-19', '2020-01-20', '2020-01-21', '2020-01-22', '2020-01-23', '2020-01-24', '2020-01-25', '2020-01-26', '2020-01-27', '2020-01-28', '2020-01-29', '2020-01-30', '2020-01-31', '2020-02-01', '2020-02-02', '2020-02-03', '2020-02-04', '2020-02-05', '2020-02-06', '2020-02-07', '2020-02-08', '2020-02-09', '2020-02-10', '2020-02-11', '2020-02-12', '2020-02-13', '2020-02-14', '2020-02-15', '2020-02-16', '2020-02-17', '2020-02-18', '2020-02-19', '2020-02-20', '2020-02-21', '2020-02-22', '2020-02-23', '2020-02-24', '2020-02-25', '2020-02-26', '2020-02-27', '2020-02-28', '2020-02-29', '2020-03-01', '2020-03-02', '2020-03-03', '2020-03-04', '2020-03-05', '2020-03-06', '2020-03-07', '2020-03-08', '2020-03-09', '2020-03-10', '2020-03-11', '2020-03-12', '2020-03-13', '2020-03-14', '2020-03-15', '2020-03-16', '2020-03-17', '2020-03-18', '2020-03-19', '2020-03-20', '2020-03-21', '2020-03-22', '2020-03-23', '2020-03-24', '2020-03-25', '2020-03-26', '2020-03-27', '2020-03-28', '2020-03-29', '2020-03-30', '2020-03-31', '2020-04-01', '2020-04-02', '2020-04-03', '2020-04-04', '2020-04-05', '2020-04-06', '2020-04-07', '2020-04-08', '2020-04-09', '2020-04-10', '2020-04-11', '2020-04-12', '2020-04-13', '2020-04-14', '2020-04-15', '2020-04-16', '2020-04-17', '2020-04-18', '2020-04-19', '2020-04-20', '2020-04-21', '2020-04-22', '2020-04-23', '2020-04-24', '2020-04-25', '2020-04-26', '2020-04-27', '2020-04-28', '2020-04-29', '2020-04-30', '2020-05-01', '2020-05-02', '2020-05-03', '2020-05-04', '2020-05-05', '2020-05-06', '2020-05-07', '2020-05-08', '2020-05-09'],
+                        datasets: [
+                            {
+                                label: 'Original Data',
+                                data: [0.03518910679064361, 1.6274460852675257, 2.2210355462270943, 1.1575971298374954, -0.8191221487858976, -1.6112178049425345, -1.1341129367433869, 0.40947127440818615, 1.934162154607044, 2.6457406704208157, 1.4379589113783242, -0.11455749530673398, -1.2086473753556903, -0.8606838423480712, 0.6491006159233433, 2.318828234696564, 2.7357453871651, 1.6049014412560456, 0.10635158835176423, -0.8335245645717465, -0.583392304290195, 1.2769717105285328, 2.519015797460992, 3.2169083408185295, 2.2470407138968707, 0.3744557262930418, -0.6553301617466233, -0.09575008371525706, 1.4647405251373655, 2.828568295236572, 3.380670024061226, 2.4320690890869376, 0.6114243199579952, -0.33060658933997045, 0.019040209711266992, 1.7306597046214263, 3.3481825103857603, 3.853718160709888, 2.777783465027088, 1.1522084635659313, 0.10870059658576592, 0.6101781051974402, 2.2085904253081297, 3.812192520166701, 4.482564789432546, 3.1752350146266246, 1.7148219953830959, 0.4651033895981205, 0.8522943678257735, 2.4374309565261516, 4.239888070033425, 4.689663739410017, 3.554008490094206, 1.9223548759828344, 0.6496948563167724, 1.0592368305904944, 2.9529155168625696, 4.4297696939336335, 4.954078995396327, 3.775836663037492, 2.3282343990384082, 0.9769103892555309, 1.4290916577288, 3.3262493401894115, 4.535002017960999, 5.270540994001422, 4.190368212008796, 2.4424757136832684, 1.464493625120748, 1.8364331706034414, 3.6895791299583807, 5.329971259630803, 5.51764570204845, 4.5821886528506734, 2.737098612045021, 1.9453281794154575, 2.3794217909121067, 3.8593626656181286, 5.504745410171985, 5.930378269310368, 4.746325735271134, 3.3777420274340053, 2.1148629931622516, 2.5522412997573456, 4.227382256978053, 5.956147116401587, 6.234159846288789, 5.0664883500341835, 3.4879771601364062, 2.587507712493745, 3.2007666092994, 4.46996759932226, 6.080477434652619, 6.4955659712494676, 5.451569726579936, 4.050781465752817, 3.048097881657641, 3.353102523411866, 4.902723672280857, 6.742777343622327],
+                                borderColor: '#1e3c72',
+                                backgroundColor: 'rgba(30, 60, 114, 0.1)',
+                                fill: false
+                            },
+                            {
+                                label: 'Moving Average Forecast',
+                                data: [null, ...[np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702), np.float64(4.863516940650702)]],
+                                borderColor: '#28a745',
+                                backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                                fill: false,
+                                borderDash: [5, 5]
+                            },
+                            {
+                                label: 'Linear Trend Forecast',
+                                data: [null, ...[4.971720377219732, 5.0199946849458, 5.068268992671868, 5.116543300397936, 5.164817608124004, 5.213091915850072, 5.26136622357614, 5.3096405313022075, 5.357914839028275, 5.406189146754343, 5.454463454480411, 5.502737762206479, 5.551012069932547, 5.599286377658615, 5.647560685384683, 5.695834993110751, 5.7441093008368185, 5.792383608562886, 5.840657916288954, 5.888932224015022, 5.93720653174109, 5.985480839467158, 6.033755147193226, 6.082029454919294, 6.130303762645362, 6.1785780703714295, 6.226852378097497, 6.275126685823565, 6.323400993549633, 6.371675301275701]],
+                                borderColor: '#dc3545',
+                                backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                                fill: false,
+                                borderDash: [10, 5]
+                            },
+                            {
+                                label: 'Exponential Smoothing',
+                                data: [null, ...[np.float64(6.742777343622327), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326), np.float64(6.742777343622326)]],
+                                borderColor: '#ffc107',
+                                backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                                fill: false,
+                                borderDash: [2, 2]
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Strategic Indicators Forecast'
+                            }
+                        },
+                        scales: {
+                            x: {
+                                title: { display: true, text: 'Date' }
+                            },
+                            y: {
+                                title: { display: true, text: 'Value' }
+                            }
+                        }
+                    }
+                });
+            </script>
+            
+
+            <div class="section">
+                <h2>🤖 Predictive Analytics</h2>
+                <p>Machine learning based predictions and modeling for strategic analysis:</p>
+                
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-value">500</div>
+                        <div class="metric-label">Data Samples</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">5</div>
+                        <div class="metric-label">Features</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">Linear Regression</div>
+                        <div class="metric-label">Best Model</div>
+                    </div>
+                </div>
+                
+                <h3>Regression Model Performance</h3>
+                <table class="professional-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>R² Score</th>
+                            <th>RMSE</th>
+                            <th>MAE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+            <tr>
+                <td>Linear Regression</td>
+                <td>0.4326</td>
+                <td>0.4775</td>
+                <td>0.3779</td>
+            </tr>
+            
+            <tr>
+                <td>Ridge Regression</td>
+                <td>0.4323</td>
+                <td>0.4776</td>
+                <td>0.3780</td>
+            </tr>
+            
+            <tr>
+                <td>Lasso Regression</td>
+                <td>0.3215</td>
+                <td>0.5221</td>
+                <td>0.4158</td>
+            </tr>
+            
+            <tr>
+                <td>Random Forest</td>
+                <td>0.3632</td>
+                <td>0.5058</td>
+                <td>0.3882</td>
+            </tr>
+            
+                    </tbody>
+                </table>
+                
+                <h3>Classification Model Performance</h3>
+                <table class="professional-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Accuracy</th>
+                            <th>Precision</th>
+                            <th>Recall</th>
+                            <th>F1 Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+            <tr>
+                <td>Logistic Regression</td>
+                <td>0.6400</td>
+                <td>0.6417</td>
+                <td>0.6400</td>
+                <td>0.6406</td>
+            </tr>
+            
+            <tr>
+                <td>Random Forest</td>
+                <td>0.6200</td>
+                <td>0.6238</td>
+                <td>0.6200</td>
+                <td>0.6209</td>
+            </tr>
+            
+            <tr>
+                <td>SVM</td>
+                <td>0.6500</td>
+                <td>0.6508</td>
+                <td>0.6500</td>
+                <td>0.6503</td>
+            </tr>
+            
+                    </tbody>
+                </table>
+                
+                <h3>Feature Importance (Best Model)</h3>
+                <div class="chart-section">
+                    <div class="chart-wrapper">
+                        <canvas id="featureImportanceChart"></canvas>
+                    </div>
+                </div>
+                
+                <p><strong>📄 Full Predictive Analytics Report:</strong> <a href="Results/predictive_analytics_report_20250822_021236.html" target="_blank">View Comprehensive Analysis</a></p>
+            </div>
+            
+            <script>
+                // Feature Importance Chart
+                const featureCtx = document.getElementById('featureImportanceChart').getContext('2d');
+                const featureData = {'labels': ['feature_1', 'feature_2', 'feature_3', 'feature_5', 'feature_4'], 'values': [np.float64(0.3132793763229061), np.float64(0.20951115835806694), np.float64(0.11447442388246581), np.float64(0.025475904540553207), np.float64(0.018325795369352527)]};
+                new Chart(featureCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: featureData.labels,
+                        datasets: [{
+                            label: 'Feature Importance',
+                            data: featureData.values,
+                            backgroundColor: '#1e3c72',
+                            borderColor: '#2a5298',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Feature Importance Analysis'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Importance Score' }
+                            }
+                        }
+                    }
+                });
+            </script>
+            
+        </div>
+    </div>
+
+    <script>
+        
+        
+        // Knowledge Graph
+        
+        // Knowledge Graph
+        const container = document.getElementById('knowledgeGraph');
+        const data = {"nodes": [{"id": "Strategic Analysis", "label": "Strategic Analysis", "size": 20, "color": "#1e3c72", "font": {"size": 16.0}}], "edges": []};
+        
+        const options = {
+            nodes: {
+                shape: 'dot',
+                font: {
+                    size: 14,
+                    face: 'Segoe UI'
+                },
+                borderWidth: 2,
+                shadow: true
+            },
+            edges: {
+                width: 2,
+                shadow: true,
+                smooth: {
+                    type: 'continuous'
+                }
+            },
+            physics: {
+                stabilization: false,
+                barnesHut: {
+                    gravitationalConstant: -80000,
+                    springConstant: 0.001,
+                    springLength: 200
+                }
+            },
+            interaction: {
+                navigationButtons: true,
+                keyboard: true,
+                hover: true
+            }
+        };
+        
+        const network = new vis.Network(container, data, options);
+        
+        
+        // Monte Carlo Simulation Charts
+        
+    </script>
+</body>
+</html>

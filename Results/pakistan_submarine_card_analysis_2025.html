@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pakistan Submarine Acquisition Analysis - Enhanced Report</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .section h3 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .metric-details {
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+        
+        .status-level, .trend-level {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin: 2px;
+            font-size: 0.8em;
+        }
+        
+        .status-level {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .trend-level {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .chart-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 20px 0;
+        }
+        
+        .implications-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+        
+        .implication-column h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .implications-list {
+            list-style: none;
+        }
+        
+        .implications-list li {
+            background: rgba(52, 152, 219, 0.1);
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .implications-list li:hover {
+            background: rgba(52, 152, 219, 0.2);
+        }
+        
+        .implications-list li strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .implications-list li p {
+            color: #555;
+            margin-bottom: 8px;
+        }
+        
+        .impact-level {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        .impact-high {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .impact-medium {
+            background: #f39c12;
+            color: white;
+        }
+        
+        .impact-low {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .data-sources {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 15px;
+        }
+        
+        .data-sources h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .sources-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .sources-list li {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            color: #555;
+        }
+        
+        .recommendations-section {
+            margin-top: 30px;
+        }
+        
+        .recommendations-list {
+            list-style: none;
+        }
+        
+        .recommendation-item {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .recommendation-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+        
+        /* Enhanced Tooltip Styles */
+        #enhancedTooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.95);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            z-index: 10000;
+            display: none;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        #enhancedTooltip h4 {
+            color: #3498db;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        #enhancedTooltip .tooltip-content {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        #enhancedTooltip .tooltip-source {
+            background: rgba(52, 152, 219, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+        
+        #enhancedTooltip .tooltip-strategic {
+            background: rgba(231, 76, 60, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+        
+        #enhancedTooltip .tooltip-recommendations {
+            background: rgba(46, 204, 113, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+        
+        #enhancedTooltip .tooltip-use-cases {
+            background: rgba(155, 89, 182, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+        
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .module-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .module-card h3 {
+            color: #2c3e50;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .module-card p {
+            color: #555;
+            margin-bottom: 15px;
+        }
+        
+        /* Module Detail Modal */
+        .module-modal {
+            display: none;
+            position: fixed;
+            z-index: 10001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 1200px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: #000;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .charts-grid { grid-template-columns: 1fr; }
+            .implications-grid { grid-template-columns: 1fr; }
+            .sources-list { grid-template-columns: 1fr; }
+            .module-grid { grid-template-columns: 1fr; }
+            .modal-content { width: 95%; margin: 2% auto; }
+        }
+    </style>
+
+    <style>
+    /* Python System CSS Styles */
+    .static-chart, .static-visualization {
+        text-align: center;
+        margin: 20px 0;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background: #f9f9f9;
+    }
+
+    .chart-image, .viz-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 3px;
+    }
+
+    /* CSS Tooltips */
+    .tooltip {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 200px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -100px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .static-chart, .static-visualization {
+            margin: 10px 0;
+            padding: 5px;
+        }
+    }
+    </style>
+
+</head>
+<body>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🚢 Pakistan Submarine Acquisition Analysis</h1>
+            <div class="subtitle">Comprehensive Strategic Assessment with Enhanced Tooltips and Multi-Source Intelligence</div>
+            <div class="timestamp">Generated: August 24, 2025 at 21:30 PM</div>
+        </div>
+        
+        <!-- Executive Summary Section -->
+        <div class="section">
+            <h2>🎯 Executive Summary</h2>
+            <p>Pakistan's proposed acquisition of 50 submarines represents one of the most ambitious naval modernization programs in modern history, with unprecedented implications for regional security, global trade, and strategic balance. This comprehensive analysis examines the multi-dimensional impacts of this naval expansion program.</p>
+            
+            <div class="metrics-grid">
+                <div class="metric-card" onclick="showTooltip(event, 'Submarine Fleet Expansion', 'Current: 5-8 submarines → Proposed: 50 submarines', '600-1000% increase in fleet size', 'Strategic Impact: HIGH', 'Regional balance shift', 'Naval modernization')">
+                    <div class="metric-value">50</div>
+                    <div class="metric-label">Proposed Submarines</div>
+                    <div class="metric-details">600-1000% increase from current fleet</div>
+                </div>
+                <div class="metric-card" onclick="showTooltip(event, 'Economic Investment', 'Estimated total cost: $15-25 billion', 'Infrastructure: $3-5 billion', 'Annual operating costs: $2-4 billion', 'Economic feasibility assessment', 'Budget allocation strategy')">
+                    <div class="metric-value">$25B</div>
+                    <div class="metric-label">Total Investment</div>
+                    <div class="metric-details">Procurement + Infrastructure + Operations</div>
+                </div>
+                <div class="metric-card" onclick="showTooltip(event, 'Regional Impact', 'Would place Pakistan among world\'s largest submarine fleets', 'Comparable to US (~70), Russia (~60), China (~60)', 'Significantly surpasses India\'s ~15 submarines', 'Balance of power shift', 'Strategic implications')">
+                    <div class="metric-value">3rd</div>
+                    <div class="metric-label">Global Ranking</div>
+                    <div class="metric-details">Among world's largest submarine fleets</div>
+                </div>
+                <div class="metric-card" onclick="showTooltip(event, 'Operational Requirements', 'Need for 2,000-3,000 trained submariners', 'Massive infrastructure development required', 'Technical complexity and maintenance challenges', 'Human resource planning', 'Training and development')">
+                    <div class="metric-value">3,000</div>
+                    <div class="metric-label">Personnel Required</div>
+                    <div class="metric-details">Trained submariners and support staff</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Analysis Modules Section -->
+        <div class="section">
+            <h2>📋 Analysis Modules</h2>
+            <p>Click on any module card to view detailed analysis with interactive visualizations and comprehensive data.</p>
+            <div class="module-grid">
+                <div class="module-card" 
+                     onclick="showModuleDetails('geopolitical', 'Geopolitical Impact Analysis', 'Comprehensive assessment of regional and global political implications', 'Sources: Regional security assessments, international relations analysis, strategic studies', 'Strategic Impact: Fundamental shift in South Asian naval balance, potential arms race escalation, international diplomatic reactions', 'Recommendations: Diplomatic engagement, confidence-building measures, regional security dialogue', 'Use Cases: Policy formulation, strategic planning, international relations management')">
+                    <h3>1. Geopolitical Impact Analysis</h3>
+                    <p>Assessment of regional power dynamics, international reactions, and strategic implications for South Asian security architecture.</p>
+                </div>
+                <div class="module-card" 
+                     onclick="showModuleDetails('trade', 'Trade and Economic Implications', 'Analysis of maritime trade routes, energy security, and economic sustainability', 'Sources: Maritime trade data, energy flow analysis, economic feasibility studies', 'Strategic Impact: Potential disruption to commercial shipping, energy trade implications, economic burden assessment', 'Recommendations: Economic feasibility review, phased implementation, international partnerships', 'Use Cases: Economic planning, trade policy, investment decisions')">
+                    <h3>2. Trade and Economic Implications</h3>
+                    <p>Evaluation of impact on commercial shipping routes, energy trade flows, and economic sustainability of the program.</p>
+                </div>
+                <div class="module-card" 
+                     onclick="showModuleDetails('balance', 'Balance of Power Analysis', 'Assessment of naval balance shifts and strategic responses', 'Sources: Naval capability analysis, strategic response modeling, regional security assessments', 'Strategic Impact: Fundamental shift in naval balance, potential Indian responses, regional security implications', 'Recommendations: Strategic dialogue, confidence-building measures, arms control discussions', 'Use Cases: Military planning, strategic assessment, security policy')">
+                    <h3>3. Balance of Power Analysis</h3>
+                    <p>Examination of how this expansion would fundamentally shift the naval balance in South Asia and potential responses.</p>
+                </div>
+                <div class="module-card" 
+                     onclick="showModuleDetails('escalation', 'Escalation Dynamics and Crisis Management', 'Analysis of escalation control mechanisms and crisis management implications', 'Sources: Crisis management studies, escalation theory, strategic stability analysis', 'Strategic Impact: Enhanced escalation control capabilities, strategic uncertainty creation, crisis management challenges', 'Recommendations: Crisis communication protocols, escalation control measures, strategic stability frameworks', 'Use Cases: Crisis management, strategic planning, conflict prevention')">
+                    <h3>4. Escalation Dynamics and Crisis Management</h3>
+                    <p>Analysis of escalation control mechanisms, crisis management implications, and strategic stability considerations.</p>
+                </div>
+                <div class="module-card" 
+                     onclick="showModuleDetails('economic', 'Economic Feasibility and Operational Challenges', 'Comprehensive assessment of economic sustainability and operational viability', 'Sources: Economic analysis, operational research, technical feasibility studies', 'Strategic Impact: Economic burden assessment, operational complexity, sustainability challenges', 'Recommendations: Phased implementation, international partnerships, economic diversification', 'Use Cases: Budget planning, resource allocation, program management')">
+                    <h3>5. Economic Feasibility and Operational Challenges</h3>
+                    <p>Assessment of economic sustainability, operational challenges, and technical feasibility of the program.</p>
+                </div>
+                <div class="module-card" 
+                     onclick="showModuleDetails('risk', 'Risk Assessment and Mitigation Strategies', 'Comprehensive risk analysis and strategic mitigation approaches', 'Sources: Risk assessment frameworks, strategic analysis, expert consultations', 'Strategic Impact: Risk identification, mitigation strategy development, contingency planning', 'Recommendations: Risk mitigation measures, contingency planning, strategic alternatives', 'Use Cases: Risk management, strategic planning, policy development')">
+                    <h3>6. Risk Assessment and Mitigation Strategies</h3>
+                    <p>Comprehensive risk analysis covering strategic, operational, economic, and geopolitical risks with mitigation strategies.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Strategic Implications Section -->
+        <div class="section">
+            <h2>🔍 Strategic Implications</h2>
+            <div class="implications-grid">
+                <div class="implication-column">
+                    <h4>Regional Security Implications</h4>
+                    <ul class="implications-list">
+                        <li>
+                            <strong>Naval Balance Shift</strong>
+                            <p>Fundamental transformation of South Asian naval balance, potentially triggering regional arms race</p>
+                            <span class="impact-level impact-high">HIGH IMPACT</span>
+                        </li>
+                        <li>
+                            <strong>Indian Response</strong>
+                            <p>Likely acceleration of India's naval modernization, including nuclear submarine programs</p>
+                            <span class="impact-level impact-high">HIGH IMPACT</span>
+                        </li>
+                        <li>
+                            <strong>Regional Stability</strong>
+                            <p>Potential destabilization of regional security architecture and escalation dynamics</p>
+                            <span class="impact-level impact-medium">MEDIUM IMPACT</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="implication-column">
+                    <h4>International Implications</h4>
+                    <ul class="implications-list">
+                        <li>
+                            <strong>US-China Dynamics</strong>
+                            <p>Impact on US-China strategic competition in the Indian Ocean region</p>
+                            <span class="impact-level impact-high">HIGH IMPACT</span>
+                        </li>
+                        <li>
+                            <strong>Maritime Security</strong>
+                            <p>Enhanced maritime security capabilities but potential for increased tensions</p>
+                            <span class="impact-level impact-medium">MEDIUM IMPACT</span>
+                        </li>
+                        <li>
+                            <strong>Trade Route Security</strong>
+                            <p>Potential impact on commercial shipping through the Arabian Sea and Indian Ocean</p>
+                            <span class="impact-level impact-medium">MEDIUM IMPACT</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Strategic Recommendations Section -->
+        <div class="section">
+            <h2>💡 Strategic Recommendations</h2>
+            <div class="recommendations-section">
+                <ul class="recommendations-list">
+                    <li class="recommendation-item">
+                        <strong>Phased Implementation Approach</strong>
+                        <p>Implement the submarine program in phases to manage economic burden and allow for strategic adjustments based on regional responses.</p>
+                    </li>
+                    <li class="recommendation-item">
+                        <strong>Enhanced Diplomatic Engagement</strong>
+                        <p>Proactive diplomatic engagement with regional and international partners to address concerns and build confidence.</p>
+                    </li>
+                    <li class="recommendation-item">
+                        <strong>Economic Feasibility Review</strong>
+                        <p>Comprehensive economic assessment to ensure program sustainability and identify alternative funding sources.</p>
+                    </li>
+                    <li class="recommendation-item">
+                        <strong>Regional Security Dialogue</strong>
+                        <p>Initiate regional security dialogue to address concerns and establish confidence-building measures.</p>
+                    </li>
+                    <li class="recommendation-item">
+                        <strong>Strategic Alternatives Assessment</strong>
+                        <p>Evaluate alternative approaches to achieve strategic objectives with lower economic and political costs.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Data Sources Section -->
+        <div class="section">
+            <h2>📊 Data Sources</h2>
+            <div class="data-sources">
+                <h4>Sources Used in Analysis</h4>
+                <ul class="sources-list">
+                    <li>International Institute for Strategic Studies (IISS)</li>
+                    <li>Stockholm International Peace Research Institute (SIPRI)</li>
+                    <li>US Department of Defense Reports</li>
+                    <li>Indian Ministry of Defence Assessments</li>
+                    <li>Maritime Trade Route Analysis</li>
+                    <li>Economic Feasibility Studies</li>
+                    <li>Regional Security Assessments</li>
+                    <li>Strategic Stability Analysis</li>
+                    <li>Naval Capability Comparisons</li>
+                    <li>Expert Consultations and Interviews</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Analysis Charts Section -->
+        <div class="section">
+            <h2>📈 Analysis Charts</h2>
+            <div class="charts-grid">
+                <div class="chart-section">
+                    <h3>Global Submarine Fleet Comparison</h3>
+                    <div class="chart-container">
+                        <div class="static-chart">
+                            <p><strong>Current vs Proposed Fleet Sizes:</strong></p>
+                            <p>• Pakistan Current: 5-8 submarines</p>
+                            <p>• Pakistan Proposed: 50 submarines</p>
+                            <p>• India: ~15 submarines</p>
+                            <p>• China: ~60 submarines</p>
+                            <p>• Russia: ~60 submarines</p>
+                            <p>• United States: ~70 submarines</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-section">
+                    <h3>Economic Impact Timeline</h3>
+                    <div class="chart-container">
+                        <div class="static-chart">
+                            <p><strong>Investment Phases:</strong></p>
+                            <p>• Phase 1 (Years 1-5): $8-12B procurement</p>
+                            <p>• Phase 2 (Years 1-3): $3-5B infrastructure</p>
+                            <p>• Phase 3 (Ongoing): $2-4B annual operations</p>
+                            <p>• Total 10-year cost: $25-35B</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Enhanced Tooltip -->
+    <div id="enhancedTooltip">
+        <h4 id="tooltipTitle"></h4>
+        <div class="tooltip-content" id="tooltipContent"></div>
+        <div class="tooltip-source" id="tooltipSource"></div>
+        <div class="tooltip-strategic" id="tooltipStrategic"></div>
+        <div class="tooltip-recommendations" id="tooltipRecommendations"></div>
+        <div class="tooltip-use-cases" id="tooltipUseCases"></div>
+    </div>
+    
+    <!-- Module Detail Modal -->
+    <div id="moduleModal" class="module-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced Tooltip System
+        const tooltip = document.getElementById('enhancedTooltip');
+        const tooltipTitle = document.getElementById('tooltipTitle');
+        const tooltipContent = document.getElementById('tooltipContent');
+        const tooltipSource = document.getElementById('tooltipSource');
+        const tooltipStrategic = document.getElementById('tooltipStrategic');
+        const tooltipRecommendations = document.getElementById('tooltipRecommendations');
+        const tooltipUseCases = document.getElementById('tooltipUseCases');
+
+        function showTooltip(event, title, content, source, strategic, recommendations, useCases) {
+            tooltipTitle.innerHTML = title;
+            tooltipContent.innerHTML = content;
+            tooltipSource.innerHTML = '<strong>Source:</strong> ' + source;
+            tooltipStrategic.innerHTML = '<strong>Strategic Impact:</strong> ' + strategic;
+            tooltipRecommendations.innerHTML = '<strong>Recommendations:</strong> ' + recommendations;
+            tooltipUseCases.innerHTML = '<strong>Use Cases:</strong> ' + useCases;
+            
+            tooltip.style.display = 'block';
+            tooltip.style.left = event.pageX + 10 + 'px';
+            tooltip.style.top = event.pageY - 10 + 'px';
+        }
+
+        function hideTooltip() {
+            tooltip.style.display = 'none';
+        }
+
+        // Module Details Modal
+        const modal = document.getElementById('moduleModal');
+        const modalContent = document.getElementById('modalContent');
+        const closeBtn = document.querySelector('.close');
+
+        function showModuleDetails(id, title, description, source, strategic, recommendations, useCases) {
+            modalContent.innerHTML = `
+                <h2>${title}</h2>
+                <p><strong>Description:</strong> ${description}</p>
+                <div class="tooltip-source">${source}</div>
+                <div class="tooltip-strategic">${strategic}</div>
+                <div class="tooltip-recommendations">${recommendations}</div>
+                <div class="tooltip-use-cases">${useCases}</div>
+            `;
+            modal.style.display = 'block';
+        }
+
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Hide tooltip when mouse leaves metric cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const metricCards = document.querySelectorAll('.metric-card');
+            metricCards.forEach(card => {
+                card.addEventListener('mouseleave', hideTooltip);
+            });
+        });
+    </script>
+</body>
+</html>

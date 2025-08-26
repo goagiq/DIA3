@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanctions Impact on Russia's Long-Range Strike Capabilities - Interactive Prediction Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+        .controls {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .control-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .control-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .control-item label {
+            font-weight: 600;
+            color: #495057;
+            font-size: 0.9em;
+        }
+        select, button {
+            padding: 8px 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        select:focus, button:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            font-weight: 600;
+        }
+        button:hover {
+            background: #5a6fd8;
+            transform: translateY(-1px);
+        }
+        .chart-container {
+            padding: 30px;
+            position: relative;
+        }
+        .chart-wrapper {
+            position: relative;
+            height: 500px;
+            margin-bottom: 30px;
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .metric-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+        }
+        .metric-card h3 {
+            margin: 0 0 10px 0;
+            color: #495057;
+            font-size: 1.1em;
+        }
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+        .metric-description {
+            color: #6c757d;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        .scenario-legend {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        .legend-optimistic {
+            background: #d4edda;
+            color: #155724;
+        }
+        .legend-realistic {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .legend-pessimistic {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .legend-optimistic .legend-dot { background: #28a745; }
+        .legend-realistic .legend-dot { background: #ffc107; }
+        .legend-pessimistic .legend-dot { background: #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Sanctions Impact Prediction</h1>
+            <p>Interactive Analysis of Russia's Long-Range Strike Capabilities (2024-2027)</p>
+        </div>
+        
+        <div class="controls">
+            <div class="control-group">
+                <div class="control-item">
+                    <label for="metricSelect">Select Metric:</label>
+                    <select id="metricSelect">
+                        <option value="precision">Precision Strike Capability</option>
+                        <option value="production">Production Capacity</option>
+                        <option value="adaptation">Adaptation Effectiveness</option>
+                        <option value="circumvention">Circumvention Success Rate</option>
+                    </select>
+                </div>
+                <div class="control-item">
+                    <label for="scenarioSelect">Select Scenario:</label>
+                    <select id="scenarioSelect">
+                        <option value="all">All Scenarios</option>
+                        <option value="optimistic">Optimistic (25% probability)</option>
+                        <option value="realistic">Realistic (50% probability)</option>
+                        <option value="pessimistic">Pessimistic (25% probability)</option>
+                    </select>
+                </div>
+                <div class="control-item">
+                    <button onclick="resetChart()">Reset View</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="scenario-legend">
+                <div class="legend-item legend-optimistic">
+                    <div class="legend-dot"></div>
+                    Optimistic (Strong Enforcement)
+                </div>
+                <div class="legend-item legend-realistic">
+                    <div class="legend-dot"></div>
+                    Realistic (Current Trends)
+                </div>
+                <div class="legend-item legend-pessimistic">
+                    <div class="legend-dot"></div>
+                    Pessimistic (Sanctions Erosion)
+                </div>
+            </div>
+            
+            <div class="chart-wrapper">
+                <canvas id="predictionChart"></canvas>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h3>Current Precision Capability</h3>
+                    <div class="metric-value" id="currentPrecision">45%</div>
+                    <div class="metric-description">Percentage of pre-sanction precision strike capability in 2024</div>
+                </div>
+                <div class="metric-card">
+                    <h3>Predicted 2027 Capability</h3>
+                    <div class="metric-value" id="predicted2027">30%</div>
+                    <div class="metric-description">Expected precision capability by 2027 (realistic scenario)</div>
+                </div>
+                <div class="metric-card">
+                    <h3>Adaptation Effectiveness</h3>
+                    <div class="metric-value" id="adaptationEffect">70%</div>
+                    <div class="metric-description">Russia's effectiveness in circumventing sanctions by 2027</div>
+                </div>
+                <div class="metric-card">
+                    <h3>Strategic Impact</h3>
+                    <div class="metric-value" id="strategicImpact">High</div>
+                    <div class="metric-description">Overall impact on Russia's long-range strike capabilities</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data for the predictions
+        const predictionData = {
+            precision: {
+                optimistic: { 2024: 35, 2025: 25, 2026: 20, 2027: 15 },
+                realistic: { 2024: 45, 2025: 40, 2026: 35, 2027: 30 },
+                pessimistic: { 2024: 55, 2025: 50, 2026: 45, 2027: 40 }
+            },
+            production: {
+                optimistic: { 2024: 40, 2025: 30, 2026: 25, 2027: 20 },
+                realistic: { 2024: 50, 2025: 45, 2026: 40, 2027: 35 },
+                pessimistic: { 2024: 60, 2025: 55, 2026: 50, 2027: 45 }
+            },
+            adaptation: {
+                optimistic: { 2024: 25, 2025: 35, 2026: 45, 2027: 55 },
+                realistic: { 2024: 40, 2025: 50, 2026: 60, 2027: 70 },
+                pessimistic: { 2024: 55, 2025: 65, 2026: 75, 2027: 85 }
+            },
+            circumvention: {
+                optimistic: { 2024: 20, 2025: 30, 2026: 40, 2027: 50 },
+                realistic: { 2024: 35, 2025: 45, 2026: 55, 2027: 65 },
+                pessimistic: { 2024: 50, 2025: 60, 2026: 70, 2027: 80 }
+            }
+        };
+
+        const metricLabels = {
+            precision: "Precision Strike Capability (%)",
+            production: "Production Capacity (%)",
+            adaptation: "Adaptation Effectiveness (%)",
+            circumvention: "Circumvention Success Rate (%)"
+        };
+
+        let chart;
+
+        function createChart(metric = 'precision', scenario = 'all') {
+            const ctx = document.getElementById('predictionChart').getContext('2d');
+            
+            if (chart) {
+                chart.destroy();
+            }
+
+            const years = [2024, 2025, 2026, 2027];
+            const datasets = [];
+
+            if (scenario === 'all' || scenario === 'optimistic') {
+                datasets.push({
+                    label: 'Optimistic (Strong Enforcement)',
+                    data: years.map(year => predictionData[metric].optimistic[year]),
+                    borderColor: '#28a745',
+                    backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                    borderWidth: 3,
+                    fill: false,
+                    tension: 0.4
+                });
+            }
+
+            if (scenario === 'all' || scenario === 'realistic') {
+                datasets.push({
+                    label: 'Realistic (Current Trends)',
+                    data: years.map(year => predictionData[metric].realistic[year]),
+                    borderColor: '#ffc107',
+                    backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                    borderWidth: 3,
+                    fill: false,
+                    tension: 0.4
+                });
+            }
+
+            if (scenario === 'all' || scenario === 'pessimistic') {
+                datasets.push({
+                    label: 'Pessimistic (Sanctions Erosion)',
+                    data: years.map(year => predictionData[metric].pessimistic[year]),
+                    borderColor: '#dc3545',
+                    backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                    borderWidth: 3,
+                    fill: false,
+                    tension: 0.4
+                });
+            }
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: metricLabels[metric] + ' - Prediction Timeline (2024-2027)',
+                            font: {
+                                size: 18,
+                                weight: 'bold'
+                            },
+                            color: '#2c3e50'
+                        },
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(0,0,0,0.8)',
+                            titleColor: 'white',
+                            bodyColor: 'white',
+                            borderColor: '#667eea',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Year',
+                                font: {
+                                    weight: 'bold'
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0,0,0,0.1)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Percentage (%)',
+                                font: {
+                                    weight: 'bold'
+                                }
+                            },
+                            min: 0,
+                            max: 100,
+                            grid: {
+                                color: 'rgba(0,0,0,0.1)'
+                            }
+                        }
+                    },
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    }
+                }
+            });
+
+            updateMetrics(metric, scenario);
+        }
+
+        function updateMetrics(metric, scenario) {
+            const currentValue = predictionData[metric].realistic[2024];
+            const predictedValue = predictionData[metric].realistic[2027];
+            const adaptationValue = predictionData.adaptation.realistic[2027];
+            
+            document.getElementById('currentPrecision').textContent = currentValue + '%';
+            document.getElementById('predicted2027').textContent = predictedValue + '%';
+            document.getElementById('adaptationEffect').textContent = adaptationValue + '%';
+            
+            let strategicImpact = 'Low';
+            if (metric === 'precision' || metric === 'production') {
+                if (predictedValue < 25) strategicImpact = 'Very High';
+                else if (predictedValue < 40) strategicImpact = 'High';
+                else if (predictedValue < 60) strategicImpact = 'Medium';
+                else strategicImpact = 'Low';
+            }
+            document.getElementById('strategicImpact').textContent = strategicImpact;
+        }
+
+        function resetChart() {
+            document.getElementById('metricSelect').value = 'precision';
+            document.getElementById('scenarioSelect').value = 'all';
+            createChart('precision', 'all');
+        }
+
+        // Event listeners
+        document.getElementById('metricSelect').addEventListener('change', function() {
+            const metric = this.value;
+            const scenario = document.getElementById('scenarioSelect').value;
+            createChart(metric, scenario);
+        });
+
+        document.getElementById('scenarioSelect').addEventListener('change', function() {
+            const scenario = this.value;
+            const metric = document.getElementById('metricSelect').value;
+            createChart(metric, scenario);
+        });
+
+        // Initialize chart
+        createChart('precision', 'all');
+    </script>
+</body>
+</html>

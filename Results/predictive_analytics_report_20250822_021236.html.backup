@@ -1,0 +1,127 @@
+
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Predictive Analytics Report</title>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <style>
+                    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 20px; }
+                    .header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 20px; border-radius: 10px; }
+                    .section { margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 10px; }
+                    .metric { display: inline-block; margin: 10px; padding: 15px; background: white; border-radius: 8px; text-align: center; }
+                    .metric-value { font-size: 2em; font-weight: bold; }
+                    .chart-container { width: 100%; max-width: 600px; margin: 20px auto; }
+                    .results-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+                    .results-table th, .results-table td { padding: 10px; border: 1px solid #ddd; text-align: center; }
+                    .results-table th { background: #1e3c72; color: white; }
+                </style>
+            </head>
+            <body>
+                <div class="header">
+                    <h1>Predictive Analytics Report</h1>
+                    <p>Generated: 2025-08-22 02:12:36</p>
+                </div>
+                
+                <div class="section">
+                    <h2>Analysis Summary</h2>
+                    <div class="metric">
+                        <div class="metric-value">
+                            500
+                        </div>
+                        <div>Total Samples</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">
+                            5
+                        </div>
+                        <div>Features</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">
+                            Linear Regression
+                        </div>
+                        <div>Best Model</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>Model Performance Comparison</h2>
+                    <div class="chart-container">
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>Detailed Results</h2>
+                    <h3>Model Comparison</h3><table class='results-table'><thead><tr><th>Model</th><th>R² Score</th><th>RMSE</th><th>MAE</th></tr></thead><tbody>
+                <tr>
+                    <td>Linear Regression</td>
+                    <td>0.4326</td>
+                    <td>0.4775</td>
+                    <td>0.3779</td>
+                </tr>
+                
+                <tr>
+                    <td>Ridge Regression</td>
+                    <td>0.4323</td>
+                    <td>0.4776</td>
+                    <td>0.3780</td>
+                </tr>
+                
+                <tr>
+                    <td>Lasso Regression</td>
+                    <td>0.3215</td>
+                    <td>0.5221</td>
+                    <td>0.4158</td>
+                </tr>
+                
+                <tr>
+                    <td>Random Forest</td>
+                    <td>0.3632</td>
+                    <td>0.5058</td>
+                    <td>0.3882</td>
+                </tr>
+                </tbody></table><h3>Feature Importance (Best Model)</h3><table class='results-table'><thead><tr><th>Feature</th><th>Importance</th></tr></thead><tbody><tr><td>feature_1</td><td>0.3133</td></tr><tr><td>feature_2</td><td>0.2095</td></tr><tr><td>feature_3</td><td>0.1145</td></tr><tr><td>feature_5</td><td>-0.0255</td></tr><tr><td>feature_4</td><td>0.0183</td></tr></tbody></table>
+                </div>
+                
+                <script>
+                    // Performance Comparison Chart
+                    const ctx = document.getElementById('performanceChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Linear Regression', 'Ridge Regression', 'Lasso Regression', 'Random Forest'],
+                            datasets: [
+                                {
+                                    label: 'R² Score',
+                                    data: [0.43255868147984466, 0.4323355412253078, 0.3215426745493346, 0.3632141997502766],
+                                    backgroundColor: '#1e3c72'
+                                },
+                                {
+                                    label: 'RMSE',
+                                    data: [np.float64(0.47747407891245397), np.float64(0.47756795048277556), np.float64(0.5220962689321553), np.float64(0.5058083643778146)],
+                                    backgroundColor: '#dc3545'
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Model Performance Comparison'
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </body>
+            </html>
+            

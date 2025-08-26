@@ -38,6 +38,10 @@ from agents.knowledge_graph_agent import KnowledgeGraphAgent
 from agents.web_agent_enhanced import EnhancedWebAgent
 from agents.art_of_war_deception_agent import ArtOfWarDeceptionAgent
 
+# Import generic comprehensive analysis system
+# flake8: noqa: E402
+from core.generic_comprehensive_analysis import GenericComprehensiveAnalysisSystem
+
 # Import configuration
 # flake8: noqa: E402
 from config.mcp_config import ConsolidatedMCPServerConfig
@@ -83,6 +87,9 @@ class StandaloneMCPServer:
         
         # Initialize Art of War deception analysis agent
         self.art_of_war_agent = ArtOfWarDeceptionAgent()
+        
+        # Initialize generic comprehensive analysis system
+        self.generic_analysis_system = GenericComprehensiveAnalysisSystem()
 
         # Initialize MCP server
         self._initialize_mcp()
@@ -831,7 +838,47 @@ class StandaloneMCPServer:
                 logger.error(f"Error in comprehensive analysis: {e}")
                 return {"success": False, "error": str(e)}
 
-        logger.info("✅ Registered 29 unified MCP tools (including comprehensive analysis and Art of War deception analysis tools)")
+        @self.mcp.tool(description="Generic comprehensive analysis system for any strategic topic with automatic category determination")
+        async def analyze_strategic_topic(
+            topic: str,
+            analysis_type: str = "comprehensive",
+            generate_reports: bool = True
+        ) -> Dict[str, Any]:
+            """Analyze any strategic topic using the DIA3 generic comprehensive analysis system.
+            
+            This tool provides:
+            1. Automatic research of the topic using DIA3 knowledge base
+            2. Automatic determination of relevant analysis categories from 24 available options
+            3. Specialized analysis using multiple agents (Art of War, Knowledge Graph, Business Intelligence)
+            4. Advanced report generation with tooltips and multiple sources
+            
+            Args:
+                topic: The strategic topic to analyze (e.g., "Pakistan submarine acquisition", "China-Taiwan relations")
+                analysis_type: Type of analysis ("comprehensive", "strategic", "tactical", "economic")
+                generate_reports: Whether to generate markdown and HTML reports
+            
+            Returns:
+                Dictionary containing analysis results and report paths
+            """
+            try:
+                logger.info(f"🚀 Starting Generic Comprehensive Analysis: {topic}")
+                
+                # Use the generic comprehensive analysis system
+                result = await self.generic_analysis_system.analyze_topic(topic, analysis_type)
+                
+                if result["success"]:
+                    logger.info(f"✅ Generic analysis completed successfully for: {topic}")
+                    logger.info(f"📄 Reports generated: {result.get('report_paths', {})}")
+                else:
+                    logger.error(f"❌ Generic analysis failed for {topic}: {result.get('error', 'Unknown error')}")
+                
+                return result
+                
+            except Exception as e:
+                logger.error(f"Error in generic strategic analysis: {e}")
+                return {"success": False, "error": str(e)}
+
+        logger.info("✅ Registered 30 unified MCP tools (including generic comprehensive analysis system)")
 
     def _detect_content_type(self, content: str) -> str:
         """Detect content type based on content or file extension."""
@@ -960,8 +1007,7 @@ class StandaloneMCPServer:
             elif analysis_type == "entities":
                 # Extract entities
                 result = await self.text_agent.extract_entities(
-                    processing_result.get("result", {}).get("content", ""),
-                    language=language
+                    processing_result.get("result", {}).get("content", "")
                 )
             elif analysis_type == "comprehensive":
                 # Run comprehensive analysis including multiple types
@@ -989,8 +1035,7 @@ class StandaloneMCPServer:
                 
                 # Entities
                 entities_result = await self.text_agent.extract_entities(
-                    processing_result.get("result", {}).get("content", ""),
-                    language=language
+                    processing_result.get("result", {}).get("content", "")
                 )
                 results["entities"] = entities_result
                 

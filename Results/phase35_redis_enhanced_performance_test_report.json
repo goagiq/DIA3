@@ -1,0 +1,147 @@
+{
+  "test_summary": {
+    "total_tests": 8,
+    "passed_tests": 5,
+    "failed_tests": 3,
+    "success_rate": 62.5,
+    "total_duration": 7.844896078109741,
+    "memory_increase_mb": 68.9921875
+  },
+  "test_results": [
+    {
+      "test": "Redis Connection Test",
+      "success": false,
+      "details": "Redis not available, will use disk caching fallback",
+      "duration": 2.6226043701171875e-06
+    },
+    {
+      "test": "Data Processing Caching Test",
+      "success": true,
+      "details": "Cache hits: 1, misses: 7, speedup: 57.8x",
+      "duration": 5.196870803833008
+    },
+    {
+      "test": "Data Processing Performance Test",
+      "success": false,
+      "details": "Processing time: 5.480s (target: <3.0s) \u274c",
+      "duration": 5.663182258605957
+    },
+    {
+      "test": "Redis Fallback Mechanism Test",
+      "success": true,
+      "details": "Processing completed successfully with fallback mechanism \u2705",
+      "duration": 2.971721649169922
+    },
+    {
+      "test": "Memory Usage Test",
+      "success": true,
+      "details": "Memory increase: 34.8MB (target: <500MB) \u2705",
+      "duration": 6.5327019691467285
+    },
+    {
+      "test": "Chart Generation Caching Test",
+      "success": true,
+      "details": "Cache hits: 1, misses: 9, speedup: 101.4x",
+      "duration": 7.59131646156311
+    },
+    {
+      "test": "Chart Generation Performance Test",
+      "success": false,
+      "details": "Average time per chart: 1.384s (target: <1.0s) \u274c",
+      "duration": 6.9228270053863525
+    },
+    {
+      "test": "Async/Await Fixes Test",
+      "success": true,
+      "details": "All 6 concurrent operations completed successfully \u2705",
+      "duration": 5.0558953285217285
+    }
+  ],
+  "performance_stats": {
+    "data_processor": {
+      "total_processed": 7,
+      "total_time": 29.16176414489746,
+      "memory_usage": 0.0,
+      "cache_hits": 1,
+      "cache_misses": 7,
+      "redis_hits": 0,
+      "redis_misses": 0,
+      "disk_hits": 1,
+      "disk_misses": 7,
+      "redis_stats": {
+        "cache_hits": 0,
+        "cache_misses": 0,
+        "cache_sets": 0,
+        "cache_deletes": 0,
+        "connection_errors": 0,
+        "total_operations": 0,
+        "is_connected": false,
+        "config": {
+          "host": "localhost",
+          "port": 6379,
+          "db": 0,
+          "cache_ttl": 3600
+        }
+      },
+      "config": {
+        "chunk_size_mb": 1.0,
+        "max_workers": 4,
+        "cache_ttl": 3600,
+        "use_redis": true,
+        "fallback_to_disk": true
+      },
+      "average_processing_time": 4.165966306413923
+    },
+    "chart_generator": {
+      "total_charts": 9,
+      "total_time": 38.12427806854248,
+      "cache_hits": 1,
+      "cache_misses": 9,
+      "redis_hits": 0,
+      "redis_misses": 0,
+      "disk_hits": 1,
+      "disk_misses": 9,
+      "parallel_generations": 1,
+      "memory_usage": 0.0,
+      "redis_stats": {
+        "cache_hits": 0,
+        "cache_misses": 0,
+        "cache_sets": 0,
+        "cache_deletes": 0,
+        "connection_errors": 0,
+        "total_operations": 0,
+        "is_connected": false,
+        "config": {
+          "host": "localhost",
+          "port": 6379,
+          "db": 0,
+          "cache_ttl": 3600
+        }
+      },
+      "config": {
+        "target_generation_time": 1.0,
+        "max_workers": 4,
+        "cache_ttl": 3600,
+        "use_redis": true,
+        "fallback_to_disk": true
+      },
+      "average_generation_time": 4.23603089650472
+    },
+    "redis_manager": {
+      "cache_hits": 0,
+      "cache_misses": 0,
+      "cache_sets": 0,
+      "cache_deletes": 0,
+      "connection_errors": 0,
+      "total_operations": 0,
+      "is_connected": false,
+      "config": {
+        "host": "localhost",
+        "port": 6379,
+        "db": 0,
+        "cache_ttl": 3600
+      }
+    }
+  },
+  "timestamp": "2025-08-24 20:38:50"
+}

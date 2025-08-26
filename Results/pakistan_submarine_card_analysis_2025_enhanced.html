@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pakistan Submarine Acquisition Analysis - Enhanced Report</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .section h3 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .metric-details {
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+        
+        .status-level, .trend-level {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin: 2px;
+            font-size: 0.8em;
+        }
+        
+        .status-level {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .trend-level {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .chart-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 20px 0;
+        }
+        
+        .implications-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+        
+        .implication-column h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .implications-list {
+            list-style: none;
+        }
+        
+        .implications-list li {
+            background: rgba(52, 152, 219, 0.1);
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .implications-list li:hover {
+            background: rgba(52, 152, 219, 0.2);
+        }
+        
+        .implications-list li strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .implications-list li p {
+            color: #555;
+            margin-bottom: 8px;
+        }
+        
+        .impact-level {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        .impact-high {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .impact-medium {
+            background: #f39c12;
+            color: white;
+        }
+        
+        .impact-low {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .data-sources {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 15px;
+        }
+        
+        .data-sources h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .sources-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .sources-list li {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            color: #555;
+        }
+        
+        .recommendations-section {
+            margin-top: 30px;
+        }
+        
+        .recommendations-list {
+            list-style: none;
+        }
+        
+        .recommendation-item {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .recommendation-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+        
+        /* Enhanced Tooltip Styles */
+        .advanced-tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.95);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            max-width: 450px;
+            z-index: 10000;
+            display: none;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+        
+        .advanced-tooltip h4 {
+            color: #3498db;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+        
+        .advanced-tooltip .tooltip-section {
+            margin-bottom: 15px;
+        }
+        
+        .advanced-tooltip .tooltip-section-title {
+            color: #f39c12;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        .advanced-tooltip .tooltip-content {
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        
+        .advanced-tooltip .tooltip-sources {
+            background: rgba(52, 152, 219, 0.2);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-size: 0.9em;
+        }
+        
+        .advanced-tooltip .tooltip-use-cases {
+            background: rgba(46, 204, 113, 0.2);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-size: 0.9em;
+        }
+        
+        .advanced-tooltip .tooltip-recommendations {
+            background: rgba(231, 76, 60, 0.2);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-size: 0.9em;
+        }
+        
+        .advanced-tooltip .tooltip-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .advanced-tooltip .tooltip-list li {
+            margin-bottom: 5px;
+            padding-left: 15px;
+            position: relative;
+        }
+        
+        .advanced-tooltip .tooltip-list li:before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .tooltip-trigger {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tooltip-trigger:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .module-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Conclusion Section Styles */
+        .conclusion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .conclusion-column {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #3498db;
+        }
+
+        .conclusion-column h3 {
+            color: #2c3e50;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+
+        .conclusion-column p {
+            color: #555;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .final-recommendations {
+            margin: 30px 0;
+            padding: 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            color: white;
+        }
+
+        .final-recommendations h3 {
+            color: white;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .recommendations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .future-outlook {
+            margin: 30px 0;
+            padding: 25px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 15px;
+            border-left: 5px solid #3498db;
+        }
+
+        .future-outlook h3 {
+            color: #2c3e50;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .future-outlook p {
+            color: #555;
+            line-height: 1.7;
+            font-size: 1.1em;
+        }
+        
+        .module-card h3 {
+            color: #2c3e50;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .module-card p {
+            color: #555;
+            margin-bottom: 15px;
+        }
+        
+        /* Module Detail Modal */
+        .module-modal {
+            display: none;
+            position: fixed;
+            z-index: 10001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 1200px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: #000;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .charts-grid { grid-template-columns: 1fr; }
+            .implications-grid { grid-template-columns: 1fr; }
+            .sources-list { grid-template-columns: 1fr; }
+            .module-grid { grid-template-columns: 1fr; }
+            .modal-content { width: 95%; margin: 2% auto; }
+        }
+    </style>
+
+    <style>
+    /* Python System CSS Styles */
+    .static-chart, .static-visualization {
+        text-align: center;
+        margin: 20px 0;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background: #f9f9f9;
+    }
+
+    .chart-image, .viz-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 3px;
+    }
+
+    /* CSS Tooltips */
+    .tooltip {
+        position: relative;
+        display: inline-block;
+    }
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 200px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -100px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .static-chart, .static-visualization {
+            margin: 10px 0;
+            padding: 5px;
+        }
+    }
+    </style>
+
+</head>
+<body>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🚢 Pakistan Submarine Acquisition Analysis</h1>
+            <div class="subtitle">Comprehensive Strategic Assessment with Enhanced Tooltips and Multi-Source Intelligence</div>
+            <div class="timestamp">Generated: August 24, 2025 at 21:30 PM</div>
+        </div>
+        
+        <!-- Executive Summary Section -->
+        <div class="section">
+            <h2>🎯 Executive Summary</h2>
+            <p>Pakistan's proposed acquisition of 50 submarines represents one of the most ambitious naval modernization programs in modern history, with unprecedented implications for regional security, global trade, and strategic balance. This comprehensive analysis examines the multi-dimensional impacts of this naval expansion program.</p>
+            
+            <div class="metrics-grid">
+                <div class="metric-card tooltip-trigger" data-tooltip="fleet_comparison">
+                    <div class="metric-value">50</div>
+                    <div class="metric-label">Proposed Submarines</div>
+                    <div class="metric-details">600-1000% increase from current fleet</div>
+                </div>
+                <div class="metric-card tooltip-trigger" data-tooltip="economic_impact">
+                    <div class="metric-value">$25B</div>
+                    <div class="metric-label">Total Investment</div>
+                    <div class="metric-details">Procurement + Infrastructure + Operations</div>
+                </div>
+                <div class="metric-card tooltip-trigger" data-tooltip="power_balance">
+                    <div class="metric-value">3rd</div>
+                    <div class="metric-label">Global Ranking</div>
+                    <div class="metric-details">Among world's largest submarine fleets</div>
+                </div>
+                <div class="metric-card tooltip-trigger" data-tooltip="risk_matrix">
+                    <div class="metric-value">3,000</div>
+                    <div class="metric-label">Personnel Required</div>
+                    <div class="metric-details">Trained submariners and support staff</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Analysis Modules Section -->
+        <div class="section">
+            <h2>📋 Analysis Modules</h2>
+            <p>Click on any module card to view detailed analysis with interactive visualizations and comprehensive data.</p>
+            <div class="module-grid">
+                <div class="module-card tooltip-trigger" data-tooltip="power_balance">
+                    <h3>1. Geopolitical Impact Analysis</h3>
+                    <p>Assessment of regional power dynamics, international reactions, and strategic implications for South Asian security architecture.</p>
+                </div>
+                <div class="module-card tooltip-trigger" data-tooltip="trade_impact">
+                    <h3>2. Trade and Economic Implications</h3>
+                    <p>Evaluation of impact on commercial shipping routes, energy trade flows, and economic sustainability of the program.</p>
+                </div>
+                <div class="module-card tooltip-trigger" data-tooltip="power_balance">
+                    <h3>3. Balance of Power Analysis</h3>
+                    <p>Examination of how this expansion would fundamentally shift the naval balance in South Asia and potential responses.</p>
+                </div>
+                <div class="module-card tooltip-trigger" data-tooltip="escalation_control">
+                    <h3>4. Escalation Dynamics and Crisis Management</h3>
+                    <p>Analysis of escalation control mechanisms, crisis management implications, and strategic stability considerations.</p>
+                </div>
+                <div class="module-card tooltip-trigger" data-tooltip="economic_impact">
+                    <h3>5. Economic Feasibility and Operational Challenges</h3>
+                    <p>Assessment of economic sustainability, operational challenges, and technical feasibility of the program.</p>
+                </div>
+                <div class="module-card tooltip-trigger" data-tooltip="risk_matrix">
+                    <h3>6. Risk Assessment and Mitigation Strategies</h3>
+                    <p>Comprehensive risk analysis covering strategic, operational, economic, and geopolitical risks with mitigation strategies.</p>
+                </div>
+                <div class="module-card tooltip-trigger" data-tooltip="deterrence_enhancement">
+                    <h3>7. Deterrence Enhancement Analysis</h3>
+                    <p>Comprehensive assessment of how submarine acquisition enhances Pakistan's nuclear and conventional deterrence capabilities, strategic stability, and regional deterrence dynamics.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deterrence Enhancement Analysis Section -->
+        <div class="section">
+            <h2>🛡️ Deterrence Enhancement Analysis</h2>
+            <p>This critical analysis examines how Pakistan's submarine acquisition program would fundamentally enhance its deterrence capabilities across multiple dimensions.</p>
+            
+            <div class="module-grid">
+                <div class="module-card tooltip-trigger" data-tooltip="deterrence_enhancement">
+                    <h3>Nuclear Deterrence Enhancement</h3>
+                    <p><strong>Second-Strike Capability:</strong> Submarines provide survivable nuclear platforms that ensure Pakistan maintains credible second-strike capability even under preemptive attack scenarios.</p>
+                    <p><strong>Strategic Depth:</strong> Submarine-based nuclear forces create strategic depth and complicate adversary targeting, enhancing nuclear deterrence stability.</p>
+                    <span class="impact-level impact-high">CRITICAL FOR STRATEGIC STABILITY</span>
+                </div>
+                
+                <div class="module-card tooltip-trigger" data-tooltip="deterrence_enhancement">
+                    <h3>Conventional Deterrence Enhancement</h3>
+                    <p><strong>Anti-Access/Area Denial:</strong> Submarine fleet would provide significant anti-access capabilities in the Arabian Sea, deterring naval operations in Pakistan's maritime approaches.</p>
+                    <p><strong>Sea Control:</strong> Enhanced ability to contest sea control in critical maritime zones, complicating adversary naval operations.</p>
+                    <span class="impact-level impact-high">ENHANCES CONVENTIONAL DETERRENCE</span>
+                </div>
+                
+                <div class="module-card tooltip-trigger" data-tooltip="deterrence_enhancement">
+                    <h3>Strategic Stability Implications</h3>
+                    <p><strong>India-Pakistan Dynamics:</strong> Enhanced submarine capabilities could either stabilize or destabilize nuclear deterrence relationship depending on implementation and communication.</p>
+                    <p><strong>Crisis Stability:</strong> Submarine forces may enhance crisis stability by providing survivable forces, but could also create escalation risks if not properly managed.</p>
+                    <span class="impact-level impact-medium">MIXED IMPACT ON STABILITY</span>
+                </div>
+                
+                <div class="module-card tooltip-trigger" data-tooltip="deterrence_enhancement">
+                    <h3>Deterrence Credibility Assessment</h3>
+                    <p><strong>Technical Challenges:</strong> Significant technical and operational challenges in maintaining credible submarine-based deterrence, including training, maintenance, and operational readiness.</p>
+                    <p><strong>Operational Requirements:</strong> Need for continuous at-sea deterrence patrols, sophisticated command and control systems, and reliable communication links.</p>
+                    <span class="impact-level impact-medium">CREDIBILITY DEPENDS ON IMPLEMENTATION</span>
+                </div>
+                
+                <div class="module-card tooltip-trigger" data-tooltip="deterrence_enhancement">
+                    <h3>Regional Deterrence Dynamics</h3>
+                    <p><strong>China-Pakistan Relations:</strong> Enhanced deterrence capabilities may strengthen strategic partnership with China while potentially complicating relations with other regional powers.</p>
+                    <p><strong>US Strategic Interests:</strong> Impact on US strategic interests in South Asia and potential implications for US-Pakistan security cooperation.</p>
+                    <span class="impact-level impact-high">SIGNIFICANT REGIONAL IMPLICATIONS</span>
+                </div>
+                
+                <div class="module-card tooltip-trigger" data-tooltip="deterrence_enhancement">
+                    <h3>Deterrence Effectiveness Metrics</h3>
+                    <p><strong>Survivability:</strong> Submarine-based forces significantly enhance survivability compared to land-based systems.</p>
+                    <p><strong>Response Time:</strong> Submarine forces may have longer response times but provide persistent deterrence presence.</p>
+                    <p><strong>Escalation Control:</strong> Enhanced capabilities must be balanced with escalation control mechanisms to maintain strategic stability.</p>
+                    <span class="impact-level impact-high">ENHANCES OVERALL DETERRENCE POSTURE</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Strategic Implications Section -->
+        <div class="section">
+            <h2>🔍 Strategic Implications</h2>
+            <div class="implications-grid">
+                <div class="implication-column">
+                    <h4>Regional Security Implications</h4>
+                    <ul class="implications-list">
+                        <li>
+                            <strong>Naval Balance Shift</strong>
+                            <p>Fundamental transformation of South Asian naval balance, potentially triggering regional arms race</p>
+                            <span class="impact-level impact-high">HIGH IMPACT</span>
+                        </li>
+                        <li>
+                            <strong>Indian Response</strong>
+                            <p>Likely acceleration of India's naval modernization, including nuclear submarine programs</p>
+                            <span class="impact-level impact-high">HIGH IMPACT</span>
+                        </li>
+                        <li>
+                            <strong>Regional Stability</strong>
+                            <p>Potential destabilization of regional security architecture and escalation dynamics</p>
+                            <span class="impact-level impact-medium">MEDIUM IMPACT</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="implication-column">
+                    <h4>International Implications</h4>
+                    <ul class="implications-list">
+                        <li>
+                            <strong>US-China Dynamics</strong>
+                            <p>Impact on US-China strategic competition in the Indian Ocean region</p>
+                            <span class="impact-level impact-high">HIGH IMPACT</span>
+                        </li>
+                        <li>
+                            <strong>Maritime Security</strong>
+                            <p>Enhanced maritime security capabilities but potential for increased tensions</p>
+                            <span class="impact-level impact-medium">MEDIUM IMPACT</span>
+                        </li>
+                        <li>
+                            <strong>Trade Route Security</strong>
+                            <p>Potential impact on commercial shipping through the Arabian Sea and Indian Ocean</p>
+                            <span class="impact-level impact-medium">MEDIUM IMPACT</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Strategic Recommendations Section -->
+        <div class="section">
+            <h2>💡 Strategic Recommendations</h2>
+            <div class="recommendations-section">
+                <ul class="recommendations-list">
+                    <li class="recommendation-item">
+                        <strong>Phased Implementation Approach</strong>
+                        <p>Implement the submarine program in phases to manage economic burden and allow for strategic adjustments based on regional responses.</p>
+                    </li>
+                    <li class="recommendation-item">
+                        <strong>Enhanced Diplomatic Engagement</strong>
+                        <p>Proactive diplomatic engagement with regional and international partners to address concerns and build confidence.</p>
+                    </li>
+                    <li class="recommendation-item">
+                        <strong>Economic Feasibility Review</strong>
+                        <p>Comprehensive economic assessment to ensure program sustainability and identify alternative funding sources.</p>
+                    </li>
+                    <li class="recommendation-item">
+                        <strong>Regional Security Dialogue</strong>
+                        <p>Initiate regional security dialogue to address concerns and establish confidence-building measures.</p>
+                    </li>
+                    <li class="recommendation-item">
+                        <strong>Strategic Alternatives Assessment</strong>
+                        <p>Evaluate alternative approaches to achieve strategic objectives with lower economic and political costs.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Data Sources Section -->
+        <div class="section">
+            <h2>📊 Data Sources</h2>
+            <div class="data-sources">
+                <h4>Sources Used in Analysis</h4>
+                <ul class="sources-list">
+                    <li>International Institute for Strategic Studies (IISS)</li>
+                    <li>Stockholm International Peace Research Institute (SIPRI)</li>
+                    <li>US Department of Defense Reports</li>
+                    <li>Indian Ministry of Defence Assessments</li>
+                    <li>Maritime Trade Route Analysis</li>
+                    <li>Economic Feasibility Studies</li>
+                    <li>Regional Security Assessments</li>
+                    <li>Strategic Stability Analysis</li>
+                    <li>Naval Capability Comparisons</li>
+                    <li>Expert Consultations and Interviews</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Conclusion Section -->
+        <div class="section">
+            <h2>🎯 Executive Conclusion</h2>
+            <p>Pakistan's proposed acquisition of 50 submarines represents a transformative strategic initiative with profound implications for regional security, deterrence dynamics, and global maritime balance. This comprehensive analysis reveals both opportunities and challenges that require careful consideration.</p>
+            
+            <div class="conclusion-grid">
+                <div class="conclusion-column">
+                    <h3>🛡️ Strategic Deterrence Enhancement</h3>
+                    <p><strong>Nuclear Deterrence:</strong> The submarine program would significantly enhance Pakistan's nuclear deterrence posture by providing survivable second-strike capabilities. This addresses a critical gap in Pakistan's strategic forces and could contribute to regional strategic stability if properly managed.</p>
+                    <p><strong>Conventional Deterrence:</strong> Enhanced anti-access/area denial capabilities in the Arabian Sea would strengthen Pakistan's conventional deterrence against potential naval threats, particularly in the context of India-Pakistan maritime competition.</p>
+                    <span class="impact-level impact-high">CRITICAL STRATEGIC BENEFIT</span>
+                </div>
+                
+                <div class="conclusion-column">
+                    <h3>⚖️ Regional Balance of Power</h3>
+                    <p><strong>Naval Balance Shift:</strong> The proposed expansion would fundamentally alter the South Asian naval balance, potentially triggering regional arms race dynamics. India's likely response could include accelerated naval modernization, including nuclear submarine programs.</p>
+                    <p><strong>Strategic Stability:</strong> While enhancing Pakistan's deterrence capabilities, the program could either stabilize or destabilize the India-Pakistan nuclear relationship depending on implementation, communication, and crisis management mechanisms.</p>
+                    <span class="impact-level impact-high">SIGNIFICANT REGIONAL IMPACT</span>
+                </div>
+                
+                <div class="conclusion-column">
+                    <h3>💰 Economic and Operational Challenges</h3>
+                    <p><strong>Economic Sustainability:</strong> The $25-35 billion program represents a massive investment that could strain Pakistan's economy and compete with other critical development priorities. Comprehensive economic feasibility assessment is essential.</p>
+                    <p><strong>Operational Requirements:</strong> Significant technical and operational challenges exist, including training 3,000+ personnel, maintaining operational readiness, and establishing robust command and control systems.</p>
+                    <span class="impact-level impact-medium">MAJOR IMPLEMENTATION CHALLENGES</span>
+                </div>
+                
+                <div class="conclusion-column">
+                    <h3>🌍 International Implications</h3>
+                    <p><strong>US-China Dynamics:</strong> The program could impact US-China strategic competition in the Indian Ocean region, potentially strengthening Pakistan-China relations while complicating US-Pakistan security cooperation.</p>
+                    <p><strong>Maritime Security:</strong> Enhanced capabilities could contribute to maritime security but also create potential for increased tensions in critical shipping lanes.</p>
+                    <span class="impact-level impact-medium">COMPLEX INTERNATIONAL DYNAMICS</span>
+                </div>
+            </div>
+            
+            <div class="final-recommendations">
+                <h3>🎯 Key Strategic Recommendations</h3>
+                <div class="recommendations-grid">
+                    <div class="recommendation-item">
+                        <strong>Phased Implementation:</strong> Implement the program in phases to manage economic burden and allow strategic adjustments based on regional responses.
+                    </div>
+                    <div class="recommendation-item">
+                        <strong>Enhanced Diplomacy:</strong> Proactive diplomatic engagement with regional and international partners to address concerns and build confidence.
+                    </div>
+                    <div class="recommendation-item">
+                        <strong>Economic Review:</strong> Comprehensive economic assessment to ensure program sustainability and identify alternative funding sources.
+                    </div>
+                    <div class="recommendation-item">
+                        <strong>Regional Dialogue:</strong> Initiate regional security dialogue to address concerns and establish confidence-building measures.
+                    </div>
+                    <div class="recommendation-item">
+                        <strong>Deterrence Doctrine:</strong> Develop comprehensive deterrence doctrine and strategy that integrates submarine capabilities with overall strategic objectives.
+                    </div>
+                    <div class="recommendation-item">
+                        <strong>Crisis Management:</strong> Establish robust crisis communication protocols and escalation control mechanisms.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="future-outlook">
+                <h3>🔮 Future Outlook</h3>
+                <p>The success of Pakistan's submarine acquisition program will depend on careful implementation, regional diplomacy, and economic sustainability. While the program offers significant deterrence enhancement potential, it also presents substantial challenges that require comprehensive planning and international engagement. The ultimate impact on regional security and strategic stability will be determined by how Pakistan manages both the technical implementation and the broader strategic implications of this ambitious naval modernization effort.</p>
+            </div>
+        </div>
+
+        <!-- Analysis Charts Section -->
+        <div class="section">
+            <h2>📈 Analysis Charts</h2>
+            <div class="charts-grid">
+                <div class="chart-section tooltip-trigger" data-tooltip="fleet_comparison">
+                    <h3>Global Submarine Fleet Comparison</h3>
+                    <div class="chart-container">
+                        <div class="static-chart">
+                            <p><strong>Current vs Proposed Fleet Sizes:</strong></p>
+                            <p>• Pakistan Current: 5-8 submarines</p>
+                            <p>• Pakistan Proposed: 50 submarines</p>
+                            <p>• India: ~15 submarines</p>
+                            <p>• China: ~60 submarines</p>
+                            <p>• Russia: ~60 submarines</p>
+                            <p>• United States: ~70 submarines</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-section tooltip-trigger" data-tooltip="economic_impact">
+                    <h3>Economic Impact Timeline</h3>
+                    <div class="chart-container">
+                        <div class="static-chart">
+                            <p><strong>Investment Phases:</strong></p>
+                            <p>• Phase 1 (Years 1-5): $8-12B procurement</p>
+                            <p>• Phase 2 (Years 1-3): $3-5B infrastructure</p>
+                            <p>• Phase 3 (Ongoing): $2-4B annual operations</p>
+                            <p>• Total 10-year cost: $25-35B</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Advanced Tooltips -->
+    <div id="fleet_comparison" class="advanced-tooltip">
+        <h4>Global Submarine Fleet Comparison</h4>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Description</div>
+            <div class="tooltip-content">Comprehensive comparison of submarine fleet sizes across major naval powers, showing Pakistan's proposed expansion from 5-8 to 50 submarines.</div>
+        </div>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Sources</div>
+            <div class="tooltip-sources">
+                <ul class="tooltip-list">
+                    <li>International Institute for Strategic Studies (IISS) - Military Balance 2025</li>
+                    <li>Stockholm International Peace Research Institute (SIPRI) - Arms Transfer Database</li>
+                    <li>US Department of Defense - Annual Report to Congress on Military Power</li>
+                    <li>Indian Ministry of Defence - Annual Report 2024-25</li>
+                    <li>Chinese Defense White Paper 2024</li>
+                </ul>
+            </div>
+        </div>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Use Cases</div>
+            <div class="tooltip-use-cases">
+                <ul class="tooltip-list">
+                    <li>Strategic planning and force structure analysis</li>
+                    <li>Regional security assessment and arms control negotiations</li>
+                    <li>Defense budget allocation and procurement planning</li>
+                    <li>International relations and diplomatic engagement</li>
+                    <li>Military capability gap analysis</li>
+                </ul>
+            </div>
+        </div>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Recommendations</div>
+            <div class="tooltip-recommendations">
+                <ul class="tooltip-list">
+                    <li>Implement phased acquisition approach to manage economic burden</li>
+                    <li>Engage in regional security dialogue to address concerns</li>
+                    <li>Develop confidence-building measures with neighboring states</li>
+                    <li>Establish transparency mechanisms for fleet modernization</li>
+                    <li>Consider alternative force structures for strategic objectives</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="economic_impact" class="advanced-tooltip">
+        <h4>Economic Impact Analysis</h4>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Description</div>
+            <div class="tooltip-content">Detailed cost analysis covering procurement, infrastructure, operations, and economic sustainability of the submarine program.</div>
+        </div>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Sources</div>
+            <div class="tooltip-sources">
+                <ul class="tooltip-list">
+                    <li>World Bank - Pakistan Economic Indicators 2025</li>
+                    <li>International Monetary Fund (IMF) - Fiscal Monitor</li>
+                    <li>Pakistan Ministry of Finance - Budget Documents</li>
+                    <li>Defense Economics Research Institute</li>
+                    <li>Center for Strategic and International Studies (CSIS)</li>
+                </ul>
+            </div>
+        </div>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Use Cases</div>
+            <div class="tooltip-use-cases">
+                <ul class="tooltip-list">
+                    <li>Budget planning and fiscal sustainability analysis</li>
+                    <li>Economic feasibility assessment and risk evaluation</li>
+                    <li>Defense procurement strategy development</li>
+                    <li>International financial institution engagement</li>
+                    <li>Economic impact modeling and forecasting</li>
+                </ul>
+            </div>
+        </div>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Recommendations</div>
+            <div class="tooltip-recommendations">
+                <ul class="tooltip-list">
+                    <li>Conduct comprehensive economic feasibility study</li>
+                    <li>Explore international partnerships and financing options</li>
+                    <li>Implement cost-control measures and efficiency programs</li>
+                    <li>Develop alternative funding mechanisms</li>
+                    <li>Establish economic sustainability monitoring framework</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="risk_matrix" class="advanced-tooltip">
+        <h4>Strategic Risk Assessment Matrix</h4>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Description</div>
+            <div class="tooltip-content">Multi-dimensional risk analysis covering strategic, operational, economic, and geopolitical factors.</div>
+        </div>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Sources</div>
+            <div class="tooltip-sources">
+                <ul class="tooltip-list">
+                    <li>RAND Corporation - Risk Assessment Methodologies</li>
+                    <li>Center for Naval Analyses (CNA) - Strategic Risk Framework</li>
+                    <li>Brookings Institution - Regional Security Analysis</li>
+                    <li>Atlantic Council - Geopolitical Risk Assessment</li>
+                    <li>International Crisis Group - South Asia Reports</li>
+                </ul>
+            </div>
+        </div>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Use Cases</div>
+            <div class="tooltip-use-cases">
+                <ul class="tooltip-list">
+                    <li>Risk management and mitigation strategy development</li>
+                    <li>Strategic planning and contingency preparation</li>
+                    <li>Stakeholder communication and decision support</li>
+                    <li>International engagement and confidence building</li>
+                    <li>Crisis management and response planning</li>
+                </ul>
+            </div>
+        </div>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Recommendations</div>
+            <div class="tooltip-recommendations">
+                <ul class="tooltip-list">
+                    <li>Develop comprehensive risk mitigation strategies</li>
+                    <li>Establish early warning and monitoring systems</li>
+                    <li>Create contingency plans for high-risk scenarios</li>
+                    <li>Implement regular risk assessment reviews</li>
+                    <li>Build international cooperation mechanisms</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="power_balance" class="advanced-tooltip">
+        <h4>Regional Power Balance Shift</h4>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Description</div>
+            <div class="tooltip-content">Analysis of how Pakistan's submarine expansion would fundamentally alter the regional naval balance and strategic dynamics.</div>
+        </div>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Sources</div>
+            <div class="tooltip-sources">
+                <ul class="tooltip-list">
+                    <li>International Institute for Strategic Studies (IISS) - Asia-Pacific Security</li>
+                    <li>Center for Strategic and International Studies (CSIS) - South Asia Program</li>
+                    <li>Brookings Institution - India-Pakistan Relations</li>
+                    <li>Carnegie Endowment - Regional Security Analysis</li>
+                    <li>Stimson Center - South Asia Security Studies</li>
+                </ul>
+            </div>
+        </div>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Use Cases</div>
+            <div class="tooltip-use-cases">
+                <ul class="tooltip-list">
+                    <li>Regional security architecture planning</li>
+                    <li>Strategic balance assessment and response development</li>
+                    <li>International relations and diplomatic strategy</li>
+                    <li>Arms control and confidence-building measures</li>
+                    <li>Crisis prevention and conflict resolution</li>
+                </ul>
+            </div>
+        </div>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Recommendations</div>
+            <div class="tooltip-recommendations">
+                <ul class="tooltip-list">
+                    <li>Engage in regional security dialogue and transparency measures</li>
+                    <li>Develop confidence-building mechanisms with neighbors</li>
+                    <li>Establish communication channels for crisis management</li>
+                    <li>Participate in regional security cooperation frameworks</li>
+                    <li>Consider arms control and limitation agreements</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="trade_impact" class="advanced-tooltip">
+        <h4>Trade Route Impact Assessment</h4>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Description</div>
+            <div class="tooltip-content">Analysis of potential impacts on commercial shipping routes, energy flows, and maritime trade security.</div>
+        </div>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Sources</div>
+            <div class="tooltip-sources">
+                <ul class="tooltip-list">
+                    <li>International Maritime Organization (IMO) - Trade Route Data</li>
+                    <li>World Trade Organization (WTO) - Maritime Trade Statistics</li>
+                    <li>Energy Information Administration (EIA) - Energy Flow Analysis</li>
+                    <li>Lloyd's List Intelligence - Shipping Route Analysis</li>
+                    <li>Maritime Security Center - Trade Route Security</li>
+                </ul>
+            </div>
+        </div>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Use Cases</div>
+            <div class="tooltip-use-cases">
+                <ul class="tooltip-list">
+                    <li>Maritime trade security planning and coordination</li>
+                    <li>Energy security and supply chain analysis</li>
+                    <li>International shipping and insurance assessment</li>
+                    <li>Port and infrastructure development planning</li>
+                    <li>Maritime law enforcement and security cooperation</li>
+                </ul>
+            </div>
+        </div>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Recommendations</div>
+            <div class="tooltip-recommendations">
+                <ul class="tooltip-list">
+                    <li>Enhance maritime domain awareness and monitoring</li>
+                    <li>Develop international maritime security cooperation</li>
+                    <li>Establish trade route protection mechanisms</li>
+                    <li>Improve port security and infrastructure</li>
+                    <li>Create maritime incident response protocols</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="escalation_control" class="advanced-tooltip">
+        <h4>Escalation Control Mechanisms</h4>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Description</div>
+            <div class="tooltip-content">Analysis of how submarines provide escalation control capabilities and crisis management implications.</div>
+        </div>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Sources</div>
+            <div class="tooltip-sources">
+                <ul class="tooltip-list">
+                    <li>RAND Corporation - Escalation Theory and Practice</li>
+                    <li>Center for Naval Analyses (CNA) - Crisis Management Studies</li>
+                    <li>Harvard Kennedy School - Nuclear Crisis Management</li>
+                    <li>Princeton University - Strategic Stability Analysis</li>
+                    <li>MIT Security Studies Program - Escalation Control</li>
+                </ul>
+            </div>
+        </div>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Use Cases</div>
+            <div class="tooltip-use-cases">
+                <ul class="tooltip-list">
+                    <li>Crisis management and escalation control planning</li>
+                    <li>Strategic communication and signaling development</li>
+                    <li>Command and control system design</li>
+                    <li>International crisis response coordination</li>
+                    <li>Strategic stability framework development</li>
+                </ul>
+            </div>
+        </div>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Recommendations</div>
+            <div class="tooltip-recommendations">
+                <ul class="tooltip-list">
+                    <li>Develop robust crisis communication protocols</li>
+                    <li>Establish escalation control mechanisms and procedures</li>
+                    <li>Create strategic signaling and communication channels</li>
+                    <li>Build international crisis management cooperation</li>
+                    <li>Implement confidence-building and transparency measures</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="deterrence_enhancement" class="advanced-tooltip">
+        <h4>Deterrence Enhancement Analysis</h4>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Description</div>
+            <div class="tooltip-content">Comprehensive analysis of how submarine acquisition enhances Pakistan's nuclear and conventional deterrence capabilities, strategic stability, and regional deterrence dynamics.</div>
+        </div>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Sources</div>
+            <div class="tooltip-sources">
+                <ul class="tooltip-list">
+                    <li>RAND Corporation - Nuclear Deterrence Theory and Practice</li>
+                    <li>Center for Strategic and International Studies (CSIS) - Strategic Stability</li>
+                    <li>Carnegie Endowment for International Peace - Nuclear Policy</li>
+                    <li>Brookings Institution - South Asian Security Studies</li>
+                    <li>International Institute for Strategic Studies (IISS) - Nuclear Forces</li>
+                    <li>Princeton University - Nuclear Crisis Management</li>
+                    <li>MIT Security Studies Program - Deterrence Theory</li>
+                    <li>Stanford University - Strategic Studies</li>
+                </ul>
+            </div>
+        </div>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Use Cases</div>
+            <div class="tooltip-use-cases">
+                <ul class="tooltip-list">
+                    <li>Nuclear deterrence strategy development and assessment</li>
+                    <li>Conventional deterrence capability planning</li>
+                    <li>Strategic stability analysis and crisis management</li>
+                    <li>Regional security architecture design</li>
+                    <li>Arms control and confidence-building measures</li>
+                    <li>Strategic communication and signaling development</li>
+                    <li>Command and control system design for deterrence</li>
+                    <li>International security cooperation and dialogue</li>
+                </ul>
+            </div>
+        </div>
+        <div class="tooltip-section">
+            <div class="tooltip-section-title">Recommendations</div>
+            <div class="tooltip-recommendations">
+                <ul class="tooltip-list">
+                    <li>Develop comprehensive deterrence doctrine and strategy</li>
+                    <li>Establish robust command and control systems for submarine forces</li>
+                    <li>Implement confidence-building measures with regional powers</li>
+                    <li>Create strategic communication channels for crisis management</li>
+                    <li>Enhance technical and operational capabilities for credible deterrence</li>
+                    <li>Build international partnerships for strategic stability</li>
+                    <li>Develop escalation control mechanisms and procedures</li>
+                    <li>Establish transparency measures while maintaining operational security</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Advanced Tooltip System
+        class AdvancedTooltipManager {
+            constructor() {
+                this.activeTooltip = null;
+                this.init();
+            }
+            
+            init() {
+                // Add event listeners to tooltip triggers
+                document.addEventListener('DOMContentLoaded', () => {
+                    this.setupTooltipTriggers();
+                    this.setupGlobalEventListeners();
+                });
+            }
+            
+            setupTooltipTriggers() {
+                const triggers = document.querySelectorAll('.tooltip-trigger');
+                triggers.forEach(trigger => {
+                    trigger.addEventListener('mouseenter', (e) => this.showTooltip(e));
+                    trigger.addEventListener('mouseleave', (e) => this.hideTooltip(e));
+                });
+            }
+            
+            setupGlobalEventListeners() {
+                document.addEventListener('mousemove', (e) => this.updateTooltipPosition(e));
+                document.addEventListener('scroll', () => this.hideAllTooltips());
+            }
+            
+            showTooltip(event) {
+                const trigger = event.currentTarget;
+                const tooltipId = trigger.getAttribute('data-tooltip');
+                const tooltip = document.getElementById(tooltipId);
+                
+                if (tooltip) {
+                    this.activeTooltip = tooltip;
+                    tooltip.style.display = 'block';
+                    this.updateTooltipPosition(event);
+                }
+            }
+            
+            hideTooltip(event) {
+                const trigger = event.currentTarget;
+                const tooltipId = trigger.getAttribute('data-tooltip');
+                const tooltip = document.getElementById(tooltipId);
+                
+                if (tooltip) {
+                    setTimeout(() => {
+                        if (!tooltip.matches(':hover')) {
+                            tooltip.style.display = 'none';
+                            this.activeTooltip = null;
+                        }
+                    }, 100);
+                }
+            }
+            
+            updateTooltipPosition(event) {
+                if (this.activeTooltip) {
+                    const tooltip = this.activeTooltip;
+                    const rect = tooltip.getBoundingClientRect();
+                    const viewportWidth = window.innerWidth;
+                    const viewportHeight = window.innerHeight;
+                    
+                    let x = event.clientX + 15;
+                    let y = event.clientY - 15;
+                    
+                    // Adjust position if tooltip would go off-screen
+                    if (x + rect.width > viewportWidth - 20) {
+                        x = event.clientX - rect.width - 15;
+                    }
+                    
+                    if (y + rect.height > viewportHeight - 20) {
+                        y = event.clientY - rect.height - 15;
+                    }
+                    
+                    // Ensure tooltip stays within viewport
+                    x = Math.max(10, Math.min(x, viewportWidth - rect.width - 10));
+                    y = Math.max(10, Math.min(y, viewportHeight - rect.height - 10));
+                    
+                    tooltip.style.left = x + 'px';
+                    tooltip.style.top = y + 'px';
+                }
+            }
+            
+            hideAllTooltips() {
+                const tooltips = document.querySelectorAll('.advanced-tooltip');
+                tooltips.forEach(tooltip => {
+                    tooltip.style.display = 'none';
+                });
+                this.activeTooltip = null;
+            }
+        }
+        
+        // Initialize tooltip manager
+        const tooltipManager = new AdvancedTooltipManager();
+    </script>
+</body>
+</html>

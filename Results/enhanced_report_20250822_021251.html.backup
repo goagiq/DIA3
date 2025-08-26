@@ -1,0 +1,1226 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pakistan's 50-Submarine Acquisition and Strategic Implications</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/dist/vis-network.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 50px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 3.5em;
+            font-weight: 300;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .header p {
+            margin: 15px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.3em;
+        }
+        .timestamp {
+            font-size: 1em;
+            opacity: 0.7;
+            margin-top: 15px;
+        }
+        .content {
+            padding: 40px;
+        }
+        .section {
+            margin-bottom: 50px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #1e3c72;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #1e3c72;
+            padding-bottom: 10px;
+        }
+        .section h3 {
+            color: #2a5298;
+            font-size: 1.6em;
+            margin: 25px 0 15px 0;
+        }
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #1e3c72;
+            transition: transform 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        .stat-value {
+            font-size: 3em;
+            font-weight: bold;
+            color: #1e3c72;
+            margin: 15px 0;
+        }
+        .stat-label {
+            color: #6c757d;
+            font-size: 1em;
+            font-weight: 600;
+        }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        .chart-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .chart-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .chart-wrapper {
+            position: relative;
+            height: 350px;
+        }
+        .knowledge-graph-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 30px 0;
+        }
+        .knowledge-graph-container {
+            height: 600px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+        }
+        .professional-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .professional-table th {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        .professional-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 1em;
+        }
+        .professional-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .professional-table tr:hover {
+            background: #e3f2fd;
+        }
+        .risk-high { color: #dc3545; font-weight: bold; }
+        .risk-medium { color: #ffc107; font-weight: bold; }
+        .risk-low { color: #28a745; font-weight: bold; }
+        .risk-critical { color: #dc3545; font-weight: bold; background: #fff5f5; }
+        .key-findings {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 5px solid #2196f3;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .risk-assessment {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        .recommendations {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border-left: 5px solid #4caf50;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .conclusion {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            border-left: 5px solid #9c27b0;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .metric-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .metric-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+        .metric-label {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Pakistan's 50-Submarine Acquisition and Strategic Implications</h1>
+            <p>Comprehensive Analysis of Conventional Deterrence and Regional Security</p>
+            <div class="timestamp">Generated: August 22, 2025 - 02:12:50 | Analysis Type: Comprehensive Strategic Assessment | Confidence Level: 85%</div>
+        </div>
+
+        <div class="content">
+            
+        <div class="section">
+            <h2>🎯 Executive Summary</h2>
+            <p>Pakistan's proposed acquisition of 50 submarines represents the most ambitious naval modernization program in South Asian history. This enhanced analysis examines the strategic implications through multiple analytical frameworks.</p>
+            
+            <div class="key-findings">
+                <h3>Key Findings</h3>
+                <ul>
+                    <li><strong>Strategic Impact:</strong> 1000% increase in submarine fleet would fundamentally alter regional naval balance</li><li><strong>Economic Reality:</strong> $15-25 billion acquisition cost exceeds Pakistan's sustainable defense budget</li><li><strong>Regional Escalation:</strong> High probability of Indian counter-response and regional arms race</li><li><strong>Operational Viability:</strong> Significant challenges in personnel training and infrastructure development</li><li><strong>Deterrence Enhancement:</strong> Would provide credible conventional deterrent but at high cost</li>
+                </ul>
+            </div>
+
+            <div class="summary-stats">
+                
+                <div class="stat-card">
+                    <div class="stat-label">Fleet Increase</div>
+                    <div class="stat-value">1000%</div>
+                    <div class="stat-label">5 to 55 submarines</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-label">Total Cost</div>
+                    <div class="stat-value">$25-42B</div>
+                    <div class="stat-label">Initial investment</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-label">Annual Maintenance</div>
+                    <div class="stat-value">$2-3B</div>
+                    <div class="stat-label">Ongoing costs</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-label">Personnel Required</div>
+                    <div class="stat-value">2,000-3,000</div>
+                    <div class="stat-label">Additional naval personnel</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-label">Timeline</div>
+                    <div class="stat-value">15-20</div>
+                    <div class="stat-label">Years to completion</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-label">Risk Level</div>
+                    <div class="stat-value">HIGH</div>
+                    <div class="stat-label">Economic & operational</div>
+                </div>
+                
+            </div>
+        </div>
+        
+
+        <div class="section">
+            <h2>📊 Strategic Context & Current Balance</h2>
+            
+            <h3>Current Forces Comparison</h3>
+            <table class="professional-table">
+                <thead>
+                    <tr>
+                        <th>Country</th><th>Submarines</th><th>Type Distribution</th><th>Strategic Role</th><th>Regional Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <td>Pakistan</td><td>5</td><td>3 Agosta 90B, 2 Agosta 70</td><td>Defensive, Sea Denial</td><td>Limited</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>India</td><td>16</td><td>1 Nuclear, 15 Conventional</td><td>Regional Power Projection</td><td>Significant</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>China</td><td>66</td><td>12 Nuclear, 54 Conventional</td><td>Global Power Projection</td><td>Major</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>United States</td><td>68</td><td>All Nuclear-Powered</td><td>Global Dominance</td><td>Dominant</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Russia</td><td>60</td><td>11 Nuclear, 49 Conventional</td><td>Strategic Deterrence</td><td>Significant</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+        
+
+        <div class="section">
+            <h2>💰 Economic Analysis</h2>
+            
+            <h3>Cost Breakdown (USD Billions)</h3>
+            <table class="professional-table">
+                <thead>
+                    <tr>
+                        <th>Component</th><th>Low Estimate</th><th>High Estimate</th><th>Risk Level</th><th>Impact Assessment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <td>Submarine Acquisition</td><td>$15.0B</td><td>$25.0B</td><td>HIGH</td><td>Major budget strain</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Infrastructure Development</td><td>$5.0B</td><td>$8.0B</td><td>MEDIUM</td><td>Significant investment</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Training & Personnel</td><td>$3.0B</td><td>$5.0B</td><td>MEDIUM</td><td>Long-term commitment</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Weapons Systems</td><td>$2.0B</td><td>$4.0B</td><td>LOW</td><td>Standard requirement</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Annual Maintenance</td><td>$2.0B</td><td>$3.0B</td><td>CRITICAL</td><td>Ongoing burden</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>TOTAL INITIAL INVESTMENT</td><td>$25.0B</td><td>$42.0B</td><td>CRITICAL</td><td>Beyond capacity</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+        
+
+        <div class="section">
+            <h2>🌍 Regional Security Implications</h2>
+            
+            <h3>Regional Response Analysis</h3>
+            <table class="professional-table">
+                <thead>
+                    <tr>
+                        <th>Country</th><th>Current Submarines</th><th>Likely Response</th><th>Probability</th><th>Risk Level</th><th>Strategic Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <td>India</td><td>16</td><td>Massive ASW investment, nuclear submarine acceleration</td><td>95%</td><td>CRITICAL</td><td>Arms race escalation</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>China</td><td>66</td><td>Technology transfer, strategic partnership</td><td>85%</td><td>HIGH</td><td>Regional power shift</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>United States</td><td>68</td><td>Increased naval presence in Indian Ocean</td><td>70%</td><td>HIGH</td><td>Great power competition</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Russia</td><td>60</td><td>Potential technology transfer</td><td>60%</td><td>MEDIUM</td><td>Limited regional impact</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Gulf States</td><td>15-20</td><td>Enhanced maritime security concerns</td><td>75%</td><td>MEDIUM</td><td>Energy security impact</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+        
+
+        <div class="section">
+            <h2>📊 Strategic Visualizations</h2>
+            
+            <div class="charts-grid">
+                <div class="chart-section">
+                    <div class="chart-title">Current vs Proposed Comparison</div>
+                    <div class="chart-wrapper">
+                        <canvas id="fleetComparison"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-section">
+                    <div class="chart-title">Cost Breakdown Analysis</div>
+                    <div class="chart-wrapper">
+                        <canvas id="costBreakdown"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-section">
+                    <div class="chart-title">Strategic Impact Assessment</div>
+                    <div class="chart-wrapper">
+                        <canvas id="strategicImpact"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="knowledge-graph-section">
+            <h2>🧠 Knowledge Graph Analysis</h2>
+            <p>Interactive visualization of key concepts, relationships, and strategic factors identified in this analysis.</p>
+            <div id="knowledgeGraph" class="knowledge-graph-container"></div>
+        </div>
+        
+
+                <div class="section">
+                    <h2>🎲 Monte Carlo Simulation Analysis</h2>
+                    <p>Probabilistic analysis using 10000 Monte Carlo iterations to assess uncertainty and risk in strategic outcomes.</p>
+                    
+                    <div class="monte-carlo-stats">
+                        <h3>Simulation Results Summary</h3>
+                        <div class="metric-grid">
+                            
+                            <div class="metric-item">
+                                <div class="metric-value">1783.66</div>
+                                <div class="metric-label">Total Cost</div>
+                                <div class="metric-unit">billion USD</div>
+                            </div>
+                            
+                            <div class="metric-item">
+                                <div class="metric-value">0.71</div>
+                                <div class="metric-label">Risk Score</div>
+                                <div class="metric-unit">risk score (0-1)</div>
+                            </div>
+                            
+                            <div class="metric-item">
+                                <div class="metric-value">4.33</div>
+                                <div class="metric-label">Strategic Impact</div>
+                                <div class="metric-unit">impact score</div>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="monte-carlo-charts">
+                        <h3>Probability Distributions</h3>
+                        <div class="charts-grid">
+                            <div class="chart-section">
+                                <div class="chart-title">Cost Distribution Analysis</div>
+                                <div class="chart-wrapper">
+                                    <canvas id="monteCarloCostDistribution"></canvas>
+                                </div>
+                            </div>
+
+                            <div class="chart-section">
+                                <div class="chart-title">Risk Assessment Distribution</div>
+                                <div class="chart-wrapper">
+                                    <canvas id="monteCarloRiskDistribution"></canvas>
+                                </div>
+                            </div>
+
+                            <div class="chart-section">
+                                <div class="chart-title">Strategic Impact Distribution</div>
+                                <div class="chart-wrapper">
+                                    <canvas id="monteCarloImpactDistribution"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="confidence-intervals">
+                        <h3>Confidence Intervals</h3>
+                        <table class="professional-table">
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Mean</th>
+                                    <th>Std Dev</th>
+                                    <th>90% CI</th>
+                                    <th>95% CI</th>
+                                    <th>99% CI</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                <tr>
+                                    <td>Total Cost</td>
+                                    <td>1783.66</td>
+                                    <td>534.85</td>
+                                    <td>1059.44 - 2750.44</td>
+                                    <td>963.17 - 3028.09</td>
+                                    <td>803.00 - 3658.71</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>Risk Score</td>
+                                    <td>0.71</td>
+                                    <td>0.11</td>
+                                    <td>0.44 - 0.80</td>
+                                    <td>0.42 - 0.82</td>
+                                    <td>0.40 - 0.84</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>Strategic Impact</td>
+                                    <td>4.33</td>
+                                    <td>0.05</td>
+                                    <td>4.27 - 4.42</td>
+                                    <td>4.26 - 4.44</td>
+                                    <td>4.25 - 4.47</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="simulation-insights">
+                        <h3>Key Simulation Insights</h3>
+                        <div class="key-findings">
+                            <ul>
+                                <li><strong>Cost Uncertainty:</strong> 1783.7 billion USD with ±534.9 billion standard deviation</li>
+                                <li><strong>Risk Assessment:</strong> 0.71 average risk score with 0.80 95th percentile</li>
+                                <li><strong>Strategic Impact:</strong> 4.33 average impact score with 4.27 5th percentile</li>
+                                <li><strong>Simulation Reliability:</strong> 10000 iterations provide statistical significance for decision-making</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+
+            <div class="section">
+                <h2>📊 Sentiment Analysis</h2>
+                <p>Comprehensive sentiment analysis of strategic content and implications:</p>
+                
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-value">0.333</div>
+                        <div class="metric-label">Average Sentiment</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">1</div>
+                        <div class="metric-label">Positive Texts</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">0</div>
+                        <div class="metric-label">Negative Texts</div>
+                    </div>
+                </div>
+                
+                <h3>Sentiment Distribution</h3>
+                <div class="chart-section">
+                    <div class="chart-wrapper">
+                        <canvas id="sentimentDistributionChart"></canvas>
+                    </div>
+                </div>
+                
+                <h3>Key Sentiment Insights</h3>
+                <ul>
+                    <li><strong>Overall Tone:</strong> Positive sentiment across strategic assessments</li>
+                    <li><strong>Sentiment Range:</strong> 0.000 to 1.000</li>
+                    <li><strong>Analysis Coverage:</strong> 3 strategic text samples analyzed</li>
+                </ul>
+                
+                <p><strong>📄 Full Sentiment Report:</strong> <a href="Results/sentiment_analysis_report_20250822_021250.html" target="_blank">View Comprehensive Analysis</a></p>
+            </div>
+            
+            <script>
+                // Sentiment Distribution Chart
+                const sentimentCtx = document.getElementById('sentimentDistributionChart').getContext('2d');
+                new Chart(sentimentCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Positive', 'Negative', 'Neutral'],
+                        datasets: [{
+                            data: [
+                                1,
+                                0,
+                                2
+                            ],
+                            backgroundColor: ['#28a745', '#dc3545', '#6c757d'],
+                            borderWidth: 3,
+                            borderColor: '#fff'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Strategic Content Sentiment Distribution'
+                            },
+                            legend: { position: 'bottom' }
+                        }
+                    }
+                });
+            </script>
+            
+
+            <div class="section">
+                <h2>📈 Forecasting Analysis</h2>
+                <p>Time series forecasting and trend prediction for strategic indicators:</p>
+                
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-value">30</div>
+                        <div class="metric-label">Forecast Periods</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">increasing</div>
+                        <div class="metric-label">Trend Direction</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">0.048</div>
+                        <div class="metric-label">Trend Strength</div>
+                    </div>
+                </div>
+                
+                <h3>Forecast Comparison</h3>
+                <div class="chart-section">
+                    <div class="chart-wrapper">
+                        <canvas id="forecastComparisonChart"></canvas>
+                    </div>
+                </div>
+                
+                <h3>Model Performance</h3>
+                <table class="professional-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Mean Forecast</th>
+                            <th>Standard Deviation</th>
+                            <th>Trend</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Moving Average</td>
+                            <td>4.80</td>
+                            <td>0.00</td>
+                            <td>Stable</td>
+                        </tr>
+                        <tr>
+                            <td>Linear Trend</td>
+                            <td>5.66</td>
+                            <td>0.42</td>
+                            <td>increasing</td>
+                        </tr>
+                        <tr>
+                            <td>Exponential Smoothing</td>
+                            <td>6.41</td>
+                            <td>0.00</td>
+                            <td>Adaptive</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <p><strong>📄 Full Forecast Report:</strong> <a href="Results/forecast_report_20250822_021250.html" target="_blank">View Comprehensive Analysis</a></p>
+            </div>
+            
+            <script>
+                // Forecast Comparison Chart
+                const forecastCtx = document.getElementById('forecastComparisonChart').getContext('2d');
+                new Chart(forecastCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['2020-01-01', '2020-01-02', '2020-01-03', '2020-01-04', '2020-01-05', '2020-01-06', '2020-01-07', '2020-01-08', '2020-01-09', '2020-01-10', '2020-01-11', '2020-01-12', '2020-01-13', '2020-01-14', '2020-01-15', '2020-01-16', '2020-01-17', '2020-01-18', '2020-01-19', '2020-01-20', '2020-01-21', '2020-01-22', '2020-01-23', '2020-01-24', '2020-01-25', '2020-01-26', '2020-01-27', '2020-01-28', '2020-01-29', '2020-01-30', '2020-01-31', '2020-02-01', '2020-02-02', '2020-02-03', '2020-02-04', '2020-02-05', '2020-02-06', '2020-02-07', '2020-02-08', '2020-02-09', '2020-02-10', '2020-02-11', '2020-02-12', '2020-02-13', '2020-02-14', '2020-02-15', '2020-02-16', '2020-02-17', '2020-02-18', '2020-02-19', '2020-02-20', '2020-02-21', '2020-02-22', '2020-02-23', '2020-02-24', '2020-02-25', '2020-02-26', '2020-02-27', '2020-02-28', '2020-02-29', '2020-03-01', '2020-03-02', '2020-03-03', '2020-03-04', '2020-03-05', '2020-03-06', '2020-03-07', '2020-03-08', '2020-03-09', '2020-03-10', '2020-03-11', '2020-03-12', '2020-03-13', '2020-03-14', '2020-03-15', '2020-03-16', '2020-03-17', '2020-03-18', '2020-03-19', '2020-03-20', '2020-03-21', '2020-03-22', '2020-03-23', '2020-03-24', '2020-03-25', '2020-03-26', '2020-03-27', '2020-03-28', '2020-03-29', '2020-03-30', '2020-03-31', '2020-04-01', '2020-04-02', '2020-04-03', '2020-04-04', '2020-04-05', '2020-04-06', '2020-04-07', '2020-04-08', '2020-04-09', '2020-04-10', '2020-04-11', '2020-04-12', '2020-04-13', '2020-04-14', '2020-04-15', '2020-04-16', '2020-04-17', '2020-04-18', '2020-04-19', '2020-04-20', '2020-04-21', '2020-04-22', '2020-04-23', '2020-04-24', '2020-04-25', '2020-04-26', '2020-04-27', '2020-04-28', '2020-04-29', '2020-04-30', '2020-05-01', '2020-05-02', '2020-05-03', '2020-05-04', '2020-05-05', '2020-05-06', '2020-05-07', '2020-05-08', '2020-05-09'],
+                        datasets: [
+                            {
+                                label: 'Original Data',
+                                data: [0.13238352795835412, 1.7397847881518957, 2.008998285390482, 1.167019706512009, -0.5464911444431184, -1.7818171567222476, -1.3179200800011026, 0.3773253426668511, 1.9541967596571663, 2.434613726562641, 1.2243003837047504, -0.1731001052369213, -1.3094728836926572, -0.9065363684695303, 0.7315763939551183, 2.4448903246702987, 2.5505759690185497, 1.5744705750016559, 0.15117838715810727, -0.9408679842881438, -0.5746743422480893, 1.017988019071238, 2.493427356443357, 3.052688693508537, 1.9740758142353256, 0.5118271522611685, -0.4379829991187735, -0.16932266145489916, 1.3135095775690662, 2.9143869919165706, 3.5694818989439283, 2.663031588434269, 0.7033055719890864, -0.324436200952851, 0.4685757977622717, 1.602577990185559, 3.2979259681875046, 3.789998613709063, 2.7664637127145286, 1.1726384306394586, 0.0923190492559389, 0.6603300803673223, 2.0453617139092146, 3.8639997580170657, 4.378038010407533, 2.9219277383130606, 1.5148773119461647, 0.48408584038284264, 0.8120223533632034, 2.4674017321152206, 3.969280251937084, 4.560201344056259, 3.466749801718837, 1.8105888666753749, 0.7853319125033071, 1.3168645878690137, 2.8318366973687836, 4.468706323060776, 4.974643763392527, 4.048659178619966, 2.2182939914562922, 1.0623318638422818, 1.7021876655215438, 3.2984976801531793, 4.825481200789128, 5.116811126144805, 4.185194078568034, 2.6690800226159004, 1.560691960733849, 2.085095224249799, 3.5929655956709605, 4.848225528745775, 5.743919193621667, 4.710705580519969, 2.686549831686489, 1.7199543583642543, 2.3251352506468046, 3.8886013396571997, 5.378689846175695, 5.927365869878494, 5.002276592380601, 3.226412402180807, 2.1184673145499526, 2.3782636265718824, 4.250197021377296, 5.913856246552355, 6.217168433691947, 5.168527493778463, 3.3335287833229756, 2.5211546371101115, 3.0852400897253034, 4.5384706916614315, 6.2018788224609676, 6.61572016858854, 5.605360541488347, 4.0377711133084535, 2.936882392217066, 3.0922303083107963, 4.926860906632831, 6.40631129971153],
+                                borderColor: '#1e3c72',
+                                backgroundColor: 'rgba(30, 60, 114, 0.1)',
+                                fill: false
+                            },
+                            {
+                                label: 'Moving Average Forecast',
+                                data: [null, ...[np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937), np.float64(4.803019532893937)]],
+                                borderColor: '#28a745',
+                                backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                                fill: false,
+                                borderDash: [5, 5]
+                            },
+                            {
+                                label: 'Linear Trend Forecast',
+                                data: [null, ...[4.962512011193734, 5.010895184122067, 5.0592783570504, 5.107661529978732, 5.156044702907065, 5.204427875835397, 5.252811048763729, 5.301194221692063, 5.349577394620395, 5.397960567548727, 5.446343740477061, 5.494726913405393, 5.5431100863337255, 5.591493259262058, 5.63987643219039, 5.6882596051187235, 5.736642778047056, 5.785025950975388, 5.833409123903722, 5.881792296832054, 5.930175469760386, 5.978558642688719, 6.026941815617051, 6.075324988545384, 6.123708161473717, 6.172091334402049, 6.220474507330382, 6.268857680258715, 6.317240853187047, 6.36562402611538]],
+                                borderColor: '#dc3545',
+                                backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                                fill: false,
+                                borderDash: [10, 5]
+                            },
+                            {
+                                label: 'Exponential Smoothing',
+                                data: [null, ...[np.float64(6.40631129971153), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529), np.float64(6.406311299711529)]],
+                                borderColor: '#ffc107',
+                                backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                                fill: false,
+                                borderDash: [2, 2]
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Strategic Indicators Forecast'
+                            }
+                        },
+                        scales: {
+                            x: {
+                                title: { display: true, text: 'Date' }
+                            },
+                            y: {
+                                title: { display: true, text: 'Value' }
+                            }
+                        }
+                    }
+                });
+            </script>
+            
+
+            <div class="section">
+                <h2>🤖 Predictive Analytics</h2>
+                <p>Machine learning based predictions and modeling for strategic analysis:</p>
+                
+                <div class="metrics">
+                    <div class="metric">
+                        <div class="metric-value">500</div>
+                        <div class="metric-label">Data Samples</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">5</div>
+                        <div class="metric-label">Features</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">Linear Regression</div>
+                        <div class="metric-label">Best Model</div>
+                    </div>
+                </div>
+                
+                <h3>Regression Model Performance</h3>
+                <table class="professional-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>R² Score</th>
+                            <th>RMSE</th>
+                            <th>MAE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+            <tr>
+                <td>Linear Regression</td>
+                <td>0.4326</td>
+                <td>0.4775</td>
+                <td>0.3779</td>
+            </tr>
+            
+            <tr>
+                <td>Ridge Regression</td>
+                <td>0.4323</td>
+                <td>0.4776</td>
+                <td>0.3780</td>
+            </tr>
+            
+            <tr>
+                <td>Lasso Regression</td>
+                <td>0.3215</td>
+                <td>0.5221</td>
+                <td>0.4158</td>
+            </tr>
+            
+            <tr>
+                <td>Random Forest</td>
+                <td>0.3632</td>
+                <td>0.5058</td>
+                <td>0.3882</td>
+            </tr>
+            
+                    </tbody>
+                </table>
+                
+                <h3>Classification Model Performance</h3>
+                <table class="professional-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Accuracy</th>
+                            <th>Precision</th>
+                            <th>Recall</th>
+                            <th>F1 Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+            <tr>
+                <td>Logistic Regression</td>
+                <td>0.6400</td>
+                <td>0.6417</td>
+                <td>0.6400</td>
+                <td>0.6406</td>
+            </tr>
+            
+            <tr>
+                <td>Random Forest</td>
+                <td>0.6200</td>
+                <td>0.6238</td>
+                <td>0.6200</td>
+                <td>0.6209</td>
+            </tr>
+            
+            <tr>
+                <td>SVM</td>
+                <td>0.6500</td>
+                <td>0.6508</td>
+                <td>0.6500</td>
+                <td>0.6503</td>
+            </tr>
+            
+                    </tbody>
+                </table>
+                
+                <h3>Feature Importance (Best Model)</h3>
+                <div class="chart-section">
+                    <div class="chart-wrapper">
+                        <canvas id="featureImportanceChart"></canvas>
+                    </div>
+                </div>
+                
+                <p><strong>📄 Full Predictive Analytics Report:</strong> <a href="Results/predictive_analytics_report_20250822_021251.html" target="_blank">View Comprehensive Analysis</a></p>
+            </div>
+            
+            <script>
+                // Feature Importance Chart
+                const featureCtx = document.getElementById('featureImportanceChart').getContext('2d');
+                const featureData = {'labels': ['feature_1', 'feature_2', 'feature_3', 'feature_5', 'feature_4'], 'values': [np.float64(0.3132793763229061), np.float64(0.20951115835806694), np.float64(0.11447442388246581), np.float64(0.025475904540553207), np.float64(0.018325795369352527)]};
+                new Chart(featureCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: featureData.labels,
+                        datasets: [{
+                            label: 'Feature Importance',
+                            data: featureData.values,
+                            backgroundColor: '#1e3c72',
+                            borderColor: '#2a5298',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Feature Importance Analysis'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Importance Score' }
+                            }
+                        }
+                    }
+                });
+            </script>
+            
+
+        <div class="section">
+            <h2>⚠️ Risk Assessment Matrix</h2>
+            
+            <table class="professional-table">
+                <thead>
+                    <tr>
+                        <th>Risk Category</th><th>Probability</th><th>Impact</th><th>Overall Risk</th><th>Mitigation Strategy</th><th>Timeline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <td>Economic Sustainability</td><td>90%</td><td>HIGH</td><td>CRITICAL</td><td>Phased implementation</td><td>Immediate</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Regional Arms Race</td><td>95%</td><td>HIGH</td><td>CRITICAL</td><td>Transparency measures</td><td>Short-term</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Operational Complexity</td><td>80%</td><td>MEDIUM</td><td>HIGH</td><td>International partnerships</td><td>Medium-term</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Technology Dependence</td><td>85%</td><td>MEDIUM</td><td>HIGH</td><td>Diversified suppliers</td><td>Long-term</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Personnel Shortages</td><td>75%</td><td>HIGH</td><td>HIGH</td><td>Enhanced training programs</td><td>Medium-term</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+
+            <div class="risk-assessment">
+                <div class="risk-title">⚠️ Critical Risk Factors</div>
+                
+                <div class="risk-item">
+                    <strong>Economic Sustainability (90% probability):</strong> $25-42 billion investment exceeds Pakistan's sustainable defense budget capacity
+                </div>
+                
+                <div class="risk-item">
+                    <strong>Regional Arms Race (95% probability):</strong> High likelihood of triggering massive Indian counter-response and regional proliferation
+                </div>
+                
+                <div class="risk-item">
+                    <strong>Operational Complexity (80% probability):</strong> Significant challenges in personnel training, infrastructure development, and technology integration
+                </div>
+                
+                <div class="risk-item">
+                    <strong>Technology Dependence (85% probability):</strong> Heavy reliance on foreign suppliers, particularly China, creating strategic vulnerabilities
+                </div>
+                
+            </div>
+        </div>
+        
+
+        <div class="section">
+            <h2>🎯 Strategic Recommendations</h2>
+            
+            
+            <div class="recommendations">
+                <h3>For Pakistan</h3>
+                <ol>
+                    <li><strong>Phased Implementation:</strong> Consider 10-15 submarines over 15 years</li><li><strong>Infrastructure Priority:</strong> Develop supporting infrastructure first</li><li><strong>International Partnerships:</strong> Seek technology transfer and training</li><li><strong>Economic Planning:</strong> Ensure sustainable funding mechanisms</li><li><strong>Doctrine Development:</strong> Create comprehensive maritime strategy</li>
+                </ol>
+            </div>
+            
+            <div class="recommendations">
+                <h3>For Regional Stability</h3>
+                <ol>
+                    <li><strong>Transparency Measures:</strong> Confidence-building with India</li><li><strong>Communication Channels:</strong> Establish naval hotlines</li><li><strong>Arms Control:</strong> Consider regional submarine limitations</li><li><strong>Crisis Management:</strong> Develop escalation prevention mechanisms</li>
+                </ol>
+            </div>
+            
+            <div class="recommendations">
+                <h3>For International Community</h3>
+                <ol>
+                    <li><strong>Monitoring:</strong> Enhanced surveillance of naval developments</li><li><strong>Diplomatic Engagement:</strong> Encourage transparency and dialogue</li><li><strong>Technology Controls:</strong> Monitor sensitive technology transfers</li><li><strong>Conflict Prevention:</strong> Support regional stability initiatives</li>
+                </ol>
+            </div>
+            
+        </div>
+        
+
+                <div class="section">
+                    <h2>🎯 Conclusion</h2>
+                    
+                    <div class="conclusion">
+                        <p>Pakistan's proposed 50-submarine acquisition represents a strategic gamble with profound implications for regional security. While it would dramatically enhance Pakistan's naval capabilities and conventional deterrence, the economic, operational, and strategic risks are substantial.</p>
+                        
+                        <h3>Key Strategic Insights</h3>
+                        <ol>
+                            <li><strong>Deterrence Enhancement:</strong> Would provide credible conventional deterrent</li><li><strong>Economic Reality:</strong> Likely beyond Pakistan's sustainable capacity</li><li><strong>Regional Escalation:</strong> High probability of triggering arms race</li><li><strong>Operational Challenges:</strong> Significant technical and personnel requirements</li><li><strong>Strategic Uncertainty:</strong> Creates new dynamics in regional security</li>
+                        </ol>
+                        
+                        <h3>Final Recommendation</h3>
+                        <p>A more realistic phased approach focusing on quality over quantity would likely achieve better strategic outcomes while maintaining credibility and avoiding regional instability. The focus should be on developing a smaller but more capable force that can be sustained economically and operationally over the long term.</p>
+                        
+                        <div style="text-align: center; margin-top: 20px; padding: 15px; background: #1e3c72; color: white; border-radius: 8px;">
+                            <strong>Strategic Assessment: HIGH IMPACT, MEDIUM FEASIBILITY, HIGH RISK</strong>
+                        </div>
+                    </div>
+                </div>
+                
+        </div>
+    </div>
+
+    <script>
+        
+            // Fleet Comparison Chart
+            const fleetCtx = document.getElementById('fleetComparison').getContext('2d');
+            new Chart(fleetCtx, {
+                type: 'bar',
+                data: {
+                    labels: ["Pakistan Current", "Pakistan Proposed", "India", "China", "US", "Russia"],
+                    datasets: [{
+                        label: 'Submarines',
+                        data: [5, 55, 16, 66, 68, 60],
+                        backgroundColor: [
+                            '#dc3545', '#dc3545', '#ffc107', '#28a745', '#007bff', '#6f42c1'
+                        ],
+                        borderColor: '#1e3c72',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Number of Submarines' }
+                        }
+                    }
+                }
+            });
+            
+            // Cost Breakdown Chart
+            const costCtx = document.getElementById('costBreakdown').getContext('2d');
+            new Chart(costCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ["Submarine Acquisition", "Infrastructure", "Training & Personnel", "Weapons Systems", "Annual Maintenance"],
+                    datasets: [{
+                        data: [25, 8, 5, 4, 3],
+                        backgroundColor: [
+                            '#1e3c72', '#2a5298', '#3a6bb8', '#4a85d8', '#5a9ff8'
+                        ],
+                        borderWidth: 3,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+            
+            // Strategic Impact Radar Chart
+            const strategicCtx = document.getElementById('strategicImpact').getContext('2d');
+            new Chart(strategicCtx, {
+                type: 'radar',
+                data: {
+                    labels: ["Conventional Deterrence", "Economic Feasibility", "Operational Viability", "Regional Stability", "Technology Transfer", "Personnel Development"],
+                    datasets: [{
+                        label: 'Assessment Score',
+                        data: [85, 25, 60, 30, 70, 55],
+                        backgroundColor: 'rgba(30, 60, 114, 0.2)',
+                        borderColor: '#1e3c72',
+                        borderWidth: 3,
+                        pointBackgroundColor: '#1e3c72',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#1e3c72'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { stepSize: 20 }
+                        }
+                    }
+                }
+            });
+            
+        
+        // Knowledge Graph
+        
+        // Knowledge Graph
+        const container = document.getElementById('knowledgeGraph');
+        const data = {"nodes": [{"id": "Pakistan Submarine Acquisition", "label": "Pakistan Submarine Acquisition", "size": 20, "color": "#1e3c72", "font": {"size": 16.0}}, {"id": "Conventional Deterrence", "label": "Conventional Deterrence", "size": 15, "color": "#2a5298", "font": {"size": 12.0}}, {"id": "Naval Modernization", "label": "Naval Modernization", "size": 15, "color": "#2a5298", "font": {"size": 12.0}}, {"id": "Regional Security", "label": "Regional Security", "size": 15, "color": "#2a5298", "font": {"size": 12.0}}, {"id": "Economic Feasibility", "label": "Economic Feasibility", "size": 15, "color": "#2a5298", "font": {"size": 12.0}}, {"id": "Strategic Balance", "label": "Strategic Balance", "size": 15, "color": "#2a5298", "font": {"size": 12.0}}, {"id": "Economic Sustainability", "label": "Economic Sustainability", "size": 12, "color": "#dc3545", "font": {"size": 9.600000000000001}}, {"id": "Regional Arms Race", "label": "Regional Arms Race", "size": 12, "color": "#dc3545", "font": {"size": 9.600000000000001}}, {"id": "Operational Complexity", "label": "Operational Complexity", "size": 12, "color": "#dc3545", "font": {"size": 9.600000000000001}}, {"id": "Technology Dependence", "label": "Technology Dependence", "size": 12, "color": "#dc3545", "font": {"size": 9.600000000000001}}, {"id": "Personnel Shortages", "label": "Personnel Shortages", "size": 12, "color": "#dc3545", "font": {"size": 9.600000000000001}}, {"id": "recommendations_by_category", "label": "recommendations_by_category", "size": 10, "color": "#28a745", "font": {"size": 8.0}}], "edges": [{"from": "Pakistan Submarine Acquisition", "to": "Conventional Deterrence", "arrows": "to", "color": "#1e3c72", "width": 2}, {"from": "Pakistan Submarine Acquisition", "to": "Naval Modernization", "arrows": "to", "color": "#1e3c72", "width": 2}, {"from": "Pakistan Submarine Acquisition", "to": "Regional Security", "arrows": "to", "color": "#1e3c72", "width": 2}, {"from": "Pakistan Submarine Acquisition", "to": "Economic Feasibility", "arrows": "to", "color": "#1e3c72", "width": 2}, {"from": "Pakistan Submarine Acquisition", "to": "Strategic Balance", "arrows": "to", "color": "#1e3c72", "width": 2}, {"from": "Pakistan Submarine Acquisition", "to": "Economic Sustainability", "arrows": "to", "color": "#1e3c72", "width": 2}, {"from": "Pakistan Submarine Acquisition", "to": "Regional Arms Race", "arrows": "to", "color": "#1e3c72", "width": 2}, {"from": "Pakistan Submarine Acquisition", "to": "Operational Complexity", "arrows": "to", "color": "#1e3c72", "width": 2}, {"from": "Pakistan Submarine Acquisition", "to": "Technology Dependence", "arrows": "to", "color": "#1e3c72", "width": 2}, {"from": "Pakistan Submarine Acquisition", "to": "Personnel Shortages", "arrows": "to", "color": "#1e3c72", "width": 2}, {"from": "Pakistan Submarine Acquisition", "to": "recommendations_by_category", "arrows": "to", "color": "#1e3c72", "width": 2}]};
+        
+        const options = {
+            nodes: {
+                shape: 'dot',
+                font: {
+                    size: 14,
+                    face: 'Segoe UI'
+                },
+                borderWidth: 2,
+                shadow: true
+            },
+            edges: {
+                width: 2,
+                shadow: true,
+                smooth: {
+                    type: 'continuous'
+                }
+            },
+            physics: {
+                stabilization: false,
+                barnesHut: {
+                    gravitationalConstant: -80000,
+                    springConstant: 0.001,
+                    springLength: 200
+                }
+            },
+            interaction: {
+                navigationButtons: true,
+                keyboard: true,
+                hover: true
+            }
+        };
+        
+        const network = new vis.Network(container, data, options);
+        
+        
+        // Monte Carlo Simulation Charts
+        
+                    // Monte Carlo Cost Distribution Chart
+                    const costDistCtx = document.getElementById('monteCarloCostDistribution').getContext('2d');
+                    new Chart(costDistCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: ["$0-500B", "$500-1000B", "$1000-1500B", "$1500-2000B", "$2000-2500B", "$2500-3000B", "$3000-3500B", "$3500-4000B"],
+                            datasets: [{
+                                label: 'Simulation Results',
+                                data: [0, 337, 2962, 3710, 2026, 700, 186, 56],
+                                backgroundColor: [
+                                    '#28a745', '#20c997', '#17a2b8', '#ffc107', '#fd7e14', '#dc3545'
+                                ],
+                                borderColor: '#1e3c72',
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { 
+                                title: { 
+                                    display: true, 
+                                    text: 'Monte Carlo Cost Distribution (10,000 iterations)',
+                                    font: { size: 16 }
+                                },
+                                legend: { display: false }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: { display: true, text: 'Number of Simulations' }
+                                }
+                            }
+                        }
+                    });
+                    
+                    // Monte Carlo Risk Distribution Chart
+                    const riskDistCtx = document.getElementById('monteCarloRiskDistribution').getContext('2d');
+                    new Chart(riskDistCtx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ["Low (0-0.2)", "Medium (0.2-0.4)", "High (0.4-0.6)", "Very High (0.6-0.8)", "Critical (0.8-1.0)"],
+                            datasets: [{
+                                data: [0, 28, 1484, 7852, 636],
+                                backgroundColor: [
+                                    '#28a745', '#ffc107', '#fd7e14', '#dc3545', '#6f42c1'
+                                ],
+                                borderWidth: 3,
+                                borderColor: '#fff'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { 
+                                title: { 
+                                    display: true, 
+                                    text: 'Monte Carlo Risk Assessment Distribution',
+                                    font: { size: 16 }
+                                },
+                                legend: { position: 'bottom' }
+                            }
+                        }
+                    });
+                    
+                    // Monte Carlo Strategic Impact Distribution Chart
+                    const impactDistCtx = document.getElementById('monteCarloImpactDistribution').getContext('2d');
+                    new Chart(impactDistCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: ["Low (0-2)", "Medium (2-4)", "High (4-6)", "Very High (6-8)", "Exceptional (8-10)"],
+                            datasets: [{
+                                label: 'Simulation Results',
+                                data: [0, 0, 10000, 0, 0],
+                                backgroundColor: [
+                                    '#dc3545', '#fd7e14', '#ffc107', '#20c997', '#28a745'
+                                ],
+                                borderColor: '#1e3c72',
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { 
+                                title: { 
+                                    display: true, 
+                                    text: 'Monte Carlo Strategic Impact Distribution',
+                                    font: { size: 16 }
+                                },
+                                legend: { display: false }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: { display: true, text: 'Number of Simulations' }
+                                }
+                            }
+                        }
+                    });
+                    
+    </script>
+</body>
+</html>

@@ -1268,47 +1268,70 @@ class UnifiedMCPServer:
                 return {"success": False, "error": str(e)}
 
         # Reporting & Export Tools (4)
-        @self.mcp.tool(description="Comprehensive report generation")
+        @self.mcp.tool(description="Comprehensive report generation with intelligent category detection and advanced tooltips")
         async def generate_report(
             content: str,
             report_type: str = "comprehensive",
             language: str = "en",
-            options: Dict[str, Any] = None
+            options: Dict[str, Any] = None,
+            topic: str = "",
+            use_case: str = "",
+            query: str = "",
+            output_format: str = "html",
+            include_tooltips: bool = True,
+            include_visualizations: bool = True,
+            output_path: Optional[str] = None
         ) -> Dict[str, Any]:
-            """Generate comprehensive reports with automatic saving."""
+            """Generate comprehensive reports with intelligent category detection and advanced tooltips."""
             try:
-                # Generate filename based on content and type
-                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                filename = f"{report_type}_Report_{timestamp}.md"
+                # Import the comprehensive enhanced report generator
+                from src.core.reporting.comprehensive_enhanced_report_generator import comprehensive_enhanced_report_generator
                 
-                # Save report using report manager
-                save_result = report_manager.save_report(
+                # Set default output path to Results directory
+                if output_path is None:
+                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                    filename = f"comprehensive_enhanced_report_{timestamp}.{output_format}"
+                    output_path = str(Path("Results") / filename)
+                
+                # Generate comprehensive enhanced report
+                result = await comprehensive_enhanced_report_generator.generate_comprehensive_enhanced_report(
                     content=content,
-                    filename=filename,
-                    report_type=report_type,
-                    metadata={
-                        "language": language,
-                        "options": options or {},
-                        "generated_by": "mcp_server"
-                    }
+                    title=f"Comprehensive {report_type.title()} Report",
+                    subtitle="Enhanced Analysis with Interactive Visualizations and Advanced Tooltips",
+                    topic=topic,
+                    use_case=use_case,
+                    query=query,
+                    output_format=output_format,
+                    include_tooltips=include_tooltips,
+                    include_visualizations=include_visualizations,
+                    output_path=output_path
                 )
                 
-                if save_result["success"]:
+                if result["success"]:
                     return {
                         "success": True,
                         "result": {
-                            "report": "generated_report",
+                            "report": "comprehensive_enhanced_report",
                             "type": report_type,
-                            "saved_to": save_result["report_info"]["relative_path"],
-                            "filename": save_result["report_info"]["filename"]
+                            "format": output_format,
+                            "saved_to": result["report_path"],
+                            "categories_detected": result["categories_detected"],
+                            "categories_used": result["categories_used"],
+                            "tooltips_created": result["tooltips_created"],
+                            "metadata": result["metadata"]
                         },
-                        "report_info": save_result["report_info"]
+                        "report_info": {
+                            "path": result["report_path"],
+                            "format": output_format,
+                            "categories": result["categories_used"],
+                            "tooltips": result["tooltips_created"]
+                        }
                     }
                 else:
-                    return {"success": False, "error": save_result["error"]}
+                    return {"success": False, "error": result.get("error", "Unknown error")}
                     
             except Exception as e:
-                logger.error(f"Error generating report: {e}")
+                logger.error(f"Error generating comprehensive enhanced report: {e}")
                 return {"success": False, "error": str(e)}
 
         @self.mcp.tool(description="Generate enhanced report with source tracking")
