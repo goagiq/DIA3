@@ -1555,7 +1555,8 @@ Notes:
         """
         
         try:
-            response = await self.strands_agent.run(prompt)
+            # Use invoke_async instead of run for the real Strands Agent
+            response = await self.strands_agent.invoke_async(prompt)
             # Handle both string and object responses
             if hasattr(response, 'content'):
                 content = response.content

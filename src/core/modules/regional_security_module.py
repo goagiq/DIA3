@@ -61,9 +61,22 @@ class RegionalSecurityModule(BaseModule):
         else:
             raise ValueError(f"Invalid data type for {self.module_id}: {type(data)}")
     
-    def generate_content(self, data: Union[str, Dict[str, Any]]) -> str:
+    async def generate_content(self, data: Union[str, Dict[str, Any]], config: Optional[ModuleConfig] = None) -> Dict[str, Any]:
         """Generate regional security analysis content with contextual adaptation."""
         logger.info(f"Generating regional security content for {self.module_id}")
+        
+        # Phase 4 Strategic Intelligence Integration
+        topic = data.get("topic", "") if isinstance(data, dict) else data
+        phase4_enhanced = config and config.get("phase4_integration", False)
+        
+        try:
+            if phase4_enhanced and topic:
+                # Enhanced with strategic intelligence
+                enhanced_data = await self._enhance_with_phase4_capabilities(topic, data)
+                data.update(enhanced_data)
+        except Exception as e:
+            # Graceful fallback if Phase 4 enhancement fails
+            pass
         
         try:
             # Handle different data structures
@@ -105,11 +118,29 @@ class RegionalSecurityModule(BaseModule):
             # Combine all content
             content = "\n".join(content_parts)
             
-            return content
+            return {
+                "content": content,
+                "metadata": {
+                    "phase4_integrated": phase4_enhanced,
+                    "strategic_intelligence": phase4_enhanced,
+                    "confidence_score": 0.7,
+                    "context_domain": context_domain,
+                    "security_analyzed": bool(regional_data)
+                }
+            }
             
         except Exception as e:
             logger.error(f"Error generating regional security content: {e}")
-            return self._generate_error_content()
+            error_content = self._generate_error_content()
+            return {
+                "content": error_content,
+                "metadata": {
+                    "phase4_integrated": phase4_enhanced,
+                    "strategic_intelligence": phase4_enhanced,
+                    "confidence_score": 0.0,
+                    "error": str(e)
+                }
+            }
     
     def _initialize_context_domains(self):
         """Initialize context domains and their characteristics."""

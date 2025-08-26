@@ -9,7 +9,7 @@ from loguru import logger
 
 # Import comprehensive enhanced report generator
 try:
-    from src.core.comprehensive_enhanced_report_generator import comprehensive_enhanced_report_generator
+    from src.core.reporting.comprehensive_enhanced_report_generator import comprehensive_enhanced_report_generator
     COMPREHENSIVE_REPORT_AVAILABLE = True
     logger.info("✅ Comprehensive enhanced report generator available")
 except ImportError as e:

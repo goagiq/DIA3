@@ -136,15 +136,7 @@ class ModularReportModulesConfig:
                 custom_styles={"background": "#fff3cd", "border": "2px solid #ffc107"}
             ),
             
-            # 7. Interactive Visualizations Module
-            "interactive_visualizations": ModuleAdaptiveConfig(
-                context_domains=[ContextDomain.GENERAL],
-                data_structures=[DataStructureType.DICT, DataStructureType.MIXED],
-                confidence_threshold=0.7,
-                interactive_features=True,
-                charts_enabled=True,
-                custom_styles={"background": "#e2e3e5", "border": "2px solid #6c757d"}
-            ),
+
             
             # 8. Strategic Analysis Module
             "strategic_analysis": ModuleAdaptiveConfig(
@@ -315,7 +307,6 @@ class ModularReportModulesConfig:
             "trade_impact": ContextDomain.ECONOMIC,
             "balance_of_power": ContextDomain.GEOPOLITICAL,
             "risk_assessment": ContextDomain.GENERAL,
-            "interactive_visualizations": ContextDomain.GENERAL,
             "strategic_analysis": ContextDomain.GENERAL,
             "enhanced_data_analysis": ContextDomain.TECHNOLOGY,
             "regional_sentiment": ContextDomain.GEOPOLITICAL,

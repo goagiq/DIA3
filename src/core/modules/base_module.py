@@ -49,8 +49,8 @@ class BaseModule(ABC):
         self.chart_data: Dict[str, Any] = {}
         
     @abstractmethod
-    def generate_content(self, data: Dict[str, Any]) -> str:
-        """Generate the HTML content for this module."""
+    async def generate_content(self, data: Dict[str, Any], config: Optional[ModuleConfig] = None) -> Dict[str, Any]:
+        """Generate the HTML content for this module with Phase 4 enhancements."""
         pass
     
     @abstractmethod

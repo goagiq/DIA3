@@ -36,6 +36,7 @@ from .modules.model_performance_module import ModelPerformanceModule
 from .modules.strategic_capability_module import StrategicCapabilityModule
 from .modules.predictive_analytics_module import PredictiveAnalyticsModule
 from .modules.scenario_analysis_module import ScenarioAnalysisModule
+from .modules.strategic_intelligence_module import StrategicIntelligenceModule
 
 # Import the new enhanced HTML report generator
 from .enhanced_html_report_generator import EnhancedHTMLReportGenerator
@@ -92,6 +93,9 @@ class ModularReportGenerator:
         self.register_module(StrategicCapabilityModule())
         self.register_module(PredictiveAnalyticsModule())
         self.register_module(ScenarioAnalysisModule())
+        
+        # Phase 4 Strategic Intelligence Module
+        self.register_module(StrategicIntelligenceModule())
     
     def register_module(self, module: BaseModule):
         """Register a module with the generator."""

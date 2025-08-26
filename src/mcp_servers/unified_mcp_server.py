@@ -1347,7 +1347,7 @@ class UnifiedMCPServer:
             """Generate enhanced reports with comprehensive source tracking."""
             try:
                 # Import comprehensive enhanced report generator
-                from src.core.comprehensive_enhanced_report_generator import comprehensive_enhanced_report_generator
+                from src.core.reporting.comprehensive_enhanced_report_generator import comprehensive_enhanced_report_generator
                 
                 # Generate comprehensive enhanced report with all missing components
                 result = await comprehensive_enhanced_report_generator.generate_comprehensive_enhanced_report(
@@ -1437,7 +1437,7 @@ class UnifiedMCPServer:
             """Generate comprehensive enhanced report with all missing components."""
             try:
                 # Import comprehensive enhanced report generator
-                from src.core.comprehensive_enhanced_report_generator import comprehensive_enhanced_report_generator
+                from src.core.reporting.comprehensive_enhanced_report_generator import comprehensive_enhanced_report_generator
                 
                 # Generate comprehensive enhanced report
                 result = await comprehensive_enhanced_report_generator.generate_comprehensive_enhanced_report(

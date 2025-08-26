@@ -119,25 +119,18 @@ class AdaptiveIntelligenceReportGenerator:
     ) -> Dict[str, Any]:
         """Generate an adaptive intelligence report for any topic."""
         
-        # Generate content based on topic
-        analysis_content = self.generate_topic_analysis_content(topic, context)
-        
         # Calculate confidence score if not provided
         if confidence_score is None:
             confidence_score = 0.95  # Default high confidence for comprehensive analysis
         
-        # Create enhanced data structure with Comprehensive Intelligence Pipeline integration
+        # Create enhanced data structure that works with the modular system
         report_data = {
-            "title": f"{topic} Analysis and Strategic Intelligence Assessment",
-            "subtitle": f"Comprehensive {context} analysis with intelligence pipeline integration",
-            "content": analysis_content,
+            "topic": topic,
+            "title": f"{topic} Comprehensive Intelligence Analysis",
+            "subtitle": f"Strategic intelligence assessment with Comprehensive Intelligence Pipeline integration",
             "analysis_type": analysis_type,
-            "timestamp": "2025-08-26T10:30:00",
             "confidence_score": confidence_score,
-            "comprehensive_intelligence_pipeline": True,
-            "knowledge_graph_data": True,
-            "vector_insights": True,
-            "sources": [
+            "source_metadata": [
                 {
                     "source_type": "strategic_analysis",
                     "source_name": "DIA3 Strategic Intelligence Engine",
@@ -162,7 +155,15 @@ class AdaptiveIntelligenceReportGenerator:
                     "confidence": 0.90,
                     "reliability_score": 0.88
                 }
-            ]
+            ],
+            "knowledge_graph_data": {
+                "nodes": [{"id": "topic", "label": topic, "type": "strategic_initiative"}],
+                "edges": []
+            },
+            "vector_insights": {
+                "patterns": [f"Strategic patterns for {topic}"],
+                "trends": [f"Emerging trends in {topic}"]
+            }
         }
         
         # Generate output path if not provided

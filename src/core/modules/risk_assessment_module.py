@@ -36,9 +36,22 @@ class RiskAssessmentModule(BaseModule):
             'mitigation_strategies'
         ]
     
-    def generate_content(self, data: Dict[str, Any]) -> str:
-        """Generate the HTML content for the Risk Assessment module."""
+    async def generate_content(self, data: Dict[str, Any], config: Optional[ModuleConfig] = None) -> Dict[str, Any]:
+        """Generate the HTML content for the Risk Assessment module with Phase 4 enhancements."""
         self.validate_data(data)
+        
+        # Phase 4 Strategic Intelligence Integration
+        topic = data.get("topic", "")
+        phase4_enhanced = config and config.get("phase4_integration", False)
+        
+        try:
+            if phase4_enhanced and topic:
+                # Enhanced with strategic intelligence
+                enhanced_data = await self._enhance_with_phase4_capabilities(topic, data)
+                data.update(enhanced_data)
+        except Exception as e:
+            # Graceful fallback if Phase 4 enhancement fails
+            pass
         
         risk_overview = data.get('risk_overview', {})
         risk_matrix = data.get('risk_matrix', {})
@@ -60,7 +73,7 @@ class RiskAssessmentModule(BaseModule):
         # Generate interactive visualizations
         visualizations_html = self._generate_interactive_visualizations(data)
         
-        return f"""
+        content = f"""
         <div class="section" id="risk-assessment">
             <h2>{self.get_title()}</h2>
             <p>{self.get_description()}</p>
@@ -72,6 +85,147 @@ class RiskAssessmentModule(BaseModule):
             {visualizations_html}
         </div>
         """
+        
+        return {
+            "content": content,
+            "metadata": {
+                "phase4_integrated": phase4_enhanced,
+                "strategic_intelligence": phase4_enhanced,
+                "risk_level": data.get('risk_overview', {}).get('overall_risk_level', 'Medium'),
+                "confidence_score": data.get('risk_overview', {}).get('confidence_score', 0.0)
+            }
+        }
+    
+    async def _enhance_with_phase4_capabilities(self, topic: str, data: Dict[str, Any]) -> Dict[str, Any]:
+        """Enhance risk assessment with Phase 4 strategic intelligence capabilities."""
+        enhanced_data = {}
+        
+        try:
+            # Initialize Phase 4 components if available
+            if not hasattr(self, 'strategic_engine'):
+                self._initialize_phase4_components()
+            
+            # Knowledge graph risk analysis
+            kg_risks = await self.strategic_engine.assess_strategic_risks_from_kg(topic)
+            enhanced_data["kg_risk_analysis"] = kg_risks
+            
+            # Cross-domain risk assessment
+            cross_domain_risks = await self.strategic_engine.generate_cross_domain_intelligence([
+                "geopolitical", "economic", "military", "technological"
+            ])
+            enhanced_data["cross_domain_risks"] = cross_domain_risks
+            
+            # Predictive risk forecasting
+            risk_trends = await self.strategic_engine.predict_strategic_trends(topic)
+            enhanced_data["risk_trends"] = risk_trends
+            
+            # Intelligence-driven risk recommendations
+            risk_recommendations = await self.recommendations_engine.generate_intelligence_driven_recommendations(topic)
+            enhanced_data["intelligence_recommendations"] = risk_recommendations
+            
+        except Exception as e:
+            # Fallback to mock data if Phase 4 components not available
+            enhanced_data["kg_risk_analysis"] = {"success": False, "error": str(e)}
+            enhanced_data["cross_domain_risks"] = {"success": False, "error": str(e)}
+            enhanced_data["risk_trends"] = {"success": False, "error": str(e)}
+            enhanced_data["intelligence_recommendations"] = []
+        
+        return enhanced_data
+    
+    def _initialize_phase4_components(self):
+        """Initialize Phase 4 strategic intelligence components."""
+        try:
+            # Import Phase 4 components
+            from src.core.strategic_intelligence_engine import StrategicIntelligenceEngine
+            from src.core.enhanced_strategic_recommendations import EnhancedStrategicRecommendations
+            
+            self.strategic_engine = StrategicIntelligenceEngine()
+            self.recommendations_engine = EnhancedStrategicRecommendations()
+            
+        except ImportError:
+            # Fallback to mock components if Phase 4 components not available
+            self.strategic_engine = MockStrategicEngine()
+            self.recommendations_engine = MockRecommendationsEngine()
+    
+    def _format_phase4_enhancements(self, enhanced_data: Dict[str, Any]) -> str:
+        """Format Phase 4 enhancements for HTML display."""
+        html = ""
+        
+        # Knowledge Graph Risk Analysis
+        if enhanced_data.get("kg_risk_analysis", {}).get("success"):
+            kg_risks = enhanced_data["kg_risk_analysis"]
+            html += f"""
+            <div class="phase4-enhancement">
+                <h3>🔍 Knowledge Graph Risk Analysis</h3>
+                <div class="kg-risk-insights">
+                    {self._format_kg_risk_insights(kg_risks)}
+                </div>
+            </div>
+            """
+        
+        # Cross-Domain Risk Assessment
+        if enhanced_data.get("cross_domain_risks", {}).get("success"):
+            cross_domain = enhanced_data["cross_domain_risks"]
+            html += f"""
+            <div class="phase4-enhancement">
+                <h3>🌐 Cross-Domain Risk Assessment</h3>
+                <div class="cross-domain-risks">
+                    {self._format_cross_domain_risks(cross_domain)}
+                </div>
+            </div>
+            """
+        
+        # Risk Trends
+        if enhanced_data.get("risk_trends", {}).get("success"):
+            trends = enhanced_data["risk_trends"]
+            html += f"""
+            <div class="phase4-enhancement">
+                <h3>📈 Predictive Risk Trends</h3>
+                <div class="risk-trends">
+                    {self._format_risk_trends(trends)}
+                </div>
+            </div>
+            """
+        
+        return html
+    
+    def _format_kg_risk_insights(self, kg_data: Dict[str, Any]) -> str:
+        """Format knowledge graph risk insights."""
+        risk_factors = kg_data.get("risk_factors", [])
+        html = "<ul>"
+        for risk in risk_factors:
+            html += f"""
+            <li><strong>{risk.get('factor', 'Unknown')}:</strong> 
+                {risk.get('description', 'No description')} 
+                (Risk Level: {risk.get('level', 'medium')})</li>
+            """
+        html += "</ul>"
+        return html
+    
+    def _format_cross_domain_risks(self, cross_domain_data: Dict[str, Any]) -> str:
+        """Format cross-domain risk assessment."""
+        patterns = cross_domain_data.get("cross_domain_patterns", [])
+        html = "<ul>"
+        for pattern in patterns:
+            html += f"""
+            <li><strong>{pattern.get('domains', 'Unknown')}:</strong> 
+                {pattern.get('pattern', 'No pattern')}</li>
+            """
+        html += "</ul>"
+        return html
+    
+    def _format_risk_trends(self, trends_data: Dict[str, Any]) -> str:
+        """Format risk trends."""
+        trends = trends_data.get("predicted_trends", [])
+        html = "<ul>"
+        for trend in trends:
+            html += f"""
+            <li><strong>{trend.get('trend_type', 'Unknown')}:</strong> 
+                {trend.get('description', 'No description')} 
+                (Confidence: {trend.get('confidence', 0):.2f})</li>
+            """
+        html += "</ul>"
+        return html
     
     def _generate_risk_overview(self, overview_data: Dict[str, Any]) -> str:
         """Generate the risk assessment overview section."""

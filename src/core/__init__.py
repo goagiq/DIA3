@@ -1,3 +1,5 @@
 """
-Core functionality for the sentiment analysis system.
+Core Components Package
+
+This package contains the core components of the DIA3 system.
 """

@@ -1,0 +1,131 @@
+{
+  "report_id": "intelligent_report_20250825_215948_enhanced",
+  "template_used": {
+    "template_id": "intelligent_report",
+    "sections": [
+      "topic_analysis",
+      "knowledge_graph_insights",
+      "cross_domain_analysis",
+      "predictive_intelligence",
+      "visualizations",
+      "recommendations"
+    ],
+    "data_types": [
+      "text",
+      "structured",
+      "visual"
+    ],
+    "visualization_types": [
+      "charts",
+      "graphs",
+      "maps"
+    ]
+  },
+  "content": {
+    "topic_analysis": {
+      "topic": "test_storage",
+      "domain": "test",
+      "analysis_summary": "Test report for storage",
+      "key_findings": []
+    },
+    "knowledge_graph_insights": {
+      "intelligence_metadata": {
+        "extraction_timestamp": "2025-08-25T21:59:48.512997",
+        "confidence_score": 0.72,
+        "total_entities": 1,
+        "total_relationships": 0,
+        "total_patterns": 0
+      },
+      "strategic_intelligence": {
+        "key_entities": [
+          "test_storage"
+        ],
+        "relationships": [],
+        "strategic_patterns": [],
+        "risk_indicators": [],
+        "opportunities": [],
+        "historical_insights": [],
+        "predictive_trends": [],
+        "cross_domain_connections": [],
+        "confidence_score": 0.72,
+        "extraction_timestamp": "2025-08-25T21:59:48.512997"
+      },
+      "summary": {
+        "key_insights": [],
+        "critical_risks": [],
+        "key_opportunities": [],
+        "historical_context": 0,
+        "predictive_insights": 0
+      }
+    },
+    "cross_domain_analysis": {
+      "cross_domain_connections": [],
+      "domain_interactions": [],
+      "synergy_opportunities": [],
+      "conflict_areas": []
+    },
+    "predictive_intelligence": {
+      "trend_predictions": [],
+      "scenario_analysis": [],
+      "risk_forecasts": [],
+      "opportunity_projections": []
+    },
+    "visualizations": {
+      "risk_opportunity_matrix": {
+        "type": "scatter_plot",
+        "data": {
+          "risks": [],
+          "opportunities": []
+        },
+        "title": "Risk vs Opportunity Matrix"
+      }
+    },
+    "recommendations": [],
+    "additional_intelligence": {
+      "deep_insights": [],
+      "advanced_risk_analysis": [],
+      "strategic_opportunities": [],
+      "historical_context": [],
+      "predictive_trends": []
+    }
+  },
+  "metadata": {
+    "generated_at": "2025-08-25T21:59:48.513092",
+    "report_type": "intelligent_report",
+    "topic": "test_storage",
+    "domain": "test",
+    "knowledge_graph_integration": true,
+    "confidence_score": 0.72,
+    "strategic_intelligence_available": true
+  },
+  "knowledge_graph_insights": {
+    "intelligence_metadata": {
+      "extraction_timestamp": "2025-08-25T21:59:48.737320",
+      "confidence_score": 0.72,
+      "total_entities": 1,
+      "total_relationships": 0,
+      "total_patterns": 0
+    },
+    "strategic_intelligence": {
+      "key_entities": [
+        "test_storage"
+      ],
+      "relationships": [],
+      "strategic_patterns": [],
+      "risk_indicators": [],
+      "opportunities": [],
+      "historical_insights": [],
+      "predictive_trends": [],
+      "cross_domain_connections": []
+    },
+    "summary": {
+      "key_insights": [],
+      "critical_risks": [],
+      "key_opportunities": [],
+      "historical_context": 0,
+      "predictive_insights": 0
+    }
+  },
+  "generated_at": "2025-08-25T21:59:48.737331",
+  "confidence_score": 0.72
+}
