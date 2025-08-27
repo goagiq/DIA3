@@ -1,0 +1,13 @@
+Collecting strands
+  Using cached Strands-0.1.0.tar.gz (34 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: numpy in d:\ai\dia3\.venv\lib\site-packages (from strands) (2.2.6)
+Building wheels for collected packages: strands
+  Building wheel for strands (pyproject.toml): started
+  Building wheel for strands (pyproject.toml): finished with status 'error'
+Failed to build strands
