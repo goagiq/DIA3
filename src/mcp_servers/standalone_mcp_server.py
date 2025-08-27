@@ -1241,13 +1241,32 @@ This report contains comprehensive analysis results including deception analysis
                     
                     # Use FastMCP's HTTP app method for proper integration
                     if self.mcp:
-                        # Get the HTTP app from FastMCP
-                        http_app = self.mcp.http_app(path="/mcp")
-                        if http_app:
-                            # Start the server with uvicorn
-                            uvicorn.run(http_app, host=host, port=port, log_level="info")
-                        else:
-                            logger.error("Failed to create HTTP app from FastMCP")
+                        try:
+                            # Try to get the HTTP app from FastMCP
+                            if hasattr(self.mcp, 'http_app'):
+                                http_app = self.mcp.http_app(path="/mcp")
+                                if http_app:
+                                    # Start the server with uvicorn
+                                    uvicorn.run(http_app, host=host, port=port, log_level="info")
+                                else:
+                                    logger.error("Failed to create HTTP app from FastMCP")
+                                    self.is_running = False
+                            else:
+                                # Fallback: create a simple HTTP server
+                                logger.warning("FastMCP http_app not available, using fallback server")
+                                from fastapi import FastAPI
+                                from fastapi.middleware.cors import CORSMiddleware
+                                
+                                app = FastAPI(title="Standalone MCP Server")
+                                app.add_middleware(CORSMiddleware, allow_origins=["*"])
+                                
+                                @app.get("/mcp-health")
+                                async def health_check():
+                                    return {"status": "healthy", "server": "standalone_mcp"}
+                                
+                                uvicorn.run(app, host=host, port=port, log_level="info")
+                        except Exception as e:
+                            logger.error(f"Error creating HTTP app: {e}")
                             self.is_running = False
                     else:
                         logger.error("MCP server not available")

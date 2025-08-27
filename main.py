@@ -192,9 +192,9 @@ def initialize_enhanced_markdown_export_service():
 def initialize_enhanced_report_system():
     """Initialize the enhanced report generation system."""
     try:
-        # Import the new enhanced report template generator
-        from src.core.enhanced_report_template_generator import enhanced_report_template_generator
-        from src.mcp_servers.enhanced_report_mcp_tools import enhanced_report_mcp_tools
+        # Import the enhanced HTML report generator instead of the missing template generator
+        from src.core.enhanced_html_report_generator import EnhancedHTMLReportGenerator
+        enhanced_report_template_generator = EnhancedHTMLReportGenerator()
         
         # Import the integrated adaptive modular report system
         try:
@@ -207,11 +207,11 @@ def initialize_enhanced_report_system():
         
         print("✅ Enhanced report generation system initialized")
         print(f"   - Enhanced report template generator available: {enhanced_report_template_generator is not None}")
-        print(f"   - Enhanced report MCP tools available: {enhanced_report_mcp_tools is not None}")
+        print("   - Enhanced report MCP tools available: False (using unified MCP server)")
         
         return {
             "enhanced_report_template_generator": enhanced_report_template_generator,
-            "enhanced_report_mcp_tools": enhanced_report_mcp_tools,
+            "enhanced_report_mcp_tools": None,  # Use unified MCP server instead
             "adaptive_modular_report_available": ADAPTIVE_MODULAR_REPORT_AVAILABLE
         }
     except Exception as e:
@@ -242,34 +242,8 @@ def start_standalone_mcp_server(host: str = "localhost", port: int = 8000):
         except OSError:
             print(f"⚠️ Port {port} is in use, trying alternative ports...")
         
-        # If the preferred port is not available, try alternative ports
-        # but avoid the main API server port range (8003-8013)
-        alternative_ports = [8001, 8002, 8014, 8015, 8016, 8017, 8018, 8019, 8020]
-        
-        for alt_port in alternative_ports:
-            try:
-                # Test if port is available
-                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-                    s.bind((host, alt_port))
-                    s.close()
-                
-                # Port is available, start the server
-                server = start_server(host, alt_port)
-                if server and server.is_server_running():
-                    print(f"✅ Standalone MCP server started on port {alt_port} (original port {port} was in use)")
-                    return server
-                else:
-                    print(f"⚠️ Warning: MCP server failed to start on port {alt_port}")
-                    continue
-                    
-            except OSError:
-                # Port is in use, try next port
-                continue
-            except Exception as e:
-                print(f"⚠️ Warning: Error starting MCP server on port {alt_port}: {e}")
-                continue
-        
-        print(f"⚠️ Warning: Could not find available port for MCP server")
+        # Only use port 8000 - no alternative ports
+        print(f"⚠️ Warning: Port {port} is in use. Only port 8000 is supported for MCP server.")
         return None
         
     except Exception as e:
