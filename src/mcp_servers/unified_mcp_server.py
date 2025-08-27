@@ -353,7 +353,7 @@ class UnifiedMCPServer:
     def _initialize_mcp(self):
         """Initialize the MCP server."""
         if not MCP_AVAILABLE:
-            logger.warning("Using mock MCP server - FastMCP not available")
+            logger.error("❌ FastMCP not available - MCP server cannot be initialized")
             return
 
         try:
@@ -366,7 +366,7 @@ class UnifiedMCPServer:
     async def _register_tools(self):
         """Register all 25 consolidated tools."""
         if not self.mcp:
-            logger.warning("MCP server not available - skipping tool registration")
+            logger.error("❌ MCP server not available - cannot register tools")
             return
 
         # Content Processing Tools (5)
@@ -3358,7 +3358,7 @@ This report contains comprehensive analysis results including deception analysis
     def _register_strategic_deception_tools(self):
         """Register strategic deception monitoring tools."""
         if not self.mcp:
-            logger.warning("MCP server not available - skipping strategic deception tool registration")
+            logger.error("❌ MCP server not available - cannot register strategic deception tools")
             return
 
         @self.mcp.tool(description="Monitor content for strategic deception indicators across multiple domains")

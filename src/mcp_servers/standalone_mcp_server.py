@@ -53,7 +53,7 @@ try:
     MCP_AVAILABLE = True
 except ImportError:
     MCP_AVAILABLE = False
-    logger.warning("FastMCP not available - using mock MCP server")
+    logger.error("❌ FastMCP not available - MCP server cannot be initialized")
 
 
 class StandaloneMCPServer:
@@ -105,7 +105,7 @@ class StandaloneMCPServer:
     def _register_language_capabilities_tools(self):
         """Register language capabilities tools."""
         if not self.mcp:
-            logger.warning("MCP server not available - skipping language capabilities tool registration")
+            logger.error("❌ MCP server not available - cannot register language capabilities tools")
             return
         
         # Register language capabilities analysis tool
@@ -180,7 +180,7 @@ class StandaloneMCPServer:
     def _register_tools(self):
         """Register all MCP tools."""
         if not self.mcp:
-            logger.warning("MCP server not available - skipping tool registration")
+            logger.error("❌ MCP server not available - cannot register tools")
             return
 
         # Content Processing Tools

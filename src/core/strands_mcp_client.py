@@ -14,11 +14,12 @@ try:
     from strands.multiagent import Swarm
     from strands.types.content import ContentBlock
     STRANDS_AVAILABLE = True
+    logger.info("✅ Using real Strands implementation for MCP client")
 except ImportError:
     # Use mock implementation
     from src.core.strands_mock import Agent, Swarm
     STRANDS_AVAILABLE = False
-    logger.info("ℹ️ Using mock Strands implementation for MCP client")
+    logger.warning("⚠️ Using mock Strands implementation for MCP client - real Strands not available")
 
 
 class StrandsMCPClient:

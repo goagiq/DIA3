@@ -9,9 +9,10 @@ try:
     from mcp.client.streamable_http import streamablehttp_client
     from strands.tools.mcp.mcp_client import MCPClient
     MCP_AVAILABLE = True
+    logger.info("✅ Using real MCP client implementation")
 except ImportError:
     MCP_AVAILABLE = False
-    logger.warning("MCP client not available - using mock client")
+    logger.warning("⚠️ MCP client not available - using mock client")
 
 
 class UnifiedMCPClient:
