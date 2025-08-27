@@ -11,7 +11,14 @@ from urllib.parse import urlparse
 from pathlib import Path
 
 from loguru import logger
-from src.core.strands_mock import tool, Agent
+try:
+    from strands import tool, Agent
+    STRANDS_AVAILABLE = True
+    logger.info("✅ Using real Strands implementation for enhanced process content agent")
+except ImportError:
+    from src.core.strands_mock import tool, Agent
+    STRANDS_AVAILABLE = False
+    logger.warning("⚠️ Using mock Strands implementation for enhanced process content agent - real Strands not available")
 
 from src.agents.base_agent import StrandsBaseAgent as BaseAgent
 from src.config.config import config

@@ -9,7 +9,17 @@ from typing import List, Dict, Any, Optional, Callable
 from loguru import logger
 
 # Import the mock Strands implementation
-from src.core.strands_mock import Agent, Swarm, tool, strands
+try:
+    from strands import Agent
+    from strands.multiagent import Swarm
+    from strands import tool
+    import strands
+    STRANDS_AVAILABLE = True
+    logger.info("✅ Using real Strands implementation for strands MCP integration")
+except ImportError:
+    from src.core.strands_mock import Agent, Swarm, tool, strands
+    STRANDS_AVAILABLE = False
+    logger.warning("⚠️ Using mock Strands implementation for strands MCP integration - real Strands not available")
 
 
 class MCPToolManager:

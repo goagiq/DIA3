@@ -16,12 +16,17 @@ from src.core.models import (
     ProcessingStatus,
     SentimentResult,
 )
-try:
-    from strands import Agent
-except ImportError:
-    from src.core.strands_mock import Agent
 
 logger = logging.getLogger(__name__)
+
+try:
+    from strands import Agent
+    STRANDS_AVAILABLE = True
+    logger.info("✅ Using real Strands implementation for base agent")
+except ImportError:
+    from src.core.strands_mock import Agent
+    STRANDS_AVAILABLE = False
+    logger.warning("⚠️ Using mock Strands implementation for base agent - real Strands not available")
 
 
 class StrandsBaseAgent(ABC):

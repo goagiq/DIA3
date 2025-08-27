@@ -256,7 +256,14 @@ def create_ollama_agent(model_type: str = "text", **kwargs):
             return create_strands_ollama_agent(model_type, **kwargs)
         
         # Fallback to mock implementation
-        from core.strands_mock import Agent
+        try:
+            from strands import Agent
+            STRANDS_AVAILABLE = True
+            logger.info("✅ Using real Strands implementation for ollama integration")
+        except ImportError:
+            from core.strands_mock import Agent
+            STRANDS_AVAILABLE = False
+            logger.warning("⚠️ Using mock Strands implementation for ollama integration - real Strands not available")
 
         model = get_ollama_model(model_type)
         if not model:

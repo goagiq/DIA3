@@ -12,7 +12,14 @@ import asyncio
 STRANDS_AVAILABLE = False
 
 # Import mock implementations
-from src.core.strands_mock import Agent
+try:
+    from strands import Agent
+    STRANDS_AVAILABLE = True
+    logger.info("✅ Using real Strands implementation for strands ollama integration")
+except ImportError:
+    from src.core.strands_mock import Agent
+    STRANDS_AVAILABLE = False
+    logger.warning("⚠️ Using mock Strands implementation for strands ollama integration - real Strands not available")
 
 from src.config.model_config import model_config
 

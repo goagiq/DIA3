@@ -30,7 +30,16 @@ except ImportError:
 # Import project modules
 from src.config.settings import settings
 from src.config.config import config
-from src.core.strands_mock import Agent, Swarm, tool
+try:
+    from strands import Agent
+    from strands.multiagent import Swarm
+    from strands import tool
+    STRANDS_AVAILABLE = True
+    logger.info("✅ Using real Strands implementation for MCP server")
+except ImportError:
+    from src.core.strands_mock import Agent, Swarm, tool
+    STRANDS_AVAILABLE = False
+    logger.warning("⚠️ Using mock Strands implementation for MCP server - real Strands not available")
 
 # Import Ollama integration
 try:

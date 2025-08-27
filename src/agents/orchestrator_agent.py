@@ -7,7 +7,14 @@ access to all specialized agents as tools.
 from typing import Any, Dict, List
 
 from loguru import logger
-from src.core.strands_mock import tool
+try:
+    from strands import tool
+    STRANDS_AVAILABLE = True
+    logger.info("✅ Using real Strands implementation for orchestrator agent")
+except ImportError:
+    from src.core.strands_mock import tool
+    STRANDS_AVAILABLE = False
+    logger.warning("⚠️ Using mock Strands implementation for orchestrator agent - real Strands not available")
 
 from src.core.models import (
     AnalysisRequest, DataType, AnalysisResult, SentimentResult

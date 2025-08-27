@@ -7,7 +7,15 @@ import asyncio
 from typing import Any, Optional, List, Dict
 
 from loguru import logger
-from src.core.strands_mock import Agent, Swarm
+try:
+    from strands import Agent
+    from strands.multiagent import Swarm
+    STRANDS_AVAILABLE = True
+    logger.info("✅ Using real Strands implementation for unified text agent")
+except ImportError:
+    from src.core.strands_mock import Agent, Swarm
+    STRANDS_AVAILABLE = False
+    logger.warning("⚠️ Using mock Strands implementation for unified text agent - real Strands not available")
 
 from src.agents.base_agent import StrandsBaseAgent as BaseAgent
 from src.config.config import config

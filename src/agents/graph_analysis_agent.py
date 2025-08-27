@@ -13,7 +13,14 @@ from pathlib import Path
 import logging
 
 from src.agents.base_agent import StrandsBaseAgent
-from src.core.strands_mock import tool
+try:
+    from strands import tool
+    STRANDS_AVAILABLE = True
+    logger.info("✅ Using real Strands implementation for graph analysis agent")
+except ImportError:
+    from src.core.strands_mock import tool
+    STRANDS_AVAILABLE = False
+    logger.warning("⚠️ Using mock Strands implementation for graph analysis agent - real Strands not available")
 from src.core.models import (
     AnalysisRequest, 
     AnalysisResult, 

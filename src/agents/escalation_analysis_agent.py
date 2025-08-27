@@ -15,7 +15,14 @@ from pydantic import BaseModel, Field
 
 from src.core.models import DataType, AnalysisResult
 from src.core.pattern_recognition.pattern_storage import PatternStorage
-from src.core.strands_mock import Agent
+try:
+    from strands import Agent
+    STRANDS_AVAILABLE = True
+    logger.info("✅ Using real Strands implementation for escalation analysis agent")
+except ImportError:
+    from src.core.strands_mock import Agent
+    STRANDS_AVAILABLE = False
+    logger.warning("⚠️ Using mock Strands implementation for escalation analysis agent - real Strands not available")
 
 
 class EscalationScenario(BaseModel):

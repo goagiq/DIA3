@@ -10,7 +10,15 @@ from loguru import logger
 # This project uses a mock implementation of the Strands framework
 # The real Strands framework is not required for this project
 STRANDS_AVAILABLE = False
-from .strands_mock import Agent, Tool
+try:
+    from strands import Agent
+    from strands import Tool
+    STRANDS_AVAILABLE = True
+    logger.info("✅ Using real Strands implementation for strands integration")
+except ImportError:
+    from .strands_mock import Agent, Tool
+    STRANDS_AVAILABLE = False
+    logger.warning("⚠️ Using mock Strands implementation for strands integration - real Strands not available")
 OllamaModel = None
 
 

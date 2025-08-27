@@ -44,7 +44,14 @@ except ImportError:
     logging.warning("Ollama not available. Install with: pip install ollama")
 
 from src.agents.base_agent import StrandsBaseAgent
-from src.core.strands_mock import tool
+try:
+    from strands import tool
+    STRANDS_AVAILABLE = True
+    logger.info("✅ Using real Strands implementation for unified file extraction agent")
+except ImportError:
+    from src.core.strands_mock import tool
+    STRANDS_AVAILABLE = False
+    logger.warning("⚠️ Using mock Strands implementation for unified file extraction agent - real Strands not available")
 from src.core.models import (
     AnalysisRequest, AnalysisResult, ProcessingStatus, 
     SentimentResult, DataType, PageData

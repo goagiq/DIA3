@@ -22,7 +22,14 @@ from src.core.models import (
 from src.core.processing_service import ProcessingService
 from src.core.error_handling_service import ErrorHandlingService, ErrorContext
 from src.core.model_management_service import ModelManagementService
-from src.core.strands_mock import tool
+try:
+    from strands import tool
+    STRANDS_AVAILABLE = True
+    logger.info("✅ Using real Strands implementation for relationship mapping agent")
+except ImportError:
+    from src.core.strands_mock import tool
+    STRANDS_AVAILABLE = False
+    logger.warning("⚠️ Using mock Strands implementation for relationship mapping agent - real Strands not available")
 
 # Configure logger
 logger = logging.getLogger(__name__)

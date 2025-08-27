@@ -19,7 +19,14 @@ from pathlib import Path
 import tempfile
 
 from loguru import logger
-from src.core.strands_mock import tool
+try:
+    from strands import tool
+    STRANDS_AVAILABLE = True
+    logger.info("✅ Using real Strands implementation for OCR agent")
+except ImportError:
+    from src.core.strands_mock import tool
+    STRANDS_AVAILABLE = False
+    logger.warning("⚠️ Using mock Strands implementation for OCR agent - real Strands not available")
 
 from src.agents.base_agent import BaseAgent
 from src.config.config import config
