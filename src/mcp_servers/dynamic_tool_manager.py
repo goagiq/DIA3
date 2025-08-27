@@ -734,13 +734,11 @@ def register_all_mcp_tools():
         
         # Markdown Export Tools
         "simple_markdown_export": ("src.mcp_servers.simple_markdown_export_mcp_tools", "SimpleMarkdownExportMCPTools", "Simple markdown export tools for PDF and Word conversion"),
-        "enhanced_markdown_export": ("src.mcp_servers.enhanced_markdown_export_mcp_tools", "EnhancedMarkdownExportMCPTools", "Enhanced markdown export tools with advanced formatting"),
         "markdown_export": ("src.mcp_servers.markdown_export_mcp_tools", "MarkdownExportMCPTools", "Comprehensive markdown export tools"),
         
         # Strategic and Intelligence Tools
         "strategic_intelligence_forecast": ("src.mcp_servers.strategic_intelligence_forecast_mcp_tools", "StrategicIntelligenceForecastMCPTools", "Strategic intelligence forecasting tools"),
         "force_projection": ("src.mcp_servers.force_projection_mcp_tools", "ForceProjectionMCPTools", "Force projection and military analysis tools"),
-        "enhanced_analytics": ("src.mcp_servers.enhanced_mcp_tools", "EnhancedMCPTools", "Enhanced analytics and advanced features"),
         "interpretability": ("src.mcp_servers.phase5_interpretability_mcp_tools", "Phase5InterpretabilityMCPTools", "Interpretability and explainability tools"),
         
         # Visualization Tools

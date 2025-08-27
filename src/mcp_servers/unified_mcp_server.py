@@ -97,14 +97,6 @@ except ImportError as e:
     logger.warning(f"Force projection MCP tools not available: {e}")
     FORCE_PROJECTION_MCP_AVAILABLE = False
 
-# Import enhanced report MCP tools
-try:
-    from src.mcp_servers.enhanced_report_mcp_tools import enhanced_report_mcp_tools
-    ENHANCED_REPORT_MCP_AVAILABLE = True
-except ImportError as e:
-    logger.warning(f"Enhanced report MCP tools not available: {e}")
-    ENHANCED_REPORT_MCP_AVAILABLE = False
-
 # Import modular report MCP tools
 try:
     from src.mcp_servers.modular_report_mcp_tools import ModularReportMCPTools
@@ -121,14 +113,6 @@ except ImportError as e:
     logger.warning(f"Markdown export MCP tools not available: {e}")
     MARKDOWN_EXPORT_MCP_AVAILABLE = False
 
-# Import enhanced markdown export MCP tools
-try:
-    from src.mcp_servers.enhanced_markdown_export_mcp_tools import EnhancedMarkdownExportMCPTools
-    ENHANCED_MARKDOWN_EXPORT_MCP_AVAILABLE = True
-except ImportError as e:
-    logger.warning(f"Enhanced markdown export MCP tools not available: {e}")
-    ENHANCED_MARKDOWN_EXPORT_MCP_AVAILABLE = False
-
 # Import simple markdown export MCP tools
 try:
     from src.mcp_servers.simple_markdown_export_mcp_tools import SimpleMarkdownExportMCPTools
@@ -137,13 +121,9 @@ except ImportError as e:
     logger.warning(f"Simple markdown export MCP tools not available: {e}")
     SIMPLE_MARKDOWN_EXPORT_MCP_AVAILABLE = False
 
-# Import enhanced report MCP tools
-try:
-    from src.mcp_servers.enhanced_report_mcp_tools import enhanced_report_mcp_tools
-    ENHANCED_REPORT_MCP_AVAILABLE = True
-except ImportError as e:
-    logger.warning(f"Enhanced report MCP tools not available: {e}")
-    ENHANCED_REPORT_MCP_AVAILABLE = False
+# Enhanced report and enhanced markdown export MCP tools not available - using existing alternatives
+ENHANCED_REPORT_MCP_AVAILABLE = False
+ENHANCED_MARKDOWN_EXPORT_MCP_AVAILABLE = False
 
 
 
@@ -272,16 +252,8 @@ class UnifiedMCPServer:
         else:
             self.force_projection_mcp_tools = None
         
-        # Initialize enhanced report MCP tools
-        if ENHANCED_REPORT_MCP_AVAILABLE:
-            try:
-                self.enhanced_report_mcp_tools = enhanced_report_mcp_tools
-                logger.info("✅ Enhanced Report MCP Tools initialized")
-            except Exception as e:
-                logger.warning(f"⚠️ Could not initialize Enhanced Report MCP Tools: {e}")
-                self.enhanced_report_mcp_tools = None
-        else:
-            self.enhanced_report_mcp_tools = None
+        # Enhanced report MCP tools not available - using modular report tools instead
+        self.enhanced_report_mcp_tools = None
         
         # Initialize modular report MCP tools
         if MODULAR_REPORT_MCP_AVAILABLE:
@@ -305,16 +277,8 @@ class UnifiedMCPServer:
         else:
             self.markdown_export_mcp_tools = None
         
-        # Initialize enhanced markdown export MCP tools
-        if ENHANCED_MARKDOWN_EXPORT_MCP_AVAILABLE:
-            try:
-                self.enhanced_markdown_export_mcp_tools = EnhancedMarkdownExportMCPTools()
-                logger.info("✅ Enhanced Markdown Export MCP Tools initialized")
-            except Exception as e:
-                logger.warning(f"⚠️ Could not initialize Enhanced Markdown Export MCP Tools: {e}")
-                self.enhanced_markdown_export_mcp_tools = None
-        else:
-            self.enhanced_markdown_export_mcp_tools = None
+        # Enhanced markdown export MCP tools not available - using simple markdown export tools instead
+        self.enhanced_markdown_export_mcp_tools = None
         
         # Initialize simple markdown export MCP tools
         if SIMPLE_MARKDOWN_EXPORT_MCP_AVAILABLE:
@@ -393,10 +357,7 @@ class UnifiedMCPServer:
             return
 
         try:
-            self.mcp = FastMCP(
-                name="unified_sentiment_mcp_server",
-                version="1.0.0"
-            )
+            self.mcp = FastMCP("unified_sentiment_mcp_server")
             logger.info("✅ MCP server initialized")
         except Exception as e:
             logger.error(f"❌ Error initializing MCP server: {e}")
