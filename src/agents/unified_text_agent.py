@@ -9,11 +9,11 @@ from typing import Any, Optional, List, Dict
 from loguru import logger
 try:
     from strands import Agent
-    from strands.multiagent import Swarm
+    from strands.models.ollama import OllamaModel
     STRANDS_AVAILABLE = True
-    logger.info("✅ Using real Strands implementation for unified text agent")
+    logger.info("✅ Using real Strands Agents implementation for unified text agent")
 except ImportError:
-    from src.core.strands_mock import Agent, Swarm
+    from src.core.strands_mock import Agent
     STRANDS_AVAILABLE = False
     logger.warning("⚠️ Using mock Strands implementation for unified text agent - real Strands not available")
 
@@ -106,39 +106,82 @@ class UnifiedTextAgent(BaseAgent):
         # Create specialized Strands agents for the swarm
         swarm_agents = []
         
-        # Create a researcher agent for initial analysis
-        researcher = Agent(
-            name="researcher",
-            system_prompt="""You are a text sentiment research specialist. 
-            Analyze the given text and identify key sentiment indicators, 
-            emotional cues, and context that could affect sentiment analysis.
-            Focus on understanding the content before passing to sentiment experts."""
-        )
-        
-        # Create a sentiment specialist agent
-        sentiment_specialist = Agent(
-            name="sentiment_specialist", 
-            system_prompt="""You are a sentiment analysis expert. 
-            Use the available tools to perform detailed sentiment analysis.
-            Always coordinate with other agents in the swarm for comprehensive results."""
-        )
-        
-        # Create a reviewer agent for quality assurance
-        reviewer = Agent(
-            name="reviewer",
-            system_prompt="""You are a sentiment analysis reviewer. 
-            Review and validate sentiment analysis results from other agents.
-            Ensure consistency and accuracy across the swarm's analysis."""
-        )
-        
-        # Create a coordinator agent that manages the workflow
-        coordinator = Agent(
-            name="coordinator",
-            system_prompt="""You are a sentiment analysis coordinator.
-            Coordinate the work of multiple specialized agents to produce
-            comprehensive sentiment analysis results. Manage the workflow
-            and ensure all agents contribute effectively."""
-        )
+        # Create Ollama model for agents
+        if STRANDS_AVAILABLE:
+            from strands.models.ollama import OllamaModel
+            ollama_model = OllamaModel(
+                host="http://localhost:11434",
+                model_id="llama3.2:latest"
+            )
+            
+            # Create a researcher agent for initial analysis
+            researcher = Agent(
+                agent_id="researcher",
+                model=ollama_model,
+                system_prompt="""You are a text sentiment research specialist. 
+                Analyze the given text and identify key sentiment indicators, 
+                emotional cues, and context that could affect sentiment analysis.
+                Focus on understanding the content before passing to sentiment experts."""
+            )
+            
+            # Create a sentiment specialist agent
+            sentiment_specialist = Agent(
+                agent_id="sentiment_specialist",
+                model=ollama_model,
+                system_prompt="""You are a sentiment analysis expert. 
+                Use the available tools to perform detailed sentiment analysis.
+                Always coordinate with other agents in the swarm for comprehensive results."""
+            )
+            
+            # Create a reviewer agent for quality assurance
+            reviewer = Agent(
+                agent_id="reviewer",
+                model=ollama_model,
+                system_prompt="""You are a sentiment analysis reviewer. 
+                Review and validate sentiment analysis results from other agents.
+                Ensure consistency and accuracy across the swarm's analysis."""
+            )
+            
+            # Create a coordinator agent that manages the workflow
+            coordinator = Agent(
+                agent_id="coordinator",
+                model=ollama_model,
+                system_prompt="""You are a sentiment analysis coordinator.
+                Coordinate the work of multiple specialized agents to produce
+                comprehensive sentiment analysis results. Manage the workflow
+                and ensure all agents contribute effectively."""
+            )
+        else:
+            # Fallback to mock implementation
+            researcher = Agent(
+                agent_id="researcher",
+                system_prompt="""You are a text sentiment research specialist. 
+                Analyze the given text and identify key sentiment indicators, 
+                emotional cues, and context that could affect sentiment analysis.
+                Focus on understanding the content before passing to sentiment experts."""
+            )
+            
+            sentiment_specialist = Agent(
+                agent_id="sentiment_specialist", 
+                system_prompt="""You are a sentiment analysis expert. 
+                Use the available tools to perform detailed sentiment analysis.
+                Always coordinate with other agents in the swarm for comprehensive results."""
+            )
+            
+            reviewer = Agent(
+                agent_id="reviewer",
+                system_prompt="""You are a sentiment analysis reviewer. 
+                Review and validate sentiment analysis results from other agents.
+                Ensure consistency and accuracy across the swarm's analysis."""
+            )
+            
+            coordinator = Agent(
+                agent_id="coordinator",
+                system_prompt="""You are a sentiment analysis coordinator.
+                Coordinate the work of multiple specialized agents to produce
+                comprehensive sentiment analysis results. Manage the workflow
+                and ensure all agents contribute effectively."""
+            )
         
         self.swarm_agents = [researcher, sentiment_specialist, reviewer]
         self.coordinator_agent = coordinator

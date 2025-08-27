@@ -21,8 +21,9 @@ logger = logging.getLogger(__name__)
 
 try:
     from strands import Agent
+    from strands.models.ollama import OllamaModel
     STRANDS_AVAILABLE = True
-    logger.info("✅ Using real Strands implementation for base agent")
+    logger.info("✅ Using real Strands Agents implementation for base agent")
 except ImportError:
     from src.core.strands_mock import Agent
     STRANDS_AVAILABLE = False
@@ -48,12 +49,26 @@ class StrandsBaseAgent(ABC):
         self.metadata: Dict[str, Any] = {}
         self._shutdown_event = asyncio.Event()
         
-        # Create Strands Agent with tools
-        self.strands_agent = Agent(
-            name=self.agent_id,
-            model=model_name,
-            tools=self._get_tools()
-        )
+        # Create Ollama model for Strands Agent
+        if STRANDS_AVAILABLE:
+            from strands.models.ollama import OllamaModel
+            ollama_model = OllamaModel(
+                host="http://localhost:11434",
+                model_id=model_name
+            )
+            # Create Strands Agent with Ollama model
+            self.strands_agent = Agent(
+                agent_id=self.agent_id,
+                model=ollama_model,
+                tools=self._get_tools()
+            )
+        else:
+            # Fallback to mock implementation
+            self.strands_agent = Agent(
+                agent_id=self.agent_id,
+                model=model_name,
+                tools=self._get_tools()
+            )
         
         logger.info(f"Initialized Strands agent {self.agent_id}")
     

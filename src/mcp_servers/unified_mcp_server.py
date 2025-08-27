@@ -2325,7 +2325,16 @@ class UnifiedMCPServer:
 
         try:
             logger.info(f"🚀 Creating MCP HTTP app at path: {path}")
-            return self.mcp.http_app(path=path)
+            # Try streamable_http_app first (preferred method)
+            if hasattr(self.mcp, 'streamable_http_app'):
+                logger.info("✅ Using FastMCP streamable_http_app")
+                return self.mcp.streamable_http_app()
+            elif hasattr(self.mcp, 'http_app'):
+                logger.info("✅ Using FastMCP http_app")
+                return self.mcp.http_app(path=path)
+            else:
+                logger.error("No HTTP app method available in FastMCP")
+                return None
         except Exception as e:
             logger.error(f"Error creating MCP HTTP app: {e}")
             return None

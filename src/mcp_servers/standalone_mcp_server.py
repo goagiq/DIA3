@@ -1243,10 +1243,20 @@ This report contains comprehensive analysis results including deception analysis
                     if self.mcp:
                         try:
                             # Try to get the HTTP app from FastMCP
-                            if hasattr(self.mcp, 'http_app'):
+                            if hasattr(self.mcp, 'streamable_http_app'):
+                                http_app = self.mcp.streamable_http_app()
+                                if http_app:
+                                    # Start the server with uvicorn
+                                    logger.info("✅ Using FastMCP streamable_http_app for HTTP server")
+                                    uvicorn.run(http_app, host=host, port=port, log_level="info")
+                                else:
+                                    logger.error("Failed to create HTTP app from FastMCP")
+                                    self.is_running = False
+                            elif hasattr(self.mcp, 'http_app'):
                                 http_app = self.mcp.http_app(path="/mcp")
                                 if http_app:
                                     # Start the server with uvicorn
+                                    logger.info("✅ Using FastMCP http_app for HTTP server")
                                     uvicorn.run(http_app, host=host, port=port, log_level="info")
                                 else:
                                     logger.error("Failed to create HTTP app from FastMCP")

@@ -14,8 +14,9 @@ STRANDS_AVAILABLE = False
 # Import mock implementations
 try:
     from strands import Agent
+    from strands.models.ollama import OllamaModel
     STRANDS_AVAILABLE = True
-    logger.info("✅ Using real Strands implementation for strands ollama integration")
+    logger.info("✅ Using real Strands Agents implementation for strands ollama integration")
 except ImportError:
     from src.core.strands_mock import Agent
     STRANDS_AVAILABLE = False
