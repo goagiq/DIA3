@@ -1,0 +1,46 @@
+{
+  "default_report_generator": "EnhancedHTMLReportGenerator",
+  "default_template": "enhanced_22_module_template",
+  "features": {
+    "advanced_tooltips": true,
+    "interactive_visualizations": true,
+    "modular_design": true,
+    "professional_styling": true,
+    "responsive_layout": true
+  },
+  "modules": {
+    "total_modules": 22,
+    "enabled_modules": [
+      "executive_summary",
+      "strategic_context",
+      "geopolitical_implications",
+      "economic_implications",
+      "security_implications",
+      "diplomatic_consequences",
+      "escalation_risks",
+      "strategic_recommendations",
+      "regional_analysis",
+      "capability_assessment",
+      "threat_analysis",
+      "risk_evaluation",
+      "policy_implications",
+      "stakeholder_analysis",
+      "timeline_analysis",
+      "cost_benefit_analysis",
+      "comparative_analysis",
+      "scenario_planning",
+      "resource_allocation",
+      "performance_metrics",
+      "compliance_analysis",
+      "implementation_plan"
+    ]
+  },
+  "output": {
+    "format": "html",
+    "directory": "Results",
+    "filename_pattern": "{topic}_enhanced_analysis_{timestamp}.html",
+    "include_timestamp": true
+  },
+  "generator_class": "src.core.enhanced_html_report_generator.EnhancedHTMLReportGenerator",
+  "method_name": "generate_enhanced_report"
+}

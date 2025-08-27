@@ -47,20 +47,13 @@ class SentimentOrchestrator:
             logger.warning(f"⚠️ Enhanced Report Orchestrator with Source Tracking not available: {e}")
             self.enhanced_report_orchestrator = None
 
-        # Initialize adaptive modular report system
-        try:
-            from src.core.integrated_adaptive_modular_report_generator import integrated_adaptive_modular_report_generator
-            from src.core.adaptive_data_adapter import AdaptiveDataAdapter
-            self.adaptive_report_generator = integrated_adaptive_modular_report_generator
-            self.adaptive_data_adapter = AdaptiveDataAdapter()
-            logger.info("✅ Adaptive Modular Report System integrated with contextual intelligence")
-            logger.info("   - Automatic context detection for healthcare, tech, finance, geopolitical")
-            logger.info("   - Interactive visualizations with Chart.js integration")
-            logger.info("   - Advanced tooltips and data validation")
-        except ImportError as e:
-            logger.warning(f"⚠️ Adaptive Modular Report System not available: {e}")
-            self.adaptive_report_generator = None
-            self.adaptive_data_adapter = None
+        # Initialize adaptive modular report system (lazy loading to avoid circular imports)
+        self.adaptive_report_generator = None
+        self.adaptive_data_adapter = None
+        logger.info("✅ Adaptive Modular Report System will be loaded on demand")
+        logger.info("   - Automatic context detection for healthcare, tech, finance, geopolitical")
+        logger.info("   - Interactive visualizations with Chart.js integration")
+        logger.info("   - Advanced tooltips and data validation")
 
         # Initialize agents
         self._register_agents()

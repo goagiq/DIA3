@@ -627,7 +627,7 @@ class EnhancedHTMLReportGenerator:
         content_mapping = {
             "Executive Summary": """Comprehensive analysis of the strategic topic, examining implications across multiple domains including geopolitical, economic, security, and technological dimensions. 
             
-            <strong>Visualization Insight:</strong> The radar chart reveals the highest-scoring factors and their relative importance, providing quantitative assessment of key drivers and impact areas.
+            <strong>Visualization Insight:</strong> The doughnut chart reveals the highest-scoring factors and their relative importance, providing quantitative assessment of key drivers and impact areas.
             
             <strong>Key Takeaway:</strong> Critical insights derived from comprehensive analysis, highlighting areas requiring immediate attention and strategic focus.
             
@@ -656,7 +656,7 @@ class EnhancedHTMLReportGenerator:
             
             "Security Implications": """Evaluation of maritime security enhancement, deterrence capabilities, and strategic balance in the Indian Ocean region. 
             
-            <strong>Visualization Insight:</strong> The radar chart highlights Maritime Security (90%) and Deterrence Capability (85%) as the strongest security enhancements, while Threat Response (85%) shows robust preparedness. 
+            <strong>Visualization Insight:</strong> The doughnut chart highlights Maritime Security (90%) and Deterrence Capability (85%) as the strongest security enhancements, while Threat Response (85%) shows robust preparedness. 
             
             <strong>Key Takeaway:</strong> Operational Readiness (75%) requires attention to ensure full security potential is realized.
             
@@ -665,7 +665,7 @@ class EnhancedHTMLReportGenerator:
             <strong>Knowledge Graph Insights:</strong> Cross-domain analysis indicates that submarine capabilities provide asymmetric advantage in maritime conflicts, with 85% success rate in defensive operations. Strategic intelligence suggests optimal security enhancement achieved through integrated maritime domain awareness and joint operational capabilities.""",
             "Balance of Power Analysis": """Analysis of how the strategic initiative affects regional power dynamics and balance of power relationships. 
             
-            <strong>Visualization Insight:</strong> The radar chart reveals Regional Influence (85%) and Strategic Positioning (80%) as the strongest balance of power factors, indicating significant impact on regional dynamics.
+            <strong>Visualization Insight:</strong> The doughnut chart reveals Regional Influence (85%) and Strategic Positioning (80%) as the strongest balance of power factors, indicating significant impact on regional dynamics.
             
             <strong>Key Takeaway:</strong> Power Balance (75%) and Regional Stability (80%) show the strategic initiative's potential to reshape regional power relationships and create new strategic opportunities.
             
@@ -695,7 +695,7 @@ class EnhancedHTMLReportGenerator:
             
             "Regional Sentiment Analysis": """Analysis of regional sentiment, public opinion, and stakeholder perspectives regarding the strategic initiative. 
             
-            <strong>Visualization Insight:</strong> The radar chart shows Public Support (75%) and Stakeholder Engagement (80%) as the strongest sentiment factors, indicating positive regional reception.
+            <strong>Visualization Insight:</strong> The doughnut chart shows Public Support (75%) and Stakeholder Engagement (80%) as the strongest sentiment factors, indicating positive regional reception.
             
             <strong>Key Takeaway:</strong> Regional Sentiment (70%) and Political Support (85%) demonstrate the initiative's alignment with regional interests and political objectives.
             
@@ -735,7 +735,7 @@ class EnhancedHTMLReportGenerator:
             
             "Operational Considerations": """Analysis of operational factors, requirements, and considerations for successful strategic initiative implementation and execution. 
             
-            <strong>Visualization Insight:</strong> The radar chart shows Operational Readiness (85%) and Resource Requirements (80%) as the strongest operational factors, indicating strong operational foundation.
+            <strong>Visualization Insight:</strong> The doughnut chart shows Operational Readiness (85%) and Resource Requirements (80%) as the strongest operational factors, indicating strong operational foundation.
             
             <strong>Key Takeaway:</strong> Operational Planning (75%) and Execution Capability (85%) demonstrate the initiative's operational feasibility and implementation readiness.
             
@@ -765,7 +765,7 @@ class EnhancedHTMLReportGenerator:
             
             "Comparison Analysis & Strategic Options": """Comparative analysis of strategic options, alternatives, and competitive positioning for the strategic initiative. 
             
-            <strong>Visualization Insight:</strong> The radar chart shows Strategic Advantage (85%) and Competitive Positioning (80%) as the strongest comparison factors, indicating strong competitive position.
+            <strong>Visualization Insight:</strong> The doughnut chart shows Strategic Advantage (85%) and Competitive Positioning (80%) as the strongest comparison factors, indicating strong competitive position.
             
             <strong>Key Takeaway:</strong> Option Feasibility (75%) and Strategic Value (85%) demonstrate the initiative's competitive advantages and strategic positioning.
             
@@ -795,7 +795,7 @@ class EnhancedHTMLReportGenerator:
             
             "Strategic Capability Forecasts": """Strategic capability forecasting examining future capability development, enhancement opportunities, and strategic potential of the strategic initiative. 
             
-            <strong>Visualization Insight:</strong> The radar chart shows Capability Development (85%) and Strategic Potential (90%) as the strongest capability factors, indicating significant capability enhancement potential.
+            <strong>Visualization Insight:</strong> The doughnut chart shows Capability Development (85%) and Strategic Potential (90%) as the strongest capability factors, indicating significant capability enhancement potential.
             
             <strong>Key Takeaway:</strong> Enhancement Opportunities (80%) and Strategic Growth (85%) demonstrate the initiative's capability development potential and strategic growth opportunities.
             
@@ -825,21 +825,21 @@ class EnhancedHTMLReportGenerator:
             
             "Economic Implications": "Analysis of economic factors including GDP impact, employment generation, and industrial development through submarine acquisition. <strong>Visualization Insight:</strong> The bar chart reveals Technology Advancement (85%) and Industrial Development (80%) as the highest economic drivers, indicating strong industrial growth potential. <strong>Key Takeaway:</strong> GDP Impact (70%) shows moderate direct economic contribution, but indirect benefits through technology transfer are substantial.",
             "Financial Implications": "Comprehensive financial analysis including budget allocation, cost-benefit analysis, and long-term financial planning. <strong>Visualization Insight:</strong> The line chart shows Resource Management (85%) and Long-term Planning (85%) as financial strengths, while Financial Risk (65%) indicates areas requiring risk mitigation strategies. <strong>Key Takeaway:</strong> The cost-benefit analysis (80%) supports the investment, but careful budget allocation (75%) is essential for success.",
-            "Regional Analysis": "Assessment of regional security dynamics, power balance shifts, and strategic implications for neighboring countries. <strong>Visualization Insight:</strong> The radar chart demonstrates Regional Security (80%) and Power Balance (85%) as the strongest regional impacts, with Strategic Implications (75%) showing significant influence. <strong>Key Takeaway:</strong> Neighbor Relations (70%) requires diplomatic attention to maintain regional stability while enhancing security capabilities.",
+            "Regional Analysis": "Assessment of regional security dynamics, power balance shifts, and strategic implications for neighboring countries. <strong>Visualization Insight:</strong> The doughnut chart demonstrates Regional Security (80%) and Power Balance (85%) as the strongest regional impacts, with Strategic Implications (75%) showing significant influence. <strong>Key Takeaway:</strong> Neighbor Relations (70%) requires diplomatic attention to maintain regional stability while enhancing security capabilities.",
             "Comparative Analysis": "Comparative study of submarine capabilities, regional naval forces, and strategic positioning analysis. <strong>Visualization Insight:</strong> The bar chart shows Strategic Positioning (85%) and Operational Capacity (80%) as Pakistan's comparative strengths, while Technology Level (70%) indicates areas for improvement. <strong>Key Takeaway:</strong> Submarine Capabilities (75%) and Naval Forces (80%) show competitive positioning, supporting the acquisition strategy.",
             "Predictive Analysis and Insights": "Forward-looking analysis using predictive modeling to forecast strategic outcomes and potential scenarios. <strong>Visualization Insight:</strong> The line chart shows exponential growth from 20% in 2024 to 75% in 2028, indicating accelerating strategic benefits over time. <strong>Key Takeaway:</strong> The predictive model suggests that early investment will yield increasingly significant returns, supporting immediate action.",
-            "Strategic Options Assessment & Comparison": "Evaluation of different strategic options, their feasibility, and comparative advantages. <strong>Visualization Insight:</strong> The radar chart reveals Strategic Value (85%) and Comparative Advantages (80%) as the strongest option factors, while Implementation Risk (70%) requires careful management. <strong>Key Takeaway:</strong> Cost Effectiveness (75%) and Option Feasibility (75%) show balanced considerations, supporting the selected strategic approach.",
+            "Strategic Options Assessment & Comparison": "Evaluation of different strategic options, their feasibility, and comparative advantages. <strong>Visualization Insight:</strong> The doughnut chart reveals Strategic Value (85%) and Comparative Advantages (80%) as the strongest option factors, while Implementation Risk (70%) requires careful management. <strong>Key Takeaway:</strong> Cost Effectiveness (75%) and Option Feasibility (75%) show balanced considerations, supporting the selected strategic approach.",
             "Option Evaluation": "Detailed evaluation of specific submarine acquisition options, technical specifications, and strategic value. <strong>Visualization Insight:</strong> The bar chart highlights Strategic Value (85%) and Technical Specifications (80%) as the highest-scoring evaluation criteria, while Cost Analysis (70%) shows moderate scores. <strong>Key Takeaway:</strong> Operational Capability (75%) and Risk Assessment (80%) indicate strong operational potential with manageable risks.",
             "Advanced Forecasting Capability": "Advanced predictive modeling capabilities for strategic planning and decision-making. <strong>Visualization Insight:</strong> The line chart shows Strategic forecasting (90%) and Short-term (85%) capabilities as the strongest predictive areas, while Medium-term (80%) and Long-term (75%) show gradual decline. <strong>Key Takeaway:</strong> The forecasting system excels in strategic and short-term predictions, supporting immediate decision-making needs.",
-            "Forecasts 5-Year Strategic Horizon": "Five-year strategic forecasting including capability development, regional dynamics, and strategic positioning. <strong>Visualization Insight:</strong> The radar chart indicates Year 4 (90%) and Year 3 (85%) as peak performance periods, with Year 1 (80%) showing strong initial capabilities. <strong>Key Takeaway:</strong> The 5-year forecast suggests optimal strategic positioning will be achieved in years 3-4, guiding timeline planning.",
+            "Forecasts 5-Year Strategic Horizon": "Five-year strategic forecasting including capability development, regional dynamics, and strategic positioning. <strong>Visualization Insight:</strong> The doughnut chart indicates Year 4 (90%) and Year 3 (85%) as peak performance periods, with Year 1 (80%) showing strong initial capabilities. <strong>Key Takeaway:</strong> The 5-year forecast suggests optimal strategic positioning will be achieved in years 3-4, guiding timeline planning.",
             "Capability Planning": "Strategic capability planning including technology development, training requirements, and operational readiness. <strong>Visualization Insight:</strong> The bar chart shows Technology Development (85%) and Training Requirements (80%) as the highest planning priorities, while Resource Planning (70%) requires attention. <strong>Key Takeaway:</strong> Implementation Timeline (75%) and Operational Readiness (75%) indicate realistic planning with manageable timelines.",
-            "Strategic Use Cases": "Analysis of strategic use cases and operational scenarios for submarine capabilities. <strong>Visualization Insight:</strong> The radar chart reveals Strategic Applications (85%) and Operational Scenarios (80%) as the strongest use case areas, with Mission Capability (80%) showing robust operational potential. <strong>Key Takeaway:</strong> Effectiveness Analysis (85%) and Tactical Deployment (75%) indicate strong operational effectiveness with tactical flexibility.",
+            "Strategic Use Cases": "Analysis of strategic use cases and operational scenarios for submarine capabilities. <strong>Visualization Insight:</strong> The doughnut chart reveals Strategic Applications (85%) and Operational Scenarios (80%) as the strongest use case areas, with Mission Capability (80%) showing robust operational potential. <strong>Key Takeaway:</strong> Effectiveness Analysis (85%) and Tactical Deployment (75%) indicate strong operational effectiveness with tactical flexibility.",
             "Strategic Development": "Long-term strategic development planning including technology advancement and capability enhancement. <strong>Visualization Insight:</strong> The line chart shows Innovation (90%) and Technology Advancement (85%) as the strongest development drivers, with Long-term Planning (75%) showing steady growth. <strong>Key Takeaway:</strong> Strategic Growth (80%) and Capability Enhancement (80%) indicate balanced development across multiple strategic dimensions.",
             "Feature Importance Analysis": "Analysis of key features and capabilities that provide strategic advantages and operational effectiveness. <strong>Visualization Insight:</strong> The bar chart highlights Strategic Advantages (85%) and Operational Effectiveness (85%) as the most important features, while Technology Features (80%) and Performance Metrics (85%) show strong capabilities. <strong>Key Takeaway:</strong> Capability Factors (75%) indicate areas for enhancement to maximize strategic advantages.",
-            "Scenario Analysis Overview": "Comprehensive scenario analysis covering various strategic situations and operational contexts. <strong>Visualization Insight:</strong> The radar chart shows Operational Contexts (85%) and Strategic Situations (80%) as the strongest scenario areas, with Risk Scenarios (85%) showing comprehensive coverage. <strong>Key Takeaway:</strong> Contingency Planning (80%) and Opportunity Analysis (70%) indicate strong preparedness with room for opportunity optimization.",
+            "Scenario Analysis Overview": "Comprehensive scenario analysis covering various strategic situations and operational contexts. <strong>Visualization Insight:</strong> The doughnut chart shows Operational Contexts (85%) and Strategic Situations (80%) as the strongest scenario areas, with Risk Scenarios (85%) showing comprehensive coverage. <strong>Key Takeaway:</strong> Contingency Planning (80%) and Opportunity Analysis (70%) indicate strong preparedness with room for opportunity optimization.",
             "Prediction Scenarios": "Detailed prediction scenarios including best-case, worst-case, and most-likely outcomes. <strong>Visualization Insight:</strong> The line chart reveals Best-Case Outcome (85%) and Opportunity Factors (80%) as the strongest positive scenarios, while Worst-Case Outcome (60%) shows manageable risk levels. <strong>Key Takeaway:</strong> Most-Likely Outcome (75%) and Risk Factors (70%) indicate realistic expectations with manageable risk exposure.",
             "Multi-Scenario Analysis": "Multi-dimensional scenario analysis considering various factors and their interactions. <strong>Visualization Insight:</strong> The bar chart shows Complex Scenarios (85%) and Multi-dimensional Analysis (85%) as the strongest analytical areas, with Factor Interactions (80%) and System Dynamics (85%) showing comprehensive coverage. <strong>Key Takeaway:</strong> Emergent Patterns (85%) indicate strong analytical capabilities for identifying complex strategic interactions.",
-            "Risk Assessment": "Comprehensive risk assessment including technical, operational, strategic, and geopolitical risks. <strong>Visualization Insight:</strong> The radar chart shows Geopolitical Risks (85%) and Strategic Risks (80%) as the highest-risk areas, while Technical Risks (70%) and Financial Risks (65%) show manageable levels. <strong>Key Takeaway:</strong> Operational Risks (75%) indicate moderate risk levels that can be managed through proper planning and execution."
+            "Risk Assessment": "Comprehensive risk assessment including technical, operational, strategic, and geopolitical risks. <strong>Visualization Insight:</strong> The doughnut chart shows Geopolitical Risks (85%) and Strategic Risks (80%) as the highest-risk areas, while Technical Risks (70%) and Financial Risks (65%) show manageable levels. <strong>Key Takeaway:</strong> Operational Risks (75%) indicate moderate risk levels that can be managed through proper planning and execution."
         }
         
         return content_mapping.get(module_title, f"Analysis of {module_title} aspects and implications.")
@@ -900,6 +900,230 @@ class EnhancedHTMLReportGenerator:
         
         return "\n".join(charts_html)
     
+    
+    def _verify_chart_text_consistency(self, module_title: str, chart_type: str) -> bool:
+        """Verify that chart type matches text description."""
+        # Define expected chart types for each module
+        expected_chart_types = {
+            "Executive Summary": "doughnut",
+            "Geopolitical Impact Analysis": "polarArea", 
+            "Trade and Economic Impact": "line",
+            "Security Implications": "radar",
+            "Balance of Power Analysis": "bar",
+            "Strategic Analysis": "line",
+            "Enhanced Data Analysis": "scatter",
+            "Regional Sentiment Analysis": "pie",
+            "Implementation Timeline": "line",
+            "Acquisition Programs & Modernization": "bar",
+            "Forecasting & Predictive Analytics": "line",
+            "Operational Considerations": "radar",
+            "Regional Security Dynamics": "bar",
+            "Economic Cost Analysis": "line",
+            "Comparison Analysis & Strategic Options": "radar",
+            "Advanced Forecasting Analysis": "line",
+            "Forecast Model Performance Comparison": "bar",
+            "Strategic Capability Forecasts": "radar",
+            "Predictive Analytics & Feature Importance": "bar",
+            "Scenario Prediction Analysis": "line"
+        }
+        
+        expected_type = expected_chart_types.get(module_title, "bar")
+        is_consistent = chart_type == expected_type
+        
+        if not is_consistent:
+            logger.warning(f"Chart type mismatch for {module_title}: expected {expected_type}, got {chart_type}")
+        
+        return is_consistent
+    
+    def _get_chart_description(self, chart_type: str) -> str:
+        """Get the proper description for a chart type."""
+        descriptions = {
+            "doughnut": "doughnut chart",
+            "polarArea": "polar area chart", 
+            "line": "line chart",
+            "radar": "radar chart",
+            "bar": "bar chart",
+            "scatter": "scatter plot",
+            "pie": "pie chart"
+        }
+        return descriptions.get(chart_type, "chart")
+
+    
+    def _verify_chart_text_consistency(self, module_title: str, chart_type: str) -> bool:
+        """Verify that chart type matches text description."""
+        expected_chart_types = {
+            "Executive Summary": "doughnut",
+            "Geopolitical Impact Analysis": "polarArea", 
+            "Trade and Economic Impact": "line",
+            "Security Implications": "radar",
+            "Balance of Power Analysis": "bar",
+            "Strategic Analysis": "line",
+            "Enhanced Data Analysis": "scatter",
+            "Regional Sentiment Analysis": "pie",
+            "Implementation Timeline": "line",
+            "Acquisition Programs & Modernization": "bar",
+            "Forecasting & Predictive Analytics": "line",
+            "Operational Considerations": "radar",
+            "Regional Security Dynamics": "bar",
+            "Economic Cost Analysis": "line",
+            "Comparison Analysis & Strategic Options": "radar",
+            "Advanced Forecasting Analysis": "line",
+            "Forecast Model Performance Comparison": "bar",
+            "Strategic Capability Forecasts": "radar",
+            "Predictive Analytics & Feature Importance": "bar",
+            "Scenario Prediction Analysis": "line"
+        }
+        
+        expected_type = expected_chart_types.get(module_title, "bar")
+        is_consistent = chart_type == expected_type
+        
+        if not is_consistent:
+            logger.warning(f"Chart type mismatch for {module_title}: expected {expected_type}, got {chart_type}")
+        
+        return is_consistent
+    
+    def _verify_content_storytelling_consistency(self, module_title: str, chart_type: str, content: str) -> Dict[str, Any]:
+        """Verify that storytelling and analysis match chart data insights."""
+        verification_result = {
+            "module": module_title,
+            "chart_type": chart_type,
+            "issues": [],
+            "warnings": []
+        }
+        
+        # Define expected content patterns for each chart type
+        content_patterns = {
+            "doughnut": {
+                "expected_keywords": ["highest-scoring", "relative importance", "quantitative assessment", "key drivers"],
+                "inappropriate_keywords": ["trend", "timeline", "progression", "correlation"]
+            },
+            "radar": {
+                "expected_keywords": ["highest-scoring", "strongest", "robust", "capabilities", "assessment"],
+                "inappropriate_keywords": ["trend", "timeline", "distribution", "breakdown"]
+            },
+            "line": {
+                "expected_keywords": ["trend", "peak", "stabilization", "growth", "timeline", "progression"],
+                "inappropriate_keywords": ["distribution", "breakdown", "composition", "proportion"]
+            },
+            "bar": {
+                "expected_keywords": ["comparison", "highest", "strongest", "performance", "ranking"],
+                "inappropriate_keywords": ["trend", "timeline", "correlation", "relationship"]
+            },
+            "pie": {
+                "expected_keywords": ["distribution", "breakdown", "composition", "proportion", "share"],
+                "inappropriate_keywords": ["trend", "timeline", "correlation", "relationship"]
+            },
+            "scatter": {
+                "expected_keywords": ["correlation", "relationship", "pattern", "distribution", "clustering"],
+                "inappropriate_keywords": ["trend", "timeline", "breakdown", "composition"]
+            },
+            "polarArea": {
+                "expected_keywords": ["multi-dimensional", "radial", "comprehensive", "holistic"],
+                "inappropriate_keywords": ["trend", "timeline", "correlation", "relationship"]
+            }
+        }
+        
+        patterns = content_patterns.get(chart_type, {
+            "expected_keywords": [],
+            "inappropriate_keywords": []
+        })
+        
+        # Check for expected keywords
+        found_expected = []
+        missing_expected = []
+        for keyword in patterns["expected_keywords"]:
+            if keyword.lower() in content.lower():
+                found_expected.append(keyword)
+            else:
+                missing_expected.append(keyword)
+        
+        # Check for inappropriate keywords
+        found_inappropriate = []
+        for keyword in patterns["inappropriate_keywords"]:
+            if keyword.lower() in content.lower():
+                found_inappropriate.append(keyword)
+        
+        # Report issues
+        if missing_expected:
+            verification_result["issues"].append(f"Missing expected keywords: {', '.join(missing_expected)}")
+        
+        if found_inappropriate:
+            verification_result["warnings"].append(f"Inappropriate keywords found: {', '.join(found_inappropriate)}")
+        
+        if not verification_result["issues"] and not verification_result["warnings"]:
+            verification_result["status"] = "✅ Content-Storytelling Consistent"
+        else:
+            verification_result["status"] = "❌ Content-Storytelling Issues"
+        
+        return verification_result
+    
+    def _verify_data_insight_alignment(self, module_title: str, chart_data: Dict[str, Any], content: str) -> Dict[str, Any]:
+        """Verify that data insights align with actual chart data."""
+        verification_result = {
+            "module": module_title,
+            "issues": [],
+            "warnings": []
+        }
+        
+        try:
+            data_values = chart_data.get("data", [])
+            if not data_values:
+                verification_result["issues"].append("No data values found")
+                return verification_result
+            
+            # Analyze data characteristics
+            max_value = max(data_values)
+            min_value = min(data_values)
+            avg_value = sum(data_values) / len(data_values)
+            
+            # Check for specific value mentions in content
+            if str(max_value) in content:
+                if "highest" not in content.lower() and "strongest" not in content.lower():
+                    verification_result["warnings"].append(f"Content mentions {max_value} but doesn't identify it as highest/strongest")
+            
+            # Check for percentage mentions in pie/doughnut charts
+            if chart_data.get("type") in ["pie", "doughnut"]:
+                total = sum(data_values)
+                percentages = [round(v/total*100, 1) for v in data_values]
+                max_percentage = max(percentages)
+                
+                if f"{max_percentage}%" in content:
+                    # Verify it's mentioned as highest
+                    if "highest" not in content.lower() and "largest" not in content.lower():
+                        verification_result["warnings"].append(f"Content mentions {max_percentage}% but doesn't identify it as highest/largest")
+            
+            # Check for trend descriptions in line charts
+            if chart_data.get("type") == "line" and len(data_values) > 1:
+                trend = "increasing" if data_values[-1] > data_values[0] else "decreasing"
+                
+                if "increasing" in content.lower() and trend != "increasing":
+                    verification_result["issues"].append("Content mentions increasing trend but data shows decreasing")
+                elif "decreasing" in content.lower() and trend != "decreasing":
+                    verification_result["issues"].append("Content mentions decreasing trend but data shows increasing")
+            
+            if not verification_result["issues"] and not verification_result["warnings"]:
+                verification_result["status"] = "✅ Data-Insight Aligned"
+            else:
+                verification_result["status"] = "❌ Data-Insight Misalignment"
+            
+        except Exception as e:
+            verification_result["issues"].append(f"Error analyzing data: {str(e)}")
+            verification_result["status"] = "❌ Data Analysis Error"
+        
+        return verification_result
+    
+    def _get_module_content(self, module_title: str) -> str:
+        """Get the content text for a specific module."""
+        # This is a simplified version - in practice, you'd extract from the actual content
+        # For now, return a placeholder that can be used for verification
+        content_mapping = {
+            "Executive Summary": "Comprehensive analysis of the strategic topic, examining implications across multiple domains including geopolitical, economic, security, and technological dimensions. The doughnut chart reveals the highest-scoring factors and their relative importance, providing quantitative assessment of key drivers and impact areas.",
+            "Security Implications": "Evaluation of maritime security enhancement, deterrence capabilities, and strategic balance in the Indian Ocean region. The radar chart highlights Maritime Security (90%) and Deterrence Capability (85%) as the strongest security enhancements, while Threat Response (85%) shows robust preparedness.",
+            "Economic Cost Analysis": "Analysis of economic implications including defense spending, technology transfer, and economic benefits over the next decade. The line chart indicates a peak in economic impact during 2025-2026 (85-80%), followed by stabilization, suggesting the optimal window for maximizing economic benefits."
+        }
+        
+        return content_mapping.get(module_title, f"Analysis of {module_title} with comprehensive evaluation and strategic insights.")
+
     def _generate_meaningful_chart_data(self, section_num: int, module_title: str) -> Dict[str, Any]:
         """Generate meaningful chart data with enhanced professional styling and diverse chart types."""
         # Enhanced module data with more chart types and professional styling
@@ -1033,6 +1257,25 @@ class EnhancedHTMLReportGenerator:
             data = dynamic_data
         else:
             data = module_data[module_title]
+        
+        # Enhanced verification: Check chart type consistency
+        self._verify_chart_text_consistency(module_title, data["type"])
+        
+        # Enhanced verification: Check content-storytelling consistency
+        module_content = self._get_module_content(module_title)
+        if module_content:
+            content_verification = self._verify_content_storytelling_consistency(
+                module_title, data["type"], module_content
+            )
+            if content_verification["status"].startswith("❌"):
+                logger.warning(f"Content-storytelling inconsistency for {module_title}: {content_verification['issues']}")
+            
+            # Enhanced verification: Check data-insight alignment
+            data_verification = self._verify_data_insight_alignment(
+                module_title, data, module_content
+            )
+            if data_verification["status"].startswith("❌"):
+                logger.warning(f"Data-insight misalignment for {module_title}: {data_verification['issues']}")
         
         # Get colors for this module
         colors = data.get("colors", ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"])
@@ -1408,25 +1651,25 @@ class EnhancedHTMLReportGenerator:
         # Define module-specific chart configurations
         module_specific_configs = {
             "Balance of Power Analysis": {
-                "type": "radar",
+                "type": "bar",
                 "labels": ["Regional Influence", "Military Capability", "Economic Strength", "Diplomatic Power", "Strategic Position"],
                 "data": [85, 80, 75, 90, 85],
                 "colors": ["rgba(231, 76, 60, 0.8)"]
             },
             "Strategic Analysis": {
-                "type": "bar",
+                "type": "line",
                 "labels": ["Strategic Planning", "Resource Allocation", "Risk Assessment", "Opportunity Analysis", "Implementation Strategy"],
                 "data": [90, 85, 80, 75, 85],
                 "colors": ["rgba(52, 152, 219, 0.8)"]
             },
             "Enhanced Data Analysis": {
-                "type": "line",
+                "type": "scatter",
                 "labels": ["Data Quality", "Analytical Depth", "Insight Generation", "Pattern Recognition", "Predictive Accuracy"],
                 "data": [88, 92, 85, 90, 87],
                 "colors": ["rgba(46, 204, 113, 0.8)"]
             },
             "Regional Sentiment Analysis": {
-                "type": "radar",
+                "type": "pie",
                 "labels": ["Public Opinion", "Media Sentiment", "Political Climate", "Economic Outlook", "Security Concerns"],
                 "data": [75, 80, 85, 70, 80],
                 "colors": ["rgba(155, 89, 182, 0.8)"]

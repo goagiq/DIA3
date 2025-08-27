@@ -10,11 +10,11 @@ from loguru import logger
 
 # Import MCP framework
 try:
-    from fastmcp import FastMCP
+    from mcp.server import FastMCP
     MCP_AVAILABLE = True
 except ImportError:
     MCP_AVAILABLE = False
-    logger.warning("⚠️ FastMCP not available")
+    logger.warning("⚠️ MCP server not available")
 
 # Import lazy loading system
 from src.core.lazy_loader import service_manager
@@ -43,9 +43,9 @@ class OptimizedMCPServer:
         """Initialize the MCP server (lightweight operation)."""
         if MCP_AVAILABLE:
             self.mcp = FastMCP("Sentiment Analysis Agents Server")
-            logger.info("✅ FastMCP Server initialized successfully")
+            logger.info("✅ MCP Server initialized successfully")
         else:
-            logger.warning("⚠️ FastMCP not available - skipping MCP server initialization")
+            logger.warning("⚠️ MCP server not available - skipping MCP server initialization")
             self.mcp = None
 
     def _register_lazy_services(self):

@@ -18,16 +18,16 @@ from loguru import logger
 
 # Import existing components
 try:
-    from src.core.vector_database import VectorDatabase
-    from src.core.knowledge_graph import KnowledgeGraph
-    from src.core.file_search import FileSearch
+    from src.core.vector_db import VectorDBManager
+    from src.core.improved_knowledge_graph_utility import ImprovedKnowledgeGraphUtility
     VECTOR_DB_AVAILABLE = True
-except ImportError:
-    logger.warning("Vector database components not available")
+    logger.info("✅ Vector database components imported successfully")
+except ImportError as e:
+    logger.warning(f"Vector database components not available: {e}")
     VECTOR_DB_AVAILABLE = False
 
 try:
-    from src.core.mcp_tool_manager import MCPToolManager
+    from src.mcp_servers.standalone_mcp_server import StandaloneMCPServer
     MCP_TOOLS_AVAILABLE = True
 except ImportError:
     logger.warning("MCP tool manager not available")
@@ -167,16 +167,16 @@ class UnifiedSearchOrchestrator:
         
         # Initialize components
         if VECTOR_DB_AVAILABLE:
-            self.vector_db = VectorDatabase()
-            self.knowledge_graph = KnowledgeGraph()
-            self.file_search = FileSearch()
+            self.vector_db = VectorDBManager()
+            self.knowledge_graph = ImprovedKnowledgeGraphUtility()
+            self.file_search = None  # FileSearch not available
         else:
             self.vector_db = None
             self.knowledge_graph = None
             self.file_search = None
         
         if MCP_TOOLS_AVAILABLE:
-            self.mcp_tool_manager = MCPToolManager()
+            self.mcp_tool_manager = StandaloneMCPServer()
         else:
             self.mcp_tool_manager = None
         
@@ -259,11 +259,11 @@ class UnifiedSearchOrchestrator:
             # Execute searches in parallel
             tasks = [
                 asyncio.create_task(self._search_vector_db(query)),
-                asyncio.create_task(self._search_knowledge_graph(query)),
-                asyncio.create_task(self._search_local_files(query))
+                asyncio.create_task(self._search_knowledge_graph(query))
             ]
             
-            vector_results, kg_results, file_results = await asyncio.gather(*tasks, return_exceptions=True)
+            vector_results, kg_results = await asyncio.gather(*tasks, return_exceptions=True)
+            file_results = []  # FileSearch not available
             
             # Process results
             all_results = []

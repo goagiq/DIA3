@@ -6,11 +6,12 @@ from typing import Dict, Any
 from loguru import logger
 
 try:
-    from fastmcp import FastMCPClient
+    from mcp.client.streamable_http import streamablehttp_client
+    from strands.tools.mcp.mcp_client import MCPClient
     MCP_AVAILABLE = True
 except ImportError:
     MCP_AVAILABLE = False
-    logger.warning("FastMCP not available - using mock client")
+    logger.warning("MCP client not available - using mock client")
 
 
 class UnifiedMCPClient:
@@ -24,12 +25,13 @@ class UnifiedMCPClient:
     async def connect(self) -> bool:
         """Connect to the unified MCP server."""
         if not MCP_AVAILABLE:
-            logger.warning("FastMCP not available - using mock client")
+            logger.warning("MCP client not available - using mock client")
             return False
         
         try:
-            self.mcp_client = FastMCPClient(self.server_url)
-            await self.mcp_client.connect()
+            self.mcp_client = MCPClient(
+                lambda: streamablehttp_client(self.server_url)
+            )
             self._connected = True
             logger.info(
                 f"✅ Connected to unified MCP server at {self.server_url}"
@@ -49,8 +51,9 @@ class UnifiedMCPClient:
             return self._get_mock_response(tool_name, parameters)
         
         try:
-            result = await self.mcp_client.call_tool(tool_name, parameters)
-            return {"success": True, "result": result}
+            with self.mcp_client:
+                result = self.mcp_client.call_tool_sync(tool_name, parameters)
+                return {"success": True, "result": result}
         except Exception as e:
             logger.error(f"Error calling tool {tool_name}: {e}")
             return {"success": False, "error": str(e)}

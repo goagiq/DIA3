@@ -47,9 +47,9 @@ from core.generic_comprehensive_analysis import GenericComprehensiveAnalysisSyst
 from config.mcp_config import ConsolidatedMCPServerConfig
 from config.config import config
 
-# Try to import FastMCP for MCP server functionality
+# Try to import MCP server functionality
 try:
-    from fastmcp import FastMCP
+    from mcp.server import FastMCP
     MCP_AVAILABLE = True
 except ImportError:
     MCP_AVAILABLE = False
@@ -167,14 +167,11 @@ class StandaloneMCPServer:
     def _initialize_mcp(self):
         """Initialize the MCP server."""
         if not MCP_AVAILABLE:
-            logger.warning("Using mock MCP server - FastMCP not available")
+            logger.warning("Using mock MCP server - MCP server not available")
             return
 
         try:
-            self.mcp = FastMCP(
-                name="standalone_sentiment_mcp_server",
-                version="1.0.0"
-            )
+            self.mcp = FastMCP("standalone_sentiment_mcp_server")
             logger.info("✅ Standalone MCP server initialized")
         except Exception as e:
             logger.error(f"❌ Error initializing MCP server: {e}")

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambodia J-10 Fighter Jet Acquisition: Comprehensive Strategic Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+
+        .executive-summary {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .executive-summary h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .module {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .module:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .module h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .module-content {
+            margin-bottom: 20px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .key-findings {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .key-findings h4 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .key-findings ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-findings li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .key-findings li:before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: #f39c12;
+        }
+
+        .risk-assessment {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .recommendations {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 300px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -150px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .interactive-element {
+            background: rgba(52, 152, 219, 0.1);
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .interactive-element:hover {
+            background: rgba(52, 152, 219, 0.2);
+            transform: scale(1.02);
+        }
+
+        .hidden-content {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .module-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Cambodia J-10 Fighter Jet Acquisition</h1>
+            <div class="subtitle">Comprehensive Strategic Intelligence Analysis</div>
+            <p>Impact on Geopolitics, Trade, Balance of Power, Escalation, and Diplomacy</p>
+            <p><strong>Generated:</strong> <span id="timestamp"></span></p>
+        </div>
+
+        <div class="executive-summary">
+            <h2>Executive Summary</h2>
+            <p>Cambodia's acquisition of 50 Chinese J-10 fighter jets represents a significant shift in regional security dynamics, marking a deepening strategic partnership between Phnom Penh and Beijing. This analysis examines the multifaceted implications of this military procurement on Southeast Asian geopolitics, trade relations, power balance, escalation risks, and diplomatic stability.</p>
+            
+            <div class="key-findings">
+                <h4>Key Strategic Implications:</h4>
+                <ul>
+                    <li>Major shift in regional power dynamics in mainland Southeast Asia</li>
+                    <li>Potential strain on ASEAN unity and consensus-building</li>
+                    <li>Strengthening of China's strategic position in Southeast Asia</li>
+                    <li>Risk of regional arms race and escalation</li>
+                    <li>Impact on Cambodia's foreign policy alignment</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="module-grid">
+            <div class="module">
+                <h3>1. Strategic Context</h3>
+                <div class="module-content">
+                    <p>Cambodia's decision to acquire 50 J-10 fighter jets from China represents a major military modernization effort that will significantly enhance the Royal Cambodian Air Force's capabilities. The J-10, a fourth-generation multirole fighter aircraft, provides Cambodia with advanced air combat, ground attack, and maritime strike capabilities.</p>
+                    
+                    <div class="chart-container">
+                        <canvas id="strategicContextChart"></canvas>
+                    </div>
+                    
+                    <div class="interactive-element" onclick="toggleContent('strategic-details')">
+                        <strong>Click to view detailed strategic analysis</strong>
+                    </div>
+                    <div id="strategic-details" class="hidden-content">
+                        <p>The acquisition comes at a time of increasing regional tensions and growing Chinese influence in Southeast Asia. This move represents a significant departure from Cambodia's traditional policy of military neutrality and balanced relations with major powers.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module">
+                <h3>2. Geopolitical Implications</h3>
+                <div class="module-content">
+                    <h4>Regional Power Dynamics</h4>
+                    <ul>
+                        <li>Cambodia's military modernization challenges existing balance of power</li>
+                        <li>Neighboring countries may feel compelled to respond with upgrades</li>
+                        <li>Potential arms race dynamics in the Mekong region</li>
+                        <li>Shift toward alignment with Chinese interests</li>
+                    </ul>
+                    
+                    <div class="chart-container">
+                        <canvas id="geopoliticalChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module">
+                <h3>3. ASEAN Unity Impact</h3>
+                <div class="module-content">
+                    <p>Cambodia's deepening ties with China may strain ASEAN consensus on South China Sea issues and other regional security matters. This could lead to ASEAN fragmentation on security and economic issues.</p>
+                    
+                    <div class="risk-assessment">
+                        <h4>Risk Assessment: ASEAN Cohesion</h4>
+                        <p>High risk of Cambodia acting as China's proxy within ASEAN decision-making processes, potentially undermining the organization's ability to present a unified front.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module">
+                <h3>4. Trade & Economic Implications</h3>
+                <div class="module-content">
+                    <h4>Cambodia-China Economic Relations</h4>
+                    <ul>
+                        <li>Military procurement likely accompanied by increased Chinese investment</li>
+                        <li>Potential for preferential trade agreements</li>
+                        <li>Chinese infrastructure projects and Belt and Road Initiative expansion</li>
+                        <li>Technology transfer and industrial cooperation</li>
+                    </ul>
+                    
+                    <div class="chart-container">
+                        <canvas id="economicChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module">
+                <h3>5. Balance of Power Analysis</h3>
+                <div class="module-content">
+                    <p>Cambodia's air force will become one of the most capable in mainland Southeast Asia, significantly shifting the regional security balance and potentially triggering responses from neighboring countries.</p>
+                    
+                    <div class="key-findings">
+                        <h4>Military Capabilities Enhancement:</h4>
+                        <ul>
+                            <li>Advanced air combat capabilities</li>
+                            <li>Ground attack and maritime strike abilities</li>
+                            <li>Enhanced deterrence against potential threats</li>
+                            <li>Improved territorial protection capabilities</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module">
+                <h3>6. Escalation Risks</h3>
+                <div class="module-content">
+                    <h4>South China Sea Implications</h4>
+                    <p>Cambodia's alignment with China may affect ASEAN's position on South China Sea disputes, potentially supporting Chinese claims in multilateral forums.</p>
+                    
+                    <div class="risk-assessment">
+                        <h4>High Risk Areas:</h4>
+                        <ul>
+                            <li>Increased tensions between ASEAN and China</li>
+                            <li>Border disputes with neighboring countries</li>
+                            <li>Military incidents and rapid escalation</li>
+                            <li>Impact on regional maritime security cooperation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module">
+                <h3>7. Diplomatic Consequences</h3>
+                <div class="module-content">
+                    <h4>Cambodia's Foreign Policy Shift</h4>
+                    <ul>
+                        <li>Closer alignment with China</li>
+                        <li>Potential distancing from traditional partners</li>
+                        <li>Impact on role in regional organizations</li>
+                        <li>Changes in diplomatic priorities</li>
+                    </ul>
+                    
+                    <div class="chart-container">
+                        <canvas id="diplomaticChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module">
+                <h3>8. Regional Response Analysis</h3>
+                <div class="module-content">
+                    <h4>Potential Responses from Neighboring Countries</h4>
+                    <ul>
+                        <li><strong>Vietnam:</strong> Likely to increase military modernization efforts</li>
+                        <li><strong>Thailand:</strong> May seek additional security guarantees from US</li>
+                        <li><strong>Laos:</strong> Could follow Cambodia's lead in strengthening China ties</li>
+                        <li><strong>United States:</strong> Expected to increase engagement with ASEAN</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="module">
+                <h3>9. Strategic Recommendations</h3>
+                <div class="module-content">
+                    <div class="recommendations">
+                        <h4>For Regional Actors:</h4>
+                        <ul>
+                            <li>Strengthen ASEAN unity and consensus-building</li>
+                            <li>Enhance regional security cooperation</li>
+                            <li>Develop military modernization management mechanisms</li>
+                            <li>Promote transparency in acquisitions</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="recommendations">
+                        <h4>For Major Powers:</h4>
+                        <ul>
+                            <li>Engage Cambodia diplomatically</li>
+                            <li>Support ASEAN's centrality</li>
+                            <li>Provide alternative equipment sources</li>
+                            <li>Promote regional stability</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module">
+                <h3>10. Long-term Implications</h3>
+                <div class="module-content">
+                    <p>This acquisition will have lasting effects on regional security architecture, power dynamics, and diplomatic relations. The region's response will shape future security arrangements and strategic alignments.</p>
+                    
+                    <div class="key-findings">
+                        <h4>Future Scenarios:</h4>
+                        <ul>
+                            <li>Regional arms race and military competition</li>
+                            <li>ASEAN fragmentation on security issues</li>
+                            <li>Increased Chinese influence in Southeast Asia</li>
+                            <li>Potential for conflict escalation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <h3>Conclusion</h3>
+            <p>Cambodia's acquisition of 50 Chinese J-10 fighter jets represents a significant strategic shift that will have far-reaching implications for regional security, trade, and diplomacy. The move strengthens China's position in Southeast Asia while potentially straining ASEAN unity and regional stability. Careful management of the resulting tensions and enhanced regional cooperation will be essential to maintain peace and stability in the region.</p>
+            <p><strong>Report Generated by DIA3 Strategic Intelligence System</strong></p>
+        </div>
+    </div>
+
+    <script>
+        // Set timestamp
+        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+
+        // Toggle hidden content
+        function toggleContent(elementId) {
+            const element = document.getElementById(elementId);
+            if (element.style.display === 'none' || element.style.display === '') {
+                element.style.display = 'block';
+            } else {
+                element.style.display = 'none';
+            }
+        }
+
+        // Strategic Context Chart
+        const strategicCtx = document.getElementById('strategicContextChart').getContext('2d');
+        new Chart(strategicCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Military Modernization', 'Regional Tensions', 'Chinese Influence', 'Strategic Alignment'],
+                datasets: [{
+                    data: [30, 25, 25, 20],
+                    backgroundColor: [
+                        '#3498db',
+                        '#e74c3c',
+                        '#f39c12',
+                        '#2ecc71'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // Geopolitical Chart
+        const geopoliticalCtx = document.getElementById('geopoliticalChart').getContext('2d');
+        new Chart(geopoliticalCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Power Balance', 'ASEAN Unity', 'Great Power Competition', 'Regional Stability'],
+                datasets: [{
+                    label: 'Impact Level',
+                    data: [85, 75, 80, 70],
+                    backgroundColor: '#667eea'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+
+        // Economic Chart
+        const economicCtx = document.getElementById('economicChart').getContext('2d');
+        new Chart(economicCtx, {
+            type: 'line',
+            data: {
+                labels: ['2023', '2024', '2025', '2026', '2027'],
+                datasets: [{
+                    label: 'Chinese Investment',
+                    data: [100, 150, 250, 400, 600],
+                    borderColor: '#e74c3c',
+                    backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                    fill: true
+                }, {
+                    label: 'Trade Volume',
+                    data: [80, 120, 180, 280, 420],
+                    borderColor: '#3498db',
+                    backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        // Diplomatic Chart
+        const diplomaticCtx = document.getElementById('diplomaticChart').getContext('2d');
+        new Chart(diplomaticCtx, {
+            type: 'radar',
+            data: {
+                labels: ['China Relations', 'US Relations', 'ASEAN Relations', 'Regional Cooperation', 'International Standing'],
+                datasets: [{
+                    label: 'Current Level',
+                    data: [90, 40, 60, 50, 65],
+                    borderColor: '#e74c3c',
+                    backgroundColor: 'rgba(231, 76, 60, 0.2)'
+                }, {
+                    label: 'Projected Level',
+                    data: [95, 30, 45, 40, 55],
+                    borderColor: '#3498db',
+                    backgroundColor: 'rgba(52, 152, 219, 0.2)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+

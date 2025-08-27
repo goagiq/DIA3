@@ -20,12 +20,12 @@ warnings.filterwarnings("ignore", category=DeprecationWarning, module="uvicorn")
 
 # Import MCP server
 try:
-    from fastmcp import FastMCP
+    from mcp.server import FastMCP
     MCP_AVAILABLE = True
-    logger.info("✅ FastMCP available")
+    logger.info("✅ MCP server available")
 except ImportError:
     MCP_AVAILABLE = False
-    logger.warning("⚠️ FastMCP not available")
+    logger.warning("⚠️ MCP server not available")
 
 # Import project modules
 from src.config.settings import settings
@@ -81,12 +81,12 @@ class OptimizedMCPServer:
         logger.info("✅ Optimized MCP Server initialized with unified tools and Ollama integration")
     
     def _initialize_mcp(self):
-        """Initialize the MCP server using FastMCP with streamable HTTP support."""
+        """Initialize the MCP server using MCP with streamable HTTP support."""
         if MCP_AVAILABLE:
             self.mcp = FastMCP("Sentiment Analysis Agents Server")
-            logger.info("✅ FastMCP Server with streamable HTTP support initialized successfully")
+            logger.info("✅ MCP Server with streamable HTTP support initialized successfully")
         else:
-            logger.warning("⚠️ FastMCP not available - skipping MCP server initialization")
+            logger.warning("⚠️ MCP server not available - skipping MCP server initialization")
             self.mcp = None
     
     def _initialize_ollama(self):

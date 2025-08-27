@@ -1,0 +1,60 @@
+{
+  "system_defaults": {
+    "report_generator": "EnhancedHTMLReportGenerator",
+    "template_type": "enhanced_22_module",
+    "output_format": "html",
+    "output_directory": "Results"
+  },
+  "enhanced_template_features": {
+    "modules_count": 22,
+    "advanced_tooltips": true,
+    "interactive_visualizations": true,
+    "modular_design": true,
+    "professional_styling": true,
+    "responsive_layout": true,
+    "source_tracking": true,
+    "confidence_scoring": true
+  },
+  "file_saving": {
+    "verify_file_saving": true,
+    "multiple_save_methods": true,
+    "fallback_mechanism": true,
+    "automatic_verification": true
+  },
+  "generator_settings": {
+    "class_path": "src.core.enhanced_html_report_generator.EnhancedHTMLReportGenerator",
+    "method_name": "generate_enhanced_report",
+    "default_parameters": {
+      "include_advanced_tooltips": true,
+      "include_interactive_visualizations": true,
+      "use_enhanced_template": true
+    }
+  },
+  "chart_consistency": {
+    "enabled": true,
+    "verification_required": true,
+    "chart_type_mappings": {
+      "Executive Summary": "doughnut",
+      "Geopolitical Impact Analysis": "polarArea",
+      "Trade and Economic Impact": "line",
+      "Security Implications": "radar",
+      "Balance of Power Analysis": "bar",
+      "Strategic Analysis": "line",
+      "Enhanced Data Analysis": "scatter",
+      "Regional Sentiment Analysis": "pie",
+      "Implementation Timeline": "line",
+      "Acquisition Programs & Modernization": "bar",
+      "Forecasting & Predictive Analytics": "line",
+      "Operational Considerations": "radar",
+      "Regional Security Dynamics": "bar",
+      "Economic Cost Analysis": "line",
+      "Comparison Analysis & Strategic Options": "radar",
+      "Advanced Forecasting Analysis": "line",
+      "Forecast Model Performance Comparison": "bar",
+      "Strategic Capability Forecasts": "radar",
+      "Predictive Analytics & Feature Importance": "bar",
+      "Scenario Prediction Analysis": "line"
+    },
+    "auto_correction": true
+  }
+}

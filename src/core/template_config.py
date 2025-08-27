@@ -16,7 +16,7 @@ class TemplateConfig:
     
     # Template file paths
     ENHANCED_REPORT_TEMPLATE = (
-        TEMPLATES_DIR / "Pakistan_Submarine_Analysis_Enhanced_Report.html"
+        Path("src/core/enhanced_html_report_generator.py")
     )
     LEADERSHIP_TEMPLATE = (
         TEMPLATES_DIR / "Pakistan_Submarine_Leadership_Report.html"
