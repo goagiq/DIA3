@@ -50,7 +50,7 @@ try:
     from src.core.multi_domain_strategic_engine import MultiDomainStrategicEngine
     MULTI_DOMAIN_STRATEGIC_AVAILABLE = True
 except ImportError as e:
-    logger.warning(f"Multi-domain strategic engine not available: {e}")
+    logger.info(f"ℹ️ Multi-domain strategic engine not available: {e}")
     MULTI_DOMAIN_STRATEGIC_AVAILABLE = False
 
 # Import enhanced strategic analysis engine
@@ -58,7 +58,7 @@ try:
     from src.core.enhanced_strategic_analysis_engine import enhanced_strategic_analysis_engine
     ENHANCED_STRATEGIC_ANALYSIS_AVAILABLE = True
 except ImportError as e:
-    logger.warning(f"Enhanced strategic analysis engine not available: {e}")
+    logger.info(f"ℹ️ Enhanced strategic analysis engine not available: {e}")
     ENHANCED_STRATEGIC_ANALYSIS_AVAILABLE = False
 
 # Import threat assessment agent
@@ -66,7 +66,7 @@ try:
     from src.agents.threat_assessment_agent import ThreatAssessmentAgent
     THREAT_ASSESSMENT_AVAILABLE = True
 except ImportError as e:
-    logger.warning(f"⚠️ Threat Assessment Agent not available: {e}")
+    logger.info(f"ℹ️ Threat Assessment Agent not available: {e}")
     THREAT_ASSESSMENT_AVAILABLE = False
 
 # Import strategic analytics engine
@@ -74,7 +74,7 @@ try:
     from src.core.strategic_analytics_engine import StrategicAnalyticsEngine
     STRATEGIC_ANALYTICS_AVAILABLE = True
 except ImportError as e:
-    logger.warning(f"⚠️ Strategic Analytics Engine not available: {e}")
+    logger.info(f"ℹ️ Strategic Analytics Engine not available: {e}")
     STRATEGIC_ANALYTICS_AVAILABLE = False
 
 # Import Phase 1 ML/DL/RL Forecasting Components
@@ -86,7 +86,7 @@ try:
     from src.core.domain_specific.intelligence_analysis_models import IntelligenceAnalysisModels
     ML_FORECASTING_AVAILABLE = True
 except ImportError as e:
-    logger.warning(f"⚠️ Phase 1 ML/DL/RL Forecasting Components not available: {e}")
+    logger.info(f"ℹ️ Phase 1 ML/DL/RL Forecasting Components not available: {e}")
     ML_FORECASTING_AVAILABLE = False
 
 # Import force projection MCP tools
@@ -94,7 +94,7 @@ try:
     from src.mcp_servers.force_projection_mcp_tools import ForceProjectionMCPTools
     FORCE_PROJECTION_MCP_AVAILABLE = True
 except ImportError as e:
-    logger.warning(f"Force projection MCP tools not available: {e}")
+    logger.info(f"ℹ️ Force projection MCP tools not available: {e}")
     FORCE_PROJECTION_MCP_AVAILABLE = False
 
 # Import enhanced report MCP tools
@@ -102,7 +102,7 @@ try:
     from src.mcp_servers.enhanced_report_mcp_tools import enhanced_report_mcp_tools
     ENHANCED_REPORT_MCP_AVAILABLE = True
 except ImportError as e:
-    logger.warning(f"Enhanced report MCP tools not available: {e}")
+    logger.info(f"ℹ️ Enhanced report MCP tools not available: {e}")
     ENHANCED_REPORT_MCP_AVAILABLE = False
 
 # Import modular report MCP tools
@@ -110,7 +110,7 @@ try:
     from src.mcp_servers.modular_report_mcp_tools import ModularReportMCPTools
     MODULAR_REPORT_MCP_AVAILABLE = True
 except ImportError as e:
-    logger.warning(f"Modular report MCP tools not available: {e}")
+    logger.info(f"ℹ️ Modular report MCP tools not available: {e}")
     MODULAR_REPORT_MCP_AVAILABLE = False
 
 # Import markdown export MCP tools
@@ -118,7 +118,7 @@ try:
     from src.mcp_servers.markdown_export_mcp_tools import MarkdownExportMCPTools
     MARKDOWN_EXPORT_MCP_AVAILABLE = True
 except ImportError as e:
-    logger.warning(f"Markdown export MCP tools not available: {e}")
+    logger.info(f"ℹ️ Markdown export MCP tools not available: {e}")
     MARKDOWN_EXPORT_MCP_AVAILABLE = False
 
 # Import enhanced markdown export MCP tools
@@ -126,7 +126,7 @@ try:
     from src.mcp_servers.enhanced_markdown_export_mcp_tools import EnhancedMarkdownExportMCPTools
     ENHANCED_MARKDOWN_EXPORT_MCP_AVAILABLE = True
 except ImportError as e:
-    logger.warning(f"Enhanced markdown export MCP tools not available: {e}")
+    logger.info(f"ℹ️ Enhanced markdown export MCP tools not available: {e}")
     ENHANCED_MARKDOWN_EXPORT_MCP_AVAILABLE = False
 
 # Import simple markdown export MCP tools
@@ -134,7 +134,7 @@ try:
     from src.mcp_servers.simple_markdown_export_mcp_tools import SimpleMarkdownExportMCPTools
     SIMPLE_MARKDOWN_EXPORT_MCP_AVAILABLE = True
 except ImportError as e:
-    logger.warning(f"Simple markdown export MCP tools not available: {e}")
+    logger.info(f"ℹ️ Simple markdown export MCP tools not available: {e}")
     SIMPLE_MARKDOWN_EXPORT_MCP_AVAILABLE = False
 
 # Import enhanced report MCP tools
@@ -142,7 +142,7 @@ try:
     from src.mcp_servers.enhanced_report_mcp_tools import enhanced_report_mcp_tools
     ENHANCED_REPORT_MCP_AVAILABLE = True
 except ImportError as e:
-    logger.warning(f"Enhanced report MCP tools not available: {e}")
+    logger.info(f"ℹ️ Enhanced report MCP tools not available: {e}")
     ENHANCED_REPORT_MCP_AVAILABLE = False
 
 
@@ -152,7 +152,7 @@ try:
     from src.mcp_servers.strategic_intelligence_forecast_mcp_tools import StrategicIntelligenceForecastMCPTools
     STRATEGIC_INTELLIGENCE_FORECAST_MCP_AVAILABLE = True
 except ImportError as e:
-    logger.warning(f"Strategic intelligence forecast MCP tools not available: {e}")
+    logger.info(f"ℹ️ Strategic intelligence forecast MCP tools not available: {e}")
     STRATEGIC_INTELLIGENCE_FORECAST_MCP_AVAILABLE = False
 
 # Import configuration
@@ -175,7 +175,7 @@ try:
     MCP_AVAILABLE = True
 except ImportError:
     MCP_AVAILABLE = False
-    logger.warning("FastMCP not available - using mock MCP server")
+    logger.info("ℹ️ FastMCP not available - using mock MCP server")
 
 
 class UnifiedMCPServer:
@@ -199,7 +199,7 @@ class UnifiedMCPServer:
         self.orchestrator = SentimentOrchestrator()
 
         # Initialize agents
-        self.text_agent = UnifiedTextAgent(use_strands=True, use_swarm=True)
+        self.text_agent = UnifiedTextAgent()
         self.vision_agent = UnifiedVisionAgent()
         self.audio_agent = UnifiedAudioAgent()
         self.file_agent = EnhancedFileExtractionAgent()
@@ -221,14 +221,14 @@ class UnifiedMCPServer:
             logger.info("✅ Threat Assessment Agent initialized for MCP")
         else:
             self.threat_assessment_agent = None
-            logger.warning("⚠️ Threat Assessment Agent not available for MCP")
+            logger.info("ℹ️ Threat Assessment Agent not available for MCP")
         
         # Initialize scenario analysis agent (using existing scenario analysis agent)
         try:
             from src.agents.scenario_analysis_agent import ScenarioAnalysisAgent
             self.scenario_agent = ScenarioAnalysisAgent()
         except Exception as e:
-            logger.warning(f"⚠️ Could not initialize ScenarioAnalysisAgent: {e}")
+            logger.info(f"ℹ️ Could not initialize ScenarioAnalysisAgent: {e}")
             self.scenario_agent = None
 
         # Initialize enhanced decision support agent

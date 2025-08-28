@@ -207,7 +207,7 @@ class ToolRegistry:
     async def _text_sentiment_analysis(self, query: str) -> dict:
         """Handle text-based sentiment analysis queries."""
         try:
-            text_agent = UnifiedTextAgent(use_strands=True, use_swarm=False)
+            text_agent = UnifiedTextAgent()
 
             request = AnalysisRequest(
                 data_type=DataType.TEXT,
@@ -424,7 +424,7 @@ class ToolRegistry:
     async def _swarm_text_analysis(self, text: str) -> dict:
         """Handle complex text analysis using swarm."""
         try:
-            text_agent = UnifiedTextAgent(use_strands=True, use_swarm=True)
+            text_agent = UnifiedTextAgent()
 
             request = AnalysisRequest(
                 data_type=DataType.TEXT,

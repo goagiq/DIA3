@@ -82,7 +82,7 @@ class LanguageCapabilitiesEngine:
         self.orchestrator = SentimentOrchestrator()
         
         # Initialize agents
-        self.text_agent = UnifiedTextAgent(use_strands=False, use_swarm=False)
+        self.text_agent = UnifiedTextAgent()
         self.art_of_war_agent = ArtOfWarDeceptionAgent()
         self.business_intelligence_agent = BusinessIntelligenceAgent()
         

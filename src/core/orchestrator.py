@@ -68,7 +68,7 @@ class SentimentOrchestrator:
     def _register_agents(self):
         """Register all available agents."""
         # Text agent (unified with swarm mode)
-        text_agent = UnifiedTextAgent(use_strands=True, use_swarm=True)
+        text_agent = UnifiedTextAgent()
         self._register_agent(text_agent, [DataType.TEXT])
 
         # Vision agent (unified)

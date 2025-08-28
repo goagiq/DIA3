@@ -78,7 +78,7 @@ class StandaloneMCPServer:
         self.orchestrator = SentimentOrchestrator()
 
         # Initialize agents
-        self.text_agent = UnifiedTextAgent(use_strands=True, use_swarm=True)
+        self.text_agent = UnifiedTextAgent()
         self.vision_agent = UnifiedVisionAgent()
         self.audio_agent = UnifiedAudioAgent()
         self.file_agent = EnhancedFileExtractionAgent()

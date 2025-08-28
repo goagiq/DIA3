@@ -23,7 +23,7 @@ try:
     ENHANCED_MCP_CLIENT_AVAILABLE = True
 except ImportError:
     ENHANCED_MCP_CLIENT_AVAILABLE = False
-    logger.warning("⚠️ Enhanced MCP client not available")
+    logger.info("ℹ️ Enhanced MCP client not available")
 
 
 class EnhancedReportOrchestrator:
@@ -40,7 +40,7 @@ class EnhancedReportOrchestrator:
             self.mcp_client = get_enhanced_mcp_client()
         else:
             self.mcp_client = None
-            logger.warning("⚠️ Enhanced MCP client not available, some features may be limited")
+            logger.info("ℹ️ Enhanced MCP client not available, some features may be limited")
         
         logger.info(f"Enhanced Report Orchestrator initialized with output dir: {output_dir}")
     

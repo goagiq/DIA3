@@ -46,7 +46,7 @@ class DataIngestionService:
         self.vector_db = VectorDBManager()
         self.kg_utility = ImprovedKnowledgeGraphUtility()
         self.kg_agent = KnowledgeGraphAgent()
-        self.text_agent = UnifiedTextAgent(use_strands=False, use_swarm=False)
+        self.text_agent = UnifiedTextAgent()
         
         # Language configuration registry
         self.language_configs: Dict[str, BaseLanguageConfig] = {
