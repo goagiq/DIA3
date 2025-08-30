@@ -1,1 +1,0 @@
-# Threat Evolution Modeling System

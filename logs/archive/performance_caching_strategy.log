@@ -1,0 +1,9 @@
+Exit code: 1
+STDOUT:
+
+STDERR:
+Traceback (most recent call last):
+  File "D:\AI\Sentiment\Test\performance\caching_strategy.py", line 25, in <module>
+    from src.core.advanced_caching_service import AdvancedCachingService
+ImportError: cannot import name 'AdvancedCachingService' from 'src.core.advanced_caching_service' (D:\AI\Sentiment\src\core\advanced_caching_service.py)
+

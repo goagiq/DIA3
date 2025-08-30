@@ -1,0 +1,48 @@
+{
+  "timestamp": "2025-08-24T00:42:38.810016",
+  "results": [
+    {
+      "test": "modular_report_tools",
+      "status": "passed",
+      "tools_found": 4
+    },
+    {
+      "test": "enhanced_report_tools",
+      "status": "failed",
+      "error": "Tools not available"
+    },
+    {
+      "test": "tools_registration",
+      "status": "passed",
+      "total_tools": 32,
+      "tool_types": {
+        "content_processing": 5,
+        "sentiment_analysis": 1,
+        "entity_extraction": 1,
+        "knowledge_graph": 1,
+        "business_intelligence": 1,
+        "visualization": 1,
+        "simulation": 1,
+        "multi_domain_simulation": 1,
+        "force_projection": 5,
+        "markdown_export": 7,
+        "strategic_intelligence_forecast": 4,
+        "modular_report": 4
+      },
+      "modular_tools_found": 4
+    },
+    {
+      "test": "api_integration",
+      "status": "passed",
+      "endpoints_found": 4,
+      "total_endpoints": 4,
+      "found_endpoints": [
+        "/generate-modular",
+        "/modules",
+        "/configure-module",
+        "/enable-modules"
+      ]
+    }
+  ],
+  "overall_success": false
+}
